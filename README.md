@@ -1,1 +1,1 @@
-# thesis-mas
+# Heterogeneous Multi-Agent Systems
