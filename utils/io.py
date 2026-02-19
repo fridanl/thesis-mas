@@ -1,4 +1,4 @@
-from typing import List, Dict, Optional, Iterator
+from typing import List, Dict, Optional, Iterator, Any
 from itertools import islice
 import pandas as pd
 import json, csv, pathlib
@@ -23,6 +23,9 @@ def load_claims_batches(
                 limit: Optional[int] = None ) -> Iterator[List[Dict[str, str]]]:
     
     data = pd.read_csv(path)
+    
+    # Only the id and text
+    data = data[['id', 'text']].copy()
 
     if start >= len(data):
         raise ValueError('Start is larger than size of data.')
@@ -30,7 +33,7 @@ def load_claims_batches(
     end = len(data) if limit is None else min(len(data), start+limit)
     
     if end <= start:
-        return #nothing to yield 
+        return #nothing to yield
 
     window = data.iloc[start:end]
 
