@@ -13,6 +13,10 @@ echo "Host: $(hostname)"
 
 nvidia-smi
 
+source .venv/bin/activate 
+
+which python3 
+
 uv add vllm
 
-uv python -c "import vllm; print('vllm', vllm.__version__)"
+uv python3 -c "import vllm; print('vllm', vllm.__version__)"
