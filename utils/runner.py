@@ -1,10 +1,17 @@
 import pathlib, yaml, json 
 from vllm import LLM
 from vllm.sampling_params import SamplingParams, GuidedDecodingParams
-from .prompts import SARCASTIC_SCHEMA 
 import os, subprocess
-from typing import List, Dict, Any, Tuple
-from pydantic import ValidationError
+from typing import List, Dict, Any, Tuple, TypedDict, Sequence, Type, Optional
+from pydantic import ValidationError, BaseModel
+
+class ChatCompletionMessageParam(TypedDict):
+    role: str
+    content: str
+
+# A conversation is a list of a dict with keys; role, content 
+Conversation = List[ChatCompletionMessageParam]
+Conversations = Sequence[Conversation]
 
 def load_yaml(path: str) -> dict:
     return yaml.safe_load(pathlib.Path(path).read_text())
@@ -48,7 +55,10 @@ def init_llm(model_cfg: dict) -> LLM:
     )
 
 
-def init_sampling_params(decoding_cfg: dict, default: SamplingParams, Schema = SARCASTIC_SCHEMA) -> SamplingParams:
+def init_sampling_params(
+    decoding_cfg: dict, 
+    default: SamplingParams, 
+    Schema) -> SamplingParams:
     """
     Function to initialise sampling params. 
     If default: then there are specified sampling params in HuggingFace repo, and we add the other attributes. 
@@ -88,9 +98,27 @@ def init_sampling_params(decoding_cfg: dict, default: SamplingParams, Schema = S
             **kwargs
             )
     
+
+def run_inference_multi(
+    llm: LLM,
+    conversations: Sequence[List[ChatCompletionMessageParam]],
+    sampling,
+    json_format: Type[BaseModel]) -> Tuple[List[List[str]], List[List[Optional[Dict[str, Any]]]]]:
+
+    outputs = llm.chat(messages=conversations, SamplingParams)
+
+    texts_per_item: List[List[str]] = []
+    parsed_per_item: List[List[Optional[Dict[str, Any]]]] = []
+
+    for req_out in outputs:
+        for out in req_out.outputs:
+            t = out.text
+            
+
+
 def run_inference(
     llm: LLM, 
-    conversations: List[List[Dict[str, str]]],
+    conversations: Sequence[List[ChatCompletionMessageParam]],
     sampling: SamplingParams,
     json_format) -> Tuple[List[str], List[Dict[str, Any] | None], float]:
     
