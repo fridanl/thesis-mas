@@ -1,8 +1,12 @@
-from typing import List, Dict, Optional, Iterator, Any
+from typing import List, Dict, Optional, Iterator, Any, Hashable, TypedDict, Sequence, Literal
 from itertools import islice
 import pandas as pd
 import json, csv, pathlib
-from .prompts import SYSTEM_JSON_GUIDED_R1, USER_R1, SYSTEM_JSON_GUIDED_R2, USER_R2
+
+class ChatCompletionMessageParam(TypedDict):
+    role: str
+    content: str
+
 
 def load_claims_text(path: str) -> List[Dict[str, str]]:
     items = []
@@ -18,71 +22,90 @@ def load_claims_text(path: str) -> List[Dict[str, str]]:
 
 def load_claims_batches(
                 path: str, 
-                start: int=0,
-                batch_size: int=256,
-                limit: Optional[int] = None ) -> Iterator[List[Dict[str, str]]]:
+                batch_size: int = 10,
+                start: int = 0,
+                limit: Optional[int] = None ) -> Iterator[List[Dict[Hashable, Any]]]:
     
-    data = pd.read_csv(path)
+    remaining = limit 
     
-    # Only the id and text
-    data = data[['id', 'text']].copy()
+    skip = range(1, start+1) if start > 0 else None
+    reader = pd.read_csv(path,
+                         usecols=['id', 'text'],
+                         chunksize=batch_size,
+                         skiprows=skip,
+                         low_memory=False)
 
-    if start >= len(data):
-        raise ValueError('Start is larger than size of data.')
-    
-    end = len(data) if limit is None else min(len(data), start+limit)
-    
-    if end <= start:
-        return #nothing to yield
+    for chunk in reader: 
+        if remaining is not None:
+            if remaining <= 0:
+                return 
+            if len(chunk) > remaining:
+                chunk = chunk.iloc[:remaining]
+            remaining -= len(chunk)
 
-    window = data.iloc[start:end]
+        yield chunk.to_dict(orient = 'records')
 
-    for i in range(start, len(window), batch_size):
-        chunk = window.iloc[i : i+batch_size]
-        buf = chunk.to_dict()
-        
-        buf = [r.to_dict() for _, r in chunk.iterrows()]
-
-        yield buf
 
 def build_conversations(
-    examples: List[Dict[str, str]],
-    system_prompt: str = SYSTEM_JSON_GUIDED_R1,
-    user_template: str = USER_R1) -> List[List[Dict[int, str]]]:
+    examples: List[Dict[Hashable, Any]],
+    *,
+    system_prompt: str,
+    user_template: str,
+    history: bool,
+    round: Literal[1, 2]
+    ) -> Sequence[List[ChatCompletionMessageParam]]:
 
     '''
     Several conversations will be a list of lists containing a dict for each user. 
     '''
-    convs: List[List[Dict[str, str]]] = []
 
-    for ex in examples:
+    if round == 1:
+        return [
+            [
+                {'role': 'system', 'content': system_prompt},
+                {'role': 'user', 'content': user_template.format(claim=ex['text'])},
+            ]
+            for ex in examples
+        ]
+    if round == 2 and not history:
+           return [
+               [
+                {'role': 'system', 'content': system_prompt},
+                {'role': 'user', 'content': user_template.format(claim=ex['claim'], label_sender=ex['label_sender'], explanation_sender=ex['explanation_sender'])},
+               ]
+               for ex in examples
+           ]
+    if round == 2 and not history:
+           return [
+               [
+                {'role': 'system', 'content': system_prompt},
+                {'role': 'user', 'content': user_template.format(claim=ex['claim'], label_sender=ex['label_sender'], explanation_sender=ex['explanation_sender'], label_receiver=ex['label_receiver'], explanation_receiver = ex['explanation_receiver'])},
+               ]
+               for ex in examples
+           ]
+    
+    raise ValueError('Not valid round or history')
+
+
+# def build_conversations_round2(
+#     examples: List[Dict[int, str]],
+#     system_prompt: str,             # this can be changed in run eval to R2
+#     user_template: str) -> List[List[Dict[str, str]]]:
+
+#     '''
+#     Several conversations will be a list of lists containing a dict for each user.
+#     This is for round 2, so we append label and explanation from the previous round. 
+#     '''
+#     convs: List[List[Dict[str, str]]] = []
+
+#     for ex in examples:
         
-       convs.append([
-          {'role': 'system', 'content': system_prompt},
-          {'role': 'user', 'content': user_template.format(claim=ex['text'])},
-       ])
+#         convs.append([
+#           {'role': 'system', 'content': system_prompt},
+#           {'role': 'user', 'content': user_template.format(claim=ex['claim'], label_sender=ex['label_sender'], explanation_sender=ex['explanation_sender'])},
+#           ])
 
-    return convs 
-
-def build_conversations_round2(
-    examples: List[Dict[int, str]],
-    system_prompt: str = SYSTEM_JSON_GUIDED_R2,             # this can be changed in run eval to R2
-    user_template: str = USER_R2) -> List[List[Dict[str, str]]]:
-
-    '''
-    Several conversations will be a list of lists containing a dict for each user.
-    This is for round 2, so we append label and explanation from the previous round. 
-    '''
-    convs: List[List[Dict[str, str]]] = []
-
-    for ex in examples:
-        
-        convs.append([
-          {'role': 'system', 'content': system_prompt},
-          {'role': 'user', 'content': user_template.format(claim=ex['claim'], label_sender=ex['label_sender'], explanation_sender=ex['explanation_sender'])},
-          ])
-
-    return convs 
+#     return convs 
 
 def write_jsonl(records: List[Dict[str, Any]], path: pathlib.Path):
     with path.open('a', encoding='utf-8') as file: 
