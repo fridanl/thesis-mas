@@ -1,9 +1,25 @@
 [project]
 name = "thesis-mas"
-version = "0.1.0"
+version = "0.0.1"
 requires-python = "==3.12.*"
 dependencies = [
-    "pandas>=3.0.1",
-    "pydantic>=2.12.5",
-    "python-dotenv>=1.2.1",
+  "vllm==0.10.0",
+  "torch>=2.5,<3",
+  "torchvision>=0.20,<1",
+  "torchaudio>=2.5,<3",
+  "dotenv>=0.9.9",
+  "bitsandbytes==0.48.1",
+  "nvidia-ml-py>=13.580.82",
+  "pandas>=2.3.3",
+  "matplotlib>=3.10.7",
+  "seaborn>=0.13.2",
 ]
+[tool.uv.sources]
+torch = [{ index = "pytorch-cu126", marker = "sys_platform == 'linux'" }]
+torchvision = [{ index = "pytorch-cu126", marker = "sys_platform == 'linux'" }]
+torchaudio = [{ index = "pytorch-cu126", marker = "sys_platform == 'linux'" }]
+
+[[tool.uv.index]]
+name = "pytorch-cu126"
+url = "https://download.pytorch.org/whl/cu126"
+explicit = true
