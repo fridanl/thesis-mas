@@ -3,13 +3,17 @@
 #SBATCH --partition=acltr
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=4
-#SBATCH --time=01:00:00
+#SBATCH --time=04:00:00
 #SBATCH --output=logs/%x.%j.out
 #SBATCH --mail-type=BEGIN,END
 
 echo "Host: $(hostname)"
 
 set -euo pipefail
+
+rm -rf .venv
+
+uv venv
 
 uv sync 
 # uv run run-eval.py --model_name llama-3.1-8b -limit 20 --outdir results/ --repetition 1 #virker ikke 
