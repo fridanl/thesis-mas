@@ -2,8 +2,8 @@ from dotenv import load_dotenv
 import argparse, pathlib
 from utils.io import load_claims_text, load_claims_batches
 from utils.io import build_conversations, SYSTEM_JSON_GUIDED_R1, USER_R1
-from utils.runner import load_yaml, init_llm, init_sampling_params, ensure_local_model
-from utils.runner import run_inference
+from utils.model_helpers import load_yaml, init_llm, init_sampling_params, ensure_local_model
+from utils.model_helpers import run_inference
 from utils.io import write_csv, write_jsonl
 from utils.prompt_registry import OutputSarc
 import time
@@ -35,7 +35,7 @@ def main(args):
 
     # init model
     llm = init_llm(model_cfg=model_cfg)
-    
+    # TODO: Move into runner.py under init_llm
     # get sampling params
     decoding_cfg = load_yaml(args.decoding_cfg)
 

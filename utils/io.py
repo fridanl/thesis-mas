@@ -75,7 +75,7 @@ def build_conversations(
                ]
                for ex in examples
            ]
-    if round == 2 and not history:
+    if round == 2 and history:
            return [
                [
                 {'role': 'system', 'content': system_prompt},

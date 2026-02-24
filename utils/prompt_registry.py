@@ -16,6 +16,14 @@ class OutputSarc(BaseModel):
 class OutputSarcR2(BaseModel):
     label: LabelSarc
 
+class LabelSentiment(str, Enum):
+    positive = 'positive'
+    negative = 'negative'
+
+class OutputSentiment(BaseModel):
+    label: LabelSentiment
+    explanation: str
+
 
 # ----- Core prompt builders ---------
 def make_system_json(schema: dict, *, round: int) -> str:
@@ -28,7 +36,7 @@ def make_system_json(schema: dict, *, round: int) -> str:
     if round == 1:
         base += (
             "- Keys: label, explanation. \n"
-            "- explanation MUST be 30 words or fewer \n"
+            "- explanation MUST be 30 words or fewer \n" #! Also reconsider this
         )
     if round == 2:
         base += (
@@ -63,7 +71,6 @@ class DatasetTaskSpec:
     '''
     Defines dataset-specific task wording and output models.
     '''
-
     dataset: str 
     task_question: str 
     output_r1: Type[BaseModel]
@@ -73,6 +80,7 @@ class DatasetTaskSpec:
 @dataclass(frozen=True)
 class PromptSpec:
     dataset: str
+    output_json: dict
     round: Literal[1, 2]
     history: bool 
     system: str 
@@ -103,17 +111,19 @@ def get_prompt_spec(dataset: str, round: int, history: bool) -> PromptSpec:
         schema = ds.output_r1.model_json_schema()
         return PromptSpec(
             dataset=key,
+            output_json = schema, # the json of the output format 
             round = 1,
             history=history,
             system=make_system_json(schema, round=1),
             user_template=make_user_r1(task_question=ds.task_question),
-            output_model=ds.output_r1
+            output_model=ds.output_r1, # the object of the output format 
         )
     
     if round == 2:
         schema = ds.output_r2.model_json_schema()
         return PromptSpec(
             dataset=key,
+            output_json = schema,
             round = 2,
             history=history,
             system=make_system_json(schema, round=2),
