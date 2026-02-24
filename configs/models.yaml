@@ -5,6 +5,9 @@ sampling_presets:
     temperature: 0.6
   mistral3: &mistral3
     temperature: 0.5
+  llama70b: &llama70b
+    temperature: 0.6
+
 
 profiles:
   llama-3.2-1b:
@@ -33,4 +36,9 @@ profiles:
     quantization: bitsandbytes
     has_default_sampling_params: False
     sampling: *mistral2
+  llama-3.3-70b:
+    model: unsloth/Llama-3.3-70B-Instruct-bnb-4bit
+    quantization: bitsandbytes
+    has_default_sampling_params: False
+    sampling: *llama70b
 
