@@ -5,7 +5,6 @@ from utils import io
 from utils.model_helpers import *
 import time 
 import pathlib
-import vllm 
 
 
 # Hugginface token 
@@ -14,7 +13,6 @@ if home_env.exists():
     load_dotenv(home_env, override=False)
 
 def main(args):
-    print(vllm.__version__)
     # Get prompt specs
     spec = get_prompt_spec(dataset=args.dataset, round=args.round, history=args.history)
     
@@ -24,6 +22,7 @@ def main(args):
     model_config = get_model_config(pathlib.Path(args.models_config_path), model_name)
     print(model_config)
     repo_id = model_config.pop('repo_id')
+    model_config['max_model_len'] = 20_000
 
     # Get path of local model and download if not there 
     local_model_path = ensure_local_model(repo_id=repo_id)

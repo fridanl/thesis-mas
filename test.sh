@@ -11,9 +11,8 @@ echo "Host: $(hostname)"
 
 set -euo pipefail
 
-rm -rf .venv
-
-uv venv
+# rm -rf .venv
+# uv venv
 
 uv sync 
 # uv run run-eval.py --model_name llama-3.1-8b -limit 20 --outdir results/ --repetition 1 #virker ikke 
@@ -29,4 +28,4 @@ uv sync
 
 # uv run run-eval.py --model_name mistral-0.3-7b --outdir results/ --repetition 10
 
-uv run test.py --model_name llama-3.2-3b --repetition 3 --round 1 --batch_size 2 -limit 6
+uv run test.py --model_name qwen-2.5-1.5b --repetition 3 --round 1 --batch_size 2 -limit 6
