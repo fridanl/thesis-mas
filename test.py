@@ -4,6 +4,8 @@ from utils.prompt_registry import get_prompt_spec
 from utils import io
 from utils.model_helpers import *
 import time 
+import pathlib
+import vllm 
 
 
 # Hugginface token 
@@ -12,19 +14,21 @@ if home_env.exists():
     load_dotenv(home_env, override=False)
 
 def main(args):
+    print(vllm.__version__)
     # Get prompt specs
     spec = get_prompt_spec(dataset=args.dataset, round=args.round, history=args.history)
     
     model_name = args.model_name
 
     # Get model configs 
-    model_config = get_model_config(args.models_config_path, model_name)
+    model_config = get_model_config(pathlib.Path(args.models_config_path), model_name)
+    print(model_config)
     repo_id = model_config.pop('repo_id')
 
     # Get path of local model and download if not there 
     local_model_path = ensure_local_model(repo_id=repo_id)
     model_config['model'] = str(local_model_path)
-
+    print(model_config)
     # Init model
     llm = init_llm(model_cfg=model_config)
 
@@ -179,7 +183,7 @@ if __name__ == '__main__':
                     default=1)
     ap.add_argument('--history',
                     action='store_true') # Default is False 
-    ap.add_argument('--model_config_path',
+    ap.add_argument('--models_config_path',
                     help='Path to YAML file with model parameters.',
                     default='configs/models.yaml')
     # ap.add_argument('--decoding_cfg', 
