@@ -3,13 +3,19 @@
 #SBATCH --partition=acltr
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=4
+#SBATCH --mem=24G  
 #SBATCH --time=04:00:00
 #SBATCH --output=logs/%x.%j.out
 #SBATCH --mail-type=BEGIN,END
 
+nvidia-smi --query-gpu=gpu_name,pstate,timestamp,utilization.gpu,utilization.memory,memory.total,memory.used --format=csv -l 1 -f nvidia-smi.log &
+
+
 echo "Host: $(hostname)"
 
 set -euo pipefail
+
+nvidia-smi
 
 # rm -rf .venv
 # uv venv
