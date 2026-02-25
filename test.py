@@ -30,6 +30,8 @@ def main(args):
     print(model_config)
     # Init model
     llm = init_llm(model_cfg=model_config)
+    
+    print(f'Default sampling params before any changes {llm.get_default_sampling_params()}') #TODO: Check here. THis was not correct for qwen model 1.5 
 
     shared_decoding_config = {'n': args.repetition, 'max_tokens': 254, 'use_guided_json': True}
 

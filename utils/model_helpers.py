@@ -97,7 +97,7 @@ def init_sampling_params(
 
     # Extract valid fields 
     valid_fields = SamplingParams.__annotations__.keys()
-
+    print(f'VALID FIELDS: ------------:\n {valid_fields}')
     # Extract valid fields specified in decoding, we want to set in SamplingParams
     overrides: Dict[str, Any] = {
         k: v
@@ -105,10 +105,13 @@ def init_sampling_params(
         if k in valid_fields and v is not None
     }
 
+    print(f'Overrides: \n {overrides}')
+
     if default is not None:
         # copy 
         params = default.__class__(**default.__dict__)
         for k, v in overrides.items():
+            print(f'Overriding params: {k}, with value: {v}')
             setattr(params, k, v)
     else:
         params = SamplingParams(**overrides)
