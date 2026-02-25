@@ -34,7 +34,7 @@ def get_model_config(
         'seed': 0,
         'tensor_parallel_size': 1,
         'dtype': 'auto' ,
-        'max_model_len': 20_000             #! here add max_model_length 
+        'max_model_len': 20_000             #! if something is added here, also add in init_llm
     }
 
     # Configs that are passed when initialising model 
@@ -76,11 +76,12 @@ def ensure_local_model(
 
 def init_llm(model_cfg: dict) -> LLM:
     return LLM(
-        model=model_cfg['model'],
+        model=model_cfg['repo_id'],
         quantization=model_cfg['quantization'],
         seed=model_cfg['seed'],
         dtype=model_cfg.get('dtype', None),
-        tensor_parallel_size = model_cfg['tensor_parallel_size']
+        tensor_parallel_size = model_cfg['tensor_parallel_size'],
+        max_model_len = model_cfg['max_model_len']
     )
 
 
