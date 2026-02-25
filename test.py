@@ -134,12 +134,9 @@ if __name__ == '__main__':
     ap.add_argument('--models_config_path',
                     help='Path to YAML file with model parameters.',
                     default='configs/models.yaml')
-    # ap.add_argument('--decoding_cfg', 
-    #                 help='Path to YAML file with sampling params and guided decoding toggle',
-    #                 default='configs/decoding.yaml')
     ap.add_argument('--outdir',
                      help='Directory to write results',
-                     default='/home/fril/thesis-mas/results/')
+                     default='results')
     ap.add_argument('--batch_size',
                     help='Number of examples to run',
                     type = int,
