@@ -8,50 +8,68 @@ import pathlib
 
 
 # Hugginface token 
-home_env = pathlib.Path.home() / ".env"
+home_env = pathlib.Path.home() / '.env'
 if home_env.exists():
     load_dotenv(home_env, override=False)
 
 def main(args):
-    # Get prompt specs
-    spec = get_prompt_spec(dataset=args.dataset, round=args.round, history=args.history)
-    
     model_name = args.model_name
-
-    # Get model configs 
-    model_config = get_model_config(pathlib.Path(args.models_config_path), model_name)
-    print(model_config)
-    repo_id = model_config.pop('repo_id')
-
-    # Get path of local model and download if not there 
-    local_model_path = ensure_local_model(repo_id=repo_id)
-    model_config['repo_id'] = str(local_model_path)
-    # Init model
-    llm = init_llm(model_cfg=model_config)
-
-    print(f'Default sampling params before any changes {llm.get_default_sampling_params()}') #TODO: Check here. THis was not correct for qwen model 1.5 
-
-    shared_decoding_config = {'n': args.repetition, 'max_tokens': 254, 'use_guided_json': True}
-
-    # Specify sampling configs, use default use available + global, else use specified in models.yaml file. 
-    if model_config['has_default_sampling_params']:
-        sampling = init_sampling_params(decoding_cfg=shared_decoding_config, default=llm.get_default_sampling_params(), schema=spec.output_json)
-    else:
-        sampling_config = {**shared_decoding_config, **model_config['sampling']} # merge the global configs (decoding) and the model-specific specified in models.yaml
-        sampling = init_sampling_params(sampling_config, default = None, schema=spec.output_json)
-
-    print('###### SAMPLING PARAMS ######')
-    print(sampling)
-    print('#'*30)
+    logger = io.setup_logging(model_name=model_name, dataset=args.dataset, round=args.round)
+    pre = 'first' if args.round == 1 else 'second'
     
-
     # write results 
     outdir = pathlib.Path(args.outdir)
     outdir.mkdir(parents = True, exist_ok = True)
-    csv_path_valid = pathlib.Path(outdir / f'first-{model_name}-{spec.dataset}.csv')
+    csv_path_valid = outdir / pre / f'{model_name}-{args.dataset}.csv'
+
+    logger.info('='*50)
+    logger.info('Starting inference pipeline')
+    logger.info('='*50)
+    logger.info('Arguments: %s', vars(args))
+    logger.info(f'Results will be written to: {csv_path_valid}')
+    
+    logger.debug(f'Loading prompt specifications for dataset: {args.dataset}, round: {args.round}, history: {args.history}')
+    spec = get_prompt_spec(dataset=args.dataset, round=args.round, history=args.history)
+    logger.debug(f'Prompt specs loaded. \n System template: {spec.system} \n User template {spec.user_template}. \n Output Model: {spec.output_model}')
+    logger.debug(f'Output json: {spec.output_json}')
+
+    logger.debug(f'Loading model configuration from: {args.models_config_path}')
+    model_config = get_model_config(pathlib.Path(args.models_config_path), model_name)
+    logger.debug(f'Model config: {model_config}')
+
+    repo_id = model_config.pop('repo_id')
+
+    logger.info('Ensuring local model availability...')
+    local_model_path = ensure_local_model(repo_id=repo_id)
+    model_config['repo_id'] = str(local_model_path)
+    logger.info(f'Location of model: {str(local_model_path)}')
+    
+    logger.debug('Initialising LLM...')
+    llm = init_llm(model_cfg=model_config)
+    logger.debug('LLM initialised successfully')
+
+    shared_decoding_config = {'n': args.repetition, 'max_tokens': 254, 'use_guided_json': True}
+    logger.info(f'{'#'*10} Shared decoding parameters {'#'*10}')
+    logger.info(f'Repetitions (no. outputs from one input): {shared_decoding_config['n']} \n Max tokens: {shared_decoding_config['max_tokens']}')
+
+    # Specify sampling configs, use default use available + global, else use specified in models.yaml file. 
+    if model_config['has_default_sampling_params']:
+        logger.info('The model has been set to have default sampling params.')
+        sampling = init_sampling_params(decoding_cfg=shared_decoding_config, default=llm.get_default_sampling_params(), schema=spec.output_json)
+       
+    else:
+        logger.info('Using sampling params as specified in models.yaml.')
+        sampling_config = {**shared_decoding_config, **model_config['sampling']} # merge the global configs (decoding) and the model-specific specified in models.yaml
+        sampling = init_sampling_params(sampling_config, default = None, schema=spec.output_json)
+    
+    logger.info(f'{'#'*10} Sampling parameters {'#'*10} \n {sampling}')
 
     no_rows = 0 
-    for batch in io.load_claims_batches(path = args.dataset_path, start = args.idx_start, batch_size = args.batch_size, limit=args.limit):
+    batch_count = 0 
+    total_failed = 0 
+    for batch in io.load_claims_batches(path = args.dataset_path, start = args.idx_start, batch_size = args.batch_size,    limit=args.limit):
+        batch_count += 1 
+        logger.debug(f'Building conversations for batch {batch_count}')
         conversations = io.build_conversations(
             examples=batch, 
             system_prompt=spec.system, 
@@ -59,10 +77,13 @@ def main(args):
             history=spec.history,
             round=spec.round)
 
+        logger.debug('Running inference...')
+        start_time = time.time()
         raw_outputs, parsed = run_inference(llm, conversations=conversations, sampling=sampling, output_model=spec.output_model)
-       
+        inference_time = time.time() - start_time
+        logger.debug(f'Inference completed in {inference_time:.2f} seconds')
+        
         n_repetitions = args.repetition
-
         rows = []
         failed_examples = []  
 
@@ -89,25 +110,33 @@ def main(args):
                     'raw_text': raw
                 })
                 else:
+                    logger.debug('Failed to parse output for claim ID: %s, repetition: %d', data['id'], rep_idx)
                     failed_examples.append({
                         'id': data['id'],
                         'claim': data['text'],
                         'repetition': rep_idx,
                         'raw_text': raw})
-
-        # Write results to file, each batch   
-        io.write_csv(rows, csv_path_valid, list(rows[0].keys())) 
+        
+        if rows:
+            io.write_csv(rows, csv_path_valid, list(rows[0].keys())) 
+            no_rows += len(rows)
+            logger.debug(f'Writing {len(rows)} valid results to CSV')
 
         if failed_examples:
-            csv_path_failed = pathlib.Path(outdir / f'first-{model_name}-{spec.dataset}-failed.csv')
-            io.write_csv(rows, csv_path_failed, list(failed_examples[0].keys())) 
+            total_failed += len(failed_examples)
+            csv_path_failed = outdir / pre /f'{model_name}-{spec.dataset}-failed.csv'
+            io.write_csv(failed_examples, csv_path_failed, list(failed_examples[0].keys()))
 
-        no_rows += len(rows)
+        logger.debug(f'Batch {batch_count} completed. Total successful results so far: {no_rows}')
+        
 
-    print('----------------Done--------------------')
-    print(f'Number of successful results: {no_rows}')
-
-
+    logger.info("="*50)
+    logger.info("Inference pipeline completed")
+    logger.info("="*50)
+    logger.info("Total batches processed: %d", batch_count)
+    logger.info("Total successful results: %d", no_rows)
+    logger.info("Total failed examples: %d", total_failed)
+    logger.info("Output directory: %s", outdir)
         
 
 if __name__ == '__main__':
@@ -134,12 +163,9 @@ if __name__ == '__main__':
     ap.add_argument('--models_config_path',
                     help='Path to YAML file with model parameters.',
                     default='configs/models.yaml')
-    # ap.add_argument('--decoding_cfg', 
-    #                 help='Path to YAML file with sampling params and guided decoding toggle',
-    #                 default='configs/decoding.yaml')
     ap.add_argument('--outdir',
                      help='Directory to write results',
-                     default='/home/fril/thesis-mas/results/')
+                     default='results')
     ap.add_argument('--batch_size',
                     help='Number of examples to run',
                     type = int,

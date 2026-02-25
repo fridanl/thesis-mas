@@ -1,7 +1,8 @@
 from typing import List, Dict, Optional, Iterator, Any, Hashable, TypedDict, Sequence, Literal
-from itertools import islice
 import pandas as pd
 import json, csv, pathlib
+from datetime import datetime
+import logging 
 
 class ChatCompletionMessageParam(TypedDict):
     role: str
@@ -86,26 +87,38 @@ def build_conversations(
     
     raise ValueError('Not valid round or history')
 
+def setup_logging(model_name: str, dataset: str, round: Literal[1, 2], logger_name: str = 'inference_logger', level: logging._Level = logging.DEBUG) -> logging.Logger:
 
-# def build_conversations_round2(
-#     examples: List[Dict[int, str]],
-#     system_prompt: str,             # this can be changed in run eval to R2
-#     user_template: str) -> List[List[Dict[str, str]]]:
+    log_path = pathlib.Path(f'inference_logs/{'first' if round == 1 else 'second'}_round/')
+    log_path.mkdir(parents=True, exist_ok=True)
 
-#     '''
-#     Several conversations will be a list of lists containing a dict for each user.
-#     This is for round 2, so we append label and explanation from the previous round. 
-#     '''
-#     convs: List[List[Dict[str, str]]] = []
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    log_file = log_path / f'{model_name}_{dataset}_{timestamp}.log'
 
-#     for ex in examples:
-        
-#         convs.append([
-#           {'role': 'system', 'content': system_prompt},
-#           {'role': 'user', 'content': user_template.format(claim=ex['claim'], label_sender=ex['label_sender'], explanation_sender=ex['explanation_sender'])},
-#           ])
+    # Create logger 
+    logger = logging.getLogger(logger_name)
+    logger.setLevel(level)
 
-#     return convs 
+    if logger.hasHandlers():
+        logger.handlers.clear()
+
+
+    # File handler for INFO 
+    file_handler = logging.FileHandler(log_file, mode = 'w', encoding='utf-8')
+    file_handler.setLevel(logging.INFO)
+
+    file_formatter = logging.Formatter(
+        '%(asctime)s | %(levelname)-8s | %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    )
+    
+    file_handler.setFormatter(file_formatter)
+
+    logger.addHandler(file_handler)
+    
+    logger.info(f"Logging initialized. Log file: {log_file}")
+    
+    return logger
 
 def _ensure_oneline(s: str) -> str:
     if s is None:
