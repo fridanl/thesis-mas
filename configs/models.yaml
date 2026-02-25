@@ -37,7 +37,7 @@ profiles:
     has_default_sampling_params: False
     sampling: *mistral2
   llama-3.3-70b:
-    model: unsloth/Llama-3.3-70B-Instruct-bnb-4bit
+    repo_id: unsloth/Llama-3.3-70B-Instruct-bnb-4bit
     quantization: bitsandbytes
-    has_default_sampling_params: False
+    has_default_sampling_params: True
 
