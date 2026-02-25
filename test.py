@@ -47,18 +47,12 @@ def main(args):
     
 
     # write results 
-    # outdir = pathlib.Path(args.outdir)
-    # outdir.mkdir(parents = True, exist_ok = True)
+    outdir = pathlib.Path(args.outdir)
+    outdir.mkdir(parents = True, exist_ok = True)
+    csv_path_valid = pathlib.Path(outdir / f'first-{model_name}-{spec.dataset}.csv')
 
-    # csv_path = outdir / f'first-{model_name}-.csv'
-    i = 0 
+    no_rows = 0 
     for batch in io.load_claims_batches(path = args.dataset_path, start = args.idx_start, batch_size = args.batch_size, limit=args.limit):
-
-        print(f'Batch number {i}')
-        i += 1 
-        print(batch)
-        print(len(batch))
-
         conversations = io.build_conversations(
             examples=batch, 
             system_prompt=spec.system, 
@@ -69,18 +63,20 @@ def main(args):
         raw_outputs, parsed = run_inference(llm, conversations=conversations, sampling=sampling, output_model=spec.output_model)
        
         n_repetitions = args.repetition
-        batch_size = len(batch)
 
         rows = []
         failed_examples = []  
 
-        for batch_idx, data in enumerate(batch):
-            start_idx = batch_idx * n_repetitions
+        # Loop over each claim/row in dataset 
+        for row_idx, data in enumerate(batch):
+            # Slice the outputs for specific row 
+            start_idx = row_idx * n_repetitions
             end_idx = start_idx + n_repetitions
     
             example_texts = raw_outputs[start_idx:end_idx]
             example_parsed = parsed[start_idx:end_idx]
 
+            # Loop over an check if valid outputs 
             for rep_idx, (raw, p) in enumerate(zip(example_texts, example_parsed)):
                 if p is not None:
                     rows.append({
@@ -94,18 +90,23 @@ def main(args):
                     'raw_text': raw
                 })
                 else:
-                    failed_examples.append((batch_idx, data, rep_idx))
+                    failed_examples.append({
+                        'id': data['id'],
+                        'claim': data['text'],
+                        'repetition': rep_idx,
+                        'raw_text': raw})
 
+        # Write results to file, each batch   
+        io.write_csv(rows, csv_path_valid, list(rows[0].keys())) 
 
-        print('This is all the valid results:')
-        print(rows)
-        print(f'n = {len(rows)}')
+        if failed_examples:
+            csv_path_failed = pathlib.Path(outdir / f'first-{model_name}-{spec.dataset}-failed.csv')
+            io.write_csv(rows, csv_path_failed, list(failed_examples[0].keys())) 
 
-        print('This is all the failed results: ')
-        print(failed_examples)
-        print(f'n = {len(failed_examples)}')
+        no_rows += len(rows)
 
-
+    print('----------------Done--------------------')
+    print(f'Number of successful results: {no_rows}')
 
 
 

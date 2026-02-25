@@ -107,11 +107,6 @@ def build_conversations(
 
 #     return convs 
 
-def write_jsonl(records: List[Dict[str, Any]], path: pathlib.Path):
-    with path.open('a', encoding='utf-8') as file: 
-        for r in records:
-            file.write(json.dumps(r, ensure_ascii=False) + '\n')
-
 def _ensure_oneline(s: str) -> str:
     if s is None:
         return ""
