@@ -2,13 +2,13 @@
 # File specifying specific model params
 sampling_presets:
   gpt20b: &gpt20b
-    temperature: 0.6 
+    temperature: 1.0
   gpt9b: &gpt9b
-    temperature: 0.6
+    temperature: 1.0
   gemma4b: &gemma4b
-    temperature: 0.6
+    temperature: 1.0
   gemma27b: &gemma27b
-    temperature: 0.6
+    temperature: 1.0
 
 
 profiles:
