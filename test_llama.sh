@@ -3,7 +3,7 @@
 #SBATCH --partition=scavenge
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=4
-#SBATCH --mem=24G  
+#SBATCH --mem=80G  
 #SBATCH --time=04:00:00
 #SBATCH --output=logs/%x.%j.out
 #SBATCH --constraint="gpu_h100|gpu_a100_80gb"

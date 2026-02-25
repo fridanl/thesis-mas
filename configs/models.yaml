@@ -40,5 +40,4 @@ profiles:
     model: unsloth/Llama-3.3-70B-Instruct-bnb-4bit
     quantization: bitsandbytes
     has_default_sampling_params: False
-    sampling: *llama70b
 
