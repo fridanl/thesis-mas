@@ -39,7 +39,7 @@ profiles:
     quantization: bitsandbytes
     has_default_sampling_params: True
   gemma-3-4b: # new
-    repo_id: unsloth/gemma-3-4b-it-bnb-4bit
+    repo_id: unsloth/gemma-3-4b-it-unsloth-bnb-4bit
     quantization: bitsandbytes
     has_default_sampling_params: False
     sampling: *gemma4b

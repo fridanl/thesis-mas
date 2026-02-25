@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=llama70b-test-run
+#SBATCH --job-name=gemma
 #SBATCH --partition=scavenge
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=4
@@ -9,7 +9,7 @@
 #SBATCH --constraint="gpu_h100|gpu_a100_80gb"
 #SBATCH --mail-type=BEGIN,END
 
-nvidia-smi --query-gpu=gpu_name,pstate,timestamp,utilization.gpu,utilization.memory,memory.total,memory.used --format=csv -l 1 -f nvidia-smi.log &
+#nvidia-smi --query-gpu=gpu_name,pstate,timestamp,utilization.gpu,utilization.memory,memory.total,memory.used --format=csv -l 1 -f nvidia-smi.log &
 
 
 echo "Host: $(hostname)"
@@ -37,4 +37,4 @@ uv sync
 
 #uv run test.py --model_name qwen-2.5-1.5b --repetition 3 --round 1 --batch_size 2 -limit 6
 
-uv run test.py --model_name llama-3.1-8b --repetition 3 --round 1 --batch_size 2 -limit 6
+uv run test.py --model_name gemma-3-4b --repetition 3 --round 1 --batch_size 2 -limit 6
