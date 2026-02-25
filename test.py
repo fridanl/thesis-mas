@@ -25,11 +25,10 @@ def main(args):
 
     # Get path of local model and download if not there 
     local_model_path = ensure_local_model(repo_id=repo_id)
-    model_config['model'] = str(local_model_path)
-    print(model_config)
+    model_config['repo_id'] = str(local_model_path)
     # Init model
     llm = init_llm(model_cfg=model_config)
-    
+
     print(f'Default sampling params before any changes {llm.get_default_sampling_params()}') #TODO: Check here. THis was not correct for qwen model 1.5 
 
     shared_decoding_config = {'n': args.repetition, 'max_tokens': 254, 'use_guided_json': True}
