@@ -1,6 +1,6 @@
 import pathlib, yaml, json 
-from vllm import LLM
-from vllm.sampling_params import SamplingParams, GuidedDecodingParams
+from vllm import LLM 
+from vllm.sampling_params import SamplingParams, GuidedDecodingParams 
 import os, subprocess
 from typing import List, Dict, Any, Tuple, TypedDict, Sequence, Type, Optional
 from pydantic import ValidationError, BaseModel
@@ -33,7 +33,8 @@ def get_model_config(
     shared_configs = {
         'seed': 0,
         'tensor_parallel_size': 1,
-        'dtype': 'auto' #! here add max_model_length 
+        'dtype': 'auto' ,
+        'max_model_len': 20_000             #! here add max_model_length 
     }
 
     # Configs that are passed when initialising model 
@@ -107,12 +108,18 @@ def init_sampling_params(
 
     print(f'Overrides: \n {overrides}')
 
-    if default is not None:
+    if default is not None: # if model has default sampling in generation_config file
         # copy 
-        params = default.__class__(**default.__dict__)
-        for k, v in overrides.items():
-            print(f'Overriding params: {k}, with value: {v}')
-            setattr(params, k, v)
+        default_dict = {}
+
+        for field in valid_fields:
+            if hasattr(default, field):
+                default_dict[field] = getattr(default, field)
+
+        default_dict.update(overrides)
+
+        params = SamplingParams(**default_dict)
+
     else:
         params = SamplingParams(**overrides)
     

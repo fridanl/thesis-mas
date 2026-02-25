@@ -22,7 +22,6 @@ def main(args):
     model_config = get_model_config(pathlib.Path(args.models_config_path), model_name)
     print(model_config)
     repo_id = model_config.pop('repo_id')
-    model_config['max_model_len'] = 20_000
 
     # Get path of local model and download if not there 
     local_model_path = ensure_local_model(repo_id=repo_id)
