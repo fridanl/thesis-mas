@@ -108,58 +108,6 @@ def main(args):
     print(f'Number of successful results: {no_rows}')
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        # for ex, t, p in zip(batch, texts, parsed):
-        #     valid_json = False 
-        #     if p is not None:
-        #         valid_json = True
-        #         rows.append({'id': ex['id'], 'claim': ex['text'], 'model': model_name, 'label': p['label'], 'explanation': p['explanation'], 'confidence': p['confidence'], 'valid_json': valid_json, 'raw_text': t})
-
-        #     else:
-        #         sampling_retry = sampling.__class__(**sampling.__dict__)
-        #         sampling_retry.n = 1
-        #         NUM_RETRIES = 3 
-                
-                
-        #         for i in range(NUM_RETRIES):
-        #             retry_prompt = io.build_conversations(
-        #                             examples=[ex], 
-        #                             system_prompt=spec.system, 
-        #                             user_template=spec.user_template,
-        #                             history=spec.history,
-        #                             round=spec.round)
-                    
-        #             text_attempt, parsed_attempt = run_inference(llm, conversations=retry_prompt, sampling=sampling_retry, output_model=spec.output_model)
-
-        #             if parsed_attempt is not None:
-        #                 valid_json = True
-        #                 rows.append({'id': ex['id'], 'claim': ex['text'], 'model': model_name, 'label': parsed_attempt[0]['label'], 'explanation': parsed_attempt[0]['explanation'], 'confidence': parsed_attempt[0]['confidence'], 'valid_json': valid_json, 'raw_text': text_attempt})
-        #                 break
-                    
-        #             if i == NUM_RETRIES-1:
-        #                 rows.append({'id': ex['id'], 'claim': ex['text'], 'model': model_name, 'label': None, 'explanation': None, 'confidence': None, 'valid_json': False, 'raw_text': text_attempt})
-
-
-
-        # write_csv(rows, csv_path, ['id', 'claim', 'model', 'repetition', 'label', 'explanation', 'confidence', 'valid_json', 'raw_text'])
-
-        # print(f'Wrote {no_rows} rows to {outdir}')
-        
         
 
 if __name__ == '__main__':
@@ -189,9 +137,9 @@ if __name__ == '__main__':
     # ap.add_argument('--decoding_cfg', 
     #                 help='Path to YAML file with sampling params and guided decoding toggle',
     #                 default='configs/decoding.yaml')
-    # ap.add_argument('--outdir',
-    #                 help='Directory to write results',
-    #                 default='/results/')
+    ap.add_argument('--outdir',
+                     help='Directory to write results',
+                     default='/home/fril/thesis-mas/results/')
     ap.add_argument('--batch_size',
                     help='Number of examples to run',
                     type = int,
