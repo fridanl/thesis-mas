@@ -1,0 +1,50 @@
+2026-02-26 14:24:45 | INFO     | Logging initialised. Log file: inference_logs/first/llama-3.1-8b_sarcasm_20260226_142445.log
+2026-02-26 14:24:45 | INFO     | SLURM output file: logs/test-run.53832.out
+2026-02-26 14:24:45 | INFO     | ==================================================
+2026-02-26 14:24:45 | INFO     | Starting inference pipeline
+2026-02-26 14:24:45 | INFO     | ==================================================
+2026-02-26 14:24:45 | INFO     | Arguments: {'model_name': 'llama-3.1-8b', 'dataset': 'sarcasm', 'dataset_path': 'data/sarc/sarcasm.csv', 'repetition': 3, 'round': 1, 'slurm_output': 'logs/test-run.53832.out', 'history': False, 'models_config_path': 'configs/models.yaml', 'outdir': 'results', 'batch_size': 2, 'no_logging': False, 'limit': 6, 'enable_debug_logging': True, 'idx_start': 0}
+2026-02-26 14:24:45 | INFO     | Results will be written to: results/first/llama-3.1-8b-sarcasm.csv
+2026-02-26 14:24:45 | DEBUG    | Loading prompt specifications for dataset: sarcasm, round: 1, history: False
+2026-02-26 14:24:45 | DEBUG    | Prompt specs loaded. 
+ System template: Return ONLY a minified JSON object that conforms to this schema: 
+{"$defs": {"LabelSarc": {"enum": ["sarcastic", "literal"], "title": "LabelSarc", "type": "string"}}, "properties": {"label": {"$ref": "#/$defs/LabelSarc"}, "explanation": {"title": "Explanation", "type": "string"}}, "required": ["label", "explanation"], "title": "OutputSarc", "type": "object"}
+Rules:
+- Output JSON only. No prose, no markdown, no extra text.
+- Keys: label, explanation. 
+- explanation MUST be 30 words or fewer 
+ 
+ User template Task: Is this claim sarcastic or literal?
+Claim: "{claim}". 
+ Output Model: <class 'utils.prompt_registry.OutputSarc'>
+2026-02-26 14:24:45 | DEBUG    | Output json: {'$defs': {'LabelSarc': {'enum': ['sarcastic', 'literal'], 'title': 'LabelSarc', 'type': 'string'}}, 'properties': {'label': {'$ref': '#/$defs/LabelSarc'}, 'explanation': {'title': 'Explanation', 'type': 'string'}}, 'required': ['label', 'explanation'], 'title': 'OutputSarc', 'type': 'object'}
+2026-02-26 14:24:45 | DEBUG    | Loading model configuration from: configs/models.yaml
+2026-02-26 14:24:45 | DEBUG    | Model config: {'seed': 0, 'tensor_parallel_size': 1, 'dtype': 'auto', 'max_model_len': 20000, 'repo_id': 'unsloth/Meta-Llama-3.1-8B-Instruct-bnb-4bit', 'quantization': 'bitsandbytes', 'has_default_sampling_params': True}
+2026-02-26 14:24:45 | INFO     | Ensuring local model availability...
+2026-02-26 14:24:45 | INFO     | Location of model: /home/mhpe/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct-bnb-4bit
+2026-02-26 14:24:45 | DEBUG    | Initialising LLM...
+2026-02-26 14:25:34 | DEBUG    | LLM initialised successfully
+2026-02-26 14:25:34 | INFO     | ########## Shared decoding parameters ##########
+2026-02-26 14:25:34 | INFO     | Repetitions (no. outputs from one input): 3 
+ Max tokens: 254
+2026-02-26 14:25:34 | INFO     | The model has been set to have default sampling params.
+2026-02-26 14:25:34 | INFO     | ########## Sampling parameters ########## 
+ SamplingParams(n=3, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.0, temperature=0.6, top_p=0.9, top_k=0, min_p=0.0, seed=None, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=254, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=GuidedDecodingParams(json={'$defs': {'LabelSarc': {'enum': ['sarcastic', 'literal'], 'title': 'LabelSarc', 'type': 'string'}}, 'properties': {'label': {'$ref': '#/$defs/LabelSarc'}, 'explanation': {'title': 'Explanation', 'type': 'string'}}, 'required': ['label', 'explanation'], 'title': 'OutputSarc', 'type': 'object'}, regex=None, choice=None, grammar=None, json_object=None, backend=None, backend_was_auto=False, disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, whitespace_pattern=None, structural_tag=None), extra_args=None)
+2026-02-26 14:25:34 | DEBUG    | Building conversations for batch 1
+2026-02-26 14:25:34 | DEBUG    | $$$$$$$$$$$$$$$$$$$.  this is the batch
+2026-02-26 14:25:34 | DEBUG    | batch: [{'id': 1, 'text': 'At first I thought he jammed it by inserting his finger into the trigger guard behind the finger.'}, {'id': 2, 'text': "The Browns don't know shit when it comes to QB's."}]
+2026-02-26 14:25:34 | DEBUG    | $$$$$$$$$$$$$$$$$$$.  this is the length of the batch
+2026-02-26 14:25:34 | DEBUG    | 2
+2026-02-26 14:25:34 | DEBUG    | *****Print full conversations******: [[{'role': 'system', 'content': 'Return ONLY a minified JSON object that conforms to this schema: \n{"$defs": {"LabelSarc": {"enum": ["sarcastic", "literal"], "title": "LabelSarc", "type": "string"}}, "properties": {"label": {"$ref": "#/$defs/LabelSarc"}, "explanation": {"title": "Explanation", "type": "string"}}, "required": ["label", "explanation"], "title": "OutputSarc", "type": "object"}\nRules:\n- Output JSON only. No prose, no markdown, no extra text.\n- Keys: label, explanation. \n- explanation MUST be 30 words or fewer \n'}, {'role': 'user', 'content': 'Task: Is this claim sarcastic or literal?\nClaim: "At first I thought he jammed it by inserting his finger into the trigger guard behind the finger."'}], [{'role': 'system', 'content': 'Return ONLY a minified JSON object that conforms to this schema: \n{"$defs": {"LabelSarc": {"enum": ["sarcastic", "literal"], "title": "LabelSarc", "type": "string"}}, "properties": {"label": {"$ref": "#/$defs/LabelSarc"}, "explanation": {"title": "Explanation", "type": "string"}}, "required": ["label", "explanation"], "title": "OutputSarc", "type": "object"}\nRules:\n- Output JSON only. No prose, no markdown, no extra text.\n- Keys: label, explanation. \n- explanation MUST be 30 words or fewer \n'}, {'role': 'user', 'content': 'Task: Is this claim sarcastic or literal?\nClaim: "The Browns don\'t know shit when it comes to QB\'s."'}]]
+2026-02-26 14:25:34 | DEBUG    | ********************
+2026-02-26 14:25:34 | DEBUG    | Running inference...
+2026-02-26 14:25:34 | DEBUG    | ********************
+2026-02-26 14:25:55 | DEBUG    | Inference completed in 20.84 seconds
+2026-02-26 14:25:55 | DEBUG    | $$$$$$$$$$$$$$$$$
+2026-02-26 14:25:55 | DEBUG    | the raw_outputs: ['{"label": "sarcastic", "explanation": "This label is assigned because the claim describes a realistic procedure for a jammed firearm, implying the speaker is being facetious."}', '{"label": "sarcastic", "explanation": "The claim uses profanity and a strong tone to express frustration with the Browns\' quarterback situation, indicating sarcasm."}']
+2026-02-26 14:25:55 | DEBUG    | $$$$$$$$$$$$$$$$$ This is the length of the raw outputs 
+2026-02-26 14:25:55 | DEBUG    | len(raw_outputs): 2
+2026-02-26 14:25:55 | DEBUG    | $$$$$$$$$$$$$$$$$ This is the parsed outputs: [{'label': <LabelSarc.sarcastic: 'sarcastic'>, 'explanation': 'This label is assigned because the claim describes a realistic procedure for a jammed firearm, implying the speaker is being facetious.'}, {'label': <LabelSarc.sarcastic: 'sarcastic'>, 'explanation': "The claim uses profanity and a strong tone to express frustration with the Browns' quarterback situation, indicating sarcasm."}] 
+2026-02-26 14:25:55 | DEBUG    | $$$$$$$$$$$$$$$$$ This is the length of the parsed outputs 2
+2026-02-26 14:25:55 | DEBUG    | Now inside the loop: for roq_idx, data in enumerate(batch)
+2026-02-26 14:25:55 | DEBUG    | slice of batch_ {'id': 1, 'text': 'At first I thought he jammed it by inserting his finger into the trigger guard behind the finger.'}
