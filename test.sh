@@ -1,5 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=test-run
+#SBATCH --account=researchers
 #SBATCH --partition=scavenge
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=4
