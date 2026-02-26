@@ -89,7 +89,7 @@ def build_conversations(
 
 def setup_logging(model_name: str, dataset: str, round: Literal[1, 2], logger_name: str = 'inference_logger', level = logging.DEBUG) -> logging.Logger:
 
-    log_path = pathlib.Path(f'inference_logs/{'first' if round == 1 else 'second'}_round/')
+    log_path = pathlib.Path(f'inference_logs/{'first' if round == 1 else 'second'}/')
     log_path.mkdir(parents=True, exist_ok=True)
 
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
@@ -105,7 +105,7 @@ def setup_logging(model_name: str, dataset: str, round: Literal[1, 2], logger_na
 
     # File handler for INFO 
     file_handler = logging.FileHandler(log_file, mode = 'w', encoding='utf-8')
-    file_handler.setLevel(logging.INFO)
+    file_handler.setLevel(level)
 
     file_formatter = logging.Formatter(
         '%(asctime)s | %(levelname)-8s | %(message)s',
@@ -116,7 +116,7 @@ def setup_logging(model_name: str, dataset: str, round: Literal[1, 2], logger_na
 
     logger.addHandler(file_handler)
     
-    logger.info(f"Logging initialized. Log file: {log_file}")
+    logger.info(f"Logging initialised. Log file: {log_file}")
     
     return logger
 
