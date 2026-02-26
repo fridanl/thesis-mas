@@ -121,99 +121,54 @@ def main(args):
         logger.debug(f'$$$$$$$$$$$$$$$$$ This is the parsed outputs: {parsed} ')
         logger.debug(f'$$$$$$$$$$$$$$$$$ This is the length of the parsed outputs {len(parsed)}')
 
-        #### NEW
-        # only a single loop, since the output of run_inference is flat
+
         rows = []
         failed_examples = []
+        # Loop over each claim/row in dataset 
+        logger.debug("Now inside the loop: for roq_idx, data in enumerate(batch)")
+        for row_idx, data in enumerate(batch):
+            # Slice the outputs for specific row 
+            logger.debug(f'slice of batch_ {data}')
+            batch_size = len(batch)
 
-        for rep_idx, (raw, p) in enumerate(zip(raw_outputs, parsed)):
-            # figure out which claim in batch this repetition belongs to
-            data_idx = rep_idx // n_repetitions
-            data = batch[data_idx]
+            start_idx = row_idx * n_repetitions
+            end_idx = start_idx + n_repetitions
 
-            repetition_number = rep_idx % n_repetitions
+            example_texts = raw_outputs[start_idx:end_idx]
+            example_parsed = parsed[start_idx:end_idx]
 
-            if p is not None:
-                rows.append({
-                    'id': data['id'],
-                    'claim': data['text'],
+            logger.debug(f'example text / slice of raw outputs {example_texts}')
+            logger.debug(f'example text / slice of parsed outputs: {example_parsed}')
+
+            # Loop over an check if valid outputs 
+            for rep_idx, (raw, p) in enumerate(zip(example_texts, example_parsed)):
+                if p is not None:
+                    rows.append({
+                    'id': data['id'], 
+                    'claim': data['text'], 
                     'model': model_name,
-                    'repetition': repetition_number,
-                    'label': p['label'],
-                    'explanation': p['explanation'],
+                    'repetition': rep_idx,
+                    'label': p['label'], 
+                    'explanation': p['explanation'], 
                     'valid_json': True
                 })
-            else:
-                failed_examples.append({
-                    'id': data['id'],
-                    'claim': data['text'],
-                    'repetition': repetition_number,
-                    'raw_text': raw
-                })
-
-        # enforce limit before writing
-        if total_written + len(rows) > args.limit:
-            rows = rows[: args.limit - total_written]
-
+                else:
+                    logger.debug('Failed to parse output for claim ID: %s, repetition: %d', data['id'], rep_idx)
+                    failed_examples.append({
+                        'id': data['id'],
+                        'claim': data['text'],
+                        'repetition': rep_idx,
+                        'raw_text': raw})
+                
         if rows:
-            io.write_csv(rows, csv_path_valid, list(rows[0].keys()))
+            io.write_csv(rows, csv_path_valid, list(rows[0].keys())) 
             no_rows += len(rows)
-            total_written += len(rows)
+            logger.debug(f'Writing {len(rows)} valid results to CSV')
 
         if failed_examples:
             total_failed += len(failed_examples)
-            csv_path_failed = outdir / f'{model_name}-{spec.dataset}-failed.csv'
+            csv_path_failed = outdir /f'{model_name}-{spec.dataset}-failed.csv'
             io.write_csv(failed_examples, csv_path_failed, list(failed_examples[0].keys()))
-        ### NEW
-
-
-        # rows = []
-        # failed_examples = []
-        # # Loop over each claim/row in dataset 
-        # logger.debug("Now inside the loop: for roq_idx, data in enumerate(batch)")
-        # for row_idx, data in enumerate(batch):
-        #     # Slice the outputs for specific row 
-        #     logger.debug(f'slice of batch_ {data}')
-        #     batch_size = len(batch)
-        #     # new
-        #     start_idx = row_idx * n_repetitions
-        #     end_idx = start_idx + n_repetitions
-
-        #     example_texts = raw_outputs[start_idx:end_idx]
-        #     example_parsed = parsed[start_idx:end_idx]
-
-        #     logger.debug(f'example text / slice of raw outputs {example_texts}')
-        #     logger.debug(f'example text / slice of parsed outputs: {example_parsed}')
-
-        #     # Loop over an check if valid outputs 
-        #     for rep_idx, (raw, p) in enumerate(zip(example_texts, example_parsed)):
-        #         if p is not None:
-        #             rows.append({
-        #             'id': data['id'], 
-        #             'claim': data['text'], 
-        #             'model': model_name,
-        #             'repetition': rep_idx,
-        #             'label': p['label'], 
-        #             'explanation': p['explanation'], 
-        #             'valid_json': True
-        #         })
-        #         else:
-        #             logger.debug('Failed to parse output for claim ID: %s, repetition: %d', data['id'], rep_idx)
-        #             failed_examples.append({
-        #                 'id': data['id'],
-        #                 'claim': data['text'],
-        #                 'repetition': rep_idx,
-        #                 'raw_text': raw})
-                
-        # if rows:
-        #     io.write_csv(rows, csv_path_valid, list(rows[0].keys())) 
-        #     no_rows += len(rows)
-        #     logger.debug(f'Writing {len(rows)} valid results to CSV')
-
-        # if failed_examples:
-        #     total_failed += len(failed_examples)
-        #     csv_path_failed = outdir /f'{model_name}-{spec.dataset}-failed.csv'
-        #     io.write_csv(failed_examples, csv_path_failed, list(failed_examples[0].keys()))
 
         logger.debug(f'Batch {batch_count} completed. Total successful results so far: {no_rows}')
         
