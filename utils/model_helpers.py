@@ -159,7 +159,7 @@ def run_inference(                                                              
     texts = []
     parsed = []
 
-    for o in outs:
+    for o in outs: # outs of request objects
         if not o.outputs:
             # if model returned nothing for this prompt
             for _ in range(sampling.n):
@@ -167,7 +167,7 @@ def run_inference(                                                              
                 parsed.append(None)
             continue
 
-        for out in o.outputs:  # <-- iterate ALL repetitions
+        for out in o.outputs:  # for all the repetitions
             txt = out.text
             texts.append(txt)
 
