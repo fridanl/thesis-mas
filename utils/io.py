@@ -136,7 +136,8 @@ def write_csv(records: List[Dict[str, Any]], path: pathlib.Path, fields):
         if needs_header:
             w.writeheader()
         for r in records:
-            r['raw_text'] = _ensure_oneline(r['raw_text'])
+            if 'raw_text' in r.keys():
+                r['raw_text'] = _ensure_oneline(r['raw_text'])
             w.writerow({k: r.get(k) for k in fields})
             
 def format_time(seconds):
