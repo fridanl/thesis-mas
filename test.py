@@ -22,7 +22,7 @@ def main(args):
         logger.addHandler(logging.NullHandler())
         logger.setLevel(logging.CRITICAL + 1)
     else:
-        logger = io.setup_logging(model_name=model_name, dataset=args.dataset, round=args.round)
+        logger = io.setup_logging(model_name=model_name, dataset=args.dataset, round=args.round, enable_debug=args.enable_debug_logging)
     
     if args.slurm_output:
         logger.info(f'SLURM output file: {args.slurm_output}')
@@ -191,6 +191,9 @@ if __name__ == '__main__':
     ap.add_argument('-limit', 
                     help='Limit number of examples for inference',
                     type=int)
+    ap.add_argument('--enable_debug_logging',
+                     action = 'store_false', # default is true
+                     help='Enable if want to see debug prints in log file.')
     ap.add_argument('-idx_start',
                     help='Idx of row to start from in dataset',
                     type=int,

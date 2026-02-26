@@ -87,13 +87,15 @@ def build_conversations(
     
     raise ValueError('Not valid round or history')
 
-def setup_logging(model_name: str, dataset: str, round: Literal[1, 2], logger_name: str = 'inference_logger', level = logging.DEBUG) -> logging.Logger:
+def setup_logging(model_name: str, dataset: str, round: Literal[1, 2], enable_debug, logger_name: str = 'inference_logger') -> logging.Logger:
 
     log_path = pathlib.Path(f'inference_logs/{'first' if round == 1 else 'second'}/')
     log_path.mkdir(parents=True, exist_ok=True)
 
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
     log_file = log_path / f'{model_name}_{dataset}_{timestamp}.log'
+
+    level = logging.DEBUG if enable_debug else logging.INFO
 
     # Create logger 
     logger = logging.getLogger(logger_name)
@@ -102,10 +104,9 @@ def setup_logging(model_name: str, dataset: str, round: Literal[1, 2], logger_na
     if logger.hasHandlers():
         logger.handlers.clear()
 
-
     # File handler for INFO 
     file_handler = logging.FileHandler(log_file, mode = 'w', encoding='utf-8')
-    file_handler.setLevel(level)
+    file_handler.setLevel(level=level)
 
     file_formatter = logging.Formatter(
         '%(asctime)s | %(levelname)-8s | %(message)s',
