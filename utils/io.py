@@ -139,3 +139,15 @@ def write_csv(records: List[Dict[str, Any]], path: pathlib.Path, fields):
             r['raw_text'] = _ensure_oneline(r['raw_text'])
             w.writerow({k: r.get(k) for k in fields})
             
+def format_time(seconds):
+    """Format seconds into hours, minutes, seconds"""
+    hours = int(seconds // 3600)
+    minutes = int((seconds % 3600) // 60)
+    secs = seconds % 60
+    
+    if hours > 0:
+        return f"{hours}h {minutes}m {secs:.2f}s"
+    elif minutes > 0:
+        return f"{minutes}m {secs:.2f}s"
+    else:
+        return f"{secs:.2f}s"

@@ -14,6 +14,8 @@ if home_env.exists():
     load_dotenv(home_env, override=False)
 
 def main(args):
+    script_start_time = time.time()
+
     model_name = args.model_name
 
     if args.no_logging:
@@ -26,7 +28,6 @@ def main(args):
     
     if args.slurm_output:
         logger.info(f'SLURM output file: {args.slurm_output}')
-    
     
     # Path for writing results  
     pre = 'first' if args.round == 1 else 'second'
@@ -76,6 +77,7 @@ def main(args):
     
     logger.info(f'{'#'*10} Sampling parameters {'#'*10} \n {sampling}')
 
+    total_inference_time = 0 
     no_rows = 0 
     batch_count = 0 
     total_failed = 0 
@@ -93,6 +95,7 @@ def main(args):
         start_time = time.time()
         raw_outputs, parsed = run_inference(llm, conversations=conversations, sampling=sampling, output_model=spec.output_model)
         inference_time = time.time() - start_time
+        total_inference_time += inference_time
         logger.debug(f'Inference completed in {inference_time:.2f} seconds')
         
         n_repetitions = args.repetition
@@ -141,6 +144,9 @@ def main(args):
 
         logger.debug(f'Batch {batch_count} completed. Total successful results so far: {no_rows}')
         
+    script_end_time = time.time()
+    total_script_time = script_end_time - script_start_time
+    overhead_time = total_script_time - total_inference_time
 
     logger.info("="*50)
     logger.info("Inference pipeline completed")
@@ -149,6 +155,18 @@ def main(args):
     logger.info("Total successful results: %d", no_rows)
     logger.info("Total failed examples: %d", total_failed)
     logger.info("Output directory: %s", outdir)
+    logger.info("="*50)
+    logger.info("Timing summary")
+    logger.info(f"Total script execution time: {io.format_time(total_script_time)} ({total_script_time:.2f}s)")
+    logger.info(f"Total inference time: {io.format_time(total_inference_time)} ({total_inference_time:.2f}s)")
+    logger.info(f"Overhead time (I/O, parsing, etc.): {io.format_time(overhead_time)} ({overhead_time:.2f}s)")
+    logger.info(f"Inference percentage: {(total_inference_time/total_script_time)*100:.1f}%")
+    if batch_count > 0:
+        logger.info(f"Average time per batch: {total_script_time/batch_count:.2f}s")
+    if no_rows > 0:
+        logger.info(f"Average time per result: {total_script_time/no_rows:.2f}s")
+    logger.info("="*50)
+
         
 
 if __name__ == '__main__':
