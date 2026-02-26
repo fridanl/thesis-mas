@@ -30,9 +30,9 @@ def main(args):
     
     # Path for writing results  
     pre = 'first' if args.round == 1 else 'second'
-    outdir = pathlib.Path(args.outdir)
+    outdir = pathlib.Path(args.outdir) / pathlib.Path(pre)
     outdir.mkdir(parents = True, exist_ok = True)
-    csv_path_valid = outdir / pre / f'{model_name}-{args.dataset}.csv'
+    csv_path_valid = outdir / f'{model_name}-{args.dataset}.csv'
 
     logger.info('='*50)
     logger.info('Starting inference pipeline')
@@ -136,7 +136,7 @@ def main(args):
 
         if failed_examples:
             total_failed += len(failed_examples)
-            csv_path_failed = outdir / pre /f'{model_name}-{spec.dataset}-failed.csv'
+            csv_path_failed = outdir /f'{model_name}-{spec.dataset}-failed.csv'
             io.write_csv(failed_examples, csv_path_failed, list(failed_examples[0].keys()))
 
         logger.debug(f'Batch {batch_count} completed. Total successful results so far: {no_rows}')
