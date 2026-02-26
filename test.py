@@ -81,6 +81,7 @@ def main(args):
     no_rows = 0 
     batch_count = 0 
     total_failed = 0 
+    total_written = 0
 
     n_repetitions = args.repetition
     for batch in io.load_claims_batches(path = args.dataset_path, start = args.idx_start, batch_size = args.batch_size,    limit=args.limit):
@@ -121,6 +122,7 @@ def main(args):
         logger.debug(f'$$$$$$$$$$$$$$$$$ This is the length of the parsed outputs {len(parsed)}')
 
         #### NEW
+        # only a single loop, since the output of run_inference is flat
         rows = []
         failed_examples = []
 
