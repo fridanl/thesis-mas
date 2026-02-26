@@ -4,6 +4,7 @@ from utils.prompt_registry import get_prompt_spec
 from utils import io
 from utils.model_helpers import *
 import time 
+import logging 
 import pathlib
 
 
@@ -14,10 +15,21 @@ if home_env.exists():
 
 def main(args):
     model_name = args.model_name
-    logger = io.setup_logging(model_name=model_name, dataset=args.dataset, round=args.round)
-    pre = 'first' if args.round == 1 else 'second'
+
+    if args.no_logging:
+        # Disable all logging
+        logger = logging.getLogger(__name__)
+        logger.addHandler(logging.NullHandler())
+        logger.setLevel(logging.CRITICAL + 1)
+    else:
+        logger = io.setup_logging(model_name=model_name, dataset=args.dataset, round=args.round)
     
-    # write results 
+    if args.slurm_output:
+        logger.info(f'SLURM output file: {args.slurm_output}')
+    
+    
+    # Path for writing results  
+    pre = 'first' if args.round == 1 else 'second'
     outdir = pathlib.Path(args.outdir)
     outdir.mkdir(parents = True, exist_ok = True)
     csv_path_valid = outdir / pre / f'{model_name}-{args.dataset}.csv'
@@ -158,6 +170,9 @@ if __name__ == '__main__':
                     type=int,
                     choices=[1,2],
                     default=1)
+    ap.add_argument('--slurm_output', 
+                    help='SLURM output file path', 
+                    default=None)
     ap.add_argument('--history',
                     action='store_true') # Default is False 
     ap.add_argument('--models_config_path',
@@ -170,6 +185,9 @@ if __name__ == '__main__':
                     help='Number of examples to run',
                     type = int,
                     default=1)
+    ap.add_argument('--no_logging',
+                    action='store_true', # Default is false, i.e. logging is default
+                    help='Disable all logging (no log file will be created)')
     ap.add_argument('-limit', 
                     help='Limit number of examples for inference',
                     type=int)
