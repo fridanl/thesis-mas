@@ -128,15 +128,13 @@ def main(args):
             logger.debug(f'slice of batch_ {data}')
             batch_size = len(batch)
 
-            example_texts = [
-                raw_outputs[row_idx + rep_idx * batch_size]
-                for rep_idx in range(n_repetitions)
-            ]
+            # new
+            start_idx = row_idx * n_repetitions
+            end_idx = start_idx + n_repetitions
 
-            example_parsed = [
-                parsed[row_idx + rep_idx * batch_size]
-                for rep_idx in range(n_repetitions)
-            ]
+            example_texts = raw_outputs[start_idx:end_idx]
+            example_parsed = parsed[start_idx:end_idx]
+            #
 
             # example_texts = raw_outputs[start_idx:end_idx]                #TODO: uncomment
             # example_parsed = parsed[start_idx:end_idx]                    #TODO: uncomment
