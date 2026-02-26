@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH --job-name=gemma3-27b-test
+#SBATCH --job-name=gemma3-27b-test-bnb
 #SBATCH --account=researchers
 #SBATCH --partition=scavenge
 #SBATCH --gres=gpu
-#SBATCH --mem=24G
-#SBATCH --time=02:00:00
-#SBATCH --constraint="gpu_h100|gpu_a100_80gb|gpu_a100_40gb"
+#SBATCH --mem=60G
+#SBATCH --time=03:00:00
+#SBATCH --constraint="gpu_h100|gpu_a100_80gb"
 #SBATCH --output=logs/%x.%j.out
 #SBATCH --mail-type=BEGIN,END
 

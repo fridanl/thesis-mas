@@ -44,8 +44,8 @@ profiles:
     has_default_sampling_params: False
     sampling: *gemma4b
   gemma-3-27b: # new
-    repo_id: ggml-org/gemma-3-27b-it-GGUF # or unsloth/gemma-3-27b-it-bnb-4bit
-    quantization: gguf
+    repo_id: unsloth/gemma-3-27b-it-bnb-4bit 
+    quantization: bitsandbytes
     has_default_sampling_params: False
     sampling: *gemma27b
   
