@@ -87,7 +87,7 @@ def build_conversations(
     
     raise ValueError('Not valid round or history')
 
-def setup_logging(model_name: str, dataset: str, round: Literal[1, 2], logger_name: str = 'inference_logger', level: logging._Level = logging.DEBUG) -> logging.Logger:
+def setup_logging(model_name: str, dataset: str, round: Literal[1, 2], logger_name: str = 'inference_logger', level = logging.DEBUG) -> logging.Logger:
 
     log_path = pathlib.Path(f'inference_logs/{'first' if round == 1 else 'second'}_round/')
     log_path.mkdir(parents=True, exist_ok=True)
