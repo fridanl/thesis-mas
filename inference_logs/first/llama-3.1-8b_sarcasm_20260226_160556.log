@@ -1,0 +1,99 @@
+2026-02-26 16:05:56 | INFO     | Logging initialised. Log file: inference_logs/first/llama-3.1-8b_sarcasm_20260226_160556.log
+2026-02-26 16:05:56 | INFO     | SLURM output file: logs/test-run.53892.out
+2026-02-26 16:05:56 | INFO     | ==================================================
+2026-02-26 16:05:56 | INFO     | Starting inference pipeline
+2026-02-26 16:05:56 | INFO     | ==================================================
+2026-02-26 16:05:56 | INFO     | Arguments: {'model_name': 'llama-3.1-8b', 'dataset': 'sarcasm', 'dataset_path': 'data/sarc/sarcasm.csv', 'repetition': 3, 'round': 1, 'slurm_output': 'logs/test-run.53892.out', 'history': False, 'models_config_path': 'configs/models.yaml', 'outdir': 'results', 'batch_size': 2, 'no_logging': False, 'limit': 6, 'enable_debug_logging': True, 'idx_start': 0}
+2026-02-26 16:05:56 | INFO     | Results will be written to: results/first/llama-3.1-8b-sarcasm.csv
+2026-02-26 16:05:56 | DEBUG    | Loading prompt specifications for dataset: sarcasm, round: 1, history: False
+2026-02-26 16:05:56 | DEBUG    | Prompt specs loaded. 
+ System template: Return ONLY a minified JSON object that conforms to this schema: 
+{"$defs": {"LabelSarc": {"enum": ["sarcastic", "literal"], "title": "LabelSarc", "type": "string"}}, "properties": {"label": {"$ref": "#/$defs/LabelSarc"}, "explanation": {"title": "Explanation", "type": "string"}}, "required": ["label", "explanation"], "title": "OutputSarc", "type": "object"}
+Rules:
+- Output JSON only. No prose, no markdown, no extra text.
+- Keys: label, explanation. 
+- explanation MUST be 30 words or fewer 
+ 
+ User template Task: Is this claim sarcastic or literal?
+Claim: "{claim}". 
+ Output Model: <class 'utils.prompt_registry.OutputSarc'>
+2026-02-26 16:05:56 | DEBUG    | Output json: {'$defs': {'LabelSarc': {'enum': ['sarcastic', 'literal'], 'title': 'LabelSarc', 'type': 'string'}}, 'properties': {'label': {'$ref': '#/$defs/LabelSarc'}, 'explanation': {'title': 'Explanation', 'type': 'string'}}, 'required': ['label', 'explanation'], 'title': 'OutputSarc', 'type': 'object'}
+2026-02-26 16:05:56 | DEBUG    | Loading model configuration from: configs/models.yaml
+2026-02-26 16:05:56 | DEBUG    | Model config: {'seed': 0, 'tensor_parallel_size': 1, 'dtype': 'auto', 'max_model_len': 20000, 'repo_id': 'unsloth/Meta-Llama-3.1-8B-Instruct-bnb-4bit', 'quantization': 'bitsandbytes', 'has_default_sampling_params': True}
+2026-02-26 16:05:56 | INFO     | Ensuring local model availability...
+2026-02-26 16:05:56 | INFO     | Location of model: /home/mhpe/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct-bnb-4bit
+2026-02-26 16:05:56 | DEBUG    | Initialising LLM...
+2026-02-26 16:06:33 | DEBUG    | LLM initialised successfully
+2026-02-26 16:06:33 | INFO     | ########## Shared decoding parameters ##########
+2026-02-26 16:06:33 | INFO     | Repetitions (no. outputs from one input): 3 
+ Max tokens: 254
+2026-02-26 16:06:33 | INFO     | The model has been set to have default sampling params.
+2026-02-26 16:06:33 | INFO     | ########## Sampling parameters ########## 
+ SamplingParams(n=3, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.0, temperature=0.6, top_p=0.9, top_k=0, min_p=0.0, seed=None, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=254, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=GuidedDecodingParams(json={'$defs': {'LabelSarc': {'enum': ['sarcastic', 'literal'], 'title': 'LabelSarc', 'type': 'string'}}, 'properties': {'label': {'$ref': '#/$defs/LabelSarc'}, 'explanation': {'title': 'Explanation', 'type': 'string'}}, 'required': ['label', 'explanation'], 'title': 'OutputSarc', 'type': 'object'}, regex=None, choice=None, grammar=None, json_object=None, backend=None, backend_was_auto=False, disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, whitespace_pattern=None, structural_tag=None), extra_args=None)
+2026-02-26 16:06:33 | DEBUG    | Building conversations for batch 1
+2026-02-26 16:06:33 | DEBUG    | $$$$$$$$$$$$$$$$$$$.  this is the batch
+2026-02-26 16:06:33 | DEBUG    | batch: [{'id': 1, 'text': 'At first I thought he jammed it by inserting his finger into the trigger guard behind the finger.'}, {'id': 2, 'text': "The Browns don't know shit when it comes to QB's."}]
+2026-02-26 16:06:33 | DEBUG    | $$$$$$$$$$$$$$$$$$$.  this is the length of the batch
+2026-02-26 16:06:33 | DEBUG    | 2
+2026-02-26 16:06:33 | DEBUG    | *****Print full conversations******: [[{'role': 'system', 'content': 'Return ONLY a minified JSON object that conforms to this schema: \n{"$defs": {"LabelSarc": {"enum": ["sarcastic", "literal"], "title": "LabelSarc", "type": "string"}}, "properties": {"label": {"$ref": "#/$defs/LabelSarc"}, "explanation": {"title": "Explanation", "type": "string"}}, "required": ["label", "explanation"], "title": "OutputSarc", "type": "object"}\nRules:\n- Output JSON only. No prose, no markdown, no extra text.\n- Keys: label, explanation. \n- explanation MUST be 30 words or fewer \n'}, {'role': 'user', 'content': 'Task: Is this claim sarcastic or literal?\nClaim: "At first I thought he jammed it by inserting his finger into the trigger guard behind the finger."'}], [{'role': 'system', 'content': 'Return ONLY a minified JSON object that conforms to this schema: \n{"$defs": {"LabelSarc": {"enum": ["sarcastic", "literal"], "title": "LabelSarc", "type": "string"}}, "properties": {"label": {"$ref": "#/$defs/LabelSarc"}, "explanation": {"title": "Explanation", "type": "string"}}, "required": ["label", "explanation"], "title": "OutputSarc", "type": "object"}\nRules:\n- Output JSON only. No prose, no markdown, no extra text.\n- Keys: label, explanation. \n- explanation MUST be 30 words or fewer \n'}, {'role': 'user', 'content': 'Task: Is this claim sarcastic or literal?\nClaim: "The Browns don\'t know shit when it comes to QB\'s."'}]]
+2026-02-26 16:06:33 | DEBUG    | ********************
+2026-02-26 16:06:33 | DEBUG    | Running inference...
+2026-02-26 16:06:33 | DEBUG    | ********************
+2026-02-26 16:06:39 | DEBUG    | Inference completed in 5.64 seconds
+2026-02-26 16:06:39 | DEBUG    | $$$$$$$$$$$$$$$$$
+2026-02-26 16:06:39 | DEBUG    | the raw_outputs: ['{"label": "sarcastic", "explanation": "The claim is sarcastic because the description is overly detailed and unlikely to be a genuine method of jamming a firearm, implying irony or mockery."}', '{"label": "sarcastic", "explanation": "This claim is sarcastic because it describes a safe and proper way to insert a finger into the trigger guard, implying the opposite."}', '{"label": "sarcastic", "explanation": "This claim is sarcastic because it is an absurd explanation for a common issue with firearms."}', '{"label": "sarcastic", "explanation": "The claim uses profanity and an informal tone to express strong disagreement, indicating sarcasm."}', '{"label": "sarcastic", "explanation": "The claim uses profanity and an informal tone, indicating a sarcastic intent, despite the literal meaning of the words."}', '{"label": "sarcastic", "explanation": "The claim uses strong language and a colloquialism to express frustration with the Browns\' quarterback situation, rather than a genuine statement of fact."}']
+2026-02-26 16:06:39 | DEBUG    | $$$$$$$$$$$$$$$$$ This is the length of the raw outputs 
+2026-02-26 16:06:39 | DEBUG    | len(raw_outputs): 6
+2026-02-26 16:06:39 | DEBUG    | $$$$$$$$$$$$$$$$$ This is the parsed outputs: [{'label': <LabelSarc.sarcastic: 'sarcastic'>, 'explanation': 'The claim is sarcastic because the description is overly detailed and unlikely to be a genuine method of jamming a firearm, implying irony or mockery.'}, {'label': <LabelSarc.sarcastic: 'sarcastic'>, 'explanation': 'This claim is sarcastic because it describes a safe and proper way to insert a finger into the trigger guard, implying the opposite.'}, {'label': <LabelSarc.sarcastic: 'sarcastic'>, 'explanation': 'This claim is sarcastic because it is an absurd explanation for a common issue with firearms.'}, {'label': <LabelSarc.sarcastic: 'sarcastic'>, 'explanation': 'The claim uses profanity and an informal tone to express strong disagreement, indicating sarcasm.'}, {'label': <LabelSarc.sarcastic: 'sarcastic'>, 'explanation': 'The claim uses profanity and an informal tone, indicating a sarcastic intent, despite the literal meaning of the words.'}, {'label': <LabelSarc.sarcastic: 'sarcastic'>, 'explanation': "The claim uses strong language and a colloquialism to express frustration with the Browns' quarterback situation, rather than a genuine statement of fact."}] 
+2026-02-26 16:06:39 | DEBUG    | $$$$$$$$$$$$$$$$$ This is the length of the parsed outputs 6
+2026-02-26 16:06:39 | DEBUG    | Batch 1 completed. Total successful results so far: 6
+2026-02-26 16:06:39 | DEBUG    | Building conversations for batch 2
+2026-02-26 16:06:39 | DEBUG    | $$$$$$$$$$$$$$$$$$$.  this is the batch
+2026-02-26 16:06:39 | DEBUG    | batch: [{'id': 3, 'text': "Mario didn't play as many games"}, {'id': 6, 'text': "Amazing, there was actually a time when Xbox Live didn't exist."}]
+2026-02-26 16:06:39 | DEBUG    | $$$$$$$$$$$$$$$$$$$.  this is the length of the batch
+2026-02-26 16:06:39 | DEBUG    | 2
+2026-02-26 16:06:39 | DEBUG    | *****Print full conversations******: [[{'role': 'system', 'content': 'Return ONLY a minified JSON object that conforms to this schema: \n{"$defs": {"LabelSarc": {"enum": ["sarcastic", "literal"], "title": "LabelSarc", "type": "string"}}, "properties": {"label": {"$ref": "#/$defs/LabelSarc"}, "explanation": {"title": "Explanation", "type": "string"}}, "required": ["label", "explanation"], "title": "OutputSarc", "type": "object"}\nRules:\n- Output JSON only. No prose, no markdown, no extra text.\n- Keys: label, explanation. \n- explanation MUST be 30 words or fewer \n'}, {'role': 'user', 'content': 'Task: Is this claim sarcastic or literal?\nClaim: "Mario didn\'t play as many games"'}], [{'role': 'system', 'content': 'Return ONLY a minified JSON object that conforms to this schema: \n{"$defs": {"LabelSarc": {"enum": ["sarcastic", "literal"], "title": "LabelSarc", "type": "string"}}, "properties": {"label": {"$ref": "#/$defs/LabelSarc"}, "explanation": {"title": "Explanation", "type": "string"}}, "required": ["label", "explanation"], "title": "OutputSarc", "type": "object"}\nRules:\n- Output JSON only. No prose, no markdown, no extra text.\n- Keys: label, explanation. \n- explanation MUST be 30 words or fewer \n'}, {'role': 'user', 'content': 'Task: Is this claim sarcastic or literal?\nClaim: "Amazing, there was actually a time when Xbox Live didn\'t exist."'}]]
+2026-02-26 16:06:39 | DEBUG    | ********************
+2026-02-26 16:06:39 | DEBUG    | Running inference...
+2026-02-26 16:06:39 | DEBUG    | ********************
+2026-02-26 16:06:57 | DEBUG    | Inference completed in 17.52 seconds
+2026-02-26 16:06:57 | DEBUG    | $$$$$$$$$$$$$$$$$
+2026-02-26 16:06:57 | DEBUG    | the raw_outputs: ['{\n  "label": "sarcastic",\n  "explanation": "The statement is ironic given the context of Mario being a video game character and the claim contradicting his extensive gaming presence."\n}', '{"label": "sarcastic", "explanation": "This claim is sarcastic because it is likely referring to the fact that Mario is a fictional character and thus cannot play games in reality."}', '{"label": "sarcastic", "explanation": "The speaker likely used sarcasm to convey the opposite, implying that Mario played many games."}', '{"label": "sarcastic", "explanation": "The speaker is being facetious, implying that Xbox Live\'s existence is a bad thing."}', '{"label": "sarcastic", "explanation": "The speaker is expressing irony and mocking the idea that there was a time without Xbox Live, implying its widespread importance."}', '{"label": "sarcastic", "explanation": "The tone is ironic, implying the opposite of the literal meaning, suggesting the speaker is unhappy about the lack of Xbox Live in the past."}']
+2026-02-26 16:06:57 | DEBUG    | $$$$$$$$$$$$$$$$$ This is the length of the raw outputs 
+2026-02-26 16:06:57 | DEBUG    | len(raw_outputs): 6
+2026-02-26 16:06:57 | DEBUG    | $$$$$$$$$$$$$$$$$ This is the parsed outputs: [{'label': <LabelSarc.sarcastic: 'sarcastic'>, 'explanation': 'The statement is ironic given the context of Mario being a video game character and the claim contradicting his extensive gaming presence.'}, {'label': <LabelSarc.sarcastic: 'sarcastic'>, 'explanation': 'This claim is sarcastic because it is likely referring to the fact that Mario is a fictional character and thus cannot play games in reality.'}, {'label': <LabelSarc.sarcastic: 'sarcastic'>, 'explanation': 'The speaker likely used sarcasm to convey the opposite, implying that Mario played many games.'}, {'label': <LabelSarc.sarcastic: 'sarcastic'>, 'explanation': "The speaker is being facetious, implying that Xbox Live's existence is a bad thing."}, {'label': <LabelSarc.sarcastic: 'sarcastic'>, 'explanation': 'The speaker is expressing irony and mocking the idea that there was a time without Xbox Live, implying its widespread importance.'}, {'label': <LabelSarc.sarcastic: 'sarcastic'>, 'explanation': 'The tone is ironic, implying the opposite of the literal meaning, suggesting the speaker is unhappy about the lack of Xbox Live in the past.'}] 
+2026-02-26 16:06:57 | DEBUG    | $$$$$$$$$$$$$$$$$ This is the length of the parsed outputs 6
+2026-02-26 16:06:57 | DEBUG    | Batch 2 completed. Total successful results so far: 6
+2026-02-26 16:06:57 | DEBUG    | Building conversations for batch 3
+2026-02-26 16:06:57 | DEBUG    | $$$$$$$$$$$$$$$$$$$.  this is the batch
+2026-02-26 16:06:57 | DEBUG    | batch: [{'id': 9, 'text': 'Synical ploy for SF, there must be an election coming up!'}, {'id': 11, 'text': "if you're not even lvl 30 on your main account no you are not ready"}]
+2026-02-26 16:06:57 | DEBUG    | $$$$$$$$$$$$$$$$$$$.  this is the length of the batch
+2026-02-26 16:06:57 | DEBUG    | 2
+2026-02-26 16:06:57 | DEBUG    | *****Print full conversations******: [[{'role': 'system', 'content': 'Return ONLY a minified JSON object that conforms to this schema: \n{"$defs": {"LabelSarc": {"enum": ["sarcastic", "literal"], "title": "LabelSarc", "type": "string"}}, "properties": {"label": {"$ref": "#/$defs/LabelSarc"}, "explanation": {"title": "Explanation", "type": "string"}}, "required": ["label", "explanation"], "title": "OutputSarc", "type": "object"}\nRules:\n- Output JSON only. No prose, no markdown, no extra text.\n- Keys: label, explanation. \n- explanation MUST be 30 words or fewer \n'}, {'role': 'user', 'content': 'Task: Is this claim sarcastic or literal?\nClaim: "Synical ploy for SF, there must be an election coming up!"'}], [{'role': 'system', 'content': 'Return ONLY a minified JSON object that conforms to this schema: \n{"$defs": {"LabelSarc": {"enum": ["sarcastic", "literal"], "title": "LabelSarc", "type": "string"}}, "properties": {"label": {"$ref": "#/$defs/LabelSarc"}, "explanation": {"title": "Explanation", "type": "string"}}, "required": ["label", "explanation"], "title": "OutputSarc", "type": "object"}\nRules:\n- Output JSON only. No prose, no markdown, no extra text.\n- Keys: label, explanation. \n- explanation MUST be 30 words or fewer \n'}, {'role': 'user', 'content': 'Task: Is this claim sarcastic or literal?\nClaim: "if you\'re not even lvl 30 on your main account no you are not ready"'}]]
+2026-02-26 16:06:57 | DEBUG    | ********************
+2026-02-26 16:06:57 | DEBUG    | Running inference...
+2026-02-26 16:06:57 | DEBUG    | ********************
+2026-02-26 16:06:59 | DEBUG    | Inference completed in 2.26 seconds
+2026-02-26 16:06:59 | DEBUG    | $$$$$$$$$$$$$$$$$
+2026-02-26 16:06:59 | DEBUG    | the raw_outputs: ['{"label": "sarcastic", "explanation": "The use of \'Synical\' and the reference to an election suggest the speaker is being ironic."}', '{"label": "sarcastic", "explanation": "The use of the word \'Synical\' instead of \'Sincere\' and the mention of an election suggests the claim is sarcastic."}', '{"label": "sarcastic", "explanation": "The use of words like \'Synical\' and the tone of the statement indicate sarcasm."}', '{"label": "sarcastic", "explanation": "The claim uses a rhetorical tone to convey a stronger message about readiness, despite the literal meaning of the statement."}', '{"label": "sarcastic", "explanation": "The claim uses a phrase commonly associated with gaming, but the tone is dismissive and condescending, indicating sarcasm."}', '{"label": "sarcastic", "explanation": "The claim uses a rhetorical tone to convey that the person is not ready, implying they are not yet experienced enough."}']
+2026-02-26 16:06:59 | DEBUG    | $$$$$$$$$$$$$$$$$ This is the length of the raw outputs 
+2026-02-26 16:06:59 | DEBUG    | len(raw_outputs): 6
+2026-02-26 16:06:59 | DEBUG    | $$$$$$$$$$$$$$$$$ This is the parsed outputs: [{'label': <LabelSarc.sarcastic: 'sarcastic'>, 'explanation': "The use of 'Synical' and the reference to an election suggest the speaker is being ironic."}, {'label': <LabelSarc.sarcastic: 'sarcastic'>, 'explanation': "The use of the word 'Synical' instead of 'Sincere' and the mention of an election suggests the claim is sarcastic."}, {'label': <LabelSarc.sarcastic: 'sarcastic'>, 'explanation': "The use of words like 'Synical' and the tone of the statement indicate sarcasm."}, {'label': <LabelSarc.sarcastic: 'sarcastic'>, 'explanation': 'The claim uses a rhetorical tone to convey a stronger message about readiness, despite the literal meaning of the statement.'}, {'label': <LabelSarc.sarcastic: 'sarcastic'>, 'explanation': 'The claim uses a phrase commonly associated with gaming, but the tone is dismissive and condescending, indicating sarcasm.'}, {'label': <LabelSarc.sarcastic: 'sarcastic'>, 'explanation': 'The claim uses a rhetorical tone to convey that the person is not ready, implying they are not yet experienced enough.'}] 
+2026-02-26 16:06:59 | DEBUG    | $$$$$$$$$$$$$$$$$ This is the length of the parsed outputs 6
+2026-02-26 16:06:59 | DEBUG    | Batch 3 completed. Total successful results so far: 6
+2026-02-26 16:06:59 | INFO     | ==================================================
+2026-02-26 16:06:59 | INFO     | Inference pipeline completed
+2026-02-26 16:06:59 | INFO     | ==================================================
+2026-02-26 16:06:59 | INFO     | Total batches processed: 3
+2026-02-26 16:06:59 | INFO     | Total successful results: 6
+2026-02-26 16:06:59 | INFO     | Total failed examples: 0
+2026-02-26 16:06:59 | INFO     | Output directory: results/first
+2026-02-26 16:06:59 | INFO     | ==================================================
+2026-02-26 16:06:59 | INFO     | Timing summary
+2026-02-26 16:06:59 | INFO     | Total script execution time: 1m 3.39s (63.39s)
+2026-02-26 16:06:59 | INFO     | Total inference time: 25.42s (25.42s)
+2026-02-26 16:06:59 | INFO     | Overhead time (I/O, parsing, etc.): 37.97s (37.97s)
+2026-02-26 16:06:59 | INFO     | Inference percentage: 40.1%
+2026-02-26 16:06:59 | INFO     | Average time per batch: 21.13s
+2026-02-26 16:06:59 | INFO     | Average time per result: 10.57s
+2026-02-26 16:06:59 | INFO     | ==================================================
