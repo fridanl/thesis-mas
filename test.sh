@@ -19,4 +19,4 @@ uv sync
 
 SLURM_OUTPUT_FILE="logs/${SLURM_JOB_NAME}.${SLURM_JOB_ID}.out"
 
-uv run test.py --model_name qwen-2.5-7b --repetition 3 --round 1 --batch_size 2 -limit 6 --slurm_output "${SLURM_OUTPUT_FILE}"
+uv run test.py --model_name qwen-2.5-7b --repetition 3 --round 1 --batch_size 2 -limit 6 --slurm_output "${SLURM_OUTPUT_FILE}" --output

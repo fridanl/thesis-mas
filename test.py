@@ -121,8 +121,7 @@ def main(args):
                     'repetition': rep_idx,
                     'label': p['label'], 
                     'explanation': p['explanation'], 
-                    'valid_json': True, 
-                    'raw_text': raw
+                    'valid_json': True
                 })
                 else:
                     logger.debug('Failed to parse output for claim ID: %s, repetition: %d', data['id'], rep_idx)
@@ -192,6 +191,7 @@ if __name__ == '__main__':
                     help='SLURM output file path', 
                     default=None)
     ap.add_argument('--history',
+                    help = 'Include an agents own answer.',
                     action='store_true') # Default is False 
     ap.add_argument('--models_config_path',
                     help='Path to YAML file with model parameters.',

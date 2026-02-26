@@ -1,6 +1,6 @@
 import pathlib, yaml, json 
-from vllm import LLM 
-from vllm.sampling_params import SamplingParams, GuidedDecodingParams 
+from vllm import LLM # pyright: ignore[reportMissingImports]
+from vllm.sampling_params import SamplingParams, GuidedDecodingParams  # pyright: ignore[reportMissingImports]
 import os, subprocess
 from typing import List, Dict, Any, Tuple, TypedDict, Sequence, Type, Optional
 from pydantic import ValidationError, BaseModel
