@@ -127,23 +127,54 @@ def init_sampling_params(
     params.guided_decoding = guided 
     return params
 
-def run_inference(
+# def run_inference(                                                            #TODO: uncomment
+#     llm: LLM,     
+#     conversations: Sequence[List[ChatCompletionMessageParam]],
+#     sampling: SamplingParams,
+#     output_model: Type[BaseModel]):
+    
+
+#     outs = llm.chat(messages=conversations, sampling_params=sampling)
+
+#     texts = [o.outputs[0].text if o.outputs else "" for o in outs]
+#     parsed = []
+
+#     for txt in texts:
+#         try:
+#             obj = json.loads(txt)
+#             parsed.append(output_model(**obj).model_dump())
+#         except(json.JSONDecodeError, ValidationError, KeyError, TypeError):
+#             parsed.append(None)
+
+#     return texts, parsed
+
+def run_inference(                                                              #TODO: this is a new version
     llm: LLM, 
     conversations: Sequence[List[ChatCompletionMessageParam]],
     sampling: SamplingParams,
-    output_model: Type[BaseModel]):
-    
-
+    output_model: Type[BaseModel]
+):
     outs = llm.chat(messages=conversations, sampling_params=sampling)
 
-    texts = [o.outputs[0].text if o.outputs else "" for o in outs]
+    texts = []
     parsed = []
 
-    for txt in texts:
-        try:
-            obj = json.loads(txt)
-            parsed.append(output_model(**obj).model_dump())
-        except(json.JSONDecodeError, ValidationError, KeyError, TypeError):
-            parsed.append(None)
+    for o in outs:
+        if not o.outputs:
+            # if model returned nothing for this prompt
+            for _ in range(sampling.n):
+                texts.append("")
+                parsed.append(None)
+            continue
+
+        for out in o.outputs:  # <-- iterate ALL repetitions
+            txt = out.text
+            texts.append(txt)
+
+            try:
+                obj = json.loads(txt)
+                parsed.append(output_model(**obj).model_dump())
+            except (json.JSONDecodeError, ValidationError, KeyError, TypeError):
+                parsed.append(None)
 
     return texts, parsed
