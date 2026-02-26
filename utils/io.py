@@ -61,6 +61,7 @@ def build_conversations(
     '''
 
     if round == 1:
+        print(examples)
         return [
             [
                 {'role': 'system', 'content': system_prompt},
