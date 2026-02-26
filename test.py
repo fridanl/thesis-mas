@@ -91,7 +91,8 @@ def main(args):
             history=spec.history,
             round=spec.round)
 
-        print(conversations[0][0])
+
+        logger.debug(f'Example of prompt: {conversations[0]}')
         logger.debug('Running inference...')
         start_time = time.time()
         raw_outputs, parsed = run_inference(llm, conversations=conversations, sampling=sampling, output_model=spec.output_model)
