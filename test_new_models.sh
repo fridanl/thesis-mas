@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=gemma3-27b-test-bnb
+#SBATCH --job-name=gpt
 #SBATCH --account=researchers
 #SBATCH --partition=scavenge
 #SBATCH --gres=gpu
@@ -38,5 +38,5 @@ uv sync
 # new models
 # uv run test.py --model_name gemma-3-4b --repetition 5 --round 1 --batch_size 5 -limit 25
 # uv run test.py --model_name gpt-oss-9b --repetition 5 --round 1 --batch_size 5 -limit 5
-# uv run test.py --model_name gpt-20b --repetition 5 --round 1 --batch_size 5 -limit 5
-uv run test.py --model_name gemma-3-27b --repetition 5 --round 1 --batch_size 5 -limit 25
+uv run test.py --model_name gpt-20b --repetition 10 --round 1 --batch_size 5 -limit 60
+# uv run test.py --model_name gemma-3-27b --repetition 5 --round 1 --batch_size 5 -limit 25
