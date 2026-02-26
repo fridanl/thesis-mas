@@ -91,10 +91,10 @@ def main(args):
             history=spec.history,
             round=spec.round)
 
-        logger.debug(print('$$$$$$$$$$$$$$$$$$$.  this is the batch'))
-        logger.debug(print(batch))
-        logger.debug(print('$$$$$$$$$$$$$$$$$$$.  this is the length of the batch'))
-        logger.debug(print(len(batch)))
+        logger.debug('$$$$$$$$$$$$$$$$$$$.  this is the batch')
+        logger.debug(f'batch: {batch}')
+        logger.debug('$$$$$$$$$$$$$$$$$$$.  this is the length of the batch')
+        logger.debug(len(batch))
 
 
         logger.debug(f'*****Print full conversations******: {conversations}')
@@ -107,38 +107,42 @@ def main(args):
         total_inference_time += inference_time
         logger.debug(f'Inference completed in {inference_time:.2f} seconds')
 
-        logger.debug(print(f'$$$$$$$$$$$$$$$$$ This is the raw outputs '))
-        logger.debug(print(raw_outputs))
-        logger.debug(print(f'$$$$$$$$$$$$$$$$$ This is the length of the raw outputs '))
-        logger.debug(print(len(raw_outputs)))
-        logger.debug(print(f'$$$$$$$$$$$$$$$$$ This is the parsed outputs '))
-        logger.debug(print(parsed))
-        logger.debug(print(f'$$$$$$$$$$$$$$$$$ This is the length of the parsed outputs '))
-        logger.debug(print(len(parsed)))
+        logger.debug(f'$$$$$$$$$$$$$$$$$')
+        logger.debug(f'the raw_outputs: {raw_outputs}')
+        logger.debug(f'$$$$$$$$$$$$$$$$$ This is the length of the raw outputs ')
+        logger.debug(f'len(raw_outputs): {len(raw_outputs)}')
+        logger.debug(f'$$$$$$$$$$$$$$$$$ This is the parsed outputs: {parsed} ')
+        logger.debug(f'$$$$$$$$$$$$$$$$$ This is the length of the parsed outputs {len(parsed)}')
 
 
         n_repetitions = args.repetition
         rows = []
         failed_examples = []
         # Loop over each claim/row in dataset 
-        logger.debug(print("Now inside the loop: for roq_idx, data in enumerate(batch)"))
+        logger.debug("Now inside the loop: for roq_idx, data in enumerate(batch)")
         for row_idx, data in enumerate(batch):
             # Slice the outputs for specific row 
-            start_idx = row_idx * n_repetitions
-            end_idx = start_idx + n_repetitions
+            # start_idx = row_idx * n_repetitions                           #TODO: uncomment
+            # end_idx = start_idx + n_repetitions                           #TODO: uncomment
 
-            logger.debug(print(f' start index: {start_idx}' ))
-            logger.debug(print(f'end index: {end_idx}'))
-            logger.debug(print('slice of batch'))
-            logger.debug(print(data))
+            logger.debug(f'slice of batch_ {data}')
+            batch_size = len(batch)
 
-            example_texts = raw_outputs[start_idx:end_idx]
-            example_parsed = parsed[start_idx:end_idx]
+            example_texts = [
+                raw_outputs[row_idx + rep_idx * batch_size]
+                for rep_idx in range(n_repetitions)
+            ]
 
-            logger.debug(print('example text / slice of raw outputs'))
-            logger.debug(print(example_texts))
-            logger.debug(print('example text / slice of parsed outputs'))
-            logger.debug(print(example_parsed))
+            example_parsed = [
+                parsed[row_idx + rep_idx * batch_size]
+                for rep_idx in range(n_repetitions)
+            ]
+
+            # example_texts = raw_outputs[start_idx:end_idx]                #TODO: uncomment
+            # example_parsed = parsed[start_idx:end_idx]                    #TODO: uncomment
+
+            logger.debug(f'example text / slice of raw outputs {example_texts}')
+            logger.debug(f'example text / slice of parsed outputs: {example_parsed}')
 
             # Loop over an check if valid outputs 
             for rep_idx, (raw, p) in enumerate(zip(example_texts, example_parsed)):
