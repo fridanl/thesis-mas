@@ -34,7 +34,7 @@ profiles:
     quantization: gguf
     has_default_sampling_params: False
     sampling: *gpt9b
-  qwen2.5-72b: # new
+  qwen-2.5-72b: # new
     repo_id: unsloth/Qwen2.5-72B-Instruct-bnb-4bit
     quantization: bitsandbytes
     has_default_sampling_params: True
@@ -48,8 +48,8 @@ profiles:
     has_default_sampling_params: False
     sampling: *gemma4b
   gemma-3-27b: # new
-    repo_id: ggml-org/gemma-3-27b-it-GGUF # or unsloth/gemma-3-27b-it-bnb-4bit
-    quantization: gguf
+    repo_id: unsloth/gemma-3-27b-it-bnb-4bit
+    quantization: bitsandbytes
     has_default_sampling_params: False
     sampling: *gemma27b
   
