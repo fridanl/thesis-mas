@@ -7,8 +7,12 @@ sampling_presets:
     temperature: 1.0
   gemma4b: &gemma4b
     temperature: 1.0
+    top_k: 64
+    top_p: 0.95
   gemma27b: &gemma27b
     temperature: 1.0
+    top_k: 64
+    top_p: 0.95
 
 
 profiles:
