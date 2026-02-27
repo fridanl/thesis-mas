@@ -299,3 +299,303 @@ id,claim,model,repetition,label,explanation,valid_json
 44,"Well he showed he can score on Saturday, so I guess it makes sense",gemma-3-4b,7,sarcastic,"Expressing skepticism despite a positive event, implying disbelief.",True
 44,"Well he showed he can score on Saturday, so I guess it makes sense",gemma-3-4b,8,sarcastic,"The statement implies criticism despite a positive event, suggesting sarcasm.",True
 44,"Well he showed he can score on Saturday, so I guess it makes sense",gemma-3-4b,9,sarcastic,"Suggesting a logical connection despite a questionable outcome, indicating sarcasm.",True
+1,At first I thought he jammed it by inserting his finger into the trigger guard behind the finger.,gemma-3-4b,0,sarcastic,A slightly absurd and overly detailed description suggests sarcasm.,True
+1,At first I thought he jammed it by inserting his finger into the trigger guard behind the finger.,gemma-3-4b,1,sarcastic,"The claim describes a clumsy action, implying it was done poorly and unexpectedly.",True
+1,At first I thought he jammed it by inserting his finger into the trigger guard behind the finger.,gemma-3-4b,2,sarcastic,"The description of the action is intentionally exaggerated and humorous, indicating sarcasm.",True
+1,At first I thought he jammed it by inserting his finger into the trigger guard behind the finger.,gemma-3-4b,3,sarcastic,"The description of the action is overly detailed and humorous, indicating sarcasm.",True
+1,At first I thought he jammed it by inserting his finger into the trigger guard behind the finger.,gemma-3-4b,4,sarcastic,"A humorous description of a clumsy action, implying a lack of skill or intention.",True
+1,At first I thought he jammed it by inserting his finger into the trigger guard behind the finger.,gemma-3-4b,5,sarcastic,"A humorous and slightly absurd description of a clumsy action, implying a lack of skill or awareness.",True
+1,At first I thought he jammed it by inserting his finger into the trigger guard behind the finger.,gemma-3-4b,6,sarcastic,"A humorous, exaggerated description of a clumsy action, implying a lack of skill.",True
+1,At first I thought he jammed it by inserting his finger into the trigger guard behind the finger.,gemma-3-4b,7,sarcastic,"The description is overly detailed and humorous, implying disbelief about the action.",True
+1,At first I thought he jammed it by inserting his finger into the trigger guard behind the finger.,gemma-3-4b,8,sarcastic,"He used a clumsy and overly detailed method, implying a lack of skill.",True
+1,At first I thought he jammed it by inserting his finger into the trigger guard behind the finger.,gemma-3-4b,9,sarcastic,"A somewhat humorous and exaggerated description of a flawed shooting technique, implying a lack of skill.",True
+2,The Browns don't know shit when it comes to QB's.,gemma-3-4b,0,sarcastic,"A harsh, critical statement about the Browns' quarterback situation.",True
+2,The Browns don't know shit when it comes to QB's.,gemma-3-4b,1,sarcastic,"A harsh statement implying a lack of competence, often used humorously.",True
+2,The Browns don't know shit when it comes to QB's.,gemma-3-4b,2,sarcastic,"A harsh, exaggerated statement criticizing the Browns' quarterback performance.",True
+2,The Browns don't know shit when it comes to QB's.,gemma-3-4b,3,sarcastic,A harsh statement implying the Browns are bad at quarterbacks.,True
+2,The Browns don't know shit when it comes to QB's.,gemma-3-4b,4,sarcastic,"A harsh statement criticizing the Browns' quarterback situation, likely not meant literally.",True
+2,The Browns don't know shit when it comes to QB's.,gemma-3-4b,5,sarcastic,"A harsh statement implying the Browns lack competence with quarterbacks, likely delivered with irony.",True
+2,The Browns don't know shit when it comes to QB's.,gemma-3-4b,6,sarcastic,"A harsh, exaggerated statement about the Browns' quarterback situation, likely delivered with irony.",True
+2,The Browns don't know shit when it comes to QB's.,gemma-3-4b,7,sarcastic,"A harsh assessment of the Browns' quarterback situation, implying a lack of competence.",True
+2,The Browns don't know shit when it comes to QB's.,gemma-3-4b,8,sarcastic,"A harsh statement criticizing the Browns' quarterback situation, likely intended humorously.",True
+2,The Browns don't know shit when it comes to QB's.,gemma-3-4b,9,sarcastic,"A harsh and exaggerated statement about the Browns' quarterback situation, implying a lack of competence.",True
+3,Mario didn't play as many games,gemma-3-4b,0,literal,Mario has appeared in many games over the years.,True
+3,Mario didn't play as many games,gemma-3-4b,1,literal,Mario has appeared in many games over time.,True
+3,Mario didn't play as many games,gemma-3-4b,2,literal,Mario has appeared in many games over the years.,True
+3,Mario didn't play as many games,gemma-3-4b,3,literal,Mario has appeared in many games over the years.,True
+3,Mario didn't play as many games,gemma-3-4b,4,literal,Mario has appeared in many games across various platforms.,True
+3,Mario didn't play as many games,gemma-3-4b,5,literal,Mario has appeared in numerous games across various platforms.,True
+3,Mario didn't play as many games,gemma-3-4b,6,literal,Mario has appeared in many games across various franchises.,True
+3,Mario didn't play as many games,gemma-3-4b,7,literal,Mario has appeared in many games over time.,True
+3,Mario didn't play as many games,gemma-3-4b,8,literal,Mario has appeared in many different games over the years.,True
+3,Mario didn't play as many games,gemma-3-4b,9,literal,Mario has appeared in many games over the years.,True
+6,"Amazing, there was actually a time when Xbox Live didn't exist.",gemma-3-4b,0,literal,This is a factual statement about the history of Xbox Live.,True
+6,"Amazing, there was actually a time when Xbox Live didn't exist.",gemma-3-4b,1,literal,This is a factual statement about the history of Xbox Live.,True
+6,"Amazing, there was actually a time when Xbox Live didn't exist.",gemma-3-4b,2,literal,This is a factual statement about the history of Xbox Live.,True
+6,"Amazing, there was actually a time when Xbox Live didn't exist.",gemma-3-4b,3,literal,A factual statement about Xbox Live's history.,True
+6,"Amazing, there was actually a time when Xbox Live didn't exist.",gemma-3-4b,4,literal,A historical fact is being stated simply.,True
+6,"Amazing, there was actually a time when Xbox Live didn't exist.",gemma-3-4b,5,literal,This is a factual statement about the history of Xbox Live.,True
+6,"Amazing, there was actually a time when Xbox Live didn't exist.",gemma-3-4b,6,literal,This is a factual statement about the history of Xbox Live.,True
+6,"Amazing, there was actually a time when Xbox Live didn't exist.",gemma-3-4b,7,literal,It's a factual statement about the history of Xbox Live.,True
+6,"Amazing, there was actually a time when Xbox Live didn't exist.",gemma-3-4b,8,literal,This statement is factual and describes a historical event.,True
+6,"Amazing, there was actually a time when Xbox Live didn't exist.",gemma-3-4b,9,literal,"This is a factual statement about Xbox Live's history, not a sarcastic remark.",True
+9,"Synical ploy for SF, there must be an election coming up!",gemma-3-4b,0,sarcastic,"A cynical observation about potential political activity, implying doubt and skepticism.",True
+9,"Synical ploy for SF, there must be an election coming up!",gemma-3-4b,1,sarcastic,Expressing doubt about an upcoming election is often a cynical remark.,True
+9,"Synical ploy for SF, there must be an election coming up!",gemma-3-4b,2,sarcastic,"Expressing disbelief about a potential election, implying it's a manipulative scheme.",True
+9,"Synical ploy for SF, there must be an election coming up!",gemma-3-4b,3,sarcastic,Expressing doubt about an upcoming election; a cynical remark.,True
+9,"Synical ploy for SF, there must be an election coming up!",gemma-3-4b,4,sarcastic,"A cynical expression suggesting a political scheme, implying doubt about an upcoming election.",True
+9,"Synical ploy for SF, there must be an election coming up!",gemma-3-4b,5,sarcastic,Expressing doubt about an upcoming election and suggesting a manipulative strategy.,True
+9,"Synical ploy for SF, there must be an election coming up!",gemma-3-4b,6,sarcastic,"Expressing disbelief about a perceived manipulation or scheme, implying a forthcoming election.",True
+9,"Synical ploy for SF, there must be an election coming up!",gemma-3-4b,7,sarcastic,"Expressing disbelief about an upcoming election, implying a cynical motive.",True
+9,"Synical ploy for SF, there must be an election coming up!",gemma-3-4b,8,sarcastic,"Expressing doubt about a future election, likely with a dismissive tone.",True
+9,"Synical ploy for SF, there must be an election coming up!",gemma-3-4b,9,sarcastic,A cynical statement suggesting an upcoming election is a manipulative tactic.,True
+11,if you're not even lvl 30 on your main account no you are not ready,gemma-3-4b,0,sarcastic,"A dismissive statement implying someone isn't prepared, delivered with irony.",True
+11,if you're not even lvl 30 on your main account no you are not ready,gemma-3-4b,1,sarcastic,"It's a dismissive statement implying lack of readiness, delivered with a hint of mockery.",True
+11,if you're not even lvl 30 on your main account no you are not ready,gemma-3-4b,2,sarcastic,A dismissive statement implying someone is underprepared.,True
+11,if you're not even lvl 30 on your main account no you are not ready,gemma-3-4b,3,sarcastic,A dismissive statement suggesting lack of readiness based on a level requirement.,True
+11,if you're not even lvl 30 on your main account no you are not ready,gemma-3-4b,4,sarcastic,"It's a dismissive statement implying a lack of readiness, delivered with a pointed tone.",True
+11,if you're not even lvl 30 on your main account no you are not ready,gemma-3-4b,5,sarcastic,A dismissive statement implying someone is unprepared.,True
+11,if you're not even lvl 30 on your main account no you are not ready,gemma-3-4b,6,sarcastic,"A dismissive statement implying someone is not prepared, delivered with irony.",True
+11,if you're not even lvl 30 on your main account no you are not ready,gemma-3-4b,7,sarcastic,A dismissive statement implying the speaker doubts the listener's preparedness.,True
+11,if you're not even lvl 30 on your main account no you are not ready,gemma-3-4b,8,sarcastic,A blunt statement implying a lack of readiness based on level.,True
+11,if you're not even lvl 30 on your main account no you are not ready,gemma-3-4b,9,sarcastic,"A blunt statement suggesting someone isn't prepared, delivered with a dismissive tone.",True
+12,because galaxy collapse is a fkin hilarious meme and if you disagree you're obvs wrong,gemma-3-4b,0,sarcastic,"The statement uses inflammatory language and dismisses differing opinions, indicating sarcasm.",True
+12,because galaxy collapse is a fkin hilarious meme and if you disagree you're obvs wrong,gemma-3-4b,1,sarcastic,"The comment expresses amusement and dismisses opposing views with negativity, indicating sarcasm.",True
+12,because galaxy collapse is a fkin hilarious meme and if you disagree you're obvs wrong,gemma-3-4b,2,sarcastic,The user expresses amusement and dismisses disagreement with a strongly negative and disrespectful tone.,True
+12,because galaxy collapse is a fkin hilarious meme and if you disagree you're obvs wrong,gemma-3-4b,3,sarcastic,"The statement uses harsh language and dismisses differing opinions, indicating sarcasm.",True
+12,because galaxy collapse is a fkin hilarious meme and if you disagree you're obvs wrong,gemma-3-4b,4,sarcastic,"The statement uses aggressive language and dismisses differing opinions, indicating sarcasm.",True
+12,because galaxy collapse is a fkin hilarious meme and if you disagree you're obvs wrong,gemma-3-4b,5,sarcastic,"The statement expresses amusement and dismisses disagreement with a confrontational tone, indicating sarcasm.",True
+12,because galaxy collapse is a fkin hilarious meme and if you disagree you're obvs wrong,gemma-3-4b,6,sarcastic,"The statement uses inflammatory language and dismisses differing opinions, indicating sarcasm.",True
+12,because galaxy collapse is a fkin hilarious meme and if you disagree you're obvs wrong,gemma-3-4b,7,sarcastic,"The statement uses inflammatory language and dismisses differing opinions, indicating sarcasm.",True
+12,because galaxy collapse is a fkin hilarious meme and if you disagree you're obvs wrong,gemma-3-4b,8,sarcastic,"The comment expresses a dismissive and mocking tone, indicating sarcasm rather than a genuine belief.",True
+12,because galaxy collapse is a fkin hilarious meme and if you disagree you're obvs wrong,gemma-3-4b,9,sarcastic,"The comment expresses amusement and dismisses differing opinions with a disrespectful tone, indicating sarcasm.",True
+13,That title belongs to Joe Warren.,gemma-3-4b,0,literal,"The statement is straightforward and factual, indicating ownership.",True
+13,That title belongs to Joe Warren.,gemma-3-4b,1,literal,The statement is straightforward and doesn't imply irony or sarcasm.,True
+13,That title belongs to Joe Warren.,gemma-3-4b,2,literal,"The statement is straightforward and factual, presenting a simple attribution.",True
+13,That title belongs to Joe Warren.,gemma-3-4b,3,literal,The statement is a straightforward assertion about ownership.,True
+13,That title belongs to Joe Warren.,gemma-3-4b,4,literal,"The statement is straightforward and factual, not intended to be ironic.",True
+13,That title belongs to Joe Warren.,gemma-3-4b,5,sarcastic,"A seemingly simple statement, potentially masking an underlying meaning.",True
+13,That title belongs to Joe Warren.,gemma-3-4b,6,literal,"The statement is straightforward and factual, indicating ownership.",True
+13,That title belongs to Joe Warren.,gemma-3-4b,7,literal,"Statement of ownership, implying a straightforward assertion.",True
+13,That title belongs to Joe Warren.,gemma-3-4b,8,literal,The statement is a straightforward assertion about ownership.,True
+13,That title belongs to Joe Warren.,gemma-3-4b,9,literal,"The statement is straightforward and factual, indicating ownership.",True
+14,There will be 1 more overlap between port and essenjection next week too,gemma-3-4b,0,sarcastic,"A vague statement suggesting a likely event, potentially implying a negative outcome or frustration.",True
+14,There will be 1 more overlap between port and essenjection next week too,gemma-3-4b,1,sarcastic,"A vague statement implying a frustrating repetition, likely delivered with irony.",True
+14,There will be 1 more overlap between port and essenjection next week too,gemma-3-4b,2,sarcastic,"This statement is likely a meaningless repetition, suggesting sarcasm.",True
+14,There will be 1 more overlap between port and essenjection next week too,gemma-3-4b,3,sarcastic,"This statement seems like a prediction, possibly with a hidden meaning or a frustrated observation about ongoing issues.",True
+14,There will be 1 more overlap between port and essenjection next week too,gemma-3-4b,4,sarcastic,"This statement is likely a pointless observation, suggesting a redundant event.",True
+14,There will be 1 more overlap between port and essenjection next week too,gemma-3-4b,5,sarcastic,"This statement seems overly specific and potentially dubious, suggesting a sarcastic tone.",True
+14,There will be 1 more overlap between port and essenjection next week too,gemma-3-4b,6,sarcastic,"A vague statement implying a predictable, likely undesirable, continuation of a situation.",True
+14,There will be 1 more overlap between port and essenjection next week too,gemma-3-4b,7,sarcastic,"This statement is likely facetious and doesn't convey a serious prediction, implying a lack of clarity or a humorous observation.",True
+14,There will be 1 more overlap between port and essenjection next week too,gemma-3-4b,8,sarcastic,"This statement implies a recurring event, suggesting a potentially frustrating or repetitive situation.",True
+14,There will be 1 more overlap between port and essenjection next week too,gemma-3-4b,9,sarcastic,"This statement is likely a confused observation, not a prediction of a definite event.",True
+16,It's a fake according to Aston Martin!,gemma-3-4b,0,sarcastic,"Aston Martin's statement suggests doubt, implying a fabricated claim.",True
+16,It's a fake according to Aston Martin!,gemma-3-4b,1,sarcastic,"Aston Martin confirms it's not genuine, implying a falsehood.",True
+16,It's a fake according to Aston Martin!,gemma-3-4b,2,sarcastic,Aston Martin stating it's fake suggests doubt and disbelief.,True
+16,It's a fake according to Aston Martin!,gemma-3-4b,3,sarcastic,Aston Martin stating something is fake suggests doubt or disbelief.,True
+16,It's a fake according to Aston Martin!,gemma-3-4b,4,sarcastic,"Aston Martin claims it's fake, implying doubt and disbelief about the item's authenticity.",True
+16,It's a fake according to Aston Martin!,gemma-3-4b,5,sarcastic,"Aston Martin claims it's fake, implying doubt and skepticism.",True
+16,It's a fake according to Aston Martin!,gemma-3-4b,6,sarcastic,"Aston Martin claims it's fake, implying doubt and skepticism.",True
+16,It's a fake according to Aston Martin!,gemma-3-4b,7,sarcastic,"Aston Martin claims it's fake, implying doubt or deception.",True
+16,It's a fake according to Aston Martin!,gemma-3-4b,8,sarcastic,"Aston Martin denies authenticity, implying a falsehood.",True
+16,It's a fake according to Aston Martin!,gemma-3-4b,9,sarcastic,"Aston Martin claims it's fake, implying doubt or disbelief about the claim.",True
+18,Can confirm they were at the scrimmage.,gemma-3-4b,0,literal,A simple statement of fact about attendance.,True
+18,Can confirm they were at the scrimmage.,gemma-3-4b,1,literal,This statement is a straightforward confirmation of an event.,True
+18,Can confirm they were at the scrimmage.,gemma-3-4b,2,literal,A simple statement of fact confirming attendance.,True
+18,Can confirm they were at the scrimmage.,gemma-3-4b,3,literal,Statement confirms a prior event. No sarcasm present.,True
+18,Can confirm they were at the scrimmage.,gemma-3-4b,4,literal,Simply stating a fact about attendance at a scrimmage.,True
+18,Can confirm they were at the scrimmage.,gemma-3-4b,5,literal,A simple confirmation of a previously stated fact.,True
+18,Can confirm they were at the scrimmage.,gemma-3-4b,6,literal,Simple statement of fact about attendance at a scrimmage.,True
+18,Can confirm they were at the scrimmage.,gemma-3-4b,7,literal,A simple statement of fact confirming attendance.,True
+18,Can confirm they were at the scrimmage.,gemma-3-4b,8,literal,A straightforward confirmation of a previously stated fact.,True
+18,Can confirm they were at the scrimmage.,gemma-3-4b,9,literal,This statement confirms a known fact about attendance.,True
+19,"Would be an exceedingly easy website to make responsive as well, no real complexities in the design.",gemma-3-4b,0,literal,"The claim suggests straightforward design, implying ease of responsiveness without artificial difficulty.",True
+19,"Would be an exceedingly easy website to make responsive as well, no real complexities in the design.",gemma-3-4b,1,literal,"The statement suggests straightforward responsiveness, indicating a literal assessment of the website's design.",True
+19,"Would be an exceedingly easy website to make responsive as well, no real complexities in the design.",gemma-3-4b,2,literal,"The statement expresses confidence in the website's design simplicity, indicating a straightforward and factual assessment.",True
+19,"Would be an exceedingly easy website to make responsive as well, no real complexities in the design.",gemma-3-4b,3,literal,"The statement implies straightforward design and ease of responsiveness, suggesting a straightforward assessment.",True
+19,"Would be an exceedingly easy website to make responsive as well, no real complexities in the design.",gemma-3-4b,4,literal,"The statement describes a simple website design, implying straightforward implementation.",True
+19,"Would be an exceedingly easy website to make responsive as well, no real complexities in the design.",gemma-3-4b,5,literal,"The statement describes a simple, straightforward website design process, indicating a literal assessment.",True
+19,"Would be an exceedingly easy website to make responsive as well, no real complexities in the design.",gemma-3-4b,6,literal,"The statement implies straightforward design, suggesting a simple and manageable website creation process.",True
+19,"Would be an exceedingly easy website to make responsive as well, no real complexities in the design.",gemma-3-4b,7,literal,"The statement describes a straightforward website design, implying simplicity and ease of implementation.",True
+19,"Would be an exceedingly easy website to make responsive as well, no real complexities in the design.",gemma-3-4b,8,literal,"The claim states a simple, straightforward website design, indicating a literal assessment.",True
+19,"Would be an exceedingly easy website to make responsive as well, no real complexities in the design.",gemma-3-4b,9,literal,"The claim states a straightforward, uncomplicated process for creating a responsive website.",True
+21,I hope she owns that pharmacy in a year or two.,gemma-3-4b,0,sarcastic,"Expressing a wishful, potentially unrealistic desire, suggesting sarcasm.",True
+21,I hope she owns that pharmacy in a year or two.,gemma-3-4b,1,sarcastic,"Expressing a desire for something unlikely, implying disbelief or mockery.",True
+21,I hope she owns that pharmacy in a year or two.,gemma-3-4b,2,sarcastic,"Expressing a wish that's unlikely to happen, implying doubt or irony.",True
+21,I hope she owns that pharmacy in a year or two.,gemma-3-4b,3,sarcastic,"Expressing a wish that is unlikely to come true, implying a cynical or humorous tone.",True
+21,I hope she owns that pharmacy in a year or two.,gemma-3-4b,4,sarcastic,"Expressing a desire implies a lack of genuine hope, suggesting sarcasm.",True
+21,I hope she owns that pharmacy in a year or two.,gemma-3-4b,5,sarcastic,Expressing a wish with a tone implying disbelief or mockery,True
+21,I hope she owns that pharmacy in a year or two.,gemma-3-4b,6,sarcastic,"Expressing a wish that is unlikely to happen, implying a negative sentiment.",True
+21,I hope she owns that pharmacy in a year or two.,gemma-3-4b,7,sarcastic,"Expressing a wish implies a lack of belief, suggesting sarcasm.",True
+21,I hope she owns that pharmacy in a year or two.,gemma-3-4b,8,sarcastic,"Expressing a desire for something unlikely or improbable, implying the opposite is true.",True
+21,I hope she owns that pharmacy in a year or two.,gemma-3-4b,9,sarcastic,"Expressing a wish for something unlikely, implying skepticism about her success.",True
+22,0/10 missed the widow mine at the end,gemma-3-4b,0,sarcastic,"Expressing dissatisfaction with a missed opportunity, delivered with mock criticism.",True
+22,0/10 missed the widow mine at the end,gemma-3-4b,1,sarcastic,"The claim expresses dissatisfaction with a missed opportunity, implying a negative experience.",True
+22,0/10 missed the widow mine at the end,gemma-3-4b,2,sarcastic,Expressing disappointment about missing a crucial detail in a game.,True
+22,0/10 missed the widow mine at the end,gemma-3-4b,3,sarcastic,"A terrible gaming experience, expressing disappointment with a missed opportunity.",True
+22,0/10 missed the widow mine at the end,gemma-3-4b,4,sarcastic,"The comment expresses disappointment and mocks the missed opportunity, implying a negative experience.",True
+22,0/10 missed the widow mine at the end,gemma-3-4b,5,sarcastic,Expressing disappointment about a missed opportunity in a humorous way.,True
+22,0/10 missed the widow mine at the end,gemma-3-4b,6,sarcastic,"The user expresses dissatisfaction and mockery of a missed opportunity, indicating a sarcastic tone.",True
+22,0/10 missed the widow mine at the end,gemma-3-4b,7,sarcastic,"Expresses dissatisfaction with a missed opportunity, implying a negative experience.",True
+22,0/10 missed the widow mine at the end,gemma-3-4b,8,sarcastic,"The statement expresses extreme dissatisfaction with a missed opportunity, indicating sarcasm.",True
+22,0/10 missed the widow mine at the end,gemma-3-4b,9,sarcastic,"Expressing dissatisfaction with a missed opportunity, implying a poor experience.",True
+23,"What, do you want them NOT to work?",gemma-3-4b,0,sarcastic,The question implies a disbelief or mockery of a request.,True
+23,"What, do you want them NOT to work?",gemma-3-4b,1,sarcastic,"A rhetorical question implying the obvious, indicating disbelief or frustration.",True
+23,"What, do you want them NOT to work?",gemma-3-4b,2,sarcastic,A rhetorical question implying disbelief or annoyance at a request.,True
+23,"What, do you want them NOT to work?",gemma-3-4b,3,sarcastic,A rhetorical question implying the expected action is already happening.,True
+23,"What, do you want them NOT to work?",gemma-3-4b,4,sarcastic,"The question implies disbelief and mockery, suggesting a literal response would be absurd.",True
+23,"What, do you want them NOT to work?",gemma-3-4b,5,sarcastic,Expressing disbelief or mockery through rhetorical questions.,True
+23,"What, do you want them NOT to work?",gemma-3-4b,6,sarcastic,The statement implies disbelief and a mocking tone regarding a request.,True
+23,"What, do you want them NOT to work?",gemma-3-4b,7,sarcastic,A rhetorical question implying the obvious necessity of work.,True
+23,"What, do you want them NOT to work?",gemma-3-4b,8,sarcastic,A rhetorical question implying the obvious is already happening.,True
+23,"What, do you want them NOT to work?",gemma-3-4b,9,sarcastic,A rhetorical question implying the obvious is being questioned.,True
+24,"Even though its never revealed he is Gay, he is definitely gay for being a male hairdresser right?",gemma-3-4b,0,sarcastic,"The statement is clearly a humorous and presumptive assertion, relying on stereotypes and assumptions.",True
+24,"Even though its never revealed he is Gay, he is definitely gay for being a male hairdresser right?",gemma-3-4b,1,sarcastic,"The statement is highly suggestive and uses phrasing implying an obvious conclusion, indicating sarcasm.",True
+24,"Even though its never revealed he is Gay, he is definitely gay for being a male hairdresser right?",gemma-3-4b,2,sarcastic,The claim is heavily laden with implication and questions his sexuality despite lacking evidence.,True
+24,"Even though its never revealed he is Gay, he is definitely gay for being a male hairdresser right?",gemma-3-4b,3,sarcastic,"The statement implies a conclusion despite lack of evidence, expressing a playful and arguably absurd assertion.",True
+24,"Even though its never revealed he is Gay, he is definitely gay for being a male hairdresser right?",gemma-3-4b,4,sarcastic,The claim uses exaggerated language and assumptions to imply the opposite of what it states.,True
+24,"Even though its never revealed he is Gay, he is definitely gay for being a male hairdresser right?",gemma-3-4b,5,sarcastic,"The claim uses exaggerated language and implies a ridiculous assumption, indicating sarcasm.",True
+24,"Even though its never revealed he is Gay, he is definitely gay for being a male hairdresser right?",gemma-3-4b,6,sarcastic,"The statement implies a conclusion despite lacking evidence, suggesting a sarcastic tone and presumptuousness.",True
+24,"Even though its never revealed he is Gay, he is definitely gay for being a male hairdresser right?",gemma-3-4b,7,sarcastic,"The statement implies a conclusion based on speculation and a biased assumption, suggesting sarcasm.",True
+24,"Even though its never revealed he is Gay, he is definitely gay for being a male hairdresser right?",gemma-3-4b,8,sarcastic,"The statement implies a conclusion based on speculation, expressing disbelief and mockery.",True
+24,"Even though its never revealed he is Gay, he is definitely gay for being a male hairdresser right?",gemma-3-4b,9,sarcastic,The statement uses excessive phrasing and assumptions to imply a humorous and likely incorrect conclusion about someone's sexual orientation.,True
+25,"Thank god this oil will keep flowing for months, allowing them ample time to update said technologies.",gemma-3-4b,0,sarcastic,"The statement expresses doubt about technological updates while seemingly accepting the oil flow, suggesting sarcasm.",True
+25,"Thank god this oil will keep flowing for months, allowing them ample time to update said technologies.",gemma-3-4b,1,sarcastic,"The statement implies frustration with slow technological advancements, suggesting a lack of genuine gratitude.",True
+25,"Thank god this oil will keep flowing for months, allowing them ample time to update said technologies.",gemma-3-4b,2,sarcastic,"The statement implies frustration with slow technological advancements, suggesting a critical and skeptical tone.",True
+25,"Thank god this oil will keep flowing for months, allowing them ample time to update said technologies.",gemma-3-4b,3,sarcastic,"The statement implies doubt about technological updates, using a dismissive tone to suggest a lack of progress.",True
+25,"Thank god this oil will keep flowing for months, allowing them ample time to update said technologies.",gemma-3-4b,4,sarcastic,"The statement implies doubt about the oil's continued flow and the effectiveness of technological updates, suggesting a sarcastic tone.",True
+25,"Thank god this oil will keep flowing for months, allowing them ample time to update said technologies.",gemma-3-4b,5,sarcastic,"The statement expresses relief but implies a lack of progress, suggesting sarcasm.",True
+25,"Thank god this oil will keep flowing for months, allowing them ample time to update said technologies.",gemma-3-4b,6,sarcastic,"The statement expresses doubt about technological updates, implying a negative outlook despite a seemingly positive assertion.",True
+25,"Thank god this oil will keep flowing for months, allowing them ample time to update said technologies.",gemma-3-4b,7,sarcastic,"The statement expresses doubt about technological updates, implying a negative outcome despite the stated optimism.",True
+25,"Thank god this oil will keep flowing for months, allowing them ample time to update said technologies.",gemma-3-4b,8,sarcastic,"The statement implies frustration with delays, suggesting a critical and mocking tone.",True
+25,"Thank god this oil will keep flowing for months, allowing them ample time to update said technologies.",gemma-3-4b,9,sarcastic,"The statement implies frustration with slow technological updates despite the oil supply, expressing a skeptical tone.",True
+26,"Way to focus on the issues, gentleman.",gemma-3-4b,0,sarcastic,A mocking remark highlighting a lack of attention to important matters.,True
+26,"Way to focus on the issues, gentleman.",gemma-3-4b,1,sarcastic,"A dismissive remark highlighting a lack of focus, implying disapproval with a tone of irony.",True
+26,"Way to focus on the issues, gentleman.",gemma-3-4b,2,sarcastic,A mocking statement implying a lack of attention to important matters.,True
+26,"Way to focus on the issues, gentleman.",gemma-3-4b,3,sarcastic,A dismissive remark implying a lack of focus and criticism.,True
+26,"Way to focus on the issues, gentleman.",gemma-3-4b,4,sarcastic,A dismissive remark implying someone is overly concerned with trivial matters.,True
+26,"Way to focus on the issues, gentleman.",gemma-3-4b,5,sarcastic,A dismissive remark implying someone is not addressing important problems effectively.,True
+26,"Way to focus on the issues, gentleman.",gemma-3-4b,6,sarcastic,A dismissive remark implying a lack of seriousness or attention to important matters.,True
+26,"Way to focus on the issues, gentleman.",gemma-3-4b,7,sarcastic,A pointed remark suggesting someone is not addressing important matters effectively.,True
+26,"Way to focus on the issues, gentleman.",gemma-3-4b,8,sarcastic,A dismissive and critical remark implying a lack of seriousness.,True
+26,"Way to focus on the issues, gentleman.",gemma-3-4b,9,sarcastic,"A pointed remark criticizing someone's narrow focus, implying a lack of understanding.",True
+27,The only solution is for citizens to give up their only defense and trust the government will keep us safe.,gemma-3-4b,0,sarcastic,"This statement implies skepticism about government protection, suggesting a distrustful perspective.",True
+27,The only solution is for citizens to give up their only defense and trust the government will keep us safe.,gemma-3-4b,1,sarcastic,"This statement implies distrust and suggests a reliance on potentially unreliable authority, indicating sarcasm.",True
+27,The only solution is for citizens to give up their only defense and trust the government will keep us safe.,gemma-3-4b,2,sarcastic,"This statement suggests a lack of faith in government, implying a critical and distrustful perspective.",True
+27,The only solution is for citizens to give up their only defense and trust the government will keep us safe.,gemma-3-4b,3,sarcastic,"This statement implies a distrust of government and suggests a negative outcome, likely sarcasm.",True
+27,The only solution is for citizens to give up their only defense and trust the government will keep us safe.,gemma-3-4b,4,sarcastic,A cynical statement implying distrust in authorities and questioning the validity of relying on government protection.,True
+27,The only solution is for citizens to give up their only defense and trust the government will keep us safe.,gemma-3-4b,5,sarcastic,"This statement expresses distrust and suggests a bleak outlook, implying a cynical perspective.",True
+27,The only solution is for citizens to give up their only defense and trust the government will keep us safe.,gemma-3-4b,6,sarcastic,"This statement expresses doubt about government protection, implying a critical and distrustful perspective.",True
+27,The only solution is for citizens to give up their only defense and trust the government will keep us safe.,gemma-3-4b,7,sarcastic,"A cynical statement expressing doubt about government protection, implying a negative outcome.",True
+27,The only solution is for citizens to give up their only defense and trust the government will keep us safe.,gemma-3-4b,8,sarcastic,"This expresses distrust and suggests a bleak outlook, implying the claim is not genuine.",True
+27,The only solution is for citizens to give up their only defense and trust the government will keep us safe.,gemma-3-4b,9,sarcastic,"This statement implies distrust and suggests a negative outcome, indicating sarcasm.",True
+28,"LOL Thanks Rito for that sweet animation that gives me 7 minutes of joy rather than a new champion that would give me 10,000 minutes.",gemma-3-4b,0,sarcastic,Expressing mock gratitude for a minor feature while highlighting a more desirable alternative.,True
+28,"LOL Thanks Rito for that sweet animation that gives me 7 minutes of joy rather than a new champion that would give me 10,000 minutes.",gemma-3-4b,1,sarcastic,"Expressing frustration with a lack of useful content, highlighting the disappointment with the animation over a potential champion.",True
+28,"LOL Thanks Rito for that sweet animation that gives me 7 minutes of joy rather than a new champion that would give me 10,000 minutes.",gemma-3-4b,2,sarcastic,"Expressing annoyance at a lack of desired outcome, using irony.",True
+28,"LOL Thanks Rito for that sweet animation that gives me 7 minutes of joy rather than a new champion that would give me 10,000 minutes.",gemma-3-4b,3,sarcastic,The speaker is mocking the game's animation and highlighting its lack of substance compared to a new champion.,True
+28,"LOL Thanks Rito for that sweet animation that gives me 7 minutes of joy rather than a new champion that would give me 10,000 minutes.",gemma-3-4b,4,sarcastic,Expresses frustration with the current state of the game compared to desired improvements.,True
+28,"LOL Thanks Rito for that sweet animation that gives me 7 minutes of joy rather than a new champion that would give me 10,000 minutes.",gemma-3-4b,5,sarcastic,The speaker is mocking the lack of meaningful content in the game.,True
+28,"LOL Thanks Rito for that sweet animation that gives me 7 minutes of joy rather than a new champion that would give me 10,000 minutes.",gemma-3-4b,6,sarcastic,Expressing mock gratitude for a minor benefit while highlighting a significant disadvantage.,True
+28,"LOL Thanks Rito for that sweet animation that gives me 7 minutes of joy rather than a new champion that would give me 10,000 minutes.",gemma-3-4b,7,sarcastic,Exaggerated praise highlighting the lack of a significant benefit.,True
+28,"LOL Thanks Rito for that sweet animation that gives me 7 minutes of joy rather than a new champion that would give me 10,000 minutes.",gemma-3-4b,8,sarcastic,Expressing frustration with a disappointing update instead of a positive one.,True
+28,"LOL Thanks Rito for that sweet animation that gives me 7 minutes of joy rather than a new champion that would give me 10,000 minutes.",gemma-3-4b,9,sarcastic,The speaker is expressing frustration with a lack of progress and mocking the situation with a playful tone.,True
+30,"As a Norwegian, I am livid with their absolute humiliation of my people with this blatant example of cultural appropriation.",gemma-3-4b,0,sarcastic,"The speaker's strong emotional reaction suggests a sarcastic tone, expressing outrage and disapproval.",True
+30,"As a Norwegian, I am livid with their absolute humiliation of my people with this blatant example of cultural appropriation.",gemma-3-4b,1,sarcastic,"Expressing outrage over cultural appropriation, likely fueled by irony.",True
+30,"As a Norwegian, I am livid with their absolute humiliation of my people with this blatant example of cultural appropriation.",gemma-3-4b,2,sarcastic,Expressing outrage over cultural appropriation suggests a sarcastic tone and emotional response.,True
+30,"As a Norwegian, I am livid with their absolute humiliation of my people with this blatant example of cultural appropriation.",gemma-3-4b,3,sarcastic,"Expressing outrage over cultural appropriation suggests a sarcastic tone, not genuine feeling.",True
+30,"As a Norwegian, I am livid with their absolute humiliation of my people with this blatant example of cultural appropriation.",gemma-3-4b,4,sarcastic,"The speaker expresses extreme anger, implying a sarcastic tone despite the factual claim of cultural appropriation.",True
+30,"As a Norwegian, I am livid with their absolute humiliation of my people with this blatant example of cultural appropriation.",gemma-3-4b,5,sarcastic,"Expresses strong emotion and perceived injustice, suggesting a heightened and possibly exaggerated reaction.",True
+30,"As a Norwegian, I am livid with their absolute humiliation of my people with this blatant example of cultural appropriation.",gemma-3-4b,6,sarcastic,"Expressing outrage over cultural appropriation, implying a strong negative reaction and potential irony.",True
+30,"As a Norwegian, I am livid with their absolute humiliation of my people with this blatant example of cultural appropriation.",gemma-3-4b,7,sarcastic,Expressing outrage over cultural appropriation suggests a critical and potentially ironic tone.,True
+30,"As a Norwegian, I am livid with their absolute humiliation of my people with this blatant example of cultural appropriation.",gemma-3-4b,8,sarcastic,"Expressing outrage over cultural appropriation suggests a heightened emotional response, indicating sarcasm.",True
+30,"As a Norwegian, I am livid with their absolute humiliation of my people with this blatant example of cultural appropriation.",gemma-3-4b,9,sarcastic,"Expressing outrage over perceived injustice, suggesting a critical and possibly exaggerated perspective.",True
+31,"Came to look at the comments, was not disappointed",gemma-3-4b,0,sarcastic,"Implies a negative experience despite the stated action, suggesting sarcasm.",True
+31,"Came to look at the comments, was not disappointed",gemma-3-4b,1,sarcastic,The statement implies dissatisfaction despite the action taken.,True
+31,"Came to look at the comments, was not disappointed",gemma-3-4b,2,sarcastic,Implies a negative experience despite expecting something good.,True
+31,"Came to look at the comments, was not disappointed",gemma-3-4b,3,sarcastic,"Implies a negative experience despite stating satisfaction, suggesting sarcasm.",True
+31,"Came to look at the comments, was not disappointed",gemma-3-4b,4,sarcastic,"Implies a negative experience despite appearing positive, indicating sarcasm.",True
+31,"Came to look at the comments, was not disappointed",gemma-3-4b,5,sarcastic,"Expressing dissatisfaction despite appearing pleased, indicating sarcasm.",True
+31,"Came to look at the comments, was not disappointed",gemma-3-4b,6,sarcastic,"The comment implies a negative experience despite stating no disappointment, suggesting sarcasm.",True
+31,"Came to look at the comments, was not disappointed",gemma-3-4b,7,sarcastic,"The comment implies disappointment despite stating no disappointment, indicating sarcasm.",True
+31,"Came to look at the comments, was not disappointed",gemma-3-4b,8,sarcastic,"Implies a negative experience despite stating a lack of disappointment, indicating sarcasm.",True
+31,"Came to look at the comments, was not disappointed",gemma-3-4b,9,sarcastic,"The comment implies dissatisfaction despite the stated action, suggesting sarcasm.",True
+32,"a masked group pelted police with stones and shot fireworks at them, the semi-official Anatolia news agency reported What exactly is a 10 year old doing amongst these people?",gemma-3-4b,0,sarcastic,"The question implies disbelief and highlights the unusual nature of the events, suggesting a sarcastic tone.",True
+32,"a masked group pelted police with stones and shot fireworks at them, the semi-official Anatolia news agency reported What exactly is a 10 year old doing amongst these people?",gemma-3-4b,1,sarcastic,"The question highlights the absurdity of a child's presence, implying a chaotic and unsettling situation.",True
+32,"a masked group pelted police with stones and shot fireworks at them, the semi-official Anatolia news agency reported What exactly is a 10 year old doing amongst these people?",gemma-3-4b,2,sarcastic,"The question implies disbelief and highlights an unusual situation, suggesting a sarcastic tone.",True
+32,"a masked group pelted police with stones and shot fireworks at them, the semi-official Anatolia news agency reported What exactly is a 10 year old doing amongst these people?",gemma-3-4b,3,sarcastic,"The question implies disbelief and highlights an unusual situation, suggesting sarcasm.",True
+32,"a masked group pelted police with stones and shot fireworks at them, the semi-official Anatolia news agency reported What exactly is a 10 year old doing amongst these people?",gemma-3-4b,4,sarcastic,"The claim implies bewilderment and raises questions about a child's involvement, suggesting a critical and somewhat skeptical perspective.",True
+32,"a masked group pelted police with stones and shot fireworks at them, the semi-official Anatolia news agency reported What exactly is a 10 year old doing amongst these people?",gemma-3-4b,5,sarcastic,"The question implies disbelief and suggests inappropriate behavior, indicating sarcasm.",True
+32,"a masked group pelted police with stones and shot fireworks at them, the semi-official Anatolia news agency reported What exactly is a 10 year old doing amongst these people?",gemma-3-4b,6,sarcastic,"The claim highlights unusual and potentially dangerous behavior, raising questions about the situation.",True
+32,"a masked group pelted police with stones and shot fireworks at them, the semi-official Anatolia news agency reported What exactly is a 10 year old doing amongst these people?",gemma-3-4b,7,sarcastic,"The question implies disbelief and highlights the absurdity of the situation, suggesting a sarcastic tone.",True
+32,"a masked group pelted police with stones and shot fireworks at them, the semi-official Anatolia news agency reported What exactly is a 10 year old doing amongst these people?",gemma-3-4b,8,sarcastic,"The question implies disbelief and highlights the absurdity of the scene, suggesting a sarcastic tone.",True
+32,"a masked group pelted police with stones and shot fireworks at them, the semi-official Anatolia news agency reported What exactly is a 10 year old doing amongst these people?",gemma-3-4b,9,sarcastic,"The question raises doubts about the actions of a child, suggesting a critical perspective on the events described.",True
+33,If you account for inflation it would be worth 23 USD in 2007.,gemma-3-4b,0,literal,"This statement presents a factual comparison of value considering inflation, suggesting a straightforward assessment.",True
+33,If you account for inflation it would be worth 23 USD in 2007.,gemma-3-4b,1,literal,"Considering inflation, the value remains approximately 23 USD in 2007.",True
+33,If you account for inflation it would be worth 23 USD in 2007.,gemma-3-4b,2,literal,"This statement presents a factual comparison, assuming a value adjustment for inflation.",True
+33,If you account for inflation it would be worth 23 USD in 2007.,gemma-3-4b,3,literal,"This statement presents a factual assessment of value, not sarcasm.",True
+33,If you account for inflation it would be worth 23 USD in 2007.,gemma-3-4b,4,literal,"The claim represents a factual valuation considering inflation, a straightforward assessment.",True
+33,If you account for inflation it would be worth 23 USD in 2007.,gemma-3-4b,5,literal,The value of the item would be approximately 23 USD when adjusted for inflation in 2007.,True
+33,If you account for inflation it would be worth 23 USD in 2007.,gemma-3-4b,6,literal,"The statement implies a monetary value, suggesting a factual assessment rather than sarcasm.",True
+33,If you account for inflation it would be worth 23 USD in 2007.,gemma-3-4b,7,literal,"Considering inflation adjusts the value of money over time, this statement reflects a realistic assessment.",True
+33,If you account for inflation it would be worth 23 USD in 2007.,gemma-3-4b,8,literal,"The claim states a value after accounting for inflation, suggesting a straightforward statement of worth.",True
+33,If you account for inflation it would be worth 23 USD in 2007.,gemma-3-4b,9,literal,"This statement describes a financial valuation, not sarcasm.",True
+35,Shouldn't you use PS4/XB1 for this?,gemma-3-4b,0,sarcastic,"Suggesting alternatives implies the current option is inadequate, indicating sarcasm.",True
+35,Shouldn't you use PS4/XB1 for this?,gemma-3-4b,1,sarcastic,"The question implies a suggestion, possibly derisively, that the user should be using a different console.",True
+35,Shouldn't you use PS4/XB1 for this?,gemma-3-4b,2,sarcastic,"Suggesting an alternative implies the current option is inadequate, hinting at sarcasm.",True
+35,Shouldn't you use PS4/XB1 for this?,gemma-3-4b,3,sarcastic,"Suggesting alternatives implies a mocking tone, indicating sarcasm.",True
+35,Shouldn't you use PS4/XB1 for this?,gemma-3-4b,4,sarcastic,"Suggesting a better alternative implies the current choice is inadequate, indicating sarcasm.",True
+35,Shouldn't you use PS4/XB1 for this?,gemma-3-4b,5,sarcastic,Suggesting using outdated consoles is obviously a jab.,True
+35,Shouldn't you use PS4/XB1 for this?,gemma-3-4b,6,sarcastic,Suggesting an alternative implies disbelief or mockery of the current situation.,True
+35,Shouldn't you use PS4/XB1 for this?,gemma-3-4b,7,sarcastic,"Implies a better option exists, suggesting a humorous or critical response.",True
+35,Shouldn't you use PS4/XB1 for this?,gemma-3-4b,8,sarcastic,Implies the user thinks using outdated consoles is ridiculous.,True
+35,Shouldn't you use PS4/XB1 for this?,gemma-3-4b,9,sarcastic,Implies the user thinks the suggestion is absurd.,True
+37,I much prefer seeing pictures that belong on Facebook here instead of really interesting pictures like these.,gemma-3-4b,0,sarcastic,"The speaker implies they dislike the current pictures and prefer Facebook images, suggesting a sarcastic tone.",True
+37,I much prefer seeing pictures that belong on Facebook here instead of really interesting pictures like these.,gemma-3-4b,1,sarcastic,"The speaker expresses a preference for Facebook pictures, implying a disdain for the current images.",True
+37,I much prefer seeing pictures that belong on Facebook here instead of really interesting pictures like these.,gemma-3-4b,2,sarcastic,Expressing a preference for less engaging content to highlight the dullness of the current pictures.,True
+37,I much prefer seeing pictures that belong on Facebook here instead of really interesting pictures like these.,gemma-3-4b,3,sarcastic,Expressing a preference for less interesting images suggests sarcasm and criticism.,True
+37,I much prefer seeing pictures that belong on Facebook here instead of really interesting pictures like these.,gemma-3-4b,4,sarcastic,"The speaker implies they dislike the current pictures, suggesting a preference for better alternatives.",True
+37,I much prefer seeing pictures that belong on Facebook here instead of really interesting pictures like these.,gemma-3-4b,5,sarcastic,"The speaker dislikes the provided images, implying a preference for Facebook content.",True
+37,I much prefer seeing pictures that belong on Facebook here instead of really interesting pictures like these.,gemma-3-4b,6,sarcastic,"The speaker is expressing a preference for less engaging content, implying a critical and somewhat mocking tone.",True
+37,I much prefer seeing pictures that belong on Facebook here instead of really interesting pictures like these.,gemma-3-4b,7,sarcastic,"The speaker implies they dislike the current images, suggesting a preference for Facebook content.",True
+37,I much prefer seeing pictures that belong on Facebook here instead of really interesting pictures like these.,gemma-3-4b,8,sarcastic,"The speaker expresses a preference for Facebook pictures over the given images, implying a critical or mocking tone.",True
+37,I much prefer seeing pictures that belong on Facebook here instead of really interesting pictures like these.,gemma-3-4b,9,sarcastic,"Expressing a preference for less interesting images implies a critical and mocking tone, indicating sarcasm.",True
+38,it's in the rusted metal tin on the shelf @1:11,gemma-3-4b,0,literal,Referring to a specific location and object in a video.,True
+38,it's in the rusted metal tin on the shelf @1:11,gemma-3-4b,1,literal,Simply stating a location and time reference; no sarcasm involved.,True
+38,it's in the rusted metal tin on the shelf @1:11,gemma-3-4b,2,literal,A straightforward observation about a location and time.,True
+38,it's in the rusted metal tin on the shelf @1:11,gemma-3-4b,3,literal,"Describes a location and time, implying a straightforward observation.",True
+38,it's in the rusted metal tin on the shelf @1:11,gemma-3-4b,4,literal,Referring to a specific location and object described in the statement.,True
+38,it's in the rusted metal tin on the shelf @1:11,gemma-3-4b,5,literal,Describes a location of an object.,True
+38,it's in the rusted metal tin on the shelf @1:11,gemma-3-4b,6,literal,The statement simply describes a location of an object.,True
+38,it's in the rusted metal tin on the shelf @1:11,gemma-3-4b,7,literal,The statement describes a physical location of an object.,True
+38,it's in the rusted metal tin on the shelf @1:11,gemma-3-4b,8,literal,Describes a physical location of an item.,True
+38,it's in the rusted metal tin on the shelf @1:11,gemma-3-4b,9,literal,Describes a physical location and time.,True
+39,"What a bunch of big guys, beating up a defenseless girl huddled on the ground.",gemma-3-4b,0,sarcastic,"This describes a violent and upsetting scene, implying disapproval and highlighting injustice.",True
+39,"What a bunch of big guys, beating up a defenseless girl huddled on the ground.",gemma-3-4b,1,sarcastic,"Expressing outrage at a cruel and unfair situation, highlighting injustice.",True
+39,"What a bunch of big guys, beating up a defenseless girl huddled on the ground.",gemma-3-4b,2,sarcastic,"This statement highlights injustice and cruelty, implying disapproval.",True
+39,"What a bunch of big guys, beating up a defenseless girl huddled on the ground.",gemma-3-4b,3,sarcastic,Expressing disapproval of violence and injustice through ironic commentary.,True
+39,"What a bunch of big guys, beating up a defenseless girl huddled on the ground.",gemma-3-4b,4,sarcastic,"The statement describes violent behavior, implying disapproval and highlighting injustice.",True
+39,"What a bunch of big guys, beating up a defenseless girl huddled on the ground.",gemma-3-4b,5,sarcastic,"This statement highlights injustice and cruelty, implying a critical perspective.",True
+39,"What a bunch of big guys, beating up a defenseless girl huddled on the ground.",gemma-3-4b,6,sarcastic,Clearly an unfair and troubling situation requiring immediate action.,True
+39,"What a bunch of big guys, beating up a defenseless girl huddled on the ground.",gemma-3-4b,7,sarcastic,"This describes an unjust and violent situation, implying disapproval.",True
+39,"What a bunch of big guys, beating up a defenseless girl huddled on the ground.",gemma-3-4b,8,sarcastic,The statement highlights an injustice and suggests a negative reaction to the situation.,True
+39,"What a bunch of big guys, beating up a defenseless girl huddled on the ground.",gemma-3-4b,9,sarcastic,"Clearly an unjust and upsetting situation, highlighting a cruel reality.",True
+43,As long as the breakfast included bacon it should be considered acceptable.,gemma-3-4b,0,sarcastic,"A somewhat humorous assertion about breakfast quality, implying it's not truly serious.",True
+43,As long as the breakfast included bacon it should be considered acceptable.,gemma-3-4b,1,sarcastic,A somewhat unreasonable and overly specific expectation of breakfast quality.,True
+43,As long as the breakfast included bacon it should be considered acceptable.,gemma-3-4b,2,sarcastic,A slightly picky preference for bacon doesn't warrant sarcasm.,True
+43,As long as the breakfast included bacon it should be considered acceptable.,gemma-3-4b,3,sarcastic,A somewhat unreasonable requirement for a meal; humor is implied.,True
+43,As long as the breakfast included bacon it should be considered acceptable.,gemma-3-4b,4,sarcastic,A slightly unreasonable preference for bacon breakfast is presented humorously.,True
+43,As long as the breakfast included bacon it should be considered acceptable.,gemma-3-4b,5,sarcastic,A somewhat unreasonable statement suggesting bacon is a necessity for acceptable breakfast.,True
+43,As long as the breakfast included bacon it should be considered acceptable.,gemma-3-4b,6,sarcastic,"A somewhat unreasonable preference, implying a lack of seriousness.",True
+43,As long as the breakfast included bacon it should be considered acceptable.,gemma-3-4b,7,sarcastic,A somewhat unreasonable preference for bacon indicates a sarcastic tone.,True
+43,As long as the breakfast included bacon it should be considered acceptable.,gemma-3-4b,8,sarcastic,A somewhat unreasonable expectation of breakfast quality is implied.,True
+43,As long as the breakfast included bacon it should be considered acceptable.,gemma-3-4b,9,sarcastic,A somewhat unreasonable statement implying satisfaction with a basic breakfast.,True
+44,"Well he showed he can score on Saturday, so I guess it makes sense",gemma-3-4b,0,sarcastic,"The statement implies disbelief despite the observed action, indicating sarcasm.",True
+44,"Well he showed he can score on Saturday, so I guess it makes sense",gemma-3-4b,1,sarcastic,"A somewhat cynical statement about a positive event, suggesting disbelief or doubt.",True
+44,"Well he showed he can score on Saturday, so I guess it makes sense",gemma-3-4b,2,sarcastic,"The speaker doubts the apparent sense, implying the action was unexpected and perhaps not entirely logical.",True
+44,"Well he showed he can score on Saturday, so I guess it makes sense",gemma-3-4b,3,sarcastic,Implies the speaker doesn't genuinely believe it's a logical outcome.,True
+44,"Well he showed he can score on Saturday, so I guess it makes sense",gemma-3-4b,4,sarcastic,"The statement implies skepticism despite the event, suggesting a sarcastic tone.",True
+44,"Well he showed he can score on Saturday, so I guess it makes sense",gemma-3-4b,5,sarcastic,"The statement implies a lack of genuine belief, suggesting sarcasm due to a past event.",True
+44,"Well he showed he can score on Saturday, so I guess it makes sense",gemma-3-4b,6,sarcastic,"The statement implies disbelief despite a positive event, indicating sarcasm.",True
+44,"Well he showed he can score on Saturday, so I guess it makes sense",gemma-3-4b,7,sarcastic,"The statement implies disbelief, suggesting the event was unexpected or poorly understood.",True
+44,"Well he showed he can score on Saturday, so I guess it makes sense",gemma-3-4b,8,sarcastic,"The speaker implies he's being critical, despite the apparent logic.",True
+44,"Well he showed he can score on Saturday, so I guess it makes sense",gemma-3-4b,9,sarcastic,Implies a skeptical tone about a previously stated outcome or ability.,True
