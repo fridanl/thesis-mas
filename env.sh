@@ -14,7 +14,7 @@ nvidia-smi
 
 source .venv/bin/activate 
 
-which python3
+# which python3
 
 uv sync
 
