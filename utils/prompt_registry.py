@@ -52,16 +52,28 @@ def make_user_r1(*, task_question: str) -> str:
     )
 
 def make_user_r2(*, task_question: str, history: bool) -> str:
-    #! Maybe the order / wording needs to be changed here 
+    #TODO: repeat the task in the end of the prompt
     base = (
         f"Task: {task_question}\n"
         'Claim: "{claim}"\n'
-        'A peer of yours think the claim is "{label_sender}", with the following explanation: "{explanation_sender}" \n'
     )
+
     if history:
         base += (
-            'You have previously said "{label_receiver}", with the following explanation: "{explanation_receiver}"'
+            'You have previously said "{label_receiver}", with the following explanation: "{explanation_receiver}."\n'
+            'However, a peer of yours labelled the claim as "{label_sender}", with the following explanation: "{explanation_sender}"\n'
         )
+
+    else:
+        base += (
+        'A peer of yours labelled the claim as "{label_sender}", with the following explanation: "{explanation_sender}"\n'
+    )
+    # repeat
+    base += (
+        f"Having considered that, {task_question}\n"
+        'Claim: "{claim}"\n'
+    )
+        
 
     return base
 
