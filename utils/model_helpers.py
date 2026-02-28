@@ -127,28 +127,7 @@ def init_sampling_params(
     params.guided_decoding = guided 
     return params
 
-# def run_inference(                                                            #TODO: uncomment
-#     llm: LLM,     
-#     conversations: Sequence[List[ChatCompletionMessageParam]],
-#     sampling: SamplingParams,
-#     output_model: Type[BaseModel]):
-    
-
-#     outs = llm.chat(messages=conversations, sampling_params=sampling)
-
-#     texts = [o.outputs[0].text if o.outputs else "" for o in outs]
-#     parsed = []
-
-#     for txt in texts:
-#         try:
-#             obj = json.loads(txt)
-#             parsed.append(output_model(**obj).model_dump())
-#         except(json.JSONDecodeError, ValidationError, KeyError, TypeError):
-#             parsed.append(None)
-
-#     return texts, parsed
-
-def run_inference(                                                              #TODO: this is a new version
+def run_inference(                                                    
     llm: LLM, 
     conversations: Sequence[List[ChatCompletionMessageParam]],
     sampling: SamplingParams,
