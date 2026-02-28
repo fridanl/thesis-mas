@@ -1,0 +1,601 @@
+id,claim,model,repetition,label,explanation,valid_json
+1,At first I thought he jammed it by inserting his finger into the trigger guard behind the finger.,llama-3.3-70b,0,literal,Describes a plausible action,True
+1,At first I thought he jammed it by inserting his finger into the trigger guard behind the finger.,llama-3.3-70b,1,literal,Description is detailed and factual.,True
+2,The Browns don't know shit when it comes to QB's.,llama-3.3-70b,0,sarcastic,Language used is profane and dismissive.,True
+2,The Browns don't know shit when it comes to QB's.,llama-3.3-70b,1,sarcastic,Language used is derogatory and dismissive.,True
+3,Mario didn't play as many games,llama-3.3-70b,0,literal,Statement is factual and lacks irony.,True
+3,Mario didn't play as many games,llama-3.3-70b,1,literal,Statement is straightforward about Mario's game count.,True
+6,"Amazing, there was actually a time when Xbox Live didn't exist.",llama-3.3-70b,0,sarcastic,Tone implies surprise at something obvious.,True
+6,"Amazing, there was actually a time when Xbox Live didn't exist.",llama-3.3-70b,1,sarcastic,Tone implies surprise at something obvious.,True
+9,"Synical ploy for SF, there must be an election coming up!",llama-3.3-70b,0,sarcastic,Tone implies skepticism about SF's intentions.,True
+9,"Synical ploy for SF, there must be an election coming up!",llama-3.3-70b,1,sarcastic,Tone implies skepticism about SF's intentions.,True
+11,if you're not even lvl 30 on your main account no you are not ready,llama-3.3-70b,0,sarcastic,Tone implies exaggerated standards for readiness.,True
+11,if you're not even lvl 30 on your main account no you are not ready,llama-3.3-70b,1,sarcastic,Tone implies mockery of low-level players.,True
+12,because galaxy collapse is a fkin hilarious meme and if you disagree you're obvs wrong,llama-3.3-70b,0,sarcastic,Language used is informal and exaggerated.,True
+12,because galaxy collapse is a fkin hilarious meme and if you disagree you're obvs wrong,llama-3.3-70b,1,sarcastic,Language used is informal and exaggerated.,True
+13,That title belongs to Joe Warren.,llama-3.3-70b,0,literal,Statement appears factual and straightforward.,True
+13,That title belongs to Joe Warren.,llama-3.3-70b,1,literal,Statement appears factual without irony or exaggeration.,True
+14,There will be 1 more overlap between port and essenjection next week too,llama-3.3-70b,0,literal,Statement appears to convey factual information about scheduling.,True
+14,There will be 1 more overlap between port and essenjection next week too,llama-3.3-70b,1,literal,The statement seems to provide factual information about a schedule overlap.,True
+16,It's a fake according to Aston Martin!,llama-3.3-70b,0,literal,"Statement references a specific source, Aston Martin.",True
+16,It's a fake according to Aston Martin!,llama-3.3-70b,1,literal,"Statement cites a specific source, Aston Martin.",True
+18,Can confirm they were at the scrimmage.,llama-3.3-70b,0,literal,Statement is direct and factual.,True
+18,Can confirm they were at the scrimmage.,llama-3.3-70b,1,literal,Statement is direct and factual.,True
+19,"Would be an exceedingly easy website to make responsive as well, no real complexities in the design.",llama-3.3-70b,0,sarcastic,Tone implies simplicity is exaggerated.,True
+19,"Would be an exceedingly easy website to make responsive as well, no real complexities in the design.",llama-3.3-70b,1,sarcastic,Tone implies simplicity is unlikely,True
+21,I hope she owns that pharmacy in a year or two.,llama-3.3-70b,0,sarcastic,implies doubt about her ability,True
+21,I hope she owns that pharmacy in a year or two.,llama-3.3-70b,1,sarcastic,implies doubt about her ability,True
+22,0/10 missed the widow mine at the end,llama-3.3-70b,0,literal,"Criticism of a mistake, no ironic tone.",True
+22,0/10 missed the widow mine at the end,llama-3.3-70b,1,literal,Criticism of a missed opportunity,True
+23,"What, do you want them NOT to work?",llama-3.3-70b,0,sarcastic,Tone implies annoyance and frustration.,True
+23,"What, do you want them NOT to work?",llama-3.3-70b,1,sarcastic,Tone implies annoyance and frustration.,True
+24,"Even though its never revealed he is Gay, he is definitely gay for being a male hairdresser right?",llama-3.3-70b,0,sarcastic,Tone implies mockery of stereotypes,True
+24,"Even though its never revealed he is Gay, he is definitely gay for being a male hairdresser right?",llama-3.3-70b,1,sarcastic,Tone implies mockery of stereotyping,True
+25,"Thank god this oil will keep flowing for months, allowing them ample time to update said technologies.",llama-3.3-70b,0,sarcastic,Tone implies frustration with slow tech updates,True
+25,"Thank god this oil will keep flowing for months, allowing them ample time to update said technologies.",llama-3.3-70b,1,sarcastic,Tone implies frustration with outdated tech,True
+26,"Way to focus on the issues, gentleman.",llama-3.3-70b,0,sarcastic,Tone implies criticism of distraction.,True
+26,"Way to focus on the issues, gentleman.",llama-3.3-70b,1,sarcastic,Tone implies criticism of distraction.,True
+27,The only solution is for citizens to give up their only defense and trust the government will keep us safe.,llama-3.3-70b,0,sarcastic,implausible trust in government,True
+27,The only solution is for citizens to give up their only defense and trust the government will keep us safe.,llama-3.3-70b,1,sarcastic,implausible trust in government,True
+28,"LOL Thanks Rito for that sweet animation that gives me 7 minutes of joy rather than a new champion that would give me 10,000 minutes.",llama-3.3-70b,0,sarcastic,"The speaker is being sarcastic, expressing frustration with the animation versus a new champion.",True
+28,"LOL Thanks Rito for that sweet animation that gives me 7 minutes of joy rather than a new champion that would give me 10,000 minutes.",llama-3.3-70b,1,sarcastic,Tone implies dissatisfaction with animation update.,True
+30,"As a Norwegian, I am livid with their absolute humiliation of my people with this blatant example of cultural appropriation.",llama-3.3-70b,0,sarcastic,Over-the-top language suggests sarcasm.,True
+30,"As a Norwegian, I am livid with their absolute humiliation of my people with this blatant example of cultural appropriation.",llama-3.3-70b,1,sarcastic,Over-the-top language suggests sarcasm.,True
+31,"Came to look at the comments, was not disappointed",llama-3.3-70b,0,sarcastic,Expecting bad comments,True
+31,"Came to look at the comments, was not disappointed",llama-3.3-70b,1,sarcastic,implies comments were bad,True
+32,"a masked group pelted police with stones and shot fireworks at them, the semi-official Anatolia news agency reported What exactly is a 10 year old doing amongst these people?",llama-3.3-70b,0,literal,concern for child's safety amidst violent protest,True
+32,"a masked group pelted police with stones and shot fireworks at them, the semi-official Anatolia news agency reported What exactly is a 10 year old doing amongst these people?",llama-3.3-70b,1,literal,concern for child's safety amidst violent protest,True
+33,If you account for inflation it would be worth 23 USD in 2007.,llama-3.3-70b,0,literal,Statement provides factual inflation adjustment.,True
+33,If you account for inflation it would be worth 23 USD in 2007.,llama-3.3-70b,1,literal,Statement provides factual info about inflation.,True
+35,Shouldn't you use PS4/XB1 for this?,llama-3.3-70b,0,sarcastic,Tone implies belittling current choice,True
+35,Shouldn't you use PS4/XB1 for this?,llama-3.3-70b,1,sarcastic,Tone implies criticism of platform choice.,True
+37,I much prefer seeing pictures that belong on Facebook here instead of really interesting pictures like these.,llama-3.3-70b,0,sarcastic,Tone implies opposite preference.,True
+37,I much prefer seeing pictures that belong on Facebook here instead of really interesting pictures like these.,llama-3.3-70b,1,sarcastic,Tone implies opposite preference,True
+38,it's in the rusted metal tin on the shelf @1:11,llama-3.3-70b,0,literal,specific details provided,True
+38,it's in the rusted metal tin on the shelf @1:11,llama-3.3-70b,1,literal,specific details provided,True
+39,"What a bunch of big guys, beating up a defenseless girl huddled on the ground.",llama-3.3-70b,0,sarcastic,Tone implies outrage and condemnation,True
+39,"What a bunch of big guys, beating up a defenseless girl huddled on the ground.",llama-3.3-70b,1,sarcastic,"Tone implies outrage and criticism, not genuine admiration.",True
+43,As long as the breakfast included bacon it should be considered acceptable.,llama-3.3-70b,0,literal,speaker values bacon as a key component,True
+43,As long as the breakfast included bacon it should be considered acceptable.,llama-3.3-70b,1,literal,"The statement sets a clear condition for acceptance, implying a genuine preference for bacon.",True
+44,"Well he showed he can score on Saturday, so I guess it makes sense",llama-3.3-70b,0,sarcastic,Tone implies doubt and skepticism,True
+44,"Well he showed he can score on Saturday, so I guess it makes sense",llama-3.3-70b,1,sarcastic,Tone implies doubt and skepticism,True
+45,Can we acknowledge that this was a joke and this was just a silly thing I noticed?,llama-3.3-70b,0,literal,Speaker acknowledges joke and silly observation.,True
+45,Can we acknowledge that this was a joke and this was just a silly thing I noticed?,llama-3.3-70b,1,literal,Speaker admits it was a joke and a silly observation.,True
+46,But I am so sick of watching Harden he just flops and shoots FTs,llama-3.3-70b,0,sarcastic,Tone indicates frustration with Harden's style,True
+46,But I am so sick of watching Harden he just flops and shoots FTs,llama-3.3-70b,1,sarcastic,Overstated frustration with Harden's playing style.,True
+47,At least the cop didn't flip out and call in a SWAT team.,llama-3.3-70b,0,sarcastic,Tone implies relief at a relatively calm response.,True
+47,At least the cop didn't flip out and call in a SWAT team.,llama-3.3-70b,1,sarcastic,Tone implies relief at a relatively calm response.,True
+48,"If it's actually putting any pressure on your hard drive right there, that's a great way to destroy the hdd.",llama-3.3-70b,0,sarcastic,-speaker implies destruction is undesirable,True
+48,"If it's actually putting any pressure on your hard drive right there, that's a great way to destroy the hdd.",llama-3.3-70b,1,sarcastic,Speaker implies destruction is undesirable.,True
+49,"Never has a woman become wet when she didn't want to, or for someone she didn't want to",llama-3.3-70b,0,sarcastic,"implausible statement, ignoring complexities of human emotions",True
+49,"Never has a woman become wet when she didn't want to, or for someone she didn't want to",llama-3.3-70b,1,sarcastic,implausible statement,True
+50,If you take 200 grand from pharmaceutical companies then probably yes.,llama-3.3-70b,0,sarcastic,Tone implies skepticism and criticism.,True
+50,If you take 200 grand from pharmaceutical companies then probably yes.,llama-3.3-70b,1,sarcastic,Tone implies skepticism about accepting money.,True
+51,"The just can't help it, he does that cool looking intro dance.",llama-3.3-70b,0,literal,Describes action without irony or mocking tone.,True
+51,"The just can't help it, he does that cool looking intro dance.",llama-3.3-70b,1,literal,Describes action without irony or mocking tone.,True
+52,This will confuse a couple people thinking it's a new Mario Party though,llama-3.3-70b,0,literal,speaker acknowledges potential confusion,True
+52,This will confuse a couple people thinking it's a new Mario Party though,llama-3.3-70b,1,literal,Statement is a genuine observation about potential confusion.,True
+53,God forbid if the NBA wants their owners to conduct their business with some ethical guidelines,llama-3.3-70b,0,sarcastic,Tone implies frustration with expected lack of ethics.,True
+53,God forbid if the NBA wants their owners to conduct their business with some ethical guidelines,llama-3.3-70b,1,sarcastic,Tone implies mockery of NBA's ethics,True
+54,"Yes, should give it a good shot in the arm.",llama-3.3-70b,0,literal,Idiomatic phrase for support or boost.,True
+54,"Yes, should give it a good shot in the arm.",llama-3.3-70b,1,literal,Idiomatic phrase for support or boost.,True
+55,"In normal things by you, I'd say ""original"" as sarcasm, but I have to accpet... this game will be the best in the whole saga, from the looks of it atleast.",llama-3.3-70b,0,sarcastic,Tone implies skepticism and doubt,True
+55,"In normal things by you, I'd say ""original"" as sarcasm, but I have to accpet... this game will be the best in the whole saga, from the looks of it atleast.",llama-3.3-70b,1,sarcastic,Tone implies skepticism and doubt,True
+56,"This just in, Saudi Arabia isn't really an ally and trusting them is leading us down the road of ruin in the ME.",llama-3.3-70b,0,literal,Criticism of Saudi Arabia's actions implies genuine concern.,True
+56,"This just in, Saudi Arabia isn't really an ally and trusting them is leading us down the road of ruin in the ME.",llama-3.3-70b,1,literal,The statement criticizes Saudi Arabia and expresses concern about trusting them.,True
+63,"Hey, wait a sec... Who cares about this data retention bs, he was speeding!",llama-3.3-70b,0,sarcastic,Tone implies dismissal of data retention concerns.,True
+63,"Hey, wait a sec... Who cares about this data retention bs, he was speeding!",llama-3.3-70b,1,sarcastic,Tone implies frustration and dismissal of data retention importance.,True
+64,A lot of the lower end donations are still higher than what I'll make in a year.,llama-3.3-70b,0,literal,"Speaker compares donations to yearly income, showing genuine surprise.",True
+64,A lot of the lower end donations are still higher than what I'll make in a year.,llama-3.3-70b,1,literal,"The speaker compares donations to their annual income, showing genuine surprise.",True
+66,The Firebombing will continue until morale improves and Light the Fuse takes its rightful place at the top of the meta.,llama-3.3-70b,0,sarcastic,Threatening firebombing until morale improves is absurd.,True
+66,The Firebombing will continue until morale improves and Light the Fuse takes its rightful place at the top of the meta.,llama-3.3-70b,1,sarcastic,threatening firebombing to boost morale is absurd,True
+67,"Lol, my state can do some crazy shit sometimes.",llama-3.3-70b,0,sarcastic,"Tone is informal and dismissive, implying criticism.",True
+67,"Lol, my state can do some crazy shit sometimes.",llama-3.3-70b,1,sarcastic,Tone and language used are informal and dismissive.,True
+69,welp thats enough of this trash,llama-3.3-70b,0,sarcastic,uses dismissive language,True
+69,welp thats enough of this trash,llama-3.3-70b,1,sarcastic,uses slang and dismissive tone,True
+70,"Aren't you late for your cross burning, Adolf?",llama-3.3-70b,0,sarcastic,Tone implies mockery and insult.,True
+70,"Aren't you late for your cross burning, Adolf?",llama-3.3-70b,1,sarcastic,Tone implies mockery and insult,True
+72,His summoner name is C9 KingKiller and it's Plat 1,llama-3.3-70b,0,literal,Name and rank are stated factually.,True
+72,His summoner name is C9 KingKiller and it's Plat 1,llama-3.3-70b,1,literal,Name and rank are stated factually.,True
+73,No candidates lose their right to vote.,llama-3.3-70b,0,literal,Statement is factual and lacks irony.,True
+73,No candidates lose their right to vote.,llama-3.3-70b,1,literal,Statement is factual and straightforward.,True
+75,He didn't come out so much as he was outed by a dumb news reporter,llama-3.3-70b,0,sarcastic,Tone implies annoyance at reporter's actions,True
+75,He didn't come out so much as he was outed by a dumb news reporter,llama-3.3-70b,1,sarcastic,Tone implies criticism of the reporter,True
+76,wait nevermind i know what this is,llama-3.3-70b,0,literal,speaker has sudden realization,True
+76,wait nevermind i know what this is,llama-3.3-70b,1,literal,speaker has sudden realization,True
+77,"On the backside, most small business sales have a non compete clause so that someone doesn't create a successful startup, sale it, and then create a competitor knowing everything there is to know about the business they just sold which is now their rival.",llama-3.3-70b,0,literal,The statement explains a common business practice.,True
+77,"On the backside, most small business sales have a non compete clause so that someone doesn't create a successful startup, sale it, and then create a competitor knowing everything there is to know about the business they just sold which is now their rival.",llama-3.3-70b,1,literal,The claim explains a common business practice.,True
+78,Clevs looks like he really wants to be there.,llama-3.3-70b,0,sarcastic,Tone implies opposite of literal meaning,True
+78,Clevs looks like he really wants to be there.,llama-3.3-70b,1,sarcastic,Tone implies opposite of literal meaning.,True
+79,The American economy must be in a really good state if they can just waste 1 billion dollars worth of anything.,llama-3.3-70b,0,sarcastic,The speaker is criticizing wasteful spending.,True
+79,The American economy must be in a really good state if they can just waste 1 billion dollars worth of anything.,llama-3.3-70b,1,sarcastic,Tone implies criticism of wasteful spending.,True
+80,"B-but if you remove the cervix, your intestines will fall out!",llama-3.3-70b,0,sarcastic,Anatomically impossible statement.,True
+80,"B-but if you remove the cervix, your intestines will fall out!",llama-3.3-70b,1,sarcastic,Anatomically impossible statement.,True
+81,Gotta find that resultant velocity using physics.,llama-3.3-70b,0,literal,Claim uses technical terms and no irony.,True
+81,Gotta find that resultant velocity using physics.,llama-3.3-70b,1,literal,Speaker is expressing a genuine intention to apply physics.,True
+82,They should also remove Towers of Doom because I don't like the map.,llama-3.3-70b,0,sarcastic,Statement seems unreasonable and exaggerated.,True
+82,They should also remove Towers of Doom because I don't like the map.,llama-3.3-70b,1,sarcastic,Overly dramatic language used.,True
+83,"There are no misplays at tournaments, only ""interesting lines""",llama-3.3-70b,0,sarcastic,"Phrase 'interesting lines' implies mistakes, revealing sarcasm.",True
+83,"There are no misplays at tournaments, only ""interesting lines""",llama-3.3-70b,1,sarcastic,implies mistakes are common,True
+84,And look and that fully automatic Glock assault rifle he's using!,llama-3.3-70b,0,sarcastic,"Glocks are semi-auto pistols, not assault rifles.",True
+84,And look and that fully automatic Glock assault rifle he's using!,llama-3.3-70b,1,sarcastic,"Glock does not make assault rifles, implying sarcasm.",True
+86,Or are we scouting a left winger who happens to be Dejan's brother?,llama-3.3-70b,0,sarcastic,Tone implies doubt and surprise about scouting based on family relation.,True
+86,Or are we scouting a left winger who happens to be Dejan's brother?,llama-3.3-70b,1,sarcastic,Tone implies doubt and surprise about scouting based on family relation.,True
+87,Someone put too much detergent in the washing machine again!,llama-3.3-70b,0,literal,Tone indicates annoyance at a real event.,True
+87,Someone put too much detergent in the washing machine again!,llama-3.3-70b,1,literal,"Tone indicates frustration, not sarcasm.",True
+88,I do totally care about pax,llama-3.3-70b,0,sarcastic,Tone implies insincerity,True
+88,I do totally care about pax,llama-3.3-70b,1,sarcastic,Tone implies insincerity,True
+89,"But if the state is owned by the public(or polis), and you are a part of the public, then you own the state, but if you own the state and the state owns you then how can liberty, money, freedom, markets, capitalism, trade?",llama-3.3-70b,0,sarcastic,Questioning state ownership implies irony.,True
+89,"But if the state is owned by the public(or polis), and you are a part of the public, then you own the state, but if you own the state and the state owns you then how can liberty, money, freedom, markets, capitalism, trade?",llama-3.3-70b,1,sarcastic,Rhetorical question implies irony and criticism of societal structures.,True
+90,Miyamizu is Mitsuha's surname (last name),llama-3.3-70b,0,literal,Miyamizu is indeed Mitsuha's surname in the context provided.,True
+90,Miyamizu is Mitsuha's surname (last name),llama-3.3-70b,1,literal,Miyamizu is indeed Mitsuha's surname in the film.,True
+91,"If they don't want to use NP links, should we not?",llama-3.3-70b,0,sarcastic,Tone implies frustration and challenge.,True
+91,"If they don't want to use NP links, should we not?",llama-3.3-70b,1,sarcastic,Tone implies frustration and doubt.,True
+92,Who better than to communicate with Trump on an equal level.,llama-3.3-70b,0,sarcastic,Tone implies doubt about equality with Trump.,True
+92,Who better than to communicate with Trump on an equal level.,llama-3.3-70b,1,sarcastic,Tone implies doubt about equality with Trump.,True
+93,"But she has ""come-hither"" eyes-she should be stoned to death!",llama-3.3-70b,0,sarcastic,"The speaker says she should be stoned, which is an extreme punishment, indicating sarcasm.",True
+93,"But she has ""come-hither"" eyes-she should be stoned to death!",llama-3.3-70b,1,sarcastic,The speaker uses hyperbole to convey disgust at objectification.,True
+94,I'm sick and tired of people stealing discs and not calling numbers!,llama-3.3-70b,0,literal,"The statement expresses frustration and annoyance, indicating a genuine concern.",True
+94,I'm sick and tired of people stealing discs and not calling numbers!,llama-3.3-70b,1,literal,The statement expresses frustration with specific actions.,True
+95,Probably because of that strong showing by Kaine in the debate that convinced everyone he'd make a great President if anything happens to her.,llama-3.3-70b,0,sarcastic,Tone implies doubt about Kaine's performance.,True
+95,Probably because of that strong showing by Kaine in the debate that convinced everyone he'd make a great President if anything happens to her.,llama-3.3-70b,1,sarcastic,Tone implies doubt about Kaine's performance.,True
+97,Yo does anyone know when they gonna get released?,llama-3.3-70b,0,literal,"The language used is informal and inquiring, without irony or exaggeration.",True
+97,Yo does anyone know when they gonna get released?,llama-3.3-70b,1,literal,The claim is a genuine inquiry about a release date.,True
+98,dont feed the troll guys downvote and walk away,llama-3.3-70b,0,literal,"instructs to ignore and downvote, not sarcastic",True
+98,dont feed the troll guys downvote and walk away,llama-3.3-70b,1,literal,instructs to ignore trolls,True
+99,Bummer for what was otherwise a relatively healthy team,llama-3.3-70b,0,literal,Expression of disappointment about a healthy team's misfortune,True
+99,Bummer for what was otherwise a relatively healthy team,llama-3.3-70b,1,literal,Expresses genuine disappointment about a team's health issue.,True
+100,Jeez this paper needs an editor.,llama-3.3-70b,0,sarcastic,"Tone implies frustration, not genuine need.",True
+100,Jeez this paper needs an editor.,llama-3.3-70b,1,sarcastic,"Tone implies frustration, not literal need.",True
+101,"Yeah game is hard, dont check your debuff, look away, die... That's next level difficulty for sure",llama-3.3-70b,0,sarcastic,Tone and language used are ironic and mocking.,True
+101,"Yeah game is hard, dont check your debuff, look away, die... That's next level difficulty for sure",llama-3.3-70b,1,sarcastic,Tone and language imply mockery of game difficulty,True
+102,"But, but, the fraudsters are so good they never get caught!",llama-3.3-70b,0,sarcastic,Tone implies fraudsters often get caught,True
+102,"But, but, the fraudsters are so good they never get caught!",llama-3.3-70b,1,sarcastic,Tone implies fraudsters often get caught.,True
+103,"...aaaahnnddd that, folks, is how it works.",llama-3.3-70b,0,sarcastic,Tone implies insincerity and annoyance.,True
+103,"...aaaahnnddd that, folks, is how it works.",llama-3.3-70b,1,sarcastic,Tone implies annoyance or frustration.,True
+106,"Don't these silly workers realize that if they demand bathroom breaks, their jobs are just going to be automated more to make up for the additional cost?",llama-3.3-70b,0,sarcastic,Tone implies frustration and exaggeration.,True
+106,"Don't these silly workers realize that if they demand bathroom breaks, their jobs are just going to be automated more to make up for the additional cost?",llama-3.3-70b,1,sarcastic,Tone implies frustration and mocking of workers' demands.,True
+107,I really wish my mum would stop complaining when I call her that.,llama-3.3-70b,0,sarcastic,Tone implies frustration with mum's complaining.,True
+107,I really wish my mum would stop complaining when I call her that.,llama-3.3-70b,1,sarcastic,"Tone implies frustration, not genuine desire.",True
+108,Some states have actually criminalized ladies nights on the grounds that they are unconstitutional (which technically they are) but what evs.,llama-3.3-70b,0,sarcastic,"Tone is casual and dismissive, with 'what evs' implying mockery.",True
+108,Some states have actually criminalized ladies nights on the grounds that they are unconstitutional (which technically they are) but what evs.,llama-3.3-70b,1,sarcastic,Tone and language used are informal and dismissive.,True
+110,I could have sworn that beef's apron was a slice of pizza I love how Vech's is chasing a bat; that is SOO him,llama-3.3-70b,0,sarcastic,Tone and language used are absurd and exaggerated.,True
+110,I could have sworn that beef's apron was a slice of pizza I love how Vech's is chasing a bat; that is SOO him,llama-3.3-70b,1,sarcastic,implausible events described in a deadpan tone,True
+111,"SetEnvIfNoCase User-Agent ^$ bad_bot SetEnvIfNoCase User-Agent ""^Curl"" bad_bot SetEnvIfNoCase User-Agent ""^Wget"" bad_bot SetEnvIfNoCase User-Agent ""^libwww-perl"" bad_bot Yeah, absolutely no problems will arise from blocking these.",llama-3.3-70b,0,sarcastic,Tone implies blocking will cause problems.,True
+111,"SetEnvIfNoCase User-Agent ^$ bad_bot SetEnvIfNoCase User-Agent ""^Curl"" bad_bot SetEnvIfNoCase User-Agent ""^Wget"" bad_bot SetEnvIfNoCase User-Agent ""^libwww-perl"" bad_bot Yeah, absolutely no problems will arise from blocking these.",llama-3.3-70b,1,sarcastic,Tone implies blocking user agents will cause problems.,True
+112,I thought trolls weren't allowed in this sub how'd you get through,llama-3.3-70b,0,sarcastic,Tone implies disbelief and ridicule.,True
+112,I thought trolls weren't allowed in this sub how'd you get through,llama-3.3-70b,1,sarcastic,Tone implies mocking or ridicule.,True
+113,"Cab Assaults, Hit and Runs, Robberies/Muggings etc..In the past week and a half that's a lot of crime news for Ottawa.",llama-3.3-70b,0,literal,"Statement lists specific crimes, showing concern for Ottawa's crime rate.",True
+113,"Cab Assaults, Hit and Runs, Robberies/Muggings etc..In the past week and a half that's a lot of crime news for Ottawa.",llama-3.3-70b,1,literal,"Statement lists specific crimes, showing concern.",True
+114,i reported this to the mods because of the confederate flag.,llama-3.3-70b,0,literal,"Reported to mods due to confederate flag, indicating genuine concern.",True
+114,i reported this to the mods because of the confederate flag.,llama-3.3-70b,1,literal,User reported due to a specific symbol,True
+115,I enjoy physically harming people I like!,llama-3.3-70b,0,sarcastic,Claim is unlikely true due to harmful nature,True
+115,I enjoy physically harming people I like!,llama-3.3-70b,1,sarcastic,Claim is unlikely true due to social norms.,True
+117,And also one of the most disappointing,llama-3.3-70b,0,sarcastic,"Tone implies disappointment, likely sarcastic.",True
+117,And also one of the most disappointing,llama-3.3-70b,1,sarcastic,"Tone implies disappointment, likely sarcastic.",True
+120,This was photoshopped I'm not believing,llama-3.3-70b,0,sarcastic,"Tone implies distrust, likely sarcastic",True
+120,This was photoshopped I'm not believing,llama-3.3-70b,1,literal,speaker expresses disbelief,True
+121,this should be the one cabinet post where trump actually knows a qualified person and yet... here we are,llama-3.3-70b,0,sarcastic,Tone implies disappointment and irony.,True
+121,this should be the one cabinet post where trump actually knows a qualified person and yet... here we are,llama-3.3-70b,1,sarcastic,Tone implies disappointment and criticism,True
+122,Those fucking terrorists with their FTP and private mail servers,llama-3.3-70b,0,sarcastic,Tone and language suggest mockery of outdated views on terrorism.,True
+122,Those fucking terrorists with their FTP and private mail servers,llama-3.3-70b,1,sarcastic,"Tone and language suggest annoyance, not genuine concern.",True
+125,Another day in Bronze V eh?,llama-3.3-70b,0,sarcastic,Tone implies frustration with Bronze V.,True
+125,Another day in Bronze V eh?,llama-3.3-70b,1,sarcastic,Tone implies frustration with Bronze V.,True
+126,Someone's got a case of the scribbles.,llama-3.3-70b,0,sarcastic,Colloquial language used,True
+126,Someone's got a case of the scribbles.,llama-3.3-70b,1,sarcastic,Colloquial language used.,True
+127,Well at least they'll have no problem finding another restaurant job with Paula Deen as a reference,llama-3.3-70b,0,sarcastic,implies Paula Deen is a poor reference,True
+127,Well at least they'll have no problem finding another restaurant job with Paula Deen as a reference,llama-3.3-70b,1,sarcastic,implies Paula Deen's reference would be unhelpful,True
+128,possibly OpTic edition headset or something.,llama-3.3-70b,0,sarcastic,Tone is casual and dismissive.,True
+128,possibly OpTic edition headset or something.,llama-3.3-70b,1,sarcastic,Tone is casual and dismissive.,True
+129,I kinda hope the Patriots do win it all so they can drop this tired victim complex they've got going on.,llama-3.3-70b,0,sarcastic,Tone implies opposite desire,True
+129,I kinda hope the Patriots do win it all so they can drop this tired victim complex they've got going on.,llama-3.3-70b,1,sarcastic,"Speaker doesn't genuinely want Patriots to win, but rather to end their 'victim complex'",True
+131,As an Eagles fan I am quite against Saban going to the Giants,llama-3.3-70b,0,sarcastic,"Eagles fan opposed to Saban joining Giants is unlikely, implying sarcasm.",True
+131,As an Eagles fan I am quite against Saban going to the Giants,llama-3.3-70b,1,literal,The speaker states their team and opposes Saban joining another team.,True
+132,"I hope Slash's contract said ""No fat Axl""",llama-3.3-70b,0,sarcastic,Tone implies criticism of Axl's weight,True
+132,"I hope Slash's contract said ""No fat Axl""",llama-3.3-70b,1,sarcastic,Wishing harm on someone is unlikely to be meant literally.,True
+135,Quit the game and get a life,llama-3.3-70b,0,sarcastic,Tone implies frustration and annoyance.,True
+135,Quit the game and get a life,llama-3.3-70b,1,sarcastic,"Tone implies frustration, not genuine advice.",True
+136,OP go get that cat spayed.,llama-3.3-70b,0,literal,Direct command to spay the cat.,True
+136,OP go get that cat spayed.,llama-3.3-70b,1,literal,Direct command to spay the cat.,True
+137,Anyone got this without the caption?,llama-3.3-70b,0,sarcastic,Tone implies frustration and skepticism.,True
+137,Anyone got this without the caption?,llama-3.3-70b,1,sarcastic,implies obviousness of needing a caption,True
+138,I'm pretty sure you DO have to have something wrong with you mentally if you think being 600lbs is fine,llama-3.3-70b,0,sarcastic,Tone implies criticism of accepting obesity,True
+138,I'm pretty sure you DO have to have something wrong with you mentally if you think being 600lbs is fine,llama-3.3-70b,1,sarcastic,Tone implies criticism and judgment.,True
+139,Yeah I hate all those bandwagon Browns fans we have to deal with.,llama-3.3-70b,0,sarcastic,"Tone implies frustration with new fans, but language suggests annoyance is exaggerated.",True
+139,Yeah I hate all those bandwagon Browns fans we have to deal with.,llama-3.3-70b,1,sarcastic,"Tone implies annoyance at fans, but language suggests irony.",True
+140,5% on C rotation sure seems reasonable,llama-3.3-70b,0,sarcastic,Tone implies dissatisfaction with 5% rate,True
+140,5% on C rotation sure seems reasonable,llama-3.3-70b,1,sarcastic,Tone implies dissatisfaction with the 5% rate.,True
+142,Who needs clean water when you can pay more per gallon of the bottled stuff.,llama-3.3-70b,0,sarcastic,The statement is ironic and criticizes the high cost of bottled water.,True
+142,Who needs clean water when you can pay more per gallon of the bottled stuff.,llama-3.3-70b,1,sarcastic,implies clean water is preferable,True
+143,Well this should fix all their problems.,llama-3.3-70b,0,sarcastic,Tone implies doubt and criticism.,True
+143,Well this should fix all their problems.,llama-3.3-70b,1,sarcastic,Tone implies doubt about solution's effectiveness.,True
+144,Thanks for the paywall on Ranked mode!,llama-3.3-70b,0,sarcastic,Tone implies frustration with paywall.,True
+144,Thanks for the paywall on Ranked mode!,llama-3.3-70b,1,sarcastic,Tone implies frustration with paywall,True
+146,"I wonder if this means that the DVR viewership will be down for this episode, since in the first half that's where the ratings saw a large increase.",llama-3.3-70b,0,literal,The statement is analytical and inquires about ratings impact.,True
+146,"I wonder if this means that the DVR viewership will be down for this episode, since in the first half that's where the ratings saw a large increase.",llama-3.3-70b,1,literal,Analyzing viewer habits,True
+148,"I know all her moves and she knows mine, that means I have the advantage",llama-3.3-70b,0,literal,Speaker believes knowing each other's moves gives them an edge.,True
+148,"I know all her moves and she knows mine, that means I have the advantage",llama-3.3-70b,1,literal,Claim implies confidence in knowing opponent's moves.,True
+149,Overpowered as fuck but maybe that's what Priest needs.,llama-3.3-70b,0,sarcastic,Tone suggests frustration with Priest's power level.,True
+149,Overpowered as fuck but maybe that's what Priest needs.,llama-3.3-70b,1,sarcastic,Tone implies criticism of overpowered status.,True
+151,But Chads are hoarding all the females,llama-3.3-70b,0,sarcastic,Overstated language implies sarcasm,True
+151,But Chads are hoarding all the females,llama-3.3-70b,1,sarcastic,Overstatement and exaggeration indicate sarcasm,True
+153,Comparing against two players doesn't really show a lot especially when you change the players your comparing against.,llama-3.3-70b,0,literal,"The statement critiques comparison methods, suggesting they are flawed.",True
+153,Comparing against two players doesn't really show a lot especially when you change the players your comparing against.,llama-3.3-70b,1,literal,Statement critiques comparison method.,True
+155,"what is cheaper now, toilet paper or rubles ?",llama-3.3-70b,0,sarcastic,Comparing toilet paper to currency implies economic crisis.,True
+155,"what is cheaper now, toilet paper or rubles ?",llama-3.3-70b,1,sarcastic,Comparing toilet paper to currency implies economic instability.,True
+156,Congrats and welcome to the team!,llama-3.3-70b,0,literal,The language used is positive and welcoming.,True
+156,Congrats and welcome to the team!,llama-3.3-70b,1,literal,Tone is positive and welcoming.,True
+157,"States Rights not ""city rights"" States always know best, especially when it's Alabama.",llama-3.3-70b,0,sarcastic,Tone implies doubt about Alabama's judgment.,True
+157,"States Rights not ""city rights"" States always know best, especially when it's Alabama.",llama-3.3-70b,1,sarcastic,Tone implies doubt about Alabama's judgment.,True
+159,So is this how they are trying to be more advertiser friendly?,llama-3.3-70b,0,sarcastic,Tone implies criticism and doubt about intentions.,True
+159,So is this how they are trying to be more advertiser friendly?,llama-3.3-70b,1,sarcastic,Tone implies doubt and criticism.,True
+160,Its nice to hear you talk some sense for a change.,llama-3.3-70b,0,sarcastic,"Tone implies surprise at someone speaking sense, suggesting sarcasm.",True
+160,Its nice to hear you talk some sense for a change.,llama-3.3-70b,1,sarcastic,"Tone implies opposite meaning, mocking the speaker.",True
+161,I was hoping this was that video where the guy carries the lady out and uses her head to push the door open.,llama-3.3-70b,0,sarcastic,Tone implies absurdity and dark humor.,True
+161,I was hoping this was that video where the guy carries the lady out and uses her head to push the door open.,llama-3.3-70b,1,sarcastic,Tone implies absurdity and dark humor.,True
+163,"Fuck you, John, you never did any of that shit and you complained just like we did.",llama-3.3-70b,0,sarcastic,aggressive tone and language indicate sarcasm,True
+163,"Fuck you, John, you never did any of that shit and you complained just like we did.",llama-3.3-70b,1,sarcastic,aggressive tone and language indicate sarcasm,True
+166,Why does southern Morocco have its own flag?,llama-3.3-70b,0,literal,The question is genuine and inquires about a fact.,True
+166,Why does southern Morocco have its own flag?,llama-3.3-70b,1,literal,The question is direct and inquires about a factual piece of information.,True
+167,Wouldnt want someone innocent to catch the gay.,llama-3.3-70b,0,sarcastic,"Tone implies concern for innocent people, contradicting homophobic intent.",True
+167,Wouldnt want someone innocent to catch the gay.,llama-3.3-70b,1,sarcastic,Tone implies insincerity and irony.,True
+168,Nice of him to take his snout out of the trough long enough to squeal for the cameras.,llama-3.3-70b,0,sarcastic,uses irony and animal comparison to criticize,True
+168,Nice of him to take his snout out of the trough long enough to squeal for the cameras.,llama-3.3-70b,1,sarcastic,Tone and language used are mocking and critical.,True
+169,King vegeta did almost kill broly,llama-3.3-70b,0,literal,King Vegeta's actions in the Dragon Ball series align with the statement.,True
+169,King vegeta did almost kill broly,llama-3.3-70b,1,literal,King Vegeta's actions in the Dragon Ball series show he tried to kill Broly.,True
+172,"ITT: People freaking out over the price tag.. Yeah, because it's not like these will drop in price ever",llama-3.3-70b,0,sarcastic,"Tone implies prices won't drop, contrary to typical market behavior.",True
+172,"ITT: People freaking out over the price tag.. Yeah, because it's not like these will drop in price ever",llama-3.3-70b,1,sarcastic,"Tone implies prices won't drop, opposite of expected.",True
+173,But but but there is no such thing as kill stealing,llama-3.3-70b,0,sarcastic,Overuse of 'but' implies sarcasm,True
+173,But but but there is no such thing as kill stealing,llama-3.3-70b,1,sarcastic,Overuse of 'but' indicates annoyance,True
+174,But that would put guys in the 'friend zone'.,llama-3.3-70b,0,sarcastic,Tone implies reluctance to categorize someone as just a friend.,True
+174,But that would put guys in the 'friend zone'.,llama-3.3-70b,1,sarcastic,Implies an undesirable outcome.,True
+176,user reports: 1: False and/or grossly misleading bullshit Language fail.,llama-3.3-70b,0,sarcastic,strong language indicates frustration,True
+176,user reports: 1: False and/or grossly misleading bullshit Language fail.,llama-3.3-70b,1,sarcastic,strong language indicates frustration,True
+177,I'm so sick of the fucking media twisting everyone's words!,llama-3.3-70b,0,literal,"The language used is strong and emotional, indicating genuine frustration.",True
+177,I'm so sick of the fucking media twisting everyone's words!,llama-3.3-70b,1,literal,The claim expresses genuine frustration with media.,True
+180,"Ha ha ha good one, Charlie.",llama-3.3-70b,0,sarcastic,Tone implies mockery,True
+180,"Ha ha ha good one, Charlie.",llama-3.3-70b,1,sarcastic,Tone implies mocking laughter.,True
+181,I believe it was made on the RAGE engine.,llama-3.3-70b,0,literal,No apparent sarcasm in statement.,True
+181,I believe it was made on the RAGE engine.,llama-3.3-70b,1,literal,Statement lacks irony or exaggeration.,True
+182,Now call Comcast and tell them my internet is slow.,llama-3.3-70b,0,literal,The statement is direct and lacks irony or exaggeration.,True
+182,Now call Comcast and tell them my internet is slow.,llama-3.3-70b,1,literal,Tone is direct and instructive.,True
+183,Is that a shot at Save us from the Archon style song names as well?,llama-3.3-70b,0,sarcastic,Tone implies mocking criticism of song name style.,True
+183,Is that a shot at Save us from the Archon style song names as well?,llama-3.3-70b,1,sarcastic,Tone implies mockery of song name style.,True
+184,"I personally wish he'd show some more pizazz in his celebrations, but I know that's not his style.",llama-3.3-70b,0,literal,The speaker expresses a genuine wish for more excitement.,True
+184,"I personally wish he'd show some more pizazz in his celebrations, but I know that's not his style.",llama-3.3-70b,1,literal,The speaker acknowledges the person's style.,True
+186,please tell me that its just,llama-3.3-70b,0,sarcastic,tone implies frustration,True
+186,please tell me that its just,llama-3.3-70b,1,sarcastic,Tone implies frustration and desperation.,True
+188,How does one even going about becoming an elector?,llama-3.3-70b,0,sarcastic,"Tone implies confusion and frustration, indicating sarcasm.",True
+188,How does one even going about becoming an elector?,llama-3.3-70b,1,sarcastic,Tone implies confusion and criticism,True
+191,"But please, let's keep talking about how she didn't endorse Bernie and how she doesn't deserve any respect.",llama-3.3-70b,0,sarcastic,Tone implies annoyance and frustration.,True
+191,"But please, let's keep talking about how she didn't endorse Bernie and how she doesn't deserve any respect.",llama-3.3-70b,1,sarcastic,Tone implies annoyance and frustration.,True
+192,"idk maybe (theo,chasun,woosa) and (orion,ritesh,perna) for GWD and (Vanessa,Orion,Perna,Ritesh) for AD",llama-3.3-70b,0,literal,Lists specific names for teams.,True
+192,"idk maybe (theo,chasun,woosa) and (orion,ritesh,perna) for GWD and (Vanessa,Orion,Perna,Ritesh) for AD",llama-3.3-70b,1,literal,Names and roles are listed in a straightforward manner.,True
+195,Are you complaining that you didn't get ECTO GREEN Greatest Hits?,llama-3.3-70b,0,sarcastic,Tone implies annoyance and dismissiveness.,True
+195,Are you complaining that you didn't get ECTO GREEN Greatest Hits?,llama-3.3-70b,1,sarcastic,Tone implies annoyance at trivial complaint.,True
+197,"For every person being queued against a deck that counters them, another person is queued against a deck they counter.",llama-3.3-70b,0,literal,Statement presents a balanced scenario without irony.,True
+197,"For every person being queued against a deck that counters them, another person is queued against a deck they counter.",llama-3.3-70b,1,literal,Statement presents a balanced scenario without irony or exaggeration.,True
+198,"man, I kinda wish I updated to windows 10 now... Here's hoping for a windows 8.1 version to come out XD",llama-3.3-70b,0,sarcastic,Tone and language used are ironic and humorous.,True
+198,"man, I kinda wish I updated to windows 10 now... Here's hoping for a windows 8.1 version to come out XD",llama-3.3-70b,1,sarcastic,Tone and language used are ironic and humorous.,True
+201,I guess Luke is the new franchise MLB?,llama-3.3-70b,0,sarcastic,Tone implies doubt and surprise.,True
+201,I guess Luke is the new franchise MLB?,llama-3.3-70b,1,sarcastic,Tone implies doubt and surprise.,True
+202,Gotta be about the Weekly Newsletter.,llama-3.3-70b,0,sarcastic,Tone implies annoyance or frustration.,True
+202,Gotta be about the Weekly Newsletter.,llama-3.3-70b,1,sarcastic,Tone implies reluctance or annoyance.,True
+204,Maybe they should stop doing illegal shit.,llama-3.3-70b,0,literal,Statement suggests genuine concern for legality.,True
+204,Maybe they should stop doing illegal shit.,llama-3.3-70b,1,sarcastic,"Tone implies frustration, not genuine suggestion.",True
+205,Stolen nudes are totally a reason for more security.,llama-3.3-70b,0,literal,Statement advocates for increased security due to stolen nudes.,True
+205,Stolen nudes are totally a reason for more security.,llama-3.3-70b,1,literal,The statement emphasizes the need for security due to stolen nudes.,True
+206,They might change their mind if it becomes nothing but conquerors in the top tiers,llama-3.3-70b,0,literal,The statement expresses a genuine concern about the potential consequences of a situation.,True
+206,They might change their mind if it becomes nothing but conquerors in the top tiers,llama-3.3-70b,1,literal,The claim suggests a possible change of mind based on a specific condition.,True
+207,dont you just hate it hen somebody has to explain every single thing going on in a story?,llama-3.3-70b,0,sarcastic,Tone implies frustration with overly complex storytelling.,True
+207,dont you just hate it hen somebody has to explain every single thing going on in a story?,llama-3.3-70b,1,sarcastic,"Tone implies frustration with explanations, suggesting opposite sentiment.",True
+208,"In other news, water is wet.",llama-3.3-70b,0,sarcastic,States the obvious.,True
+208,"In other news, water is wet.",llama-3.3-70b,1,sarcastic,Statement is obvious and unnecessary.,True
+212,Sounds too much like the Chainsmokers in my opinion,llama-3.3-70b,0,literal,"The claim compares the sound to a specific band, implying genuine opinion.",True
+212,Sounds too much like the Chainsmokers in my opinion,llama-3.3-70b,1,literal,Statement provides opinion without irony or exaggeration.,True
+214,It's no surprise that the media is all over this damning piece of evidence.,llama-3.3-70b,0,sarcastic,Tone implies media overreaction.,True
+214,It's no surprise that the media is all over this damning piece of evidence.,llama-3.3-70b,1,sarcastic,Tone implies criticism of media's predictability.,True
+215,Parth said Weldon took on the other half of the coaching responsibilities so I feel like the reward was deserved under the pretense that it's actually for the duo (Parth + Weldon).,llama-3.3-70b,0,sarcastic,"Tone implies reward is undeserved, questioning pretense.",True
+215,Parth said Weldon took on the other half of the coaching responsibilities so I feel like the reward was deserved under the pretense that it's actually for the duo (Parth + Weldon).,llama-3.3-70b,1,sarcastic,Tone implies undeserved reward for duo.,True
+216,"This is why I love the east coast, we never have to deal with digging our chairs out.",llama-3.3-70b,0,sarcastic,speaker is being sarcastic because they're implying the opposite,True
+216,"This is why I love the east coast, we never have to deal with digging our chairs out.",llama-3.3-70b,1,sarcastic,"Speaker is being sarcastic, implying the opposite.",True
+217,"Pedantic and preachy, XKCD at its best.",llama-3.3-70b,0,sarcastic,"Tone is negative, implying criticism, not praise.",True
+217,"Pedantic and preachy, XKCD at its best.",llama-3.3-70b,1,sarcastic,"Tone implies criticism, not praise.",True
+218,"But if it's flat, wouldn't it only be 2D?",llama-3.3-70b,0,literal,Questioning shape dimensions.,True
+218,"But if it's flat, wouldn't it only be 2D?",llama-3.3-70b,1,literal,Questioning a concept's dimensionality in a straightforward manner.,True
+219,He actually shot it on target,llama-3.3-70b,0,literal,Statement is factual and lacks irony.,True
+219,He actually shot it on target,llama-3.3-70b,1,literal,Statement is factual and descriptive.,True
+222,"You get all the fame and glamour of being a reality tv star, isn't that enough?",llama-3.3-70b,0,sarcastic,Tone implies fame and glamour are not enough.,True
+222,"You get all the fame and glamour of being a reality tv star, isn't that enough?",llama-3.3-70b,1,sarcastic,Tone implies fame isn't enough,True
+227,"With that level of airbrushing, this looks more like a Swank circa 1995.",llama-3.3-70b,0,sarcastic,exaggerated comparison for humorous effect,True
+227,"With that level of airbrushing, this looks more like a Swank circa 1995.",llama-3.3-70b,1,sarcastic,Exaggerated comparison implies criticism of excessive editing.,True
+229,Duty Finder saw all the icons on your UI and thought you were a full party :P,llama-3.3-70b,0,sarcastic,Tone and :) indicate joking.,True
+229,Duty Finder saw all the icons on your UI and thought you were a full party :P,llama-3.3-70b,1,sarcastic,Tone and :) indicate sarcasm,True
+232,You need at least 4 of these to equal 1 ps4,llama-3.3-70b,0,sarcastic,Claim exaggerates the value comparison,True
+232,You need at least 4 of these to equal 1 ps4,llama-3.3-70b,1,sarcastic,Claim exaggerates ps4 value,True
+234,Good title and in the right sub,llama-3.3-70b,0,literal,The claim is brief and affirmative.,True
+234,Good title and in the right sub,llama-3.3-70b,1,literal,The statement is brief and affirmative.,True
+235,HEY HEY hey hey hey hey......I resemble that remark.,llama-3.3-70b,0,sarcastic,Over-the-top tone and phrase 'I resemble that remark' indicate sarcasm.,True
+235,HEY HEY hey hey hey hey......I resemble that remark.,llama-3.3-70b,1,sarcastic,Over-the-top tone and phrase 'I resemble that remark' indicate sarcasm.,True
+236,i was subbed since 25k the vids have gone to shit,llama-3.3-70b,0,sarcastic,overstated frustration with video quality,True
+236,i was subbed since 25k the vids have gone to shit,llama-3.3-70b,1,sarcastic,overstatement and profanity suggest sarcasm,True
+237,I'd buy it if the camo came with about 100mm of extra armor as well.,llama-3.3-70b,0,literal,speaker wants extra armor with camo,True
+237,I'd buy it if the camo came with about 100mm of extra armor as well.,llama-3.3-70b,1,literal,Speaker wants extra armor with camo.,True
+239,If they were simply honest and told us they set it up this way to increase loot box sales I doubt so many people would be upset.,llama-3.3-70b,0,sarcastic,"The speaker doubts honesty would calm outrage, implying criticism of the system.",True
+239,If they were simply honest and told us they set it up this way to increase loot box sales I doubt so many people would be upset.,llama-3.3-70b,1,sarcastic,Statement implies honesty would be shocking,True
+240,Guess you shouldn't have shot him,llama-3.3-70b,0,sarcastic,"Tone implies criticism, not genuine advice.",True
+240,Guess you shouldn't have shot him,llama-3.3-70b,1,sarcastic,Tone implies criticism of action,True
+244,"Don't worry, I'm sure those brave corruption fighters at Wikileaks will expose them!",llama-3.3-70b,0,sarcastic,Tone implies doubt about Wikileaks' ability to expose.,True
+244,"Don't worry, I'm sure those brave corruption fighters at Wikileaks will expose them!",llama-3.3-70b,1,sarcastic,Tone implies doubt about Wikileaks' ability to expose.,True
+246,Hnnnngggggggg I love living in BC,llama-3.3-70b,0,sarcastic,Overuse of 'n' and 'g' suggests frustration.,True
+246,Hnnnngggggggg I love living in BC,llama-3.3-70b,1,sarcastic,Exaggerated tone and spelling indicate sarcasm.,True
+248,"I think if he gets elected again, he needs to just come out with it.",llama-3.3-70b,0,sarcastic,Tone implies frustration and disbelief.,True
+248,"I think if he gets elected again, he needs to just come out with it.",llama-3.3-70b,1,literal,Speaker implies a genuine expectation.,True
+249,"That was me, I got high and started drawing on shit.",llama-3.3-70b,0,literal,speaker admits to reckless behavior,True
+249,"That was me, I got high and started drawing on shit.",llama-3.3-70b,1,literal,Speaker admits to reckless behavior without irony or contradiction.,True
+251,Yeah the brm not purifier or po6,llama-3.3-70b,0,sarcastic,incoherent text suggests sarcasm,True
+251,Yeah the brm not purifier or po6,llama-3.3-70b,1,sarcastic,Gibberish text suggests sarcasm,True
+252,Because being loud and throwing insults is how you win an argument.,llama-3.3-70b,0,sarcastic,Tone implies loudness and insults are not effective argument strategies.,True
+252,Because being loud and throwing insults is how you win an argument.,llama-3.3-70b,1,sarcastic,Tone implies loudness and insults are not effective argument strategies.,True
+255,The war on terror is a huge success~!,llama-3.3-70b,0,sarcastic,Tone implies irony and criticism,True
+255,The war on terror is a huge success~!,llama-3.3-70b,1,sarcastic,"Tone implies criticism, not genuine praise.",True
+256,The release of Ice Age: Collison Course.,llama-3.3-70b,0,literal,The phrase appears to be a factual statement about a movie release.,True
+256,The release of Ice Age: Collison Course.,llama-3.3-70b,1,literal,No apparent irony or exaggeration.,True
+257,Or play csgo and waste all their money on skins!,llama-3.3-70b,0,sarcastic,Tone implies criticism of overspending on skins.,True
+257,Or play csgo and waste all their money on skins!,llama-3.3-70b,1,sarcastic,The claim is sarcastic because it exaggerates the idea of wasting money on skins in CS:GO.,True
+260,The upcoming elections will be conspiracy mud-slinging.,llama-3.3-70b,0,sarcastic,Tone implies criticism of election discourse.,True
+260,The upcoming elections will be conspiracy mud-slinging.,llama-3.3-70b,1,literal,"Mud-slinging implies harsh criticism, which is common in elections.",True
+262,Oh wow I had no idea!,llama-3.3-70b,0,sarcastic,"Tone implies surprise, but context suggests otherwise.",True
+262,Oh wow I had no idea!,llama-3.3-70b,1,sarcastic,"Tone implies surprise, but context suggests otherwise.",True
+264,But I thought he was a bust?,llama-3.3-70b,0,sarcastic,"Tone implies doubt and surprise, indicating sarcasm.",True
+264,But I thought he was a bust?,llama-3.3-70b,1,sarcastic,"Tone implies doubt and surprise, indicating sarcasm.",True
+266,Happen to have a link to his watch?,llama-3.3-70b,0,sarcastic,Tone implies insincerity and annoyance.,True
+266,Happen to have a link to his watch?,llama-3.3-70b,1,sarcastic,Tone implies insincerity and surprise.,True
+268,How do we know the horse wasn't drunk and actually gave consent.,llama-3.3-70b,0,sarcastic,implausible scenario presented as factual,True
+268,How do we know the horse wasn't drunk and actually gave consent.,llama-3.3-70b,1,sarcastic,implausible scenario presented as fact,True
+269,How about making the person(s) who made the accusations pay the costs?,llama-3.3-70b,0,literal,Seeking restitution is a serious proposal.,True
+269,How about making the person(s) who made the accusations pay the costs?,llama-3.3-70b,1,literal,Seeking compensation is a serious proposal.,True
+271,Sure she first called the storm with her witch powers and then bought adds on the weather channel.,llama-3.3-70b,0,sarcastic,implausible events described in a mocking tone,True
+271,Sure she first called the storm with her witch powers and then bought adds on the weather channel.,llama-3.3-70b,1,sarcastic,implausible events described in a mocking tone,True
+272,Most modern games aren't played in a browser.,llama-3.3-70b,0,literal,Most modern games require downloads or dedicated apps.,True
+272,Most modern games aren't played in a browser.,llama-3.3-70b,1,literal,Most games require downloads or dedicated apps.,True
+273,I'm sure Mexico will pay for that one too.,llama-3.3-70b,0,sarcastic,Tone implies doubt about Mexico paying.,True
+273,I'm sure Mexico will pay for that one too.,llama-3.3-70b,1,sarcastic,Tone implies doubt about Mexico paying.,True
+274,You would only consider his record outstanding if you were a raci.... oh Spicers statement makes sense now.,llama-3.3-70b,0,sarcastic,Tone implies mocking agreement,True
+274,You would only consider his record outstanding if you were a raci.... oh Spicers statement makes sense now.,llama-3.3-70b,1,sarcastic,Tone implies mockery of statement,True
+275,He is the monk from the suicide mountain,llama-3.3-70b,0,sarcastic,Unlikely a real monk from a mountain.,True
+275,He is the monk from the suicide mountain,llama-3.3-70b,1,literal,Reference to a specific monk from a known location.,True
+276,If you've given up already don't bother posting here and wasting our time.,llama-3.3-70b,0,sarcastic,"Tone is harsh and dismissive, indicating sarcasm.",True
+276,If you've given up already don't bother posting here and wasting our time.,llama-3.3-70b,1,sarcastic,"Tone implies annoyance, not genuine advice.",True
+278,"He took a sarcastic compliment as a real compliment ""Ohh you must read a lot of books""",llama-3.3-70b,0,sarcastic,"Tone implies mockery, not genuine praise.",True
+278,"He took a sarcastic compliment as a real compliment ""Ohh you must read a lot of books""",llama-3.3-70b,1,sarcastic,Tone implies mocking admiration,True
+279,"Because the one thing we were missing this year was offensive fire power, not defensive depth at all",llama-3.3-70b,0,sarcastic,Tone implies criticism of prioritizing offense over defense.,True
+279,"Because the one thing we were missing this year was offensive fire power, not defensive depth at all",llama-3.3-70b,1,sarcastic,Tone implies criticism of prioritizing offense over defense,True
+281,Until they want to fight gay marriage or EPA regulations.,llama-3.3-70b,0,sarcastic,Tone implies reluctance to fight certain issues.,True
+281,Until they want to fight gay marriage or EPA regulations.,llama-3.3-70b,1,sarcastic,Tone implies reluctance to fight,True
+283,But it's more fun to hate on others while remaining anonymous.,llama-3.3-70b,0,sarcastic,Tone implies criticism of online behavior.,True
+283,But it's more fun to hate on others while remaining anonymous.,llama-3.3-70b,1,sarcastic,Tone implies mocking online behavior,True
+287,wow those poor invaders their families should sue the shit out of the little fucker!,llama-3.3-70b,0,sarcastic,"Tone and language indicate mockery and outrage, not genuine concern.",True
+287,wow those poor invaders their families should sue the shit out of the little fucker!,llama-3.3-70b,1,sarcastic,"Tone and language suggest mockery and outrage, not genuine concern.",True
+288,How 'bout **you** take my upvote and go to hell,llama-3.3-70b,0,sarcastic,aggressive tone and profanity indicate sarcasm,True
+288,How 'bout **you** take my upvote and go to hell,llama-3.3-70b,1,sarcastic,aggressive tone and curse word indicate sarcasm,True
+289,What did savage say about injuries?,llama-3.3-70b,0,literal,The question is direct and inquires about information.,True
+289,What did savage say about injuries?,llama-3.3-70b,1,literal,The question is direct and inquires about information.,True
+297,"If your wife originates from your penis, I think we might have a problem or two here.",llama-3.3-70b,0,sarcastic,The claim is biologically impossible and absurd.,True
+297,"If your wife originates from your penis, I think we might have a problem or two here.",llama-3.3-70b,1,sarcastic,Language is absurd and illogical.,True
+298,But if he leaves he won't have Tallahassee pd covering for him anymore,llama-3.3-70b,0,literal,Speaker implies loss of police protection,True
+298,But if he leaves he won't have Tallahassee pd covering for him anymore,llama-3.3-70b,1,literal,Statement implies loss of police protection,True
+301,This article is almost a year old.,llama-3.3-70b,0,literal,Statement is factual and lacks irony.,True
+301,This article is almost a year old.,llama-3.3-70b,1,literal,Statement of fact about article's age.,True
+302,"Aah yes, I always knew it was Soros and the NWO.",llama-3.3-70b,0,sarcastic,Tone implies skepticism and mockery of conspiracy theories.,True
+302,"Aah yes, I always knew it was Soros and the NWO.",llama-3.3-70b,1,sarcastic,Tone implies distrust and mockery of conspiracy theories.,True
+303,"No, it's always been about which console gives you a more consistent 60 fps.",llama-3.3-70b,0,literal,The statement discusses a technical aspect of consoles.,True
+303,"No, it's always been about which console gives you a more consistent 60 fps.",llama-3.3-70b,1,literal,The statement discusses a specific technical aspect of consoles.,True
+304,I guess they really want Thunder vs Heat,llama-3.3-70b,0,sarcastic,Tone implies doubt and skepticism.,True
+304,I guess they really want Thunder vs Heat,llama-3.3-70b,1,sarcastic,Tone implies doubt and skepticism.,True
+305,"I'm sure there are fans in every program that go to far, it's not limited to Baylor.",llama-3.3-70b,0,literal,Statement acknowledges issue exists elsewhere,True
+305,"I'm sure there are fans in every program that go to far, it's not limited to Baylor.",llama-3.3-70b,1,literal,Statement acknowledges wrongdoing elsewhere.,True
+306,That guy is so far up himself,llama-3.3-70b,0,sarcastic,implies self-importance,True
+306,That guy is so far up himself,llama-3.3-70b,1,sarcastic,Idiomatic phrase implying self-importance,True
+310,Is that your girlfriend in that picture :O,llama-3.3-70b,0,sarcastic,Tone implies surprise and potential mockery.,True
+310,Is that your girlfriend in that picture :O,llama-3.3-70b,1,sarcastic,Tone implies surprise and potential mockery,True
+311,"I'm not a corporate shill or a fake account, just like 99.9% of reddit seems to be",llama-3.3-70b,0,sarcastic,Tone implies criticism of Reddit's authenticity,True
+311,"I'm not a corporate shill or a fake account, just like 99.9% of reddit seems to be",llama-3.3-70b,1,sarcastic,Tone and exaggeration indicate sarcasm,True
+315,The one that empowers women and supports more women and black people in movies.,llama-3.3-70b,0,literal,Statement appears to promote diversity and inclusion.,True
+315,The one that empowers women and supports more women and black people in movies.,llama-3.3-70b,1,literal,The statement explicitly supports empowerment and diversity.,True
+319,How can we possibly make this hellhole more intolerable...?,llama-3.3-70b,0,sarcastic,Tone implies opposite intention.,True
+319,How can we possibly make this hellhole more intolerable...?,llama-3.3-70b,1,sarcastic,Tone implies opposite intention.,True
+322,How the fuck did that get so rusty?,llama-3.3-70b,0,sarcastic,incredulous tone and profanity indicate sarcasm,True
+322,How the fuck did that get so rusty?,llama-3.3-70b,1,sarcastic,Tone implies frustration and surprise.,True
+323,"Good for me,I will study physics or math on college,so maybe secure job if I am good enough.",llama-3.3-70b,0,literal,Statement expresses genuine career aspiration.,True
+323,"Good for me,I will study physics or math on college,so maybe secure job if I am good enough.",llama-3.3-70b,1,literal,The speaker expresses a genuine career goal.,True
+324,I knew we were a disease.,llama-3.3-70b,0,sarcastic,"Tone implies criticism, not genuine belief.",True
+324,I knew we were a disease.,llama-3.3-70b,1,sarcastic,Hyperbolic language implies sarcasm.,True
+326,wow thats sad af fucking retarsd op,llama-3.3-70b,0,sarcastic,excessive profanity and hyperbole indicate sarcasm,True
+326,wow thats sad af fucking retarsd op,llama-3.3-70b,1,sarcastic,inflammatory language used to convey opposite sentiment,True
+327,That's it thats the show My god... Way too many spoilers here,llama-3.3-70b,0,sarcastic,Tone implies frustration with spoilers.,True
+327,That's it thats the show My god... Way too many spoilers here,llama-3.3-70b,1,sarcastic,Tone implies frustration with spoilers.,True
+329,"I mean, if all you're going to do is write clickbait it does the job nicely.",llama-3.3-70b,0,sarcastic,Tone implies criticism of clickbait writing.,True
+329,"I mean, if all you're going to do is write clickbait it does the job nicely.",llama-3.3-70b,1,sarcastic,Tone implies criticism of clickbait writing.,True
+334,How do you clip music to your shirt?,llama-3.3-70b,0,sarcastic,The question implies confusion about a basic task.,True
+334,How do you clip music to your shirt?,llama-3.3-70b,1,sarcastic,implausible action,True
+336,2016 might be a little late for that.,llama-3.3-70b,0,sarcastic,Tone implies it's too late.,True
+336,2016 might be a little late for that.,llama-3.3-70b,1,sarcastic,Tone implies criticism or dismissal.,True
+337,The norman bates comment was a very nice touch.,llama-3.3-70b,0,sarcastic,Tone implies insincerity,True
+337,The norman bates comment was a very nice touch.,llama-3.3-70b,1,sarcastic,Tone implies insincerity,True
+338,Old white man with fragile masculinity talks about how women are ruining everything.,llama-3.3-70b,0,sarcastic,Tone implies criticism of sexist views.,True
+338,Old white man with fragile masculinity talks about how women are ruining everything.,llama-3.3-70b,1,sarcastic,Tone implies criticism of sexist views.,True
+339,"Salamie generally, but specific classes would want Behemoth with specific skill boosts.",llama-3.3-70b,0,literal,Statement provides specific context and conditions.,True
+339,"Salamie generally, but specific classes would want Behemoth with specific skill boosts.",llama-3.3-70b,1,literal,Statement provides specific conditions and details.,True
+341,And don't place your self worth in your social media likes/followers/etc.,llama-3.3-70b,0,literal,Advice to avoid measuring self-worth by social media metrics.,True
+341,And don't place your self worth in your social media likes/followers/etc.,llama-3.3-70b,1,literal,Advice to not base self worth on social media metrics.,True
+343,Now you can XYZ summon 1 stars I guess,llama-3.3-70b,0,sarcastic,Tone implies disappointment and mockery.,True
+343,Now you can XYZ summon 1 stars I guess,llama-3.3-70b,1,sarcastic,Tone implies disappointment and low expectations,True
+344,"This just in, CEO of Gamergate calls Manned Mars Mission Vaporware!",llama-3.3-70b,0,sarcastic,Tone implies mockery of CEO's opinion,True
+344,"This just in, CEO of Gamergate calls Manned Mars Mission Vaporware!",llama-3.3-70b,1,sarcastic,Tone implies doubt and criticism of the mission's feasibility.,True
+345,Take the ceiling off of taxable income and means test for benefits.,llama-3.3-70b,0,literal,Proposal suggests specific policy changes.,True
+345,Take the ceiling off of taxable income and means test for benefits.,llama-3.3-70b,1,literal,Proposal suggests policy changes without ironic tone.,True
+346,I agree what was he thinking?,llama-3.3-70b,0,sarcastic,Tone implies criticism and doubt.,True
+346,I agree what was he thinking?,llama-3.3-70b,1,sarcastic,Tone implies criticism and doubt.,True
+347,SHE SHOULDN'T BE ALLOWED TO DO THAT BECAUSE...,llama-3.3-70b,0,sarcastic,Tone implies strong opposition.,True
+347,SHE SHOULDN'T BE ALLOWED TO DO THAT BECAUSE...,llama-3.3-70b,1,sarcastic,"Tone implies outrage, likely ironic.",True
+348,"Real rap, Tupac never died he just put in new contacts",llama-3.3-70b,0,sarcastic,Claim is absurd and ironic,True
+348,"Real rap, Tupac never died he just put in new contacts",llama-3.3-70b,1,sarcastic,Tupac's death is historical fact,True
+349,You can tell the pc is vr ready because it has a vga output at the front.,llama-3.3-70b,0,sarcastic,VGA output is outdated for VR.,True
+349,You can tell the pc is vr ready because it has a vga output at the front.,llama-3.3-70b,1,sarcastic,VGA output is outdated for VR.,True
+350,Alternate Headline: Rich guy finds out that having to work for a living is hard.,llama-3.3-70b,0,sarcastic,Tone implies mocking rich people's discovery of work's difficulty.,True
+350,Alternate Headline: Rich guy finds out that having to work for a living is hard.,llama-3.3-70b,1,sarcastic,Tone implies mockery of wealthy individuals.,True
+351,"I mean I've been wanting some mastery skins, so I'm kinda happy.",llama-3.3-70b,0,literal,Speaker expresses genuine happiness about getting mastery skins.,True
+351,"I mean I've been wanting some mastery skins, so I'm kinda happy.",llama-3.3-70b,1,literal,Speaker expresses genuine happiness about getting mastery skins.,True
+353,If cats came from lions then why are there lions?,llama-3.3-70b,0,sarcastic,Questioning established fact in a seemingly naive way.,True
+353,If cats came from lions then why are there lions?,llama-3.3-70b,1,sarcastic,implies ignorance of evolution,True
+355,and they don't know what happened in Afganistan on any particular day either,llama-3.3-70b,0,sarcastic,implies ignorance beyond reasonable expectation,True
+355,and they don't know what happened in Afganistan on any particular day either,llama-3.3-70b,1,sarcastic,implies ignorance beyond reasonable expectation,True
+356,Ricciardo is already getting the psychological advantage for next season,llama-3.3-70b,0,literal,Statement implies genuine confidence in Ricciardo's abilities.,True
+356,Ricciardo is already getting the psychological advantage for next season,llama-3.3-70b,1,literal,The statement suggests Ricciardo has a psychological edge for next season.,True
+357,I hear a cold front is gathering near Monolith.,llama-3.3-70b,0,sarcastic,"Monolith is a massive structure in 2001: A Space Odyssey, unlikely to have weather.",True
+357,I hear a cold front is gathering near Monolith.,llama-3.3-70b,1,sarcastic,"Monolith is a large stone structure, not a location with weather.",True
+358,Luckily they were all wearing gloves.,llama-3.3-70b,0,sarcastic,implies bad situation despite 'luck',True
+358,Luckily they were all wearing gloves.,llama-3.3-70b,1,sarcastic,implies bad situation,True
+359,"Don't worry, just get some tongs and drain the sink!",llama-3.3-70b,0,literal,Tongs can be used to remove blockages.,True
+359,"Don't worry, just get some tongs and drain the sink!",llama-3.3-70b,1,literal,Tongs can be used to remove blockages.,True
+361,"Guys if we tell them who's in the database, they'll go and change their biometrics!",llama-3.3-70b,0,sarcastic,Unlikely people can change biometrics.,True
+361,"Guys if we tell them who's in the database, they'll go and change their biometrics!",llama-3.3-70b,1,sarcastic,implausible outcome,True
+364,"Ah, French men, glad to see some of them have not forgotten to be creepy",llama-3.3-70b,0,sarcastic,Tone implies criticism of French men's behavior.,True
+364,"Ah, French men, glad to see some of them have not forgotten to be creepy",llama-3.3-70b,1,sarcastic,"Tone implies criticism of French men's behavior, not genuine praise.",True
+366,Is this the largest prize pool tourney to be won by a stand-in?,llama-3.3-70b,0,sarcastic,Tone implies surprise and doubt about the stand-in's win.,True
+366,Is this the largest prize pool tourney to be won by a stand-in?,llama-3.3-70b,1,sarcastic,Tone implies surprise and doubt,True
+367,Because we need less infrastructure and more condos downtown,llama-3.3-70b,0,sarcastic,"Tone implies opposite intent, criticizing condo development.",True
+367,Because we need less infrastructure and more condos downtown,llama-3.3-70b,1,sarcastic,Tone implies criticism of condo development,True
+369,"Sorry, The President was drunk last night",llama-3.3-70b,0,sarcastic,Tone implies insincerity and ridicule,True
+369,"Sorry, The President was drunk last night",llama-3.3-70b,1,sarcastic,Tone implies insincerity and ridicule,True
+370,"Right, and since I'm now pissed off, I *must* be PMSing.",llama-3.3-70b,0,sarcastic,Tone implies frustration and irony.,True
+370,"Right, and since I'm now pissed off, I *must* be PMSing.",llama-3.3-70b,1,sarcastic,"Tone implies annoyance and frustration, suggesting sarcasm.",True
+371,"Basically ""I wish protestors would be quiet and well-behaved so I could continuing ignoring their plight""",llama-3.3-70b,0,sarcastic,speaker wants to ignore protestors' issues,True
+371,"Basically ""I wish protestors would be quiet and well-behaved so I could continuing ignoring their plight""",llama-3.3-70b,1,sarcastic,"Tone implies opposite of literal meaning, highlighting irony.",True
+373,The owner of that car will be SO happy to get his car back!,llama-3.3-70b,0,sarcastic,Tone implies opposite of literal meaning,True
+373,The owner of that car will be SO happy to get his car back!,llama-3.3-70b,1,sarcastic,Tone implies opposite of literal meaning,True
+374,Just raise it to 100 and barely anyone will smoke!,llama-3.3-70b,0,sarcastic,Claim is unrealistic and exaggerated.,True
+374,Just raise it to 100 and barely anyone will smoke!,llama-3.3-70b,1,sarcastic,implausible solution implies skepticism,True
+375,"So this guy managed to pull his phone and gun out just in time for this idiot to pull up beside him, all while steady driving.. Talk about multitasking.",llama-3.3-70b,0,sarcastic,implausible scenario described in a deadpan tone,True
+375,"So this guy managed to pull his phone and gun out just in time for this idiot to pull up beside him, all while steady driving.. Talk about multitasking.",llama-3.3-70b,1,sarcastic,"The claim is unrealistic and exaggerated, implying sarcasm.",True
+376,hehehehe they didn't spell police right hehehehehehehe,llama-3.3-70b,0,sarcastic,Tone and language used are playful and mocking.,True
+376,hehehehe they didn't spell police right hehehehehehehe,llama-3.3-70b,1,sarcastic,Tone and language used are mocking and amused.,True
+377,"friendly reminder that I currently hold the high score at ~12,000 cuck points step it up cb2",llama-3.3-70b,0,sarcastic,Tone implies competition and one-upmanship.,True
+377,"friendly reminder that I currently hold the high score at ~12,000 cuck points step it up cb2",llama-3.3-70b,1,sarcastic,boastful language and absurd scoring system,True
+378,I think everyone knows it was taxing the mines that brought about the recession.,llama-3.3-70b,0,literal,The claim appears to be a genuine statement about the cause of a recession.,True
+378,I think everyone knows it was taxing the mines that brought about the recession.,llama-3.3-70b,1,literal,Claim appears to be a genuine statement about economic cause.,True
+379,Kyle Seager was as good if not better than Machado last year but he isn't even as respected as his rookie younger brother,llama-3.3-70b,0,sarcastic,Comparing Seager to Machado and implying more respect for his rookie brother is an exaggeration.,True
+379,Kyle Seager was as good if not better than Machado last year but he isn't even as respected as his rookie younger brother,llama-3.3-70b,1,sarcastic,Comparison of Kyle Seager to Machado is unrealistic.,True
+382,"God, what a bunch of tender-hearted pansies you Brits are.",llama-3.3-70b,0,sarcastic,"Tone is mocking and insulting, indicating sarcasm.",True
+382,"God, what a bunch of tender-hearted pansies you Brits are.",llama-3.3-70b,1,sarcastic,"Tone is mocking and belittling, indicating sarcasm.",True
+383,"But that was wolf, not Game and Watch.",llama-3.3-70b,0,sarcastic,Tone implies annoyance or frustration.,True
+383,"But that was wolf, not Game and Watch.",llama-3.3-70b,1,sarcastic,Tone implies annoyance or frustration.,True
+385,Fun fact: Nobody ever killed each other before Trump was elected,llama-3.3-70b,0,sarcastic,"implausible statement, contradicting historical facts",True
+385,Fun fact: Nobody ever killed each other before Trump was elected,llama-3.3-70b,1,sarcastic,Claim implies opposite of historical fact.,True
+389,Maybe Nash needs a night to recover from getting tackled and molested last night,llama-3.3-70b,0,sarcastic,Language used is hyperbolic and exaggerated.,True
+389,Maybe Nash needs a night to recover from getting tackled and molested last night,llama-3.3-70b,1,sarcastic,Language used is hyperbolic and exaggerated.,True
+390,Focusing on the important issues....I'm sure this will cut down terrorism,llama-3.3-70b,0,sarcastic,Tone implies skepticism about effectiveness.,True
+390,Focusing on the important issues....I'm sure this will cut down terrorism,llama-3.3-70b,1,sarcastic,Tone implies doubt about effectiveness.,True
+391,Do we have to resign this every 7 days as well?,llama-3.3-70b,0,sarcastic,Tone implies frustration and annoyance.,True
+391,Do we have to resign this every 7 days as well?,llama-3.3-70b,1,sarcastic,Tone implies annoyance and frustration,True
+392,"Haha, yes lets make jokes about causing brain damage in babies.",llama-3.3-70b,0,sarcastic,Tone implies mockery of making jokes about harming babies.,True
+392,"Haha, yes lets make jokes about causing brain damage in babies.",llama-3.3-70b,1,sarcastic,Tone implies joking about harm is unacceptable.,True
+394,633 net upvotes even though this bill has fuck-all to do with mass surveillance.,llama-3.3-70b,0,sarcastic,Language used is informal and dismissive.,True
+394,633 net upvotes even though this bill has fuck-all to do with mass surveillance.,llama-3.3-70b,1,sarcastic,Language used is informal and dismissive.,True
+395,"This is just more proof of labors waste with that fancy ftth thingy, thankfully the adults are back!",llama-3.3-70b,0,sarcastic,Tone implies criticism of labor and skepticism towards 'adults' being back.,True
+395,"This is just more proof of labors waste with that fancy ftth thingy, thankfully the adults are back!",llama-3.3-70b,1,sarcastic,Tone implies criticism of labor and relief at adults' return.,True
+396,Hilarious whining about how much the far right hates being forced to treat other humans with simple respect.,llama-3.3-70b,0,sarcastic,Tone implies mockery of far right's complaints.,True
+396,Hilarious whining about how much the far right hates being forced to treat other humans with simple respect.,llama-3.3-70b,1,sarcastic,Tone implies mockery of far right's complaints.,True
+398,"Wait, I thought Trump said there was no drought.",llama-3.3-70b,0,sarcastic,Tone implies surprise at an obvious contradiction.,True
+398,"Wait, I thought Trump said there was no drought.",llama-3.3-70b,1,sarcastic,Tone implies disbelief and criticism of Trump's statement.,True
+399,"I'd rather continue pirating my material, thankyouverymuch.",llama-3.3-70b,0,sarcastic,Tone implies annoyance and mockery.,True
+399,"I'd rather continue pirating my material, thankyouverymuch.",llama-3.3-70b,1,sarcastic,Tone implies annoyance and mockery.,True
+400,"Hey man, the size should be 300x100 , your aspect ratio is way off the chart.",llama-3.3-70b,0,literal,Directly states the issue with aspect ratio.,True
+400,"Hey man, the size should be 300x100 , your aspect ratio is way off the chart.",llama-3.3-70b,1,literal,Directly states the issue with aspect ratio,True
+401,"As long as they weren't seen as being racist for pointing out that one oriental guy amongst all those middle eastern and african people, then that is all that matters",llama-3.3-70b,0,sarcastic,Language used is overly defensive and dismissive.,True
+401,"As long as they weren't seen as being racist for pointing out that one oriental guy amongst all those middle eastern and african people, then that is all that matters",llama-3.3-70b,1,sarcastic,Tone implies insincerity and criticism of societal expectations.,True
+403,That's the first thing I thought when I saw this picture!,llama-3.3-70b,0,sarcastic,"Unlikely first thought, implies sarcasm.",True
+403,That's the first thing I thought when I saw this picture!,llama-3.3-70b,1,sarcastic,"Unlikely first thought, implies sarcasm.",True
+405,Big Sean would decimate King Kenny.,llama-3.3-70b,0,sarcastic,"unlikely outcome, exaggeration",True
+405,Big Sean would decimate King Kenny.,llama-3.3-70b,1,sarcastic,"Big Sean is a rapper, not a boxer, making the claim unrealistic.",True
+408,PC gamer are so fucking terrible nowadays with shit posting articles,llama-3.3-70b,0,sarcastic,"Over-the-top language suggests frustration, not genuine opinion",True
+408,PC gamer are so fucking terrible nowadays with shit posting articles,llama-3.3-70b,1,sarcastic,Tone is overly negative and hyperbolic.,True
+409,i thought only Jews have rights to use it,llama-3.3-70b,0,sarcastic,"implies exclusivity, likely mocking discriminatory views",True
+409,i thought only Jews have rights to use it,llama-3.3-70b,1,sarcastic,Tone implies disbelief and criticism of exclusive rights.,True
+410,Lucky his daughter had her helmet on.,llama-3.3-70b,0,literal,The statement expresses genuine relief.,True
+410,Lucky his daughter had her helmet on.,llama-3.3-70b,1,literal,The speaker is expressing genuine relief.,True
+411,"Come on people, everyone knows snowmen are created by humans so the world and the universe must be created too.",llama-3.3-70b,0,sarcastic,Claim implies absurd conclusion from a known fact.,True
+411,"Come on people, everyone knows snowmen are created by humans so the world and the universe must be created too.",llama-3.3-70b,1,sarcastic,Claim implies absurd conclusion from a known fact.,True
+412,"Just mix your meats like the rest of us, ya damn purist",llama-3.3-70b,0,sarcastic,Tone is mocking and critical of being a purist.,True
+412,"Just mix your meats like the rest of us, ya damn purist",llama-3.3-70b,1,sarcastic,Tone is mocking and uses derogatory terms.,True
+415,"Dammit BB, I told you we should've put them in the storage area!",llama-3.3-70b,0,literal,spoken in frustration and anger,True
+415,"Dammit BB, I told you we should've put them in the storage area!",llama-3.3-70b,1,literal,Tone indicates frustration and urgency.,True
+416,I vote Klingon as the 2nd language!,llama-3.3-70b,0,sarcastic,Reference to a fictional language is unlikely to be serious.,True
+416,I vote Klingon as the 2nd language!,llama-3.3-70b,1,sarcastic,Reference to Klingon is unlikely serious.,True
+417,"No, why would you say that?",llama-3.3-70b,0,sarcastic,Tone implies annoyance or defensiveness.,True
+417,"No, why would you say that?",llama-3.3-70b,1,sarcastic,Tone implies annoyance and defensiveness.,True
+418,Don't make me put my foot down.,llama-3.3-70b,0,sarcastic,Idiomatic phrase implying annoyance.,True
+418,Don't make me put my foot down.,llama-3.3-70b,1,sarcastic,Idiomatic phrase implying annoyance.,True
+419,and the upscaled 4K which is indistinguishable from native 4K,llama-3.3-70b,0,sarcastic,Claiming upscaled 4K is indistinguishable from native 4K is an overstatement.,True
+419,and the upscaled 4K which is indistinguishable from native 4K,llama-3.3-70b,1,sarcastic,Claim exaggerates upscaled 4K quality.,True
+422,I'm just glad he didn't start by rising his spork.,llama-3.3-70b,0,sarcastic,Uses absurdity to convey annoyance.,True
+422,I'm just glad he didn't start by rising his spork.,llama-3.3-70b,1,sarcastic,implausible scenario and exaggerated language,True
+423,It's good to know that the NSA is doing such a good job of being a National Security Agency.,llama-3.3-70b,0,sarcastic,Tone implies criticism of NSA's actions.,True
+423,It's good to know that the NSA is doing such a good job of being a National Security Agency.,llama-3.3-70b,1,sarcastic,Tone implies criticism of NSA's actions.,True
+425,"im offended you're offended, now what?",llama-3.3-70b,0,sarcastic,Tone implies mockery of being offended.,True
+425,"im offended you're offended, now what?",llama-3.3-70b,1,sarcastic,Tone implies annoyance and mockery.,True
+427,Wow I wonder how all these sprouts survived without the novice network.,llama-3.3-70b,0,sarcastic,Tone implies mocking the novice network's importance.,True
+427,Wow I wonder how all these sprouts survived without the novice network.,llama-3.3-70b,1,sarcastic,Tone implies mocking the network's importance.,True
+428,Person here: This is called a nail.,llama-3.3-70b,0,literal,Statement is straightforward and factual.,True
+428,Person here: This is called a nail.,llama-3.3-70b,1,literal,Statement is straightforward and factual.,True
+429,"Wow, what an awful typo OP LOL it's clearly Orariguid Flethic",llama-3.3-70b,0,sarcastic,Tone is mocking and playful,True
+429,"Wow, what an awful typo OP LOL it's clearly Orariguid Flethic",llama-3.3-70b,1,sarcastic,Tone is mocking and playful.,True
+430,"Oh, forgot to mention, I'm currently testing out stuff",llama-3.3-70b,0,literal,spoken in a casual tone without irony,True
+430,"Oh, forgot to mention, I'm currently testing out stuff",llama-3.3-70b,1,literal,tone is casual and matter-of-fact,True
+431,Lol mental illness is hilarious you guys...,llama-3.3-70b,0,sarcastic,"Tone implies mockery of mental illness, not genuine humor.",True
+431,Lol mental illness is hilarious you guys...,llama-3.3-70b,1,sarcastic,Tone implies mockery of mental illness,True
+432,Step 1: He was in over his head in the NFL.,llama-3.3-70b,0,literal,Statement describes a realistic situation.,True
+432,Step 1: He was in over his head in the NFL.,llama-3.3-70b,1,literal,Statement describes a situation factually.,True
+438,I'm sure Arsenal are shitting themselves at the thought of it.,llama-3.3-70b,0,sarcastic,"Tone implies opposite of literal meaning, using hyperbole.",True
+438,I'm sure Arsenal are shitting themselves at the thought of it.,llama-3.3-70b,1,sarcastic,Tone implies opposite of literal meaning,True
+439,What if the photographer is a woman?,llama-3.3-70b,0,literal,The question is genuine and inquires about a specific scenario.,True
+439,What if the photographer is a woman?,llama-3.3-70b,1,literal,The question is genuine and inquires about a possibility.,True
+440,But I pay to play the game how I want!,llama-3.3-70b,0,literal,"Speaker asserts their right to play as they wish, indicating genuine conviction.",True
+440,But I pay to play the game how I want!,llama-3.3-70b,1,literal,speaker is expressing genuine frustration,True
+441,Shocking that an Abrahamic religion has been in America since George Washington,llama-3.3-70b,0,sarcastic,Tone implies surprise at a well-known fact.,True
+441,Shocking that an Abrahamic religion has been in America since George Washington,llama-3.3-70b,1,sarcastic,Tone implies surprise at a well-known fact.,True
+442,So basically Gurley is a lil bitch,llama-3.3-70b,0,sarcastic,Tone and language used are aggressive and derogatory.,True
+442,So basically Gurley is a lil bitch,llama-3.3-70b,1,sarcastic,Tone and language used are derogatory and unlikely to be meant literally.,True
+443,WELL NOW THIS IS THE LAST STRAW!,llama-3.3-70b,0,sarcastic,Over-the-top language implies sarcasm.,True
+443,WELL NOW THIS IS THE LAST STRAW!,llama-3.3-70b,1,sarcastic,Exaggerated language indicates sarcasm.,True
+446,"I don't blame them, people are not giving it negative reviews over a single bad thing that has happened, they are giving it multiple negative reviews do to the past 2-3 years of promises yet no real substance unless you count the paid duck update because that totally rocked",llama-3.3-70b,0,sarcastic,Tone and language used are ironic and mocking.,True
+446,"I don't blame them, people are not giving it negative reviews over a single bad thing that has happened, they are giving it multiple negative reviews do to the past 2-3 years of promises yet no real substance unless you count the paid duck update because that totally rocked",llama-3.3-70b,1,sarcastic,Tone and language used are ironic and mocking.,True
+448,"I've literally heard his, ""white people have contributed the most to society,"" argument in a KKK documentary.",llama-3.3-70b,0,sarcastic,Tone implies ridicule of the argument.,True
+448,"I've literally heard his, ""white people have contributed the most to society,"" argument in a KKK documentary.",llama-3.3-70b,1,sarcastic,Tone implies disbelief and ridicule.,True
+450,"oh gosh those ""truthers"" are the worst",llama-3.3-70b,0,sarcastic,Tone implies annoyance and mockery,True
+450,"oh gosh those ""truthers"" are the worst",llama-3.3-70b,1,sarcastic,Tone implies annoyance and mockery,True
+451,I wish we were still in the days where we take guys like this out back and beat them with hoses.,llama-3.3-70b,0,sarcastic,violent suggestion is unrealistic and hyperbolic,True
+451,I wish we were still in the days where we take guys like this out back and beat them with hoses.,llama-3.3-70b,1,sarcastic,violent suggestion is unrealistic and exaggerated,True
+452,How is it these legislators don't leave them selves open for law suits?,llama-3.3-70b,0,sarcastic,Tone implies frustration and criticism.,True
+452,How is it these legislators don't leave them selves open for law suits?,llama-3.3-70b,1,sarcastic,Tone implies frustration and criticism.,True
+453,You sure we should still be using that racist meme?,llama-3.3-70b,0,sarcastic,"Tone implies concern, but phrase 'you sure' suggests doubt about stopping use.",True
+453,You sure we should still be using that racist meme?,llama-3.3-70b,1,sarcastic,"Tone implies concern over using a racist meme, indicating sarcasm.",True
+454,"Geeze you guys are just as bad as the birther movement, does he need to release his birth certificate too?",llama-3.3-70b,0,sarcastic,"The claim compares critics to the birther movement, implying absurdity.",True
+454,"Geeze you guys are just as bad as the birther movement, does he need to release his birth certificate too?",llama-3.3-70b,1,sarcastic,Tone implies annoyance and ridicule.,True
+456,"Amongst people I know personally, it's more like 1 in 50.",llama-3.3-70b,0,literal,"Claim provides a specific ratio, indicating a genuine statement.",True
+456,"Amongst people I know personally, it's more like 1 in 50.",llama-3.3-70b,1,literal,Claim provides specific personal statistic.,True
+457,General Assembly is really earning their salary.,llama-3.3-70b,0,sarcastic,Tone implies dissatisfaction with General Assembly's performance.,True
+457,General Assembly is really earning their salary.,llama-3.3-70b,1,sarcastic,Tone implies criticism of General Assembly's performance.,True
+458,Excellent for all those males who sexually harass me in Apoc.,llama-3.3-70b,0,sarcastic,Tone implies opposite of excellent,True
+458,Excellent for all those males who sexually harass me in Apoc.,llama-3.3-70b,1,sarcastic,"Tone implies opposite of excellent, criticizing harassment.",True
+459,The real question is: who's the babe (m'lady) in the picture?,llama-3.3-70b,0,sarcastic,Tone implies playful teasing.,True
+459,The real question is: who's the babe (m'lady) in the picture?,llama-3.3-70b,1,sarcastic,Tone implies playful teasing,True
+460,"Yeah, 6 wins 1 draw and 1 loss is such a poor way to qualify.",llama-3.3-70b,0,sarcastic,"Team performed well, but speaker downplays it.",True
+460,"Yeah, 6 wins 1 draw and 1 loss is such a poor way to qualify.",llama-3.3-70b,1,sarcastic,"The team's record is strong, implying sarcasm.",True
+462,What if this is really about Cespedes and the Jay Bruce thing is just a fake out?,llama-3.3-70b,0,sarcastic,Questioning a distraction as a 'fake out' implies doubt and skepticism.,True
+462,What if this is really about Cespedes and the Jay Bruce thing is just a fake out?,llama-3.3-70b,1,sarcastic,Questioning the obvious Jay Bruce news,True
+463,"dude, you need to contain those unbidden",llama-3.3-70b,0,sarcastic,Informal tone and unlikely advice imply sarcasm,True
+463,"dude, you need to contain those unbidden",llama-3.3-70b,1,sarcastic,informal tone and unusual phrase suggest sarcasm,True
+464,The best of luck to our striking Finnish cousins.,llama-3.3-70b,0,sarcastic,Tone implies insincerity and mockery.,True
+464,The best of luck to our striking Finnish cousins.,llama-3.3-70b,1,sarcastic,Tone implies insincerity and mockery.,True
