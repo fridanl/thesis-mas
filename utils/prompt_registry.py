@@ -48,7 +48,8 @@ def make_user_r1(*, task_question: str) -> str:
     # Task specific question as input
     return (
         f"Task: {task_question}\n"
-        'Claim: "{claim}"'
+        'Claim: "{claim}"\n'
+        'Provide an explanation with your reasoning.'
     )
 
 def make_user_r2(*, task_question: str, history: bool) -> str:
