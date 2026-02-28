@@ -3,8 +3,10 @@
 sampling_presets:
   gpt20b: &gpt20b
     temperature: 1.0
+    top_p: 1.0
   gpt9b: &gpt9b
     temperature: 1.0
+    top_p: 1.0
   gemma4b: &gemma4b
     temperature: 1.0
     top_k: 64

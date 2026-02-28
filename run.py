@@ -194,7 +194,7 @@ if __name__ == '__main__':
     ap.add_argument('--batch_size',
                     help='Number of examples to run',
                     type = int,
-                    default=1)
+                    default=256)
     ap.add_argument('--no_logging',
                     action='store_true', # Default is false, i.e. logging is default
                     help='Disable all logging (no log file will be created)')
