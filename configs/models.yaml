@@ -3,12 +3,18 @@
 sampling_presets:
   gpt20b: &gpt20b
     temperature: 1.0
+    top_p: 1.0
   gpt9b: &gpt9b
     temperature: 1.0
+    top_p: 1.0
   gemma4b: &gemma4b
     temperature: 1.0
+    top_k: 64
+    top_p: 0.95
   gemma27b: &gemma27b
     temperature: 1.0
+    top_k: 64
+    top_p: 0.95
 
 
 profiles:
@@ -30,7 +36,7 @@ profiles:
     quantization: gguf
     has_default_sampling_params: False
     sampling: *gpt9b
-  qwen2.5-72b: # new
+  qwen-2.5-72b: # new
     repo_id: unsloth/Qwen2.5-72B-Instruct-bnb-4bit
     quantization: bitsandbytes
     has_default_sampling_params: True
@@ -44,7 +50,7 @@ profiles:
     has_default_sampling_params: False
     sampling: *gemma4b
   gemma-3-27b: # new
-    repo_id: unsloth/gemma-3-27b-it-bnb-4bit 
+    repo_id: unsloth/gemma-3-27b-it-bnb-4bit
     quantization: bitsandbytes
     has_default_sampling_params: False
     sampling: *gemma27b

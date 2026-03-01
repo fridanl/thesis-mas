@@ -1,7 +1,8 @@
 from typing import List, Dict, Optional, Iterator, Any, Hashable, TypedDict, Sequence, Literal
-from itertools import islice
 import pandas as pd
 import json, csv, pathlib
+from datetime import datetime
+import logging 
 
 class ChatCompletionMessageParam(TypedDict):
     role: str
@@ -60,6 +61,7 @@ def build_conversations(
     '''
 
     if round == 1:
+        print(examples)
         return [
             [
                 {'role': 'system', 'content': system_prompt},
@@ -86,26 +88,39 @@ def build_conversations(
     
     raise ValueError('Not valid round or history')
 
+def setup_logging(model_name: str, dataset: str, round: Literal[1, 2], logger_name: str = 'inference_logger') -> logging.Logger:
 
-# def build_conversations_round2(
-#     examples: List[Dict[int, str]],
-#     system_prompt: str,             # this can be changed in run eval to R2
-#     user_template: str) -> List[List[Dict[str, str]]]:
+    log_path = pathlib.Path(f'inference_logs/{'first' if round == 1 else 'second'}/')
+    log_path.mkdir(parents=True, exist_ok=True)
 
-#     '''
-#     Several conversations will be a list of lists containing a dict for each user.
-#     This is for round 2, so we append label and explanation from the previous round. 
-#     '''
-#     convs: List[List[Dict[str, str]]] = []
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    log_file = log_path / f'{model_name}_{dataset}_{timestamp}.log'
 
-#     for ex in examples:
-        
-#         convs.append([
-#           {'role': 'system', 'content': system_prompt},
-#           {'role': 'user', 'content': user_template.format(claim=ex['claim'], label_sender=ex['label_sender'], explanation_sender=ex['explanation_sender'])},
-#           ])
+    level = logging.INFO
 
-#     return convs 
+    # Create logger 
+    logger = logging.getLogger(logger_name)
+    logger.setLevel(level)
+
+    if logger.hasHandlers():
+        logger.handlers.clear()
+
+    # File handler for INFO 
+    file_handler = logging.FileHandler(log_file, mode = 'w', encoding='utf-8')
+    file_handler.setLevel(level=level)
+
+    file_formatter = logging.Formatter(
+        '%(asctime)s | %(levelname)-8s | %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    )
+    
+    file_handler.setFormatter(file_formatter)
+
+    logger.addHandler(file_handler)
+    
+    logger.info(f"Logging initialised. Log file: {log_file}")
+    
+    return logger
 
 def _ensure_oneline(s: str) -> str:
     if s is None:
@@ -122,6 +137,19 @@ def write_csv(records: List[Dict[str, Any]], path: pathlib.Path, fields):
         if needs_header:
             w.writeheader()
         for r in records:
-            r['raw_text'] = _ensure_oneline(r['raw_text'])
+            if 'raw_text' in r.keys():
+                r['raw_text'] = _ensure_oneline(r['raw_text'])
             w.writerow({k: r.get(k) for k in fields})
             
+def format_time(seconds):
+    """Format seconds into hours, minutes, seconds"""
+    hours = int(seconds // 3600)
+    minutes = int((seconds % 3600) // 60)
+    secs = seconds % 60
+    
+    if hours > 0:
+        return f"{hours}h {minutes}m {secs:.2f}s"
+    elif minutes > 0:
+        return f"{minutes}m {secs:.2f}s"
+    else:
+        return f"{secs:.2f}s"

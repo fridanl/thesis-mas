@@ -1,0 +1,25 @@
+2026-02-27 16:01:53 | INFO     | Logging initialised. Log file: inference_logs/first/gemma-3-27b_sarcasm_20260227_160153.log
+2026-02-27 16:01:53 | INFO     | SLURM output file: logs/test-run.54021.out
+2026-02-27 16:01:53 | INFO     | ==================================================
+2026-02-27 16:01:53 | INFO     | Starting inference pipeline
+2026-02-27 16:01:53 | INFO     | ==================================================
+2026-02-27 16:01:53 | INFO     | Arguments: {'model_name': 'gemma-3-27b', 'dataset': 'sarcasm', 'dataset_path': 'data/sarc/sarcasm.csv', 'repetition': 10, 'round': 1, 'slurm_output': 'logs/test-run.54021.out', 'history': False, 'models_config_path': 'configs/models.yaml', 'outdir': 'results', 'batch_size': 20, 'no_logging': False, 'limit': 30, 'enable_debug_logging': True, 'idx_start': 0}
+2026-02-27 16:01:53 | INFO     | Results will be written to: results/first/gemma-3-27b-sarcasm.csv
+2026-02-27 16:01:53 | DEBUG    | Loading prompt specifications for dataset: sarcasm, round: 1, history: False
+2026-02-27 16:01:53 | DEBUG    | Prompt specs loaded. 
+ System template: Return ONLY a minified JSON object that conforms to this schema: 
+{"$defs": {"LabelSarc": {"enum": ["sarcastic", "literal"], "title": "LabelSarc", "type": "string"}}, "properties": {"label": {"$ref": "#/$defs/LabelSarc"}, "explanation": {"title": "Explanation", "type": "string"}}, "required": ["label", "explanation"], "title": "OutputSarc", "type": "object"}
+Rules:
+- Output JSON only. No prose, no markdown, no extra text.
+- Keys: label, explanation. 
+- explanation MUST be 30 words or fewer 
+ 
+ User template Task: Is this claim sarcastic or literal?
+Claim: "{claim}". 
+ Output Model: <class 'utils.prompt_registry.OutputSarc'>
+2026-02-27 16:01:53 | DEBUG    | Output json: {'$defs': {'LabelSarc': {'enum': ['sarcastic', 'literal'], 'title': 'LabelSarc', 'type': 'string'}}, 'properties': {'label': {'$ref': '#/$defs/LabelSarc'}, 'explanation': {'title': 'Explanation', 'type': 'string'}}, 'required': ['label', 'explanation'], 'title': 'OutputSarc', 'type': 'object'}
+2026-02-27 16:01:53 | DEBUG    | Loading model configuration from: configs/models.yaml
+2026-02-27 16:01:53 | DEBUG    | Model config: {'seed': 0, 'tensor_parallel_size': 1, 'dtype': 'auto', 'max_model_len': 20000, 'repo_id': 'ggml-org/gemma-3-27b-it-GGUF', 'quantization': 'gguf', 'has_default_sampling_params': False, 'sampling': {'temperature': 1.0, 'top_k': 64, 'top_p': 0.95}}
+2026-02-27 16:01:53 | INFO     | Ensuring local model availability...
+2026-02-27 16:01:53 | INFO     | Location of model: /home/mhpe/.cache/huggingface/hub/models--ggml-org--gemma-3-27b-it-GGUF
+2026-02-27 16:01:53 | DEBUG    | Initialising LLM...

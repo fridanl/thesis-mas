@@ -1,6 +1,6 @@
 import pathlib, yaml, json 
-from vllm import LLM 
-from vllm.sampling_params import SamplingParams, GuidedDecodingParams 
+from vllm import LLM # pyright: ignore[reportMissingImports]
+from vllm.sampling_params import SamplingParams, GuidedDecodingParams  # pyright: ignore[reportMissingImports]
 import os, subprocess
 from typing import List, Dict, Any, Tuple, TypedDict, Sequence, Type, Optional
 from pydantic import ValidationError, BaseModel
@@ -127,23 +127,33 @@ def init_sampling_params(
     params.guided_decoding = guided 
     return params
 
-def run_inference(
+def run_inference(                                                    
     llm: LLM, 
     conversations: Sequence[List[ChatCompletionMessageParam]],
     sampling: SamplingParams,
-    output_model: Type[BaseModel]):
-    
-
+    output_model: Type[BaseModel]
+):
     outs = llm.chat(messages=conversations, sampling_params=sampling)
 
-    texts = [o.outputs[0].text if o.outputs else "" for o in outs]
+    texts = []
     parsed = []
 
-    for txt in texts:
-        try:
-            obj = json.loads(txt)
-            parsed.append(output_model(**obj).model_dump())
-        except(json.JSONDecodeError, ValidationError, KeyError, TypeError):
-            parsed.append(None)
+    for o in outs: # outs of request objects
+        if not o.outputs:
+            # if model returned nothing for this prompt
+            for _ in range(sampling.n):
+                texts.append("")
+                parsed.append(None)
+            continue
+
+        for out in o.outputs:  # for all the repetitions
+            txt = out.text
+            texts.append(txt)
+
+            try:
+                obj = json.loads(txt)
+                parsed.append(output_model(**obj).model_dump())
+            except (json.JSONDecodeError, ValidationError, KeyError, TypeError):
+                parsed.append(None)
 
     return texts, parsed

@@ -48,20 +48,33 @@ def make_user_r1(*, task_question: str) -> str:
     # Task specific question as input
     return (
         f"Task: {task_question}\n"
-        'Claim: "{claim}"'
+        'Claim: "{claim}"\n'
+        'Provide an explanation with your reasoning.'
     )
 
 def make_user_r2(*, task_question: str, history: bool) -> str:
-    #! Maybe the order / wording needs to be changed here 
+    #TODO: repeat the task in the end of the prompt
     base = (
         f"Task: {task_question}\n"
         'Claim: "{claim}"\n'
-        'A peer of yours think the claim is "{label_sender}", with the following explanation: "{explanation_sender}" \n'
     )
+
     if history:
         base += (
-            'You have previously said "{label_receiver}", with the following explanation: "{explanation_receiver}"'
+            'You have previously said "{label_receiver}", with the following explanation: "{explanation_receiver}."\n'
+            'However, a peer of yours labelled the claim as "{label_sender}", with the following explanation: "{explanation_sender}"\n'
         )
+
+    else:
+        base += (
+        'A peer of yours labelled the claim as "{label_sender}", with the following explanation: "{explanation_sender}"\n'
+    )
+    # repeat
+    base += (
+        f"Having considered that, {task_question}\n"
+        'Claim: "{claim}"\n'
+    )
+        
 
     return base
 
@@ -132,40 +145,3 @@ def get_prompt_spec(dataset: str, round: int, history: bool) -> PromptSpec:
         )
 
     raise ValueError('Round must be either 1 or 2')
-
-
-
-
-# SARCASTIC_SCHEMA = OutputSarc.model_json_schema()
-
-# SYSTEM_JSON_GUIDED_R1 = (
-#     "Return ONLY a minified JSON object that conforms to this schema:\n"
-#     f"{json.dumps(SARCASTIC_SCHEMA, ensure_ascii=False)}\n\n"
-#     "Rules:\n"
-#     "- Keys: label, explanation, confidence.\n"
-#     "- label MUST be one of: 'sarcastic', 'literal'.\n"
-#     "- explanation MUST be 30 words or fewer.\n"
-#     "- Output JSON only. No prose, no Markdown, no extra text."
-# )
-
-# SYSTEM_JSON_GUIDED_R2 = (
-#     "Return ONLY a minified JSON object that conforms to this schema:\n"
-#     f"{json.dumps(SARCASTIC_SCHEMA, ensure_ascii=False)}\n\n"
-#     "Rules:\n"
-#     "- Keys: label, confidence.\n"
-#     "- label MUST be one of: 'sarcastic', 'literal'.\n"
-#     "- confidence MUST be an integer between 0 and 100 (inclusive), no percent sign, no text.\n"
-#     "- Output JSON only. No prose, no Markdown, no extra text."
-# )
-
-# USER_R1 = ( "Task: Is this claim sarcastic or literal?\n"
-#             'Claim: "{claim}"'
-#     )
-
-# USER_R2 = ( "Task: Is this claim sarcastic or literal?\n"
-#             'Claim: "{claim}"\n'
-#             "A peer of yours think the claim is {label_sender}, with the following explanation: '{explanation_sender}' \n"
-#             "Output format:\n"
-#             "Label: sarcastic/literal\n"
-#             "Confidence (0-100): How confident are you about your answer?"
-#     )
