@@ -23,6 +23,7 @@ def load_claims_text(path: str) -> List[Dict[str, str]]:
 
 def load_claims_batches(
                 path: str, 
+                round: str,
                 batch_size: int = 10,
                 start: int = 0,
                 limit: Optional[int] = None ) -> Iterator[List[Dict[Hashable, Any]]]:
@@ -30,11 +31,18 @@ def load_claims_batches(
     remaining = limit 
     
     skip = range(1, start+1) if start > 0 else None
-    reader = pd.read_csv(path,
-                         usecols=['id', 'text'],
-                         chunksize=batch_size,
-                         skiprows=skip,
-                         low_memory=False)
+    if round == "first":
+        reader = pd.read_csv(path,
+                            usecols=['id', 'text'],
+                            chunksize=batch_size,
+                            skiprows=skip,
+                            low_memory=False)
+    else: # round = second
+        reader = pd.read_csv(path,
+                            usecols=['id', 'claim', 'model_sender', 'model_receiver','label_sender', 'label_receiver', 'explanation_sender', 'explanation_receiver'],
+                            chunksize=batch_size,
+                            skiprows=skip,
+                            low_memory=False)
 
     for chunk in reader: 
         if remaining is not None:

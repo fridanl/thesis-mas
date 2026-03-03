@@ -75,9 +75,8 @@ def main(args):
     batch_count = 0 
     total_failed = 0 
 
-    n_repetitions = args.repetition
-    for batch in io.load_claims_batches(path = args.dataset_path, start = args.idx_start, batch_size = args.batch_size,    limit=args.limit):
-
+    n_repetitions = args.repetition # this is going to be 1
+    for batch in io.load_claims_batches(path = args.dataset_path, round=pre, start = args.idx_start, batch_size = args.batch_size,    limit=args.limit):
         batch_count += 1 
 
         conversations = io.build_conversations(
@@ -87,9 +86,10 @@ def main(args):
             history=spec.history,
             round=spec.round)
 
-        
-        start_time = time.time()
+        logger.debug(f"!!!!!!!!!!!!!!!!!!!!!!! see if conversations are fine!!!!!!!!!!!!!!!!!!!!!!!! {conversations}")
 
+        start_time = time.time()
+        break
         raw_outputs, parsed = run_inference(llm, conversations=conversations, sampling=sampling, output_model=spec.output_model)
         inference_time = time.time() - start_time
         total_inference_time += inference_time
@@ -105,25 +105,49 @@ def main(args):
 
             example_texts = raw_outputs[start_idx:end_idx]
             example_parsed = parsed[start_idx:end_idx]
-            # Loop over an check if valid outputs 
-            for rep_idx, (raw, p) in enumerate(zip(example_texts, example_parsed)):
-                if p is not None:
-                    rows.append({
-                    'id': data['id'], 
-                    'claim': data['text'], 
-                    'model': model_name,
-                    'repetition': rep_idx,
-                    'label': p['label'], 
-                    'explanation': p['explanation'], 
-                    'valid_json': True
-                })
-                else:
-                    failed_examples.append({
-                        'id': data['id'],
-                        'claim': data['text'],
+            if pre == "first":
+                # Loop over an check if valid outputs 
+                for rep_idx, (raw, p) in enumerate(zip(example_texts, example_parsed)):
+                    if p is not None:
+                        rows.append({
+                        'id': data['id'], 
+                        'claim': data['text'], 
+                        'model': model_name,
                         'repetition': rep_idx,
-                        'raw_text': raw})
-                
+                        'label': p['label'], 
+                        'explanation': p['explanation'], 
+                        'valid_json': True
+                    })
+                    else:
+                        failed_examples.append({
+                            'id': data['id'],
+                            'claim': data['text'],
+                            'repetition': rep_idx,
+                            'raw_text': raw})
+            else: # pre = second
+                # Loop over an check if valid outputs 
+                for rep_idx, (raw, p) in enumerate(zip(example_texts, example_parsed)):
+                    if p is not None:
+                        rows.append({
+                        'id': data['id'], 
+                        'claim': data['text'], 
+                        'model_sender': data['model_sender'],
+                        'model_receiver': data['model_receiver'],
+                        #'repetition': rep_idx,                      # we dont need repetition
+                        'label_receiver_now': p['label'],
+                        'label_sender_before': data['label_sender'],
+                        'label_receiver_before': data['label_receiver'],
+                        'valid_json': True
+                    })
+                    else:
+                        failed_examples.append({
+                            'id': data['id'],
+                            'claim': data['text'],
+                            'model_sender': data['model_sender'],
+                            'model_receiver': data['model_receiver'],
+                            'repetition': rep_idx,
+                            'raw_text': raw})
+
         if rows:
             io.write_csv(rows, csv_path_valid, list(rows[0].keys())) 
             no_rows += len(rows)
