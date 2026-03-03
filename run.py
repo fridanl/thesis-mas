@@ -85,8 +85,9 @@ def main(args):
             user_template=spec.user_template,
             history=spec.history,
             round=spec.round)
-
-        logger.debug(f"!!!!!!!!!!!!!!!!!!!!!!! see if conversations are fine!!!!!!!!!!!!!!!!!!!!!!!! {conversations}")
+        
+        logger.info(f"history setting: {args.history}")
+        logger.info(f"!!!!!!!!!!!!!!!!!!!!!!! see if conversations are fine!!!!!!!!!!!!!!!!!!!!!!!! {conversations}")
 
         start_time = time.time()
         break

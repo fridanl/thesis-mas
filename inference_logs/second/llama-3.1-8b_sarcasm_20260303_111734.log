@@ -1,0 +1,7 @@
+2026-03-03 11:17:34 | INFO     | Logging initialised. Log file: inference_logs/second/llama-3.1-8b_sarcasm_20260303_111734.log
+2026-03-03 11:17:34 | INFO     | SLURM output file: logs/round2-test-llama-3.1-8b.54790.out
+2026-03-03 11:17:34 | INFO     | ==================================================
+2026-03-03 11:17:34 | INFO     | Starting inference pipeline
+2026-03-03 11:17:34 | INFO     | ==================================================
+2026-03-03 11:17:34 | INFO     | Arguments: {'model_name': 'llama-3.1-8b', 'dataset': 'sarcasm', 'dataset_path': 'test_data.csv', 'repetition': 1, 'round': 2, 'slurm_output': 'logs/round2-test-llama-3.1-8b.54790.out', 'history': True, 'models_config_path': 'configs/models.yaml', 'outdir': 'results', 'batch_size': 10, 'no_logging': False, 'limit': 10, 'idx_start': 0}
+2026-03-03 11:17:34 | INFO     | Results will be written to: results/second/llama-3.1-8b-sarcasm.csv
