@@ -133,10 +133,9 @@ def main(args):
                         'claim': data['claim'], 
                         'model_sender': data['model_sender'],
                         'model_receiver': data['model_receiver'],
-                        #'repetition': rep_idx,                      # we dont need repetition
-                        'label_receiver_now': p['label'],
                         'label_sender_before': data['label_sender'],
                         'label_receiver_before': data['label_receiver'],
+                        'label_receiver_now': p['label'],
                         'valid_json': True
                     })
                     else:
@@ -145,7 +144,10 @@ def main(args):
                             'claim': data['claim'],
                             'model_sender': data['model_sender'],
                             'model_receiver': data['model_receiver'],
-                            'repetition': rep_idx,
+                            'label_sender': data['label_sender'],
+                            'label_receiver': data['label_receiver'],
+                            'explanation_sender': data['explanation_sender'],
+                            'explanation_receiver': data['explanation_receiver'],
                             'raw_text': raw})
 
         if rows:
