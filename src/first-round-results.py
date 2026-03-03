@@ -88,6 +88,9 @@ def main(args):
 
 
     combined = pd.concat(dfs, ignore_index=True) if dfs else pd.DataFrame()
+    print(combined.shape)
+    print(combined.columns)
+
     check_results(combined, dataset_name=args.dataset, n_repetitions=10)
 
 
