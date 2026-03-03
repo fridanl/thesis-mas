@@ -68,29 +68,36 @@ def check_results(combined, *, dataset_name, n_repetitions):
         print(f'\n NO FAILED (model, claim) PAIRS')
 
 
+def load_results(model_names, dataset):
+    dfs = [] 
+    for model_n in model_names:
+        for suffix in ("", "-failed"):
+            path = path(f'/home/rp-fril-mhpe/{model_n}-{args.dataset}{suffix}.csv')
+            
+            if not path.exists():
+                print(f'File not found: {path}')
+
+            
+            df = pd.read_csv(path, low_memory=False)
+            if suffix == '-failed':
+                df['valid_json'] = False
+                df['model'] = model_n
+            
+            df = df[['model', 'id', 'claim','repetition', 'valid_json']]
+            dfs.append(df)
+            
+    combined = pd.concat(dfs, ignore_index=True) if dfs else pd.DataFrame()
+    return combined
+
+
+
 def main(args):
     profiles_root = yaml.safe_load(pathlib.Path('configs/models.yaml').read_text())
     profiles = profiles_root.get('profiles', {})
     model_names = list(profiles.keys())
 
-    dfs = [] 
-    for model_n in model_names:
-        for suffix in ("", "-failed"):
-            path = f'/home/rp-fril-mhpe/{model_n}-{args.dataset}{suffix}.csv'
-
-        try:
-            df = pd.read_csv(path, low_memory=False)            
-            dfs.append(df)
-        except FileNotFoundError:
-            print(f'File not found: {path}')
-        except Exception as e:
-            print(f'Error loading file: {path}, {e}')
-
-
-    combined = pd.concat(dfs, ignore_index=True) if dfs else pd.DataFrame()
-    print(combined.shape)
-    print(combined.columns)
-
+    combined = load_results(model_names=model_names, dataset=args.dataset)
+    
     check_results(combined, dataset_name=args.dataset, n_repetitions=10)
 
 
