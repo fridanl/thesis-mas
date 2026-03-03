@@ -2,6 +2,8 @@ import pandas as pd
 import argparse
 import pathlib, yaml
 from pathlib import Path 
+import matplotlib.pyplot as plt 
+import seaborn as sns 
 
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
@@ -76,16 +78,58 @@ def check_results(combined, *, dataset_name, n_repetitions):
     if not failed.empty:
         print(f'\nFAILED (model, claim)')
         print(failed.groupby('model').agg(failed_counts = ('invalid', 'sum')).reset_index())
-        print(failed)
+        # print(failed)
     else:
         print(f'\nNO FAILED (model, claim) PAIRS')
 
 
-def load_results(model_names, dataset):
+
+def plot_label_distribution(df, kde = True):
+    '''
+    Plotting the label distribution of results in round 1. 
+    '''
+
+    fig, axs = plt.subplots(ncols=2, nrows=3, figsize=(16,12))
+    df_grouped = (
+        df.groupby(['model', 'id'])
+        .agg(
+            positive_count=('label', lambda x: (x == 'sarcastic').sum()),
+            valid_json_count=('valid_json', lambda x: (x == True).sum()),
+        )
+        )
+
+    models = df['model'].unique()
+    for model_name, ax in zip(models, axs.ravel()):
+        model_res = df[df['model'] == model_name].copy()
+
+        if kde:
+            sns.kdeplot(data=model_res, ax=ax, x = 'sarc_ratio', fill=True)
+        else:
+            sns.histplot(data=model_res, ax=ax, x = 'sarc_ratio')
+
+        ax.set_title(f'{model_name}')
+        ax.set_xlabel('Sarcasm Ratio')
+
+    plt.tight_layout()
+    sns.despine()
+    plt.savefig('plots/label-dist-all.png', dpi = 300, bbox_inches='tight')
+
+
+
+def load_results(model_names, dataset, with_failed):
     dfs = [] 
+    columns = ['model', 'id', 'claim','repetition', 'valid_json'] 
+
+    if with_failed:
+        suffixes = ("", "-failed")
+    else:
+        suffixes = ("")
+        columns.append('label')
+
+
     for model_n in model_names:
-        for suffix in ("", "-failed"):
-            path = Path(f'/home/rp-fril-mhpe/{model_n}-{args.dataset}{suffix}.csv')
+        for suffix in suffixes:
+            path = Path(f'/home/rp-fril-mhpe/{model_n}-{dataset}{suffix}.csv')
             
             if not path.exists():
                 print(f'File not found: {path}')
@@ -97,7 +141,7 @@ def load_results(model_names, dataset):
                 df['valid_json'] = False
                 df['model'] = model_n
             
-            df = df[['model', 'id', 'claim','repetition', 'valid_json']]
+            df = df[columns]
             dfs.append(df)
             
     combined = pd.concat(dfs, ignore_index=True) if dfs else pd.DataFrame()
@@ -110,9 +154,12 @@ def main(args):
     profiles = profiles_root.get('profiles', {})
     model_names = list(profiles.keys())
 
-    combined = load_results(model_names=model_names, dataset=args.dataset)
-    
-    check_results(combined, dataset_name=args.dataset, n_repetitions=10)
+    combined_all = load_results(model_names=model_names, dataset=args.dataset, with_failed=True)
+    check_results(combined_all, dataset_name=args.dataset, n_repetitions=10)
+
+    #TODO: add
+    combined = load_results(model_names=model_names, dataset=args.dataset, with_failed=False)
+
 
 
 if __name__ == '__main__':
