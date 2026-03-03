@@ -72,10 +72,11 @@ def load_results(model_names, dataset):
     dfs = [] 
     for model_n in model_names:
         for suffix in ("", "-failed"):
-            path = path(f'/home/rp-fril-mhpe/{model_n}-{args.dataset}{suffix}.csv')
+            path = Path(f'/home/rp-fril-mhpe/{model_n}-{args.dataset}{suffix}.csv')
             
             if not path.exists():
                 print(f'File not found: {path}')
+                continue
 
             
             df = pd.read_csv(path, low_memory=False)
