@@ -1,9 +1,0 @@
-2026-03-01 12:38:05 | INFO     | Logging initialised. Log file: inference_logs/first/gemma-3-27b_sarcasm_20260301_123805.log
-2026-03-01 12:38:05 | INFO     | SLURM output file: logs/round1-gemma-27b.54231.out
-2026-03-01 12:38:05 | INFO     | ==================================================
-2026-03-01 12:38:05 | INFO     | Starting inference pipeline
-2026-03-01 12:38:05 | INFO     | ==================================================
-2026-03-01 12:38:05 | INFO     | Arguments: {'model_name': 'gemma-3-27b', 'dataset': 'sarcasm', 'dataset_path': 'data/sarc/sarcasm.csv', 'repetition': 10, 'round': 1, 'slurm_output': 'logs/round1-gemma-27b.54231.out', 'history': False, 'models_config_path': 'configs/models.yaml', 'outdir': 'results', 'batch_size': 256, 'no_logging': False, 'limit': None, 'idx_start': 0}
-2026-03-01 12:38:05 | INFO     | Results will be written to: results/first/gemma-3-27b-sarcasm.csv
-2026-03-01 12:38:05 | INFO     | Ensuring local model availability...
-2026-03-01 12:38:05 | INFO     | Location of model: /home/mhpe/.cache/huggingface/hub/models--unsloth--gemma-3-27b-it-bnb-4bit
