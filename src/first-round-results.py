@@ -22,7 +22,16 @@ def check_results(combined, *, dataset_name, n_repetitions):
     print(f'[REPETITIONS PER CLAIM]: {n_repetitions}')
     print(f'[EXPECTED ROWS PER MODEL]: {expected_output_size}')
 
+
     print(f'\n {'-'*8} PER MODEL CHECK {'-'*8}')
+    print(f'[SIZE OF OUTPUT PER MODEL, GROUPED BY VALID, FAILED]:')
+    output_sizes = (
+        combined.groupby(['model', 'valid_json'])
+        .agg(
+            output_size = ('id', 'size')
+        ).reset_index()
+    )
+    print(output_sizes)
 
     grouped = (
         combined.groupby(['model', 'id'])
@@ -50,22 +59,21 @@ def check_results(combined, *, dataset_name, n_repetitions):
 
     print(f'\n {'-'*8} PER MODEL CLAIM COMPLETION SUMMARY: {'-'*8}')
     print(summary)
+    print('-'*16)
 
     incomplete = grouped[grouped['incomplete_output'] == 1]
     if not incomplete.empty:
-        print(f'INCOMPLETE (model, claim)')
+        print(f'\nINCOMPLETE (model, claim)')
         print(incomplete.groupby('model').agg(incomplete_counts = ('id', 'count')).reset_index())
-    
     else:
-        print(f'\n NO INCOMPLETE (model, claim) PAIRS')
+        print(f'\nNO INCOMPLETE (model, claim) PAIRS')
 
     failed = grouped[grouped['invalid'] > 0]
     if not failed.empty:
-        print(f'FAILED (model, claim)')
-        print(failed.groupby('model').agg(incomplete_counts = ('id', 'count')).reset_index())
-    
+        print(f'\nFAILED (model, claim)')
+        print(failed.groupby('model').agg(failed_counts = ('id', 'count')).reset_index())
     else:
-        print(f'\n NO FAILED (model, claim) PAIRS')
+        print(f'\nNO FAILED (model, claim) PAIRS')
 
 
 def load_results(model_names, dataset):
