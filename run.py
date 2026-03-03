@@ -90,7 +90,6 @@ def main(args):
         logger.info(f"!!!!!!!!!!!!!!!!!!!!!!! see if conversations are fine!!!!!!!!!!!!!!!!!!!!!!!! {conversations}")
 
         start_time = time.time()
-        break
         raw_outputs, parsed = run_inference(llm, conversations=conversations, sampling=sampling, output_model=spec.output_model)
         inference_time = time.time() - start_time
         total_inference_time += inference_time

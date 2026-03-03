@@ -1,4 +1,4 @@
-id,claim,model_sender,model_receiver,repetition,label_sender,label_receiver,explanation_sender,explanation_receiver,valid_json
+id,claim,model_receiver,model_sender,repetition,label_sender,label_receiver,explanation_sender,explanation_receiver,valid_json
 3,Mario didn't play as many games,gemma-3-4b,gemma-3-27b,0,literal,sarcastic,Mario has appeared in numerous games across various franchises.,"Referring to Mario, a video game icon, not playing *many* games is ironic and implies he plays a lot.",True
 3,Mario didn't play as many games,gemma-3-4b,gemma-3-27b,1,literal,sarcastic,Mario has appeared in numerous games across various franchises.,"Referring to Mario's extensive gaming history, the statement is clearly sarcastic, implying he played *many* games.",True
 3,Mario didn't play as many games,gemma-3-4b,gemma-3-27b,2,literal,sarcastic,Mario has appeared in numerous games across various franchises.,"Referring to Mario, a video game icon, not playing 'many games' is ironic and implies he plays a lot.",True
