@@ -130,7 +130,7 @@ def main(args):
                     if p is not None:
                         rows.append({
                         'id': data['id'], 
-                        'claim': data['text'], 
+                        'claim': data['claim'], 
                         'model_sender': data['model_sender'],
                         'model_receiver': data['model_receiver'],
                         #'repetition': rep_idx,                      # we dont need repetition
@@ -142,7 +142,7 @@ def main(args):
                     else:
                         failed_examples.append({
                             'id': data['id'],
-                            'claim': data['text'],
+                            'claim': data['claim'],
                             'model_sender': data['model_sender'],
                             'model_receiver': data['model_receiver'],
                             'repetition': rep_idx,
