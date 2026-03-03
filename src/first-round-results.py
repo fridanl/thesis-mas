@@ -71,7 +71,8 @@ def check_results(combined, *, dataset_name, n_repetitions):
     failed = grouped[grouped['invalid'] > 0]
     if not failed.empty:
         print(f'\nFAILED (model, claim)')
-        print(failed.groupby('model').agg(failed_counts = ('id', 'count')).reset_index())
+        print(failed.groupby('model').agg(failed_counts = ('id', 'sum')).reset_index())
+        print(failed)
     else:
         print(f'\nNO FAILED (model, claim) PAIRS')
 
