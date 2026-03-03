@@ -76,7 +76,7 @@ def main(args):
     total_failed = 0 
 
     n_repetitions = args.repetition
-    for batch in io.load_claims_batches(path = args.dataset_path, start = args.idx_start, batch_size = args.batch_size,    limit=args.limit):
+    for batch in io.load_claims_batches(path = args.dataset_path, start = args.idx_start, batch_size = args.batch_size, limit=args.limit):
 
         batch_count += 1 
 
