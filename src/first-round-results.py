@@ -3,6 +3,10 @@ import argparse
 import pathlib, yaml
 from pathlib import Path 
 
+pd.set_option('display.max_rows', None)
+pd.set_option('display.max_columns', None)
+pd.set_option('display.width', None)
+pd.set_option('display.max_colwidth', None)
 
 def check_results(combined, *, dataset_name, n_repetitions):
     '''Function to check if the output in files (valid and failed) correspond to expected number.'''
@@ -66,12 +70,12 @@ def check_results(combined, *, dataset_name, n_repetitions):
         print(f'\nINCOMPLETE (model, claim)')
         print(incomplete.groupby('model').agg(incomplete_counts = ('id', 'count')).reset_index())
     else:
-        print(f'\nNO INCOMPLETE (model, claim) PAIRS')
+        print(f'\nNO INCOMPLETE PAIRS FOR ALL MODELS')
 
     failed = grouped[grouped['invalid'] > 0]
     if not failed.empty:
         print(f'\nFAILED (model, claim)')
-        print(failed.groupby('model').agg(failed_counts = ('id', 'sum')).reset_index())
+        print(failed.groupby('model').agg(failed_counts = ('invalid', 'sum')).reset_index())
         print(failed)
     else:
         print(f'\nNO FAILED (model, claim) PAIRS')
