@@ -5,7 +5,6 @@ __pycache__/
 
 # Logs 
 logs/
-inference_logs/
 
 # results
 results/
