@@ -86,8 +86,8 @@ def main(args):
             history=spec.history,
             round=spec.round)
         
-        logger.info(f"history setting: {args.history}")
-        logger.info(f"!!!!!!!!!!!!!!!!!!!!!!! see if conversations are fine!!!!!!!!!!!!!!!!!!!!!!!! {conversations}")
+        # logger.info(f"history setting: {args.history}")
+        # logger.info(f"!!!!!!!!!!!!!!!!!!!!!!! see if conversations are fine!!!!!!!!!!!!!!!!!!!!!!!! {conversations}")
 
         start_time = time.time()
         raw_outputs, parsed = run_inference(llm, conversations=conversations, sampling=sampling, output_model=spec.output_model)
