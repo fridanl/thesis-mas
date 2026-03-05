@@ -4,6 +4,7 @@ import pathlib, yaml
 from pathlib import Path 
 import matplotlib.pyplot as plt 
 import seaborn as sns 
+import math 
 
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
@@ -48,9 +49,9 @@ def check_results(combined, *, dataset_name, n_repetitions):
             ,unique_reps=('repetition', 'nunique')
             )
             .reset_index()
-        )
+        ) 
     
-
+    # Complete and incomplete outputs in terms of number of valid + number of invalid 
     grouped['complete_output'] = grouped['total_outputs'] == n_repetitions
     grouped['incomplete_output'] = grouped['total_outputs'] < n_repetitions
 
@@ -62,6 +63,7 @@ def check_results(combined, *, dataset_name, n_repetitions):
             ,incomplete_claims=('incomplete_output', 'sum')
         ).reset_index()
     )
+
 
     print(f'\n {'-'*8} PER MODEL CLAIM COMPLETION SUMMARY: {'-'*8}')
     print(summary)
@@ -84,47 +86,66 @@ def check_results(combined, *, dataset_name, n_repetitions):
 
 
 
-def plot_label_distribution(df, kde = True):
-    '''
-    Plotting the label distribution of results in round 1. 
-    '''
 
-    fig, axs = plt.subplots(ncols=2, nrows=3, figsize=(16,12))
-    df_grouped = (
-        df.groupby(['model', 'id'])
-        .agg(
-            positive_count=('label', lambda x: (x == 'sarcastic').sum()),
-            valid_json_count=('valid_json', lambda x: (x == True).sum()),
-        )
-        )
-
+def plot_label_claim_distribution(df, kde = True):
+    '''
+    Plotting the positive rate distribution of results in round 1. 
+    '''
     models = df['model'].unique()
+
+    n_models = len(models)
+    ncols = 2
+    nrows = math.ceil(n_models / ncols)
+    fig, axs = plt.subplots(ncols=ncols, nrows=nrows, figsize=(16, 4*nrows))
+
     for model_name, ax in zip(models, axs.ravel()):
         model_res = df[df['model'] == model_name].copy()
 
         if kde:
-            sns.kdeplot(data=model_res, ax=ax, x = 'sarc_ratio', fill=True)
+            sns.kdeplot(data=model_res, ax=ax, x = 'positive_rate', fill=True)
         else:
-            sns.histplot(data=model_res, ax=ax, x = 'sarc_ratio')
+            sns.histplot(data=model_res, ax=ax, x = 'positive_rate')
 
         ax.set_title(f'{model_name}')
-        ax.set_xlabel('Sarcasm Ratio')
+        ax.set_xlabel('Positive Rate')
 
     plt.tight_layout()
     sns.despine()
     plt.savefig('plots/label-dist-all.png', dpi = 300, bbox_inches='tight')
 
+def label_distribution(df):
+     
+     # Overall label distribution for models
+     grouped_model = df[['model', 'label']].groupby('model').agg(positive_rate_overall = ('label', lambda x: (x==True).sum()))
 
+     print('Label distribution over models')
+     print(grouped_model)
+
+
+     # Per model, claim 
+     grouped = (
+        df.groupby(['model', 'id'])
+        .agg(
+            valid_outputs=('valid_json', lambda x: (x==True).sum())
+            ,positive_count = ('label', lambda x: (x=='sarcastic').sum())
+            )
+            .reset_index()
+        )
+     
+     grouped['positive_rate'] = grouped['positive_count'] / grouped['valid_outputs']
+
+    #  print('Positive rate per model/claim')
+    #  print(grouped)
+     return grouped 
 
 def load_results(model_names, dataset, with_failed):
     dfs = [] 
-    columns = ['model', 'id', 'claim','repetition', 'valid_json'] 
+    columns = ['model', 'id', 'claim','repetition', 'valid_json', 'label'] 
 
     if with_failed:
         suffixes = ("", "-failed")
     else:
-        suffixes = ("")
-        columns.append('label')
+        suffixes = ("",)
 
 
     for model_n in model_names:
@@ -140,6 +161,7 @@ def load_results(model_names, dataset, with_failed):
             if suffix == '-failed':
                 df['valid_json'] = False
                 df['model'] = model_n
+                df['label'] = None
             
             df = df[columns]
             dfs.append(df)
@@ -157,8 +179,9 @@ def main(args):
     combined_all = load_results(model_names=model_names, dataset=args.dataset, with_failed=True)
     check_results(combined_all, dataset_name=args.dataset, n_repetitions=10)
 
-    #TODO: add
-    combined = load_results(model_names=model_names, dataset=args.dataset, with_failed=False)
+    combined_valid = combined_all[combined_all['label'] != None]
+    df_claim_label = label_distribution(combined_valid)
+    plot_label_claim_distribution(df_claim_label)
 
 
 

@@ -5,8 +5,11 @@ from collections import defaultdict
 from pathlib import Path
 import argparse
 from itertools import combinations
+import pprint
 
-N_REPETITIONS = 10 
+N_REPETITIONS = 10
+POSITIVE_LABEL = 'sarcastic'
+NEGATIVE_LABEL = 'literal'
 
 def load_and_preprocess(df: pd.DataFrame) -> dict:
     '''
@@ -27,6 +30,8 @@ def load_and_preprocess(df: pd.DataFrame) -> dict:
     model_claim_dict = defaultdict(dict)
 
     # Import dataset object and map sarcastic : 1, and literal: 0, and so on for other datasets
+    # 1 = sarcastic, positive 
+    # 0 = literal, negative
 
     grouped = df.groupby(["model", "id"])
 
@@ -35,16 +40,18 @@ def load_and_preprocess(df: pd.DataFrame) -> dict:
         # print(labels)
     
         explanations_by_label = {
-            0: group[group["label"] == 'literal']["explanation"].tolist(),
-            1: group[group["label"] == 'sarcastic']["explanation"].tolist(),
+            NEGATIVE_LABEL: group[group["label"] == NEGATIVE_LABEL]["explanation"].tolist(),
+            POSITIVE_LABEL: group[group["label"] == POSITIVE_LABEL]["explanation"].tolist(),
         }
 
         # print(explanations_by_label)
         unique_labels = set(labels)
         is_consistent = len(unique_labels) == 1
         consistent_label = list(unique_labels)[0] if is_consistent else None
+        claim_text = group['claim'].iloc[0]
 
         model_claim_dict[model][claim_id] = {
+            "claim": claim_text,
             "is_consistent": is_consistent,
             "consistent_label": consistent_label,
             "explanations_by_label": explanations_by_label,
@@ -62,14 +69,17 @@ def generate_agree_rows(sender, receiver, claim_id, sender_data, receiver_data):
     rows = []
 
     label = sender_data["consistent_label"]
+    claim = sender_data['claim']
 
     sender_expls = sender_data["explanations_by_label"][label]
     receiver_expls = receiver_data["explanations_by_label"][label]
-
+    
+    # TODO: sampling up to 10 explanations or 
+    # TODO: Check if len(explanations == N_repetitions)
     for i in range(N_REPETITIONS):
         rows.append({
             "id": claim_id,
-            
+            'claim': claim,
             "model_sender": sender,
             "model_receiver": receiver,
             "label_sender": label,
@@ -81,138 +91,62 @@ def generate_agree_rows(sender, receiver, claim_id, sender_data, receiver_data):
     return rows
 
 
-def generate_disagree_case1(sender, receiver, claim_id, sender_data, receiver_data):
+def generate_disagree_rows(sender, receiver, claim_id, sender_data, receiver_data):
     """
-    Both inconsistent.
+    Catches all three cases of:
+        Sender and receiver both have inconsistent labels -> We can match them up 1->0 and 0->1.
+        Sender is inconsistent and receiver consistent -> We can only match them up consistent label of receiver -> 0/1.
+        Sender is consistent and receiver inconsistent -> We can only match them up 0/1 -> consistent label of sender.
+
+    The notation of ->:
+        label_x -> label_y, denotes the direction the receiver-agent is attempted influenced in. 
+        So label_x will be the receiver agent's label and label_y the sender-agent's label. 
     Generate:
-        10 rows sender=1, receiver=0
-        10 rows sender=0, receiver=1
+        10 or 20 rows of label, explanation pairs. 
     """
     rows = []
+    claim = sender_data['claim']
 
-    sender_1 = sender_data["explanations_by_label"][1]
-    sender_0 = sender_data["explanations_by_label"][0]
-    receiver_1 = receiver_data["explanations_by_label"][1]
-    receiver_0 = receiver_data["explanations_by_label"][0]
+    sender_1 = sender_data["explanations_by_label"][POSITIVE_LABEL]
+    sender_0 = sender_data["explanations_by_label"][NEGATIVE_LABEL]
+    receiver_1 = receiver_data["explanations_by_label"][POSITIVE_LABEL]
+    receiver_0 = receiver_data["explanations_by_label"][NEGATIVE_LABEL]
 
     # sender=1, receiver=0
-    if sender_1 and receiver_0:
+    if len(sender_1) > 0  and len(receiver_0) > 0:
         s_sample = sample_with_replacement(sender_1, N_REPETITIONS)
         r_sample = sample_with_replacement(receiver_0, N_REPETITIONS)
 
         for i in range(N_REPETITIONS):
             rows.append({
+                "id": claim_id,
+                'claim': claim,
                 "model_sender": sender,
                 "model_receiver": receiver,
-                "id": claim_id,
-                "label_sender": 1,
-                "label_receiver": 0,
+                "label_sender": POSITIVE_LABEL,
+                "label_receiver": NEGATIVE_LABEL,
                 "explanation_sender": s_sample[i],
                 "explanation_receiver": r_sample[i],
             })
 
     # sender=0, receiver=1
-    if sender_0 and receiver_1:
+    if len(sender_0) > 0 and len(receiver_1) > 0:
         s_sample = sample_with_replacement(sender_0, N_REPETITIONS)
         r_sample = sample_with_replacement(receiver_1, N_REPETITIONS)
 
         for i in range(N_REPETITIONS):
             rows.append({
+                "id": claim_id,
+                'claim': claim,
                 "model_sender": sender,
                 "model_receiver": receiver,
-                "id": claim_id,
-                "label_sender": 0,
-                "label_receiver": 1,
+                "label_sender": NEGATIVE_LABEL,
+                "label_receiver": POSITIVE_LABEL,
                 "explanation_sender": s_sample[i],
                 "explanation_receiver": r_sample[i],
             })
 
     return rows
-
-def generate_disagree_case2A(sender, receiver, claim_id, sender_data, receiver_data):
-    """
-    Both consistent but opposite labels.
-    No upsampling.
-    """
-    rows = []
-
-    sender_label = sender_data["consistent_label"]
-    receiver_label = receiver_data["consistent_label"]
-
-    sender_expls = sender_data["explanations_by_label"][sender_label]
-    receiver_expls = receiver_data["explanations_by_label"][receiver_label]
-
-    for i in range(N_REPETITIONS):
-        rows.append({
-            "model_sender": sender,
-            "model_receiver": receiver,
-            "id": claim_id,
-            "label_sender": sender_label,
-            "label_receiver": receiver_label,
-            "explanation_sender": sender_expls[i],
-            "explanation_receiver": receiver_expls[i],
-        })
-
-    return rows
-
-
-def generate_disagree_case2B(sender, receiver, claim_id, sender_data, receiver_data):
-    """
-    One consistent, one inconsistent.
-    Upsample only inconsistent model.
-    """
-    rows = []
-
-    # identify consistent vs inconsistent
-    if sender_data["is_consistent"] and not receiver_data["is_consistent"]:
-        consistent = sender
-        inconsistent = receiver
-        consistent_data = sender_data
-        inconsistent_data = receiver_data
-        flip = True  # swap roles later
-    else:
-        consistent = receiver
-        inconsistent = sender
-        consistent_data = receiver_data
-        inconsistent_data = sender_data
-        flip = False
-
-    consistent_label = consistent_data["consistent_label"]
-    opposite_label = 1 - consistent_label
-
-    inconsistent_pool = inconsistent_data["explanations_by_label"][opposite_label]
-    consistent_pool = consistent_data["explanations_by_label"][consistent_label]
-
-    if not inconsistent_pool:
-        return rows
-
-    inconsistent_sample = sample_with_replacement(inconsistent_pool, N_REPETITIONS)
-
-    for i in range(N_REPETITIONS):
-        if flip:
-            rows.append({
-                "model_sender": sender,
-                "model_receiver": receiver,
-                "id": claim_id,
-                "label_sender": consistent_label,
-                "label_receiver": opposite_label,
-                "explanation_sender": consistent_pool[i],
-                "explanation_receiver": inconsistent_sample[i],
-            })
-        else:
-            rows.append({
-                "model_sender": sender,
-                "model_receiver": receiver,
-                "id": claim_id,
-                "label_sender": opposite_label,
-                "label_receiver": consistent_label,
-                "explanation_sender": inconsistent_sample[i],
-                "explanation_receiver": consistent_pool[i],
-            })
-
-    return rows
-
-
 
 def process_all_pairs(model_claim_dict: dict):
     '''
@@ -220,11 +154,12 @@ def process_all_pairs(model_claim_dict: dict):
     '''
     models = list(model_claim_dict.keys())
 
+    # Dicts for agree and disagree rows sender model
+    agree_rows_for_receiver = defaultdict(list)
+    disagree_rows_for_receiver = defaultdict(list)
+
     for m1, m2 in combinations(models, 2):
         print(m1, m2)
-
-        agree_rows = []
-        disagree_rows = []
 
         m1_ids = set(model_claim_dict[m1].keys())
         m2_ids = set(model_claim_dict[m2].keys())
@@ -239,104 +174,52 @@ def process_all_pairs(model_claim_dict: dict):
                 m1_data["is_consistent"] and m2_data["is_consistent"] # Both models have consistent labels
                 and m1_data["consistent_label"] == m2_data["consistent_label"] # and equal labels 
                 ):
-                    agree_rows.extend(
+                    agree_rows_for_receiver[m1].extend(
                         generate_agree_rows(
-                            m1, m2, claim_id, m1_data, m2_data
+                            sender = m2, receiver= m1, claim_id=claim_id, sender_data=m2_data, receiver_data=m1_data
+                        )
+                    )
+                    agree_rows_for_receiver[m2].extend(
+                        generate_agree_rows(
+                            sender = m1, receiver= m2, claim_id=claim_id, sender_data=m1_data, receiver_data=m2_data
                         )
                     )
                     continue
-            # Disagree: Both models are consistent, but they disagree. 
+                    # Disagree: Both models are consistent, but they disagree. 
             if (
                     m1_data["is_consistent"] and m2_data["is_consistent"] 
-                    and m1_data["consistent_label"] != m1_data["consistent_label"]
+                    and m1_data["consistent_label"] != m2_data["consistent_label"]
                 ):
-                    disagree_rows.extend(
-                        generate_disagree_case2A(
-                            m1, m2, claim_id, m1_data, m2_data
+                    disagree_rows_for_receiver[m1].extend(
+                        generate_disagree_rows(
+                            sender = m2, receiver = m1, claim_id=claim_id, sender_data=m2_data, receiver_data=m1_data
                         )
                     )
-            
-
-
-            
-
-
-    for receiver in models:
-        for sender in models:
-
-            sender_ids = set(model_claim_dict[sender].keys())
-            receiver_ids = set(model_claim_dict[receiver].keys())
-            shared_ids = sender_ids.intersection(receiver_ids)
-
-            for claim_id in shared_ids:
-
-                sender_data = model_claim_dict[sender][claim_id]
-                receiver_data = model_claim_dict[receiver][claim_id]
-
-                # -------- AGREE --------
-                if (
-                    sender_data["is_consistent"]
-                    and receiver_data["is_consistent"]
-                    and sender_data["consistent_label"]
-                    == receiver_data["consistent_label"]
+                    disagree_rows_for_receiver[m2].extend(
+                        generate_disagree_rows(
+                            sender = m1, receiver = m2, claim_id=claim_id, sender_data=m1_data, receiver_data=m2_data
+                        )
+                    )
+            elif (     # One model is consistent and another is not -> there is disagreement, but we can only match them up one direction disagree wise. 
+                        #! Maybe add agree cases here as well, i.e. add agreement into agree dict. 
+                    (m1_data["is_consistent"] and not m2_data["is_consistent"]) 
+                    or 
+                    (m2_data["is_consistent"] and not m1_data["is_consistent"])
                 ):
-                    agree_rows.extend(
-                        generate_agree_rows(
-                            sender, receiver, claim_id, sender_data, receiver_data
+                    disagree_rows_for_receiver[m2].extend(
+                            generate_disagree_rows(
+                                sender=m1, receiver=m2, claim_id=claim_id, sender_data=m1_data, receiver_data=m2_data
+                            )
                         )
-                    )
-                    continue
+                    
 
-                # -------- DISAGREE --------
-                if (
-                    sender_data["is_consistent"]
-                    and receiver_data["is_consistent"]
-                    and sender_data["consistent_label"]
-                    != receiver_data["consistent_label"]
-                ):
-                    disagree_rows.extend(
-                        generate_disagree_case2A(
-                            sender, receiver, claim_id, sender_data, receiver_data
-                        )
-                    )
+    # For test-data-r1.csv 
+    # ID 1: Both models agree on claim, so that should be in the agree data. 
+    # ID 2: Both models are consistent but disagree, 10 cases here per model. 
+    # ID 3: Gemma is inconsistent, Llama is consistent, also 10 cases here per model.
+    # ID 4: Llama is inconsistent, gemma is consistent, also 10 cases here per model. 
+    # ID 5: Both models are inconsistent, 20 cases here per model. 
 
-                elif (
-                    not sender_data["is_consistent"]
-                    and not receiver_data["is_consistent"]
-                ):
-                    disagree_rows.extend(
-                        generate_disagree_case1(
-                            sender, receiver, claim_id, sender_data, receiver_data
-                        )
-                    )
-
-                else:
-                    disagree_rows.extend(
-                        generate_disagree_case2B(
-                            sender, receiver, claim_id, sender_data, receiver_data
-                        )
-                    )
-
-            # -------- WRITE OUTPUT --------
-            write_output(receiver, sender, "agree", agree_rows)
-            write_output(receiver, sender, "disagree", disagree_rows)
-
-
-# ============================================================
-# STEP 4 — WRITE FILES
-# ============================================================
-
-def write_output(receiver, sender, category, rows):
-    if not rows:
-        return
-
-    dir_path = os.path.join(OUTPUT_ROOT, receiver, category)
-    os.makedirs(dir_path, exist_ok=True)
-
-    file_path = os.path.join(dir_path, f"{sender}.csv")
-
-    df = pd.DataFrame(rows)
-    df.to_csv(file_path, index=False)
 
 
 def main(args):
@@ -347,12 +230,9 @@ def main(args):
     # dfs = [] 
     # for model_n in model_names:
     #     path = Path(f'/home/rp-fril-mhpe/{model_n}-{args.dataset}.csv')
-            
     #     if not path.exists():
     #         print(f'File not found: {path}')
     #         continue
-
-            
     #     df = pd.read_csv(path, low_memory=False)
     #     dfs.append(df)
             
@@ -364,7 +244,6 @@ def main(args):
     random.seed(RANDOM_SEED)
     model_claim_dict = load_and_preprocess(combined)
     process_all_pairs(model_claim_dict)
-
 
 
 
