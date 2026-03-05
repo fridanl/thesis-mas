@@ -34,5 +34,7 @@ uv sync
 
 # round 2 test
 # remember to set the model_name to the receiver in the data. (also clear by the path name)
-uv run run.py --model_name gemma-3-4b --repetition 1 --round 2 --batch_size 10 -limit 10 --history --dataset_path test_data.csv --slurm_output "${SLURM_OUTPUT_FILE}"
+# uv run run.py --model_name gemma-3-4b --repetition 1 --round 2 --batch_size 10 -limit 10 --history --dataset_path test_data.csv --slurm_output "${SLURM_OUTPUT_FILE}"
 
+# COMMONSENSE TEST RUNS
+uv run run.py --model_name gemma-3-4b --repetition 10 --round 1 --batch_size 10 --dataset commonsense --dataset_path data/commonsense/commonsense.csv -limit 10 --slurm_output "${SLURM_OUTPUT_FILE}"
