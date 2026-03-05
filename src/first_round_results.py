@@ -116,11 +116,11 @@ def plot_label_claim_distribution(df, kde = True):
 def label_distribution(df):
      
      # Overall label distribution for models
-     grouped_model = df[['model', 'label']].groupby('model').agg(positive_rate_overall = ('label', lambda x: (x==True).sum()))
+     grouped_model = df[['model', 'label']].groupby('model').agg(positive_count_overall = ('label', lambda x: (x=='sarcastic').sum()))
+     grouped_model = grouped_model['positive_count_overall'] / 137454
 
      print('Label distribution over models')
      print(grouped_model)
-
 
      # Per model, claim 
      grouped = (
