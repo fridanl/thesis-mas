@@ -1,0 +1,33 @@
+2026-03-05 14:00:23 | INFO     | Logging initialised. Log file: inference_logs/first/qwen-2.5-7b_sarcasm_20260305_140023.log
+2026-03-05 14:00:23 | INFO     | SLURM output file: logs/test-failed-runs.55283.out
+2026-03-05 14:00:23 | INFO     | ==================================================
+2026-03-05 14:00:23 | INFO     | Starting inference pipeline
+2026-03-05 14:00:23 | INFO     | ==================================================
+2026-03-05 14:00:23 | INFO     | Arguments: {'model_name': 'qwen-2.5-7b', 'dataset': 'sarcasm', 'dataset_path': 'results/first/qwen-2.5-7b-sarcasm-failed.csv', 'repetition': 1, 'round': 1, 'slurm_output': 'logs/test-failed-runs.55283.out', 'history': False, 'models_config_path': 'configs/models.yaml', 'outdir': 'results', 'batch_size': 256, 'no_logging': False, 'limit': None, 'idx_start': 0}
+2026-03-05 14:00:23 | INFO     | Results will be written to: results/first/qwen-2.5-7b-sarcasm.csv
+2026-03-05 14:00:23 | INFO     | Ensuring local model availability...
+2026-03-05 14:00:23 | INFO     | Location of model: /home/mhpe/.cache/huggingface/hub/models--unsloth--Qwen2.5-7B-Instruct-bnb-4bit
+2026-03-05 14:04:18 | INFO     | ########## Shared decoding parameters ##########
+2026-03-05 14:04:18 | INFO     | Repetitions (no. outputs from one input): 1 
+ Max tokens: 254
+2026-03-05 14:04:18 | INFO     | The model has been set to have default sampling params.
+2026-03-05 14:04:18 | INFO     | ########## Sampling parameters ########## 
+ SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.05, temperature=0.7, top_p=0.8, top_k=20, min_p=0.0, seed=None, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=254, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=GuidedDecodingParams(json={'$defs': {'LabelSarc': {'enum': ['sarcastic', 'literal'], 'title': 'LabelSarc', 'type': 'string'}}, 'properties': {'label': {'$ref': '#/$defs/LabelSarc'}, 'explanation': {'title': 'Explanation', 'type': 'string'}}, 'required': ['label', 'explanation'], 'title': 'OutputSarc', 'type': 'object'}, regex=None, choice=None, grammar=None, json_object=None, backend=None, backend_was_auto=False, disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, whitespace_pattern=None, structural_tag=None), extra_args=None)
+2026-03-05 14:05:05 | INFO     | Writing 239 valid results to CSV
+2026-03-05 14:05:21 | INFO     | Writing 231 valid results to CSV
+2026-03-05 14:05:22 | INFO     | ==================================================
+2026-03-05 14:05:22 | INFO     | Inference pipeline completed
+2026-03-05 14:05:22 | INFO     | ==================================================
+2026-03-05 14:05:22 | INFO     | Total batches processed: 2
+2026-03-05 14:05:22 | INFO     | Total successful results: 470
+2026-03-05 14:05:22 | INFO     | Total failed examples: 35
+2026-03-05 14:05:22 | INFO     | Output directory: results/first
+2026-03-05 14:05:22 | INFO     | ==================================================
+2026-03-05 14:05:22 | INFO     | Timing summary
+2026-03-05 14:05:22 | INFO     | Total script execution time: 4m 58.59s (298.59s)
+2026-03-05 14:05:22 | INFO     | Total inference time: 1m 3.54s (63.54s)
+2026-03-05 14:05:22 | INFO     | Overhead time (I/O, parsing, etc.): 3m 55.05s (235.05s)
+2026-03-05 14:05:22 | INFO     | Inference percentage: 21.3%
+2026-03-05 14:05:22 | INFO     | Average time per batch: 149.30s
+2026-03-05 14:05:22 | INFO     | Average time per result: 0.64s
+2026-03-05 14:05:22 | INFO     | ==================================================
