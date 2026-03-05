@@ -102,7 +102,7 @@ def plot_label_claim_distribution(df, kde = True):
         model_res = df[df['model'] == model_name].copy()
 
         if kde:
-            sns.kdeplot(data=model_res, ax=ax, x = 'positive_rate', fill=True)
+            sns.kdeplot(data=model_res, ax=ax, x = 'positive_rate', fill=True, )
         else:
             sns.histplot(data=model_res, ax=ax, x = 'positive_rate')
 
@@ -117,7 +117,7 @@ def label_distribution(df):
      
      # Overall label distribution for models
      grouped_model = df[['model', 'label']].groupby('model').agg(positive_count_overall = ('label', lambda x: (x=='sarcastic').sum()))
-     grouped_model = grouped_model['positive_count_overall'] / 137454
+     grouped_model = grouped_model['positive_count_overall'] / 1374540
 
      print('Label distribution over models')
      print(grouped_model)
@@ -133,6 +133,10 @@ def label_distribution(df):
         )
      
      grouped['positive_rate'] = grouped['positive_count'] / grouped['valid_outputs']
+
+     grouped_pr = grouped.groupby([['model', 'positive_rate']]).size().resize_index()
+     print('Grouped per model, id, positive rate')
+     print(grouped_pr)
 
     #  print('Positive rate per model/claim')
     #  print(grouped)
