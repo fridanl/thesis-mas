@@ -8,7 +8,7 @@ import logging
 import pathlib
 
 
-# Hugginface token 
+# Huggingface token 
 home_env = pathlib.Path.home() / '.env'
 if home_env.exists():
     load_dotenv(home_env, override=False)
@@ -75,7 +75,7 @@ def main(args):
     batch_count = 0 
     total_failed = 0 
 
-    n_repetitions = args.repetition # this is going to be 1
+    n_repetitions = args.repetition 
     for batch in io.load_claims_batches(path = args.dataset_path, round=pre, start = args.idx_start, batch_size = args.batch_size,    limit=args.limit):
         batch_count += 1 
 
@@ -86,8 +86,6 @@ def main(args):
             history=spec.history,
             round=spec.round)
         
-        # logger.info(f"history setting: {args.history}")
-        # logger.info(f"!!!!!!!!!!!!!!!!!!!!!!! see if conversations are fine!!!!!!!!!!!!!!!!!!!!!!!! {conversations}")
 
         start_time = time.time()
         raw_outputs, parsed = run_inference(llm, conversations=conversations, sampling=sampling, output_model=spec.output_model)
