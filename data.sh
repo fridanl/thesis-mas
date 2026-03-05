@@ -10,4 +10,4 @@ echo "Host: $(hostname)"
 
 set -euo pipefail
 
-uv run src/first-round-results.py
+uv run src/first_round_results.py

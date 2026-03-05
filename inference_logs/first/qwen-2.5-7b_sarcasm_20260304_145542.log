@@ -1,0 +1,62 @@
+2026-03-04 14:55:42 | INFO     | Logging initialised. Log file: inference_logs/first/qwen-2.5-7b_sarcasm_20260304_145542.log
+2026-03-04 14:55:42 | INFO     | SLURM output file: logs/qwen-2.5-7b-first-run.55047.out
+2026-03-04 14:55:42 | INFO     | ==================================================
+2026-03-04 14:55:42 | INFO     | Starting inference pipeline
+2026-03-04 14:55:42 | INFO     | ==================================================
+2026-03-04 14:55:42 | INFO     | Arguments: {'model_name': 'qwen-2.5-7b', 'dataset': 'sarcasm', 'dataset_path': 'data/sarc/sarcasm.csv', 'repetition': 10, 'round': 1, 'slurm_output': 'logs/qwen-2.5-7b-first-run.55047.out', 'history': False, 'models_config_path': 'configs/models.yaml', 'outdir': 'results', 'batch_size': 256, 'no_logging': False, 'limit': None, 'idx_start': 0}
+2026-03-04 14:55:42 | INFO     | Results will be written to: results/first/qwen-2.5-7b-sarcasm.csv
+2026-03-04 14:55:42 | INFO     | Ensuring local model availability...
+2026-03-04 14:55:42 | INFO     | Location of model: /home/fril/.cache/huggingface/hub/models--unsloth--Qwen2.5-7B-Instruct-bnb-4bit
+2026-03-04 14:56:42 | INFO     | ########## Shared decoding parameters ##########
+2026-03-04 14:56:42 | INFO     | Repetitions (no. outputs from one input): 10 
+ Max tokens: 254
+2026-03-04 14:56:42 | INFO     | The model has been set to have default sampling params.
+2026-03-04 14:56:42 | INFO     | ########## Sampling parameters ########## 
+ SamplingParams(n=10, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.05, temperature=0.7, top_p=0.8, top_k=20, min_p=0.0, seed=None, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=254, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=GuidedDecodingParams(json={'$defs': {'LabelSarc': {'enum': ['sarcastic', 'literal'], 'title': 'LabelSarc', 'type': 'string'}}, 'properties': {'label': {'$ref': '#/$defs/LabelSarc'}, 'explanation': {'title': 'Explanation', 'type': 'string'}}, 'required': ['label', 'explanation'], 'title': 'OutputSarc', 'type': 'object'}, regex=None, choice=None, grammar=None, json_object=None, backend=None, backend_was_auto=False, disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, whitespace_pattern=None, structural_tag=None), extra_args=None)
+2026-03-04 14:57:25 | INFO     | Writing 2560 valid results to CSV
+2026-03-04 14:57:41 | INFO     | Writing 2556 valid results to CSV
+2026-03-04 14:57:54 | INFO     | Writing 2559 valid results to CSV
+2026-03-04 14:58:10 | INFO     | Writing 2556 valid results to CSV
+2026-03-04 14:58:25 | INFO     | Writing 2556 valid results to CSV
+2026-03-04 14:58:37 | INFO     | Writing 2560 valid results to CSV
+2026-03-04 14:58:49 | INFO     | Writing 2560 valid results to CSV
+2026-03-04 14:59:02 | INFO     | Writing 2560 valid results to CSV
+2026-03-04 14:59:15 | INFO     | Writing 2559 valid results to CSV
+2026-03-04 14:59:29 | INFO     | Writing 2559 valid results to CSV
+2026-03-04 14:59:41 | INFO     | Writing 2560 valid results to CSV
+2026-03-04 14:59:53 | INFO     | Writing 2560 valid results to CSV
+2026-03-04 15:00:06 | INFO     | Writing 2560 valid results to CSV
+2026-03-04 15:00:21 | INFO     | Writing 2556 valid results to CSV
+2026-03-04 15:00:34 | INFO     | Writing 2560 valid results to CSV
+2026-03-04 15:00:47 | INFO     | Writing 2559 valid results to CSV
+2026-03-04 15:01:02 | INFO     | Writing 2558 valid results to CSV
+2026-03-04 15:01:16 | INFO     | Writing 2560 valid results to CSV
+2026-03-04 15:01:29 | INFO     | Writing 2559 valid results to CSV
+2026-03-04 15:01:45 | INFO     | Writing 2558 valid results to CSV
+2026-03-04 15:01:57 | INFO     | Writing 2560 valid results to CSV
+2026-03-04 15:02:10 | INFO     | Writing 2560 valid results to CSV
+2026-03-04 15:02:22 | INFO     | Writing 2560 valid results to CSV
+2026-03-04 15:02:36 | INFO     | Writing 2559 valid results to CSV
+2026-03-04 15:02:49 | INFO     | Writing 2560 valid results to CSV
+2026-03-04 15:03:05 | INFO     | Writing 2557 valid results to CSV
+2026-03-04 15:03:20 | INFO     | Writing 2558 valid results to CSV
+2026-03-04 15:03:33 | INFO     | Writing 2560 valid results to CSV
+2026-03-04 15:03:46 | INFO     | Writing 2559 valid results to CSV
+2026-03-04 15:03:59 | INFO     | Writing 2560 valid results to CSV
+2026-03-04 15:04:12 | INFO     | Writing 2560 valid results to CSV
+2026-03-04 15:04:26 | INFO     | Writing 2559 valid results to CSV
+2026-03-04 15:04:41 | INFO     | Writing 2555 valid results to CSV
+2026-03-04 15:04:58 | INFO     | Writing 2558 valid results to CSV
+2026-03-04 15:05:10 | INFO     | Writing 2560 valid results to CSV
+2026-03-04 15:05:23 | INFO     | Writing 2559 valid results to CSV
+2026-03-04 15:05:36 | INFO     | Writing 2560 valid results to CSV
+2026-03-04 15:05:49 | INFO     | Writing 2560 valid results to CSV
+2026-03-04 15:06:02 | INFO     | Writing 2560 valid results to CSV
+2026-03-04 15:06:17 | INFO     | Writing 2559 valid results to CSV
+2026-03-04 15:06:29 | INFO     | Writing 2560 valid results to CSV
+2026-03-04 15:06:42 | INFO     | Writing 2560 valid results to CSV
+2026-03-04 15:06:54 | INFO     | Writing 2560 valid results to CSV
+2026-03-04 15:07:08 | INFO     | Writing 2559 valid results to CSV
+2026-03-04 15:07:23 | INFO     | Writing 2558 valid results to CSV
+2026-03-04 15:07:37 | INFO     | Writing 2559 valid results to CSV
+2026-03-04 15:07:50 | INFO     | Writing 2560 valid results to CSV
