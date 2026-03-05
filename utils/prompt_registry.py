@@ -24,6 +24,19 @@ class OutputSentiment(BaseModel):
     label: LabelSentiment
     explanation: str
 
+class OutputSentimentR2(BaseModel):
+    label: LabelSentiment
+
+class LabelCommonsense(str, Enum):
+    positive = 'yes'
+    negative = 'no'
+
+class OutputCommonsense(BaseModel):
+    label: LabelCommonsense
+    explanation: str
+
+class OutputCommonsenseR2(BaseModel):
+    label: LabelCommonsense
 
 # ----- Core prompt builders ---------
 def make_system_json(schema: dict, *, round: int) -> str:
@@ -105,13 +118,23 @@ class PromptSpec:
 DATASETS: Dict[str, DatasetTaskSpec] = {
     'sarcasm': DatasetTaskSpec(
                 dataset = 'sarcasm',
-                task_question= 'Is this claim sarcastic or literal?',
-                output_r1=OutputSarc,
-                output_r2=OutputSarcR2
-                )
-    #TODO: Add more datasets
-                }
-
+                task_question = 'Is this claim sarcastic or literal?',
+                output_r1 = OutputSarc,
+                output_r2 = OutputSarcR2
+                ),
+    'sentiment': DatasetTaskSpec(
+                dataset = 'sentiment',
+                task_question = 'Does this claim have positive or negative sentiment?',
+                output_r1 = OutputSentiment,
+                output_r2 = OutputSentimentR2
+                ),
+    'commonsense': DatasetTaskSpec(
+                dataset = 'commonsense',
+                task_question = 'Is this claim true?',
+                output_r1 = OutputCommonsense,
+                output_r2 = OutputCommonsenseR2
+                )            
+            }
 
 def get_prompt_spec(dataset: str, round: int, history: bool) -> PromptSpec:
     key = dataset.lower()
