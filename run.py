@@ -86,6 +86,8 @@ def main(args):
             history=spec.history,
             round=spec.round)
         
+        logger.info(f"********************\n{conversations}\n********************")                 #TODO: remove this log at some point
+        
 
         start_time = time.time()
         raw_outputs, parsed = run_inference(llm, conversations=conversations, sampling=sampling, output_model=spec.output_model)
