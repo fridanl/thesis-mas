@@ -18,7 +18,7 @@ nvidia-smi
 
 uv sync 
 
-# SLURM_OUTPUT_FILE="logs/${SLURM_JOB_NAME}.${SLURM_JOB_ID}.out"
+SLURM_OUTPUT_FILE="logs/${SLURM_JOB_NAME}.${SLURM_JOB_ID}.out"
 
 # done
 # uv run run.py --model_name llama-3.1-8b --repetition 10 --round 1 --batch_size 256 --slurm_output "${SLURM_OUTPUT_FILE}"
@@ -34,5 +34,5 @@ uv sync
 
 # round 2 test
 # remember to set the model_name to the receiver in the data. (also clear by the path name)
-uv run run.py --model_name gemma-3-4b --repetition 1 --round 2 --batch_size 10 -limit 10 --history --dataset_path test_data.csv --slurm_output "${SLURM_OUTPUT_FILE}"
+uv run run.py --model_name llama-3.1-8b --repetition 1 --round 2 --batch_size 10 -limit 10 --history --dataset_path test_data.csv --slurm_output "${SLURM_OUTPUT_FILE}"
 
