@@ -134,7 +134,7 @@ def label_distribution(df):
      
      grouped['positive_rate'] = grouped['positive_count'] / grouped['valid_outputs']
 
-     grouped_pr = grouped.groupby([['model', 'positive_rate']]).size().resize_index()
+     grouped_pr = grouped.groupby(['model', 'positive_rate']).size().reset_index()
      print('Grouped per model, id, positive rate')
      print(grouped_pr)
 
