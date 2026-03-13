@@ -141,7 +141,7 @@ def main(args):
                     else:
                         failed_examples.append({
                             'id': data['id'],
-                            'claim': data['claim'],
+                            'text': data['claim'],
                             'model_sender': data['model_sender'],
                             'model_receiver': data['model_receiver'],
                             'label_sender': data['label_sender'],
