@@ -144,7 +144,7 @@ def label_distribution(df):
 
 def load_results(model_names, dataset, with_failed):
     dfs = [] 
-    columns = ['model', 'id', 'claim','repetition', 'valid_json', 'label'] 
+    columns = ['model', 'id', 'text','repetition', 'valid_json', 'label'] 
 
     if with_failed:
         suffixes = ("", "-failed1")
