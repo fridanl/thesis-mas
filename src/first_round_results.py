@@ -147,7 +147,7 @@ def load_results(model_names, dataset, with_failed):
     columns = ['model', 'id', 'claim','repetition', 'valid_json', 'label'] 
 
     if with_failed:
-        suffixes = ("", "-failed")
+        suffixes = ("", "-failed1")
     else:
         suffixes = ("",)
 
