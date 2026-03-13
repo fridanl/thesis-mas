@@ -30,8 +30,8 @@ def main(args):
         logger.info(f'SLURM output file: {args.slurm_output}')
     
     # Path for writing results  
-    pre = 'first' if args.round == 1 else 'second'
-    outdir = pathlib.Path(args.outdir) / pathlib.Path(pre)
+    #pre = 'first' if args.round == 1 else 'second'
+    outdir = pathlib.Path(args.outdir)
     outdir.mkdir(parents = True, exist_ok = True)
     csv_path_valid = outdir / f'{model_name}-{args.dataset}.csv'
 
