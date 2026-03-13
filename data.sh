@@ -1,5 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=eda
+#SBATCH --account=researchers
 #SBATCH --partition=scavenge
 #SBATCH --cpus-per-task=4
 #SBATCH --time=01:00:00
