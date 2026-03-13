@@ -37,4 +37,18 @@ SLURM_OUTPUT_FILE="logs/${SLURM_JOB_NAME}.${SLURM_JOB_ID}.out"
 
 
 # run failed examples 
-uv run run.py --model_name qwen-2.5-7b --repetition 1 --round 1 --batch_size 256 --dataset_path results/first/qwen-2.5-7b-sarcasm-failed.csv --slurm_output "${SLURM_OUTPUT_FILE}"
+# sarcasm
+uv run run.py --model_name llama-3.1-8b --repetition 1 --round 1 --batch_size 256 --dataset_path results/first/llama-3.1-8b-sarcasm-failed1.csv --slurm_output "${SLURM_OUTPUT_FILE}"
+uv run run.py --model_name llama-3.3-70b --repetition 1 --round 1 --batch_size 256 --dataset_path results/first/llama-3.3-70b-sarcasm-failed1.csv  --slurm_output "${SLURM_OUTPUT_FILE}"
+uv run run.py --model_name gemma-3-4b --repetition 1 --round 1 --batch_size 256 --dataset_path results/first/gemma-3-4b-sarcasm-failed1.csv  --slurm_output "${SLURM_OUTPUT_FILE}"
+uv run run.py --model_name gemma-3-27b --repetition 1 --round 1 --batch_size 256 --dataset_path results/first/gemma-3-27b-sarcasm-failed1.csv --slurm_output "${SLURM_OUTPUT_FILE}"
+uv run run.py --model_name qwen-2.5-7b --repetition 1 --round 1 --batch_size 256 --dataset_path results/first/qwen-2.5-7b-sarcasm-failed1.csv --slurm_output "${SLURM_OUTPUT_FILE}"
+uv run run.py --model_name qwen-2.5-72b --repetition 1 --round 1 --batch_size 256 --dataset_path results/first/qwen-2.5-72b-sarcasm-failed1.csv --slurm_output "${SLURM_OUTPUT_FILE}"
+#---
+# commonsense
+# uv run run.py --model_name gemma-3-4b --repetition 1 --round 1 --batch_size 256 --dataset_path results/first/gemma-3-4b-commonsense-failed1.csv --slurm_output "${SLURM_OUTPUT_FILE}"
+# uv run run.py --model_name gemma-3-27b --repetition 1 --round 1 --batch_size 256 --dataset_path results/first/gemma-3-27b-commonsense-failed1.csv --slurm_output "${SLURM_OUTPUT_FILE}"
+# uv run run.py --model_name qwen-2.5-7b --repetition 1 --round 1 --batch_size 256 --dataset_path results/first/qwen-2.5-7b-commonsense-failed1.csv --slurm_output "${SLURM_OUTPUT_FILE}"
+# uv run run.py --model_name qwen-2.5-72b --repetition 1 --round 1 --batch_size 256 --dataset_path results/first/qwen-2.5-72b-commonsense-failed1.csv --slurm_output "${SLURM_OUTPUT_FILE}"
+# uv run run.py --model_name llama-3.3-70b --repetition 1 --round 1 --batch_size 256 --dataset_path results/first/llama-3.3-70b-commonsense-failed1.csv --slurm_output "${SLURM_OUTPUT_FILE}"
+# uv run run.py --model_name llama-3.1-8b --repetition 1 --round 1 --batch_size 256 --dataset_path results/first/llama-3.1-8b-commonsense-failed1.csv  --slurm_output "${SLURM_OUTPUT_FILE}"
