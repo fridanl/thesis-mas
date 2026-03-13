@@ -101,6 +101,8 @@ class DatasetTaskSpec:
     task_question: str 
     output_r1: Type[BaseModel]
     output_r2: Type[BaseModel]
+    negative_label: str 
+    positive_label: str 
 
 
 @dataclass(frozen=True)
@@ -120,19 +122,25 @@ DATASETS: Dict[str, DatasetTaskSpec] = {
                 dataset = 'sarcasm',
                 task_question = 'Is this claim sarcastic or literal?',
                 output_r1 = OutputSarc,
-                output_r2 = OutputSarcR2
+                output_r2 = OutputSarcR2,
+                negative_label = 'literal',
+                positive_label = 'sarcastic'
                 ),
     'sentiment': DatasetTaskSpec(
                 dataset = 'sentiment',
                 task_question = 'Does this claim have positive or negative sentiment?',
                 output_r1 = OutputSentiment,
-                output_r2 = OutputSentimentR2
+                output_r2 = OutputSentimentR2,
+                negative_label='negative',
+                positive_label='positive'
                 ),
     'commonsense': DatasetTaskSpec(
                 dataset = 'commonsense',
                 task_question = 'Is this claim true?',
                 output_r1 = OutputCommonsense,
-                output_r2 = OutputCommonsenseR2
+                output_r2 = OutputCommonsenseR2,
+                negative_label = 'no',
+                positive_label='yes'
                 )            
             }
 
