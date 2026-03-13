@@ -162,7 +162,7 @@ def load_results(model_names, dataset, with_failed):
 
             
             df = pd.read_csv(path, low_memory=False)
-            if suffix == '-failed':
+            if suffix == '-failed1':
                 df['valid_json'] = False
                 df['model'] = model_n
                 df['label'] = None
