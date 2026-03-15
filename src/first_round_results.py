@@ -166,7 +166,7 @@ def load_results(model_names, dataset, with_failed):
                 df['valid_json'] = False
                 df['model'] = model_n
                 df['label'] = None
-            
+
             df = df[columns]
             dfs.append(df)
             
