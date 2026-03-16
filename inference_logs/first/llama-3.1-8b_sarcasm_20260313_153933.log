@@ -1,0 +1,32 @@
+2026-03-13 15:39:33 | INFO     | Logging initialised. Log file: inference_logs/first/llama-3.1-8b_sarcasm_20260313_153933.log
+2026-03-13 15:39:33 | INFO     | SLURM output file: logs/failed-llama-8b.57022.out
+2026-03-13 15:39:33 | INFO     | ==================================================
+2026-03-13 15:39:33 | INFO     | Starting inference pipeline
+2026-03-13 15:39:33 | INFO     | ==================================================
+2026-03-13 15:39:33 | INFO     | Arguments: {'model_name': 'llama-3.1-8b', 'dataset': 'sarcasm', 'dataset_path': '/home/rp-fril-mhpe/llama-3.1-8b-sarcasm-failed1.csv', 'repetition': 1, 'round': 1, 'slurm_output': 'logs/failed-llama-8b.57022.out', 'history': False, 'models_config_path': 'configs/models.yaml', 'outdir': '/home/rp-fril-mhpe', 'batch_size': 256, 'no_logging': False, 'limit': None, 'idx_start': 0}
+2026-03-13 15:39:33 | INFO     | Results will be written to: /home/rp-fril-mhpe/first/llama-3.1-8b-sarcasm.csv
+2026-03-13 15:39:33 | INFO     | Ensuring local model availability...
+2026-03-13 15:39:33 | INFO     | Location of model: /home/mhpe/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct-bnb-4bit
+2026-03-13 15:40:11 | INFO     | ########## Shared decoding parameters ##########
+2026-03-13 15:40:11 | INFO     | Repetitions (no. outputs from one input): 1 
+ Max tokens: 254
+2026-03-13 15:40:11 | INFO     | The model has been set to have default sampling params.
+2026-03-13 15:40:11 | INFO     | ########## Sampling parameters ########## 
+ SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.0, temperature=0.6, top_p=0.9, top_k=0, min_p=0.0, seed=None, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=254, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=GuidedDecodingParams(json={'$defs': {'LabelSarc': {'enum': ['sarcastic', 'literal'], 'title': 'LabelSarc', 'type': 'string'}}, 'properties': {'label': {'$ref': '#/$defs/LabelSarc'}, 'explanation': {'title': 'Explanation', 'type': 'string'}}, 'required': ['label', 'explanation'], 'title': 'OutputSarc', 'type': 'object'}, regex=None, choice=None, grammar=None, json_object=None, backend=None, backend_was_auto=False, disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, whitespace_pattern=None, structural_tag=None), extra_args=None)
+2026-03-13 15:40:33 | INFO     | Writing 221 valid results to CSV
+2026-03-13 15:40:33 | INFO     | ==================================================
+2026-03-13 15:40:33 | INFO     | Inference pipeline completed
+2026-03-13 15:40:33 | INFO     | ==================================================
+2026-03-13 15:40:33 | INFO     | Total batches processed: 1
+2026-03-13 15:40:33 | INFO     | Total successful results: 221
+2026-03-13 15:40:33 | INFO     | Total failed examples: 7
+2026-03-13 15:40:33 | INFO     | Output directory: /home/rp-fril-mhpe/first
+2026-03-13 15:40:33 | INFO     | ==================================================
+2026-03-13 15:40:33 | INFO     | Timing summary
+2026-03-13 15:40:33 | INFO     | Total script execution time: 1m 0.05s (60.05s)
+2026-03-13 15:40:33 | INFO     | Total inference time: 22.57s (22.57s)
+2026-03-13 15:40:33 | INFO     | Overhead time (I/O, parsing, etc.): 37.48s (37.48s)
+2026-03-13 15:40:33 | INFO     | Inference percentage: 37.6%
+2026-03-13 15:40:33 | INFO     | Average time per batch: 60.05s
+2026-03-13 15:40:33 | INFO     | Average time per result: 0.27s
+2026-03-13 15:40:33 | INFO     | ==================================================

@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=test-failed-runs
+#SBATCH --job-name=failed-llama-8b
 #SBATCH --account=researchers
 #SBATCH --partition=scavenge
 #SBATCH --gres=gpu:1

@@ -144,10 +144,8 @@ def label_distribution(df):
 
 def load_results(model_names, dataset, with_failed):
     dfs = [] 
-    columns = ['model', 'id', 'text','repetition', 'valid_json', 'label'] 
-
     if with_failed:
-        suffixes = ("", "-failed1")
+        suffixes = ("", "-failed")
     else:
         suffixes = ("",)
 
@@ -162,11 +160,15 @@ def load_results(model_names, dataset, with_failed):
 
             
             df = pd.read_csv(path, low_memory=False)
-            if suffix == '-failed1':
+            columns = ['model', 'id', 'claim','repetition', 'valid_json', 'label'] 
+            if suffix == '-failed':
                 df['valid_json'] = False
                 df['model'] = model_n
                 df['label'] = None
-            
+                columns = ['model', 'id', 'text','repetition', 'valid_json', 'label'] 
+
+            print(path)
+            print(df.columns)
             df = df[columns]
             dfs.append(df)
             
