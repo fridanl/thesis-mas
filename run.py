@@ -31,7 +31,9 @@ def main(args):
     
     # Path for writing results  
     pre = 'first' if args.round == 1 else 'second'
-    outdir = pathlib.Path(args.outdir)
+    outdir = pathlib.Path(args.outdir) / pathlib.Path(pre) # when running the actual experiments (not failed runs)
+    if args.failed:
+        outdir = pathlib.Path(args.outdir) # then we just run it inside the shared folder, and not in a local subfolder
     outdir.mkdir(parents = True, exist_ok = True)
     csv_path_valid = outdir / f'{model_name}-{args.dataset}.csv'
 
@@ -224,6 +226,9 @@ if __name__ == '__main__':
     ap.add_argument('--no_logging',
                     action='store_true', # Default is false, i.e. logging is default
                     help='Disable all logging (no log file will be created)')
+    ap.add_argument('--failed',  # when running failed examples
+                    help="Runs the failed examples from the first round. Make sure to have set the dataset_path and outdir to the correct paths for the failed examples.",
+                    action='store_true')
     ap.add_argument('-limit', 
                     help='Limit number of examples for inference',
                     type=int)
