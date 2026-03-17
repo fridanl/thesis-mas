@@ -165,7 +165,7 @@ def load_results(model_names, dataset, with_failed):
                 df['valid_json'] = False
                 df['model'] = model_n
                 df['label'] = None
-                columns = ['model', 'id', 'text','repetition', 'valid_json', 'label'] 
+            #    columns = ['model', 'id', 'text','repetition', 'valid_json', 'label'] 
 
             print(path)
             print(df.columns)
@@ -180,8 +180,8 @@ def load_results(model_names, dataset, with_failed):
 def main(args):
     profiles_root = yaml.safe_load(pathlib.Path('configs/models.yaml').read_text())
     profiles = profiles_root.get('profiles', {})
-    model_names = list(profiles.keys())
-
+    #model_names = list(profiles.keys())
+    model_names = ["llama-3.1-8b"]
     combined_all = load_results(model_names=model_names, dataset=args.dataset, with_failed=True)
     check_results(combined_all, dataset_name=args.dataset, n_repetitions=10)
 
