@@ -1,12 +1,12 @@
 #!/bin/bash
-#SBATCH --job-name=failed-llama-8b
+#SBATCH --job-name=failed-qwen-72b
 #SBATCH --account=researchers
 #SBATCH --partition=scavenge
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=80G
 #SBATCH --time=3:00:00
-#SBATCH --constraint="gpu_a100_80gb|gpu_h100|gpu_l40s|gpu_a30"
+#SBATCH --constraint="gpu_a100_80gb|gpu_h100"
 #SBATCH --output=logs/%x.%j.out
 #SBATCH --mail-type=BEGIN,END
 
@@ -38,12 +38,7 @@ SLURM_OUTPUT_FILE="logs/${SLURM_JOB_NAME}.${SLURM_JOB_ID}.out"
 
 # run failed examples 
 # sarcasm
-uv run run.py --model_name llama-3.1-8b --repetition 1 --round 1 --batch_size 256 --dataset_path /home/rp-fril-mhpe/llama-3.1-8b-sarcasm-failed1.csv --outdir /home/rp-fril-mhpe --failed --slurm_output "${SLURM_OUTPUT_FILE}"
-#uv run run.py --model_name llama-3.3-70b --repetition 1 --round 1 --batch_size 256 --dataset_path /home/rp-fril-mhpe/llama-3.3-70b-sarcasm-failed1.csv --outdir /home/rp-fril-mhpe --failed --slurm_output "${SLURM_OUTPUT_FILE}"
-#uv run run.py --model_name gemma-3-4b --repetition 1 --round 1 --batch_size 256 --dataset_path /home/rp-fril-mhpe/gemma-3-4b-sarcasm-failed1.csv --outdir /home/rp-fril-mhpe --failed --slurm_output "${SLURM_OUTPUT_FILE}"
-#uv run run.py --model_name gemma-3-27b --repetition 1 --round 1 --batch_size 256 --dataset_path /home/rp-fril-mhpe/gemma-3-27b-sarcasm-failed1.csv --outdir /home/rp-fril-mhpe --failed --slurm_output "${SLURM_OUTPUT_FILE}"
-#uv run run.py --model_name qwen-2.5-7b --repetition 1 --round 1 --batch_size 256 --dataset_path /home/rp-fril-mhpe/qwen-2.5-7b-sarcasm-failed1.csv --outdir /home/rp-fril-mhpe --failed --slurm_output "${SLURM_OUTPUT_FILE}"
-#uv run run.py --model_name qwen-2.5-72b --repetition 1 --round 1 --batch_size 256 --dataset_path /home/rp-fril-mhpe/qwen-2.5-72b-sarcasm-failed1.csv --outdir /home/rp-fril-mhpe --failed --slurm_output "${SLURM_OUTPUT_FILE}"
+uv run run.py --model_name qwen-2.5-72b --repetition 1 --round 1 --batch_size 256 --dataset_path /home/rp-fril-mhpe/qwen-2.5-72b-sarcasm-failed1.csv --outdir /home/rp-fril-mhpe --failed --slurm_output "${SLURM_OUTPUT_FILE}"
 #---
 # commonsense                    NOT READY YET, NEED TO CHANGE THE FORMAT OF THE FAILED FIRST
 # uv run run.py --model_name gemma-3-4b --repetition 1 --round 1 --batch_size 256 --dataset_path /home/rp-fril-mhpe/gemma-3-4b-commonsense-failed1.csv  --slurm_output "${SLURM_OUTPUT_FILE}"
