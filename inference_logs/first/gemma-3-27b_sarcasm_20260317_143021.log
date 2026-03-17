@@ -1,0 +1,32 @@
+2026-03-17 14:30:21 | INFO     | Logging initialised. Log file: inference_logs/first/gemma-3-27b_sarcasm_20260317_143021.log
+2026-03-17 14:30:21 | INFO     | SLURM output file: logs/failed-gemma-27b.57518.out
+2026-03-17 14:30:21 | INFO     | ==================================================
+2026-03-17 14:30:21 | INFO     | Starting inference pipeline
+2026-03-17 14:30:21 | INFO     | ==================================================
+2026-03-17 14:30:21 | INFO     | Arguments: {'model_name': 'gemma-3-27b', 'dataset': 'sarcasm', 'dataset_path': '/home/rp-fril-mhpe/gemma-3-27b-sarcasm-failed1.csv', 'repetition': 1, 'round': 1, 'slurm_output': 'logs/failed-gemma-27b.57518.out', 'history': False, 'models_config_path': 'configs/models.yaml', 'outdir': '/home/rp-fril-mhpe', 'batch_size': 256, 'no_logging': False, 'failed': True, 'limit': None, 'idx_start': 0}
+2026-03-17 14:30:21 | INFO     | Results will be written to: /home/rp-fril-mhpe/gemma-3-27b-sarcasm.csv
+2026-03-17 14:30:21 | INFO     | Ensuring local model availability...
+2026-03-17 14:30:21 | INFO     | Location of model: /home/mhpe/.cache/huggingface/hub/models--unsloth--gemma-3-27b-it-bnb-4bit
+2026-03-17 14:35:30 | INFO     | ########## Shared decoding parameters ##########
+2026-03-17 14:35:30 | INFO     | Repetitions (no. outputs from one input): 1 
+ Max tokens: 254
+2026-03-17 14:35:30 | INFO     | Using sampling params as specified in models.yaml.
+2026-03-17 14:35:30 | INFO     | ########## Sampling parameters ########## 
+ SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.0, temperature=1.0, top_p=0.95, top_k=64, min_p=0.0, seed=None, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=254, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=GuidedDecodingParams(json={'$defs': {'LabelSarc': {'enum': ['sarcastic', 'literal'], 'title': 'LabelSarc', 'type': 'string'}}, 'properties': {'label': {'$ref': '#/$defs/LabelSarc'}, 'explanation': {'title': 'Explanation', 'type': 'string'}}, 'required': ['label', 'explanation'], 'title': 'OutputSarc', 'type': 'object'}, regex=None, choice=None, grammar=None, json_object=None, backend=None, backend_was_auto=False, disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, whitespace_pattern=None, structural_tag=None), extra_args=None)
+2026-03-17 14:36:02 | INFO     | Writing 251 valid results to CSV
+2026-03-17 14:36:02 | INFO     | ==================================================
+2026-03-17 14:36:02 | INFO     | Inference pipeline completed
+2026-03-17 14:36:02 | INFO     | ==================================================
+2026-03-17 14:36:02 | INFO     | Total batches processed: 1
+2026-03-17 14:36:02 | INFO     | Total successful results: 251
+2026-03-17 14:36:02 | INFO     | Total failed examples: 4
+2026-03-17 14:36:02 | INFO     | Output directory: /home/rp-fril-mhpe
+2026-03-17 14:36:02 | INFO     | ==================================================
+2026-03-17 14:36:02 | INFO     | Timing summary
+2026-03-17 14:36:02 | INFO     | Total script execution time: 5m 41.55s (341.55s)
+2026-03-17 14:36:02 | INFO     | Total inference time: 31.88s (31.88s)
+2026-03-17 14:36:02 | INFO     | Overhead time (I/O, parsing, etc.): 5m 9.67s (309.67s)
+2026-03-17 14:36:02 | INFO     | Inference percentage: 9.3%
+2026-03-17 14:36:02 | INFO     | Average time per batch: 341.55s
+2026-03-17 14:36:02 | INFO     | Average time per result: 1.36s
+2026-03-17 14:36:02 | INFO     | ==================================================
