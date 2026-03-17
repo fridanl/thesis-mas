@@ -180,8 +180,7 @@ def load_results(model_names, dataset, with_failed):
 def main(args):
     profiles_root = yaml.safe_load(pathlib.Path('configs/models.yaml').read_text())
     profiles = profiles_root.get('profiles', {})
-    #model_names = list(profiles.keys())
-    model_names = ["llama-3.1-8b"]
+    model_names = list(profiles.keys())
     combined_all = load_results(model_names=model_names, dataset=args.dataset, with_failed=True)
     check_results(combined_all, dataset_name=args.dataset, n_repetitions=10)
 
