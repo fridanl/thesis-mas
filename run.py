@@ -120,7 +120,7 @@ def main(args):
                     else:
                         failed_examples.append({
                             'id': data['id'],
-                            'claim': data['text'],
+                            'text': data['text'],
                             'repetition': rep_idx,
                             'raw_text': raw})
             else: # pre = second
