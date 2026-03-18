@@ -3,12 +3,12 @@ import random
 import pandas as pd
 from collections import defaultdict
 from pathlib import Path
+import yaml
 import argparse
 from itertools import combinations
 import pprint
 from dataclasses import dataclass
 from utils.prompt_registry import DATASETS
-
 
 
 pd.set_option('display.max_rows', None)
@@ -23,7 +23,7 @@ class TaskConfig:
     n_repetitions: int = 10
     random_seed: int = 42
 
-def load_and_preprocess(df: pd.DataFrame, config: TaskConfig) -> dict:
+def load_and_preprocess(df: pd.DataFrame, config: TaskConfig):
     '''
     Returns: 
     model_claim_dict = {
@@ -44,18 +44,23 @@ def load_and_preprocess(df: pd.DataFrame, config: TaskConfig) -> dict:
 
     model_claim_dict = defaultdict(dict)
 
+    model_discard, claim_discard = [], [] 
     grouped = df.groupby(["model", "id"])
 
     for (model, claim_id), group in grouped:
+        if len(group) < config.n_repetitions: # if there are less repetitions than expected. 
+            # write to file describing discarded examples.
+            model_discard.append(model)
+            claim_discard.append(claim_id)
+            continue
+        
         labels = group["label"].tolist()
-        # print(labels)
     
         explanations_by_label = {
             negative: group[group["label"] == negative]["explanation"].tolist(),
             positive: group[group["label"] == positive]["explanation"].tolist(),
         }
 
-        # print(explanations_by_label)
         unique_labels = set(labels)
         is_consistent = len(unique_labels) == 1
         consistent_label = list(unique_labels)[0] if is_consistent else None
@@ -68,8 +73,10 @@ def load_and_preprocess(df: pd.DataFrame, config: TaskConfig) -> dict:
             "explanations_by_label": explanations_by_label,
             "labels": labels,
         }
-    # print(model_claim_dict)
-    return model_claim_dict
+    
+    df_discarded = pd.DataFrame(data = {'model': model_discard,'id': claim_discard})
+    
+    return model_claim_dict, df_discarded
 
 
 def sample_with_replacement(pool, n):
@@ -86,18 +93,16 @@ def generate_agree_rows(sender: str, receiver: str, claim_id: int, sender_data: 
     receiver_expls = receiver_data["explanations_by_label"][label]
     label_bool = 1 if label == config.positive_label else 0 
 
-
-    assert len(sender_expls) == len(receiver_expls) == config.n_repetitions
     for i in range(config.n_repetitions):
         rows.append({
             "id": claim_id,
             'claim': claim,
-            "model_sender": sender,
             "model_receiver": receiver,
-            "label_sender": label,
+            "model_sender": sender,
             "label_receiver": label,
-            "explanation_sender": sender_expls[i],
+            "label_sender": label,
             "explanation_receiver": receiver_expls[i],
+            "explanation_sender": sender_expls[i],
             "match_type": f'{label_bool}:{label_bool}'
         })
 
@@ -144,7 +149,7 @@ def generate_disagree_rows(sender: str, receiver: str, claim_id: int, sender_dat
     sender_code = encode_labels(sender_unique_labels)
     receiver_code = encode_labels(receiver_unique_labels)
 
-    match_type_base = f'{receiver_code}-{sender_code}'
+    match_type_base = f'{receiver_code}:{sender_code}'
     # sender_label -> receiver_label
     directions = [
         (positive, negative),
@@ -165,12 +170,12 @@ def generate_disagree_rows(sender: str, receiver: str, claim_id: int, sender_dat
             rows.append({
                 "id": claim_id,
                 "claim": claim,
-                "model_sender": sender,
                 "model_receiver": receiver,
-                "label_sender": sender_label,
+                "model_sender": sender,
                 "label_receiver": receiver_label,
-                "explanation_sender": s_sample[i],
+                "label_sender": sender_label,
                 "explanation_receiver": r_sample[i],
+                "explanation_sender": s_sample[i],
                 'match_type': match_type_base 
             })
 
@@ -191,15 +196,18 @@ def process_all_pairs(model_claim_dict: dict, receiver: str, config: TaskConfig)
     # Ids of the rows in dataset, that has been processed by the receiver. 
     receiver_ids = set(model_claim_dict[receiver].keys())
     # Loop over all possible models to match up with. 
-    for sender in models:
+    for sender in models:    
         if sender == receiver:
-            continue
+            #TODO: lav check her, så det kun er de kombinationer vi vil have
+            continue # skip matching up with itself 
+
         sender_ids = set(model_claim_dict[sender].keys())
-        shared_ids = receiver_ids.intersection(sender_ids) # only the examples that they both have answered 
+        shared_ids = sender_ids & receiver_ids
 
         for i in shared_ids:
             receiver_data = model_claim_dict[receiver][i]
             sender_data = model_claim_dict[sender][i]
+
             if (
             receiver_data["is_consistent"] and sender_data["is_consistent"] # Both models have consistent labels
             and 
@@ -211,20 +219,19 @@ def process_all_pairs(model_claim_dict: dict, receiver: str, config: TaskConfig)
                 disagree_rows_for_receiver.extend(generate_disagree_rows(sender=sender, receiver=receiver, claim_id=i, sender_data=sender_data, receiver_data=receiver_data, config=config))
 
 
-
     df_disagree = pd.DataFrame(disagree_rows_for_receiver)
     df_agree = pd.DataFrame(agree_rows_for_receiver)
-    # print(df_agree.columns)
-    # print(df_disagree.columns)
 
-    df_agree = df_agree.sort_values(["id", "model_sender", "model_receiver"]).reset_index(drop=True)
-    df_disagree = df_disagree.sort_values(["id", "model_sender", "model_receiver"]).reset_index(drop=True)
+    print(df_agree)
+    print(df_disagree)
 
-    print('agree')
-    pprint.pprint(df_agree)
-    print('disagree')
-    pprint.pprint(df_disagree)
+    df_agree = df_agree.sort_values(["id", "model_receiver", "model_sender"]).reset_index(drop=True)
 
+    df_disagree = df_disagree.sort_values(["id", "model_receiver", "model_sender"]).reset_index(drop=True)
+
+
+    return df_agree, df_disagree
+    
     # For test-data-r1.csv 
     # ID 1: Both models agree on claim, so that should be in the agree data. 
     # ID 2: Both models are consistent but disagree, 10 cases here per model. 
@@ -233,9 +240,9 @@ def process_all_pairs(model_claim_dict: dict, receiver: str, config: TaskConfig)
     # ID 5: Both models are inconsistent, 20 cases here per model. 
     
 def main(args):
-    # profiles_root = yaml.safe_load(Path('configs/models.yaml').read_text())
-    # profiles = profiles_root.get('profiles', {})
-    # model_names = list(profiles.keys())
+    profiles_root = yaml.safe_load(Path('configs/models.yaml').read_text())
+    profiles = profiles_root.get('profiles', {})
+    model_names = list(profiles.keys())
 
     # dfs = [] 
     # for model_n in model_names:
@@ -249,17 +256,28 @@ def main(args):
     # combined = pd.concat(dfs, ignore_index=True) if dfs else pd.DataFrame()
     
     combined = pd.read_csv('test-data-r1.csv')
+    
     dataset_spec = DATASETS[args.dataset]
     t_config = TaskConfig(
         positive_label=dataset_spec.positive_label,
         negative_label=dataset_spec.negative_label
     )
     random.seed(t_config.random_seed)
-
-    model_claim_dict = load_and_preprocess(combined, t_config)
-    # print(model_claim_dict)
+    outdir = args.output_root 
+    model_claim_dict, discard = load_and_preprocess(combined, t_config)
     
-    process_all_pairs(model_claim_dict=model_claim_dict, receiver=args.receiver, config=t_config)
+    discard.to_csv(f'{outdir}/discarded.csv', index=False)    
+    
+    
+    for receiver in model_names:
+        if receiver not in model_claim_dict.keys():
+            continue
+        agree, disagree = process_all_pairs(model_claim_dict=model_claim_dict, receiver=receiver, config=t_config)
+
+        agree.to_csv(f'{outdir}/{receiver}_agree.csv', index=False)
+        disagree.to_csv(f'{outdir}/{receiver}_disagree.csv', index=False)
+
+
 
 
 if __name__ == "__main__":
@@ -269,14 +287,6 @@ if __name__ == "__main__":
                     default='sarcasm')
     ap.add_argument('--output_root',
                     help='Path of root to save files',
-                    default="thesis-mas/input_round2")
-    ap.add_argument('--receiver', 
-                    help='Specify the name of the receiver model, for which you want to create input for second round.')
-    
+                    default="input_round2")
     args = ap.parse_args()
     main(args)
-
-
-
-
-
