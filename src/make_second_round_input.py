@@ -188,11 +188,11 @@ def process_all_pairs(model_claim_dict: dict, receiver: str, config: TaskConfig)
 
     # a fixed set of model pairs that we chose to match up, so we don't get every possible pair
     # only within family and the large models across family
-    model_pairs = {"llama-3.3-70b": ["llama-3.1-8b", "qwen-2.5-72b", "gemma-3-27b"], # matching with big models and family
+    model_pairs = {"llama-3.3-70b": ["llama-3.1-8b", "qwen-2.5-72b", "gemma-3-27b", "gpt-oss-20b"], # matching with big models and family
                    "llama-3.1-8b": ["llama-3.3-70b"],
-                   "qwen-2.5-72b": ["qwen-2.5-7b", "llama-3.3-70b", "gemma-3-27b"], # only matching with same family
+                   "qwen-2.5-72b": ["qwen-2.5-7b", "llama-3.3-70b", "gemma-3-27b", "gpt-oss-20b"], # only matching with same family
                    "qwen-2.5-7b": ["qwen-2.5-72b"],
-                   "gemma-3-27b": ["gemma-3-4b", "llama-3.3-70b", "qwen-2.5-72b"],
+                   "gemma-3-27b": ["gemma-3-4b", "llama-3.3-70b", "qwen-2.5-72b", "gpt-oss-20b"],
                    "gemma-3-4b": ["gemma-3-27b"],
                    "gpt-oss-20b": ["llama-3.3-70b", "qwen-2.5-72b", "gemma-3-27b"]}
     
