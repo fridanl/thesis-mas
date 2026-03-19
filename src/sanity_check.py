@@ -12,13 +12,13 @@ pd.set_option('display.max_colwidth', None)
 ###########
 def load_input(model_names):
     dfs = [] 
-    columns = ['model', 'id', 'claim','repetition', 'valid_json', 'label'] 
+    columns = ['id', 'claim', 'model_receiver', 'model_sender', 'label_receiver', 'label_sender', 'explanation_receiver', 'explanation_sender', 'match_type'] 
 
-    suffixes = ['-disagree', 'agree']
+    suffixes = ['disagree', 'agree']
 
     for model_n in model_names:
         for suffix in suffixes:
-            path = Path(f'/home/rp-fril-mhpe/{model_n}-{suffix}.csv')
+            path = Path(f'/home/rp-fril-mhpe/input_round2/{model_n}_{suffix}.csv')
         if not path.exists():
             print(f'File not found: {path}')
             continue
@@ -35,7 +35,10 @@ def load_input(model_names):
 
 def analyse_inputs(inputs, model_names):
     for model in model_names:
-        slice = inputs[inputs['receiver'] == model]
+        print('model:', model)
+        
+        slice = inputs[inputs['model_receiver'] == model]
+        print(slice.shape)
         print(f'*********************************************************')
         print(f'Currently looking at receier: {model}')
         match_counts = slice['match_type'].value_counts()
