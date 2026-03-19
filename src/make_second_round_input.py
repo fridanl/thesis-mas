@@ -1,12 +1,9 @@
-import os
 import random
 import pandas as pd
 from collections import defaultdict
 from pathlib import Path
 import yaml
 import argparse
-from itertools import combinations
-import pprint
 from dataclasses import dataclass
 from utils.prompt_registry import DATASETS
 
@@ -176,7 +173,7 @@ def generate_disagree_rows(sender: str, receiver: str, claim_id: int, sender_dat
                 "label_sender": sender_label,
                 "explanation_receiver": r_sample[i],
                 "explanation_sender": s_sample[i],
-                'match_type': match_type_base 
+                'match_type': match_type_base
             })
 
     return rows
@@ -189,6 +186,16 @@ def process_all_pairs(model_claim_dict: dict, receiver: str, config: TaskConfig)
     '''
     models = list(model_claim_dict.keys())
 
+    # a fixed set of model pairs that we chose to match up, so we don't get every possible pair
+    # only within family and the large models across family
+    model_pairs = {"llama-3.3-70b": ["llama-3.1-8b", "qwen-2.5-72b", "gemma-3-27b"], # matching with big models and family
+                   "llama-3.1-8b": ["llama-3.3-70b"],
+                   "qwen-2.5-72b": ["qwen-2.5-7b", "llama-3.3-70b", "gemma-3-27b"], # only matching with same family
+                   "qwen-2.5-7b": ["qwen-2.5-72b"],
+                   "gemma-3-27b": ["gemma-3-4b", "llama-3.3-70b", "qwen-2.5-72b"],
+                   "gemma-3-4b": ["gemma-3-27b"]}
+    
+
     # Dicts for agree and disagree rows sender model
     agree_rows_for_receiver: list[dict] = []
     disagree_rows_for_receiver: list[dict] = []
@@ -198,9 +205,10 @@ def process_all_pairs(model_claim_dict: dict, receiver: str, config: TaskConfig)
     # Loop over all possible models to match up with. 
     for sender in models:    
         if sender == receiver:
-            #TODO: lav check her, så det kun er de kombinationer vi vil have
             continue # skip matching up with itself 
-
+        if sender not in model_pairs.get(receiver, []):  #making sure we only take the fixed pairs
+            continue
+        print(f"currently looking at pair: receiver: {receiver}, sender: {sender}")
         sender_ids = set(model_claim_dict[sender].keys())
         shared_ids = sender_ids & receiver_ids
 
@@ -218,12 +226,15 @@ def process_all_pairs(model_claim_dict: dict, receiver: str, config: TaskConfig)
             else: # everything else is disagreement / mixed / inconsistent 
                 disagree_rows_for_receiver.extend(generate_disagree_rows(sender=sender, receiver=receiver, claim_id=i, sender_data=sender_data, receiver_data=receiver_data, config=config))
 
+    if disagree_rows_for_receiver:
+        df_disagree = pd.DataFrame(disagree_rows_for_receiver)
+    else:
+        df_disagree = pd.DataFrame(columns=["id", "claim", "model_receiver", "model_sender", "label_receiver", "label_sender", "explanation_receiver", "explanation_sender", "match_type"])
+    if agree_rows_for_receiver:
+        df_agree = pd.DataFrame(agree_rows_for_receiver)
+    else:
+        df_agree = pd.DataFrame(columns=["id", "claim", "model_receiver", "model_sender", "label_receiver", "label_sender", "explanation_receiver", "explanation_sender", "match_type"])
 
-    df_disagree = pd.DataFrame(disagree_rows_for_receiver)
-    df_agree = pd.DataFrame(agree_rows_for_receiver)
-
-    print(df_agree)
-    print(df_disagree)
 
     df_agree = df_agree.sort_values(["id", "model_receiver", "model_sender"]).reset_index(drop=True)
 
@@ -244,18 +255,18 @@ def main(args):
     profiles = profiles_root.get('profiles', {})
     model_names = list(profiles.keys())
 
-    # dfs = [] 
-    # for model_n in model_names:
-    #     path = Path(f'/home/rp-fril-mhpe/{model_n}-{args.dataset}.csv')
-    #     if not path.exists():
-    #         print(f'File not found: {path}')
-    #         continue
-    #     df = pd.read_csv(path, low_memory=False)
-    #     dfs.append(df)
+    dfs = [] 
+    for model_n in model_names:
+        path = Path(f'/home/rp-fril-mhpe/{model_n}-{args.dataset}.csv')
+        if not path.exists():
+            print(f'File not found: {path}')
+            continue
+        df = pd.read_csv(path, low_memory=False)
+        dfs.append(df)
             
-    # combined = pd.concat(dfs, ignore_index=True) if dfs else pd.DataFrame()
+    combined = pd.concat(dfs, ignore_index=True) if dfs else pd.DataFrame()
     
-    combined = pd.read_csv('test-data-r1.csv')
+    #combined = pd.read_csv('test-data2.csv')           test data
     
     dataset_spec = DATASETS[args.dataset]
     t_config = TaskConfig(
@@ -265,7 +276,7 @@ def main(args):
     random.seed(t_config.random_seed)
     outdir = args.output_root 
     model_claim_dict, discard = load_and_preprocess(combined, t_config)
-    
+    print(outdir)
     discard.to_csv(f'{outdir}/discarded.csv', index=False)    
     
     
@@ -287,6 +298,6 @@ if __name__ == "__main__":
                     default='sarcasm')
     ap.add_argument('--output_root',
                     help='Path of root to save files',
-                    default="input_round2")
+                    default="/home/rp-fril-mhpe/input_round2")
     args = ap.parse_args()
     main(args)
