@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=eda
+#SBATCH --job-name=sanity-check
 #SBATCH --account=researchers
 #SBATCH --partition=scavenge
 #SBATCH --cpus-per-task=4
@@ -13,5 +13,5 @@ echo "Host: $(hostname)"
 
 set -euo pipefail
 
-uv run src/first_round_results.py
-# uv run src/sanity_check.py
+#uv run src/first_round_results.py
+uv run src/sanity_check.py
