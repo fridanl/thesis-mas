@@ -193,7 +193,8 @@ def process_all_pairs(model_claim_dict: dict, receiver: str, config: TaskConfig)
                    "qwen-2.5-72b": ["qwen-2.5-7b", "llama-3.3-70b", "gemma-3-27b"], # only matching with same family
                    "qwen-2.5-7b": ["qwen-2.5-72b"],
                    "gemma-3-27b": ["gemma-3-4b", "llama-3.3-70b", "qwen-2.5-72b"],
-                   "gemma-3-4b": ["gemma-3-27b"]}
+                   "gemma-3-4b": ["gemma-3-27b"],
+                   "gpt-oss-20b": ["llama-3.3-70b", "qwen-2.5-72b", "gemma-3-27b"]}
     
 
     # Dicts for agree and disagree rows sender model
