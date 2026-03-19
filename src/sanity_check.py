@@ -14,11 +14,10 @@ def load_input(model_names):
     dfs = [] 
     columns = ['id', 'claim', 'model_receiver', 'model_sender', 'label_receiver', 'label_sender', 'explanation_receiver', 'explanation_sender', 'match_type'] 
 
-    suffixes = ['disagree', 'agree']
+
 
     for model_n in model_names:
-        for suffix in suffixes:
-            path = Path(f'/home/rp-fril-mhpe/input_round2/{model_n}_{suffix}.csv')
+        path = Path(f'/home/rp-fril-mhpe/input_round2/{model_n}_disagree.csv')
         if not path.exists():
             print(f'File not found: {path}')
             continue

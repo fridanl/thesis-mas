@@ -13,5 +13,5 @@ echo "Host: $(hostname)"
 
 set -euo pipefail
 
-#uv run src/first_round_results.py
-uv run src/sanity_check.py
+uv run src/first_round_results.py
+# uv run src/sanity_check.py
