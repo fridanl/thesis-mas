@@ -33,18 +33,19 @@ def load_input(model_names):
     return combined
 #########
 
-def analyse_inputs(inputs, model_names):
+def analyse_inputs(inputs, model_names, model_pairs):
     for model in model_names:
-        print('model:', model)
+        print(f'*********************************************************'*2)
+        print('RECEIVER:', model)
         
         slice = inputs[inputs['model_receiver'] == model]
-        print(slice.shape)
-        print(f'*********************************************************')
-        print(f'Currently looking at receier: {model}')
-        match_counts = slice['match_type'].value_counts()
-        print("_______________________________________")
-        print(f"Match type distribution for {model}:")
-        print(match_counts, "\n")
+        for sender in model_pairs.get(model, []):
+            print(f'CONSIDERING SENDER: {sender}')
+            sender_slice = slice[slice['model_sender'] == sender]
+            match_counts = sender_slice['match_type'].value_counts()
+            print("_______________________________________")
+            print(f"Match type distribution for {model}:")
+            print(match_counts, "\n")
 
 
 
@@ -53,8 +54,16 @@ def main(args):
     profiles = profiles_root.get('profiles', {})
     model_names = list(profiles.keys())
 
+    model_pairs = {"llama-3.3-70b": ["llama-3.1-8b", "qwen-2.5-72b", "gemma-3-27b"], # matching with big models and family
+                   "llama-3.1-8b": ["llama-3.3-70b"],
+                   "qwen-2.5-72b": ["qwen-2.5-7b", "llama-3.3-70b", "gemma-3-27b"], # only matching with same family
+                   "qwen-2.5-7b": ["qwen-2.5-72b"],
+                   "gemma-3-27b": ["gemma-3-4b", "llama-3.3-70b", "qwen-2.5-72b"],
+                   "gemma-3-4b": ["gemma-3-27b"],
+                   "gpt-oss-20b": ["llama-3.3-70b", "qwen-2.5-72b", "gemma-3-27b"]}
+
     inputs = load_input(model_names=model_names)
-    analyse_inputs(inputs, model_names=model_names)
+    analyse_inputs(inputs, model_names=model_names, model_pairs=model_pairs)
 
 
 if __name__ == '__main__':
