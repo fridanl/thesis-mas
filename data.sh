@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=sanity-check
+#SBATCH --job-name=latex-sanity-check
 #SBATCH --account=researchers
 #SBATCH --partition=scavenge
 #SBATCH --cpus-per-task=4

@@ -32,21 +32,65 @@ def load_input(model_names):
     return combined
 #########
 
-def analyse_inputs(inputs, model_names, model_pairs):
-    for model in model_names:
-        print(f'*********************************************************'*2)
-        print('RECEIVER:', model)
+# def analyse_inputs(inputs, model_names, model_pairs):
+#     for model in model_names:
+#         print(f'*********************************************************'*2)
+#         print('RECEIVER:', model)
         
-        slice = inputs[inputs['model_receiver'] == model]
-        for sender in model_pairs.get(model, []):
-            print(f'CONSIDERING SENDER: {sender}')
-            sender_slice = slice[slice['model_sender'] == sender]
-            match_counts = sender_slice['match_type'].value_counts()
-            print("_______________________________________")
-            print(f"Match type distribution for {model}:")
-            print(match_counts, "\n")
+#         slice = inputs[inputs['model_receiver'] == model]
+#         for sender in model_pairs.get(model, []):
+#             print(f'CONSIDERING SENDER: {sender}')
+#             sender_slice = slice[slice['model_sender'] == sender]
+#             match_counts = sender_slice['match_type'].value_counts()
+#             print("_______________________________________")
+#             print(f"Match type distribution for {model}:")
+#             print(match_counts, "\n")
 
+def analyse_inputs(inputs, model_names, model_pairs):
+    labels = ['0', '1', 'B']
 
+    for receiver in model_names:
+        print("\n" + "="*80)
+        print(f"% RECEIVER: {receiver}")
+        print("="*80)
+
+        slice_df = inputs[inputs['model_receiver'] == receiver]
+
+        for sender in model_pairs.get(receiver, []):
+            sender_slice = slice_df[slice_df['model_sender'] == sender]
+
+            # Count match_types
+            counts = sender_slice['match_type'].value_counts().to_dict()
+
+            # Initialize 3x3 table
+            table = {s: {r: 0 for r in labels} for s in labels}
+
+            # Fill table
+            for match, count in counts.items():
+                try:
+                    r_label, s_label = match.split(":")
+                    if r_label in labels and s_label in labels:
+                        table[s_label][r_label] = count
+                except:
+                    continue
+
+            # ---- Generate LaTeX ----
+            print(f"\n% Sender: {sender}")
+            print("\\begin{table}[h!]")
+            print("\\centering")
+            print("\\begin{tabular}{c|ccc}")
+            print("\\toprule")
+            print(f"Sender $\\backslash$ Receiver & 0 & 1 & B \\\\")
+            print("\\midrule")
+
+            for s in labels:
+                row = " & ".join(str(table[s][r]) for r in labels)
+                print(f"{s} & {row} \\\\")
+
+            print("\\bottomrule")
+            print("\\end{tabular}")
+            print(f"\\caption{{Match distribution: sender={sender}, receiver={receiver}}}")
+            print("\\end{table}")
 
 def main(args):
     profiles_root = yaml.safe_load(pathlib.Path('configs/models.yaml').read_text())
