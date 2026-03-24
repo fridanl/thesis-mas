@@ -41,8 +41,7 @@ def main(args):
     logger.info('Arguments: %s', vars(args))
     logger.info(f'Results will be written to: {csv_path_valid}')
     
-    test, spec = get_prompt_spec(dataset=args.dataset, round=args.round, history=args.history)
-    logger.info(f'Prompt spec test <3: {test}')                                                                     # TODO: remove
+    spec = get_prompt_spec(dataset=args.dataset, round=args.round, history=args.history)
     model_config = get_model_config(pathlib.Path(args.models_config_path), model_name)
 
     repo_id = model_config.pop('repo_id')
@@ -86,7 +85,6 @@ def main(args):
             history=spec.history,
             round=spec.round)
         
-        #logger.info(f"****************** \n {conversations} \n ******************")
 
         start_time = time.time()
         raw_outputs, parsed = run_inference(llm, conversations=conversations, sampling=sampling, output_model=spec.output_model)
@@ -97,7 +95,6 @@ def main(args):
         failed_examples = []
         # Loop over each claim/row in dataset 
         for row_idx, data in enumerate(batch):
-            print(f'Data: {data}')                                              #TODO: remove this
             # Slice the outputs for specific row 
 
             start_idx = row_idx * n_repetitions
@@ -136,7 +133,7 @@ def main(args):
                         'label_receiver_now': p['label'],
                         'label_receiver_before': data['label_receiver'],
                         'label_sender_before': data['label_sender'],
-                        'match_type': data['match_type'],
+                        'match_type': data['match_type'], # this is new
                         'valid_json': True
                     })
                     else:
