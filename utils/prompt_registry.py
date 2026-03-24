@@ -156,6 +156,9 @@ def get_prompt_spec(dataset: str, round: int, history: bool) -> PromptSpec:
         )
     
     if round == 2:
+        # TODO: remove this print
+        print(make_user_r2(task_question=ds.task_question, history=True))
+        ## 
         schema = ds.output_r2.model_json_schema()
         return PromptSpec(
             dataset=key,
