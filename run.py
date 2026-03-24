@@ -41,8 +41,8 @@ def main(args):
     logger.info('Arguments: %s', vars(args))
     logger.info(f'Results will be written to: {csv_path_valid}')
     
-    spec = get_prompt_spec(dataset=args.dataset, round=args.round, history=args.history)
-
+    test, spec = get_prompt_spec(dataset=args.dataset, round=args.round, history=args.history)
+    logger.info(f'Prompt spec test <3: {test}')                                                                     # TODO: remove
     model_config = get_model_config(pathlib.Path(args.models_config_path), model_name)
 
     repo_id = model_config.pop('repo_id')
@@ -76,7 +76,7 @@ def main(args):
     total_failed = 0 
 
     n_repetitions = args.repetition 
-    for batch in io.load_claims_batches(path = args.dataset_path, round=pre, start = args.idx_start, batch_size = args.batch_size,    limit=args.limit):
+    for batch in io.load_claims_batches(path = args.dataset_path, round=pre, start = args.idx_start, batch_size = args.batch_size, limit=args.limit):
         batch_count += 1 
 
         conversations = io.build_conversations(
@@ -86,7 +86,7 @@ def main(args):
             history=spec.history,
             round=spec.round)
         
-        logger.info(f"****************** \n {conversations} \n ******************")
+        #logger.info(f"****************** \n {conversations} \n ******************")
 
         start_time = time.time()
         raw_outputs, parsed = run_inference(llm, conversations=conversations, sampling=sampling, output_model=spec.output_model)
@@ -130,23 +130,24 @@ def main(args):
                         rows.append({
                         'id': data['id'], 
                         'claim': data['claim'], 
-                        'model_sender': data['model_sender'],
                         'model_receiver': data['model_receiver'],
-                        'label_sender_before': data['label_sender'],
-                        'label_receiver_before': data['label_receiver'],
+                        'model_sender': data['model_sender'],
                         'label_receiver_now': p['label'],
+                        'label_receiver_before': data['label_receiver'],
+                        'label_sender_before': data['label_sender'],
+                        'match_type': data['match_type'],    # this is new
                         'valid_json': True
                     })
                     else:
                         failed_examples.append({
                             'id': data['id'],
-                            'text': data['claim'],
-                            'model_sender': data['model_sender'],
+                            'claim': data['claim'],
                             'model_receiver': data['model_receiver'],
-                            'label_sender': data['label_sender'],
+                            'model_sender': data['model_sender'],
                             'label_receiver': data['label_receiver'],
-                            'explanation_sender': data['explanation_sender'],
+                            'label_sender': data['label_sender'],
                             'explanation_receiver': data['explanation_receiver'],
+                            'explanation_sender': data['explanation_sender'],
                             'raw_text': raw})
 
         if rows:

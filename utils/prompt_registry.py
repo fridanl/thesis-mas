@@ -156,11 +156,13 @@ def get_prompt_spec(dataset: str, round: int, history: bool) -> PromptSpec:
         )
     
     if round == 2:
+        print(f'yay, round 2!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')                                                 # TODO: remove
         # TODO: remove this print
-        print(make_user_r2(task_question=ds.task_question, history=True))
+        print(f'This is the make_user_r2 prompt: \n {make_user_r2(task_question=ds.task_question, history=True)}')
+        test = make_user_r2(task_question=ds.task_question, history=True)
         ## 
         schema = ds.output_r2.model_json_schema()
-        return PromptSpec(
+        return test, PromptSpec(
             dataset=key,
             output_json = schema,
             round = 2,
