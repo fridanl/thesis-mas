@@ -135,7 +135,6 @@ def main(args):
                         'label_receiver_now': p['label'],
                         'label_receiver_before': data['label_receiver'],
                         'label_sender_before': data['label_sender'],
-                        'match_type': data['match_type'],    # this is new
                         'valid_json': True
                     })
                     else:
