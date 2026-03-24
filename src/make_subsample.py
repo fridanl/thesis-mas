@@ -12,14 +12,19 @@ def subsample(path, out_path, cap=CAP):
 
     df = pd.read_csv(path)
 
+    print(f'the shape of the df: {df.shape}')
+
     # compute rows per id
     id_sizes = df.groupby("id").size() # number of rows per claim
+    print(f'numbe of rows per claim: {id_sizes}')
     id_to_type = df.groupby("id")["match_type"].first()
+    print(f'id_to_type: {id_to_type}')
 
     selected_ids = []
 
     for match_type, ids in id_to_type.groupby(id_to_type):
         ids = ids.index.to_numpy()
+        print(f'{match_type}: {len(ids)} ids')
         np.random.shuffle(ids)
 
         current_rows = 0
