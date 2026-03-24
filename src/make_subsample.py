@@ -2,46 +2,66 @@ import pandas as pd
 import numpy as np
 import argparse
 from pathlib import Path
-
+from collections import defaultdict
 
 CAP = 2 # set this to 50_000 
+
+def get_effective_match_type(row):
+    """
+    To ensure that we get a balanced selection of B:B,
+    for both directions, since this is not excplicit in the mat_type column
+    """
+    if row["match_type"] != "B:B":
+        return row["match_type"]
+
+    # derive direction from labels
+    if row["label_sender"] == 0 and row["label_receiver"] == 1:
+        return "0:1_from_BB"
+    elif row["label_sender"] == 1 and row["label_receiver"] == 0:
+        return "1:0_from_BB"
+    else:
+        return "other_BB"  # this will not happen, but just in case
 
 
 def subsample(path, out_path, cap=CAP):
     print(f'\nProcessing {path.name}...')
-
+    max_ids = cap // 10 # since this is done at a claim level
     df = pd.read_csv(path)
 
     print(f'the shape of the df: {df.shape}')
 
+    print("applying the B:B match type function...")
+    df["effective_match_type"] = df.apply(get_effective_match_type, axis=1)
+    print(f'the shape of the df: {df.shape}')
+
     # compute rows per id
-    id_sizes = df.groupby("id").size() # number of rows per claim
-    print(f'numbe of rows per claim: {id_sizes}')
-    id_to_type = df.groupby("id")["match_type"].first()
+    id_to_type = df.groupby("id")["effective_match_type"].unique()
     print(f'id_to_type: {id_to_type}')
 
-    selected_ids = []
+    type_to_ids = defaultdict(list)
+    for claim_id, types in id_to_type.items():
+        for t in types:
+            type_to_ids[t].append(claim_id)
+
+    selected_ids = set()
 
     for match_type, ids in id_to_type.groupby(id_to_type):
-        ids = ids.index.to_numpy()
+        ids = np.array(ids)
         print(f'{match_type}: {len(ids)} ids')
-        np.random.shuffle(ids)
 
-        current_rows = 0
-        chosen = []
+        if len(ids) <= max_ids: # then just keep those we have
+            print(f'the length of ids {len(ids)} is smaller than the max_ids {max_ids} ')
+            chosen = ids
+            print(f'keeping all {len(ids)} ids, since its smaller than the cap of {cap}')
 
-        for i in ids:
-            rows = id_sizes[i]
+        else: # shuffle and select a subset
+            np.random.shuffle(ids)
+            chosen = ids[:max_ids]
 
-            if current_rows + rows > cap: # if limit is reached, break
-                break
 
-            chosen.append(i)
-            current_rows += rows
+        selected_ids.update(chosen)
 
-        selected_ids.extend(chosen)
-
-        print(f"{match_type}: selected {len(chosen)} ids, total rows: {current_rows}")
+        print(f"{match_type}: selected {len(chosen)} ids")
 
     # filter df to selected ids
     df_sub = df[df["id"].map(selected_ids.__contains__)]
