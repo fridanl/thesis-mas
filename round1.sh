@@ -38,11 +38,11 @@ SLURM_OUTPUT_FILE="logs/${SLURM_JOB_NAME}.${SLURM_JOB_ID}.out"
 
 # COMMONSENSE RUNS
 # small models
-uv run run.py --model_name llama-3.1-8b --repetition 10 --round 1 --batch_size 256 --dataset commonsense --dataset_path data/commonsense/commonsense.csv --slurm_output "${SLURM_OUTPUT_FILE}"
+# uv run run.py --model_name llama-3.1-8b --repetition 10 --round 1 --batch_size 256 --dataset commonsense --dataset_path data/commonsense/commonsense.csv --slurm_output "${SLURM_OUTPUT_FILE}"
 
-uv run run.py --model_name gemma-3-4b --repetition 10 --round 1 --batch_size 256 --dataset commonsense --dataset_path data/commonsense/commonsense.csv --slurm_output "${SLURM_OUTPUT_FILE}"
+# uv run run.py --model_name gemma-3-4b --repetition 10 --round 1 --batch_size 256 --dataset commonsense --dataset_path data/commonsense/commonsense.csv --slurm_output "${SLURM_OUTPUT_FILE}"
 
-uv run run.py --model_name qwen-2.5-7b --repetition 10 --round 1 --batch_size 256 --dataset commonsense --dataset_path data/commonsense/commonsense.csv --slurm_output "${SLURM_OUTPUT_FILE}"
+# uv run run.py --model_name qwen-2.5-7b --repetition 10 --round 1 --batch_size 256 --dataset commonsense --dataset_path data/commonsense/commonsense.csv --slurm_output "${SLURM_OUTPUT_FILE}"
 
 #large models (one at a time)
 #uv run run.py --model_name llama-3.3-70b --repetition 10 --round 1 --batch_size 256 --dataset commonsense --dataset_path data/commonsense/commonsense.csv --slurm_output "${SLURM_OUTPUT_FILE}"
