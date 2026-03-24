@@ -97,6 +97,7 @@ def main(args):
         failed_examples = []
         # Loop over each claim/row in dataset 
         for row_idx, data in enumerate(batch):
+            print(f'Data: {data}')                                              #TODO: remove this
             # Slice the outputs for specific row 
 
             start_idx = row_idx * n_repetitions
@@ -124,7 +125,7 @@ def main(args):
                             'repetition': rep_idx,
                             'raw_text': raw})
             else: # pre = second
-                # Loop over an check if valid outputs 
+                # Loop over an check if valid outputs
                 for rep_idx, (raw, p) in enumerate(zip(example_texts, example_parsed)):
                     if p is not None:
                         rows.append({
