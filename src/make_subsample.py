@@ -45,7 +45,7 @@ def subsample(path, out_path, cap=CAP):
 
     selected_ids = set()
 
-    for match_type, ids in id_to_type.groupby(id_to_type):
+    for match_type, ids in type_to_ids.items():
         ids = np.array(ids)
         print(f'{match_type}: {len(ids)} ids')
 
