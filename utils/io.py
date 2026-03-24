@@ -39,7 +39,7 @@ def load_claims_batches(
                             low_memory=False)
     else: # round = second
         reader = pd.read_csv(path,
-                            usecols=['id', 'claim', 'model_sender', 'model_receiver','label_sender', 'label_receiver', 'explanation_sender', 'explanation_receiver'],
+                            usecols=['id', 'claim', 'model_sender', 'model_receiver','label_sender', 'label_receiver', 'explanation_sender', 'explanation_receiver', 'match_type'],
                             chunksize=batch_size,
                             skiprows=skip,
                             low_memory=False)
