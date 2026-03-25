@@ -13,9 +13,8 @@ pd.set_option('display.max_columns', None)
 # sørg for at group by id, match_type, sender_model så der bliver subsamplet lige mange for hver model
 
 
-CAP = 1 # this is the number of unique ids
 
-def subsample(path, out_path, cap=CAP):
+def subsample(path, out_path, cap):
     print(f'\nProcessing {path.name}...')
     df = pd.read_csv(path)
     
@@ -53,6 +52,7 @@ def subsample(path, out_path, cap=CAP):
 
 
 def main(args):
+    cap = args.cap # this is the number of unique ids
     suffix = args.suffix
     input_dir = Path(args.input_dir)
     output_dir = Path( args.output_dir)
@@ -66,7 +66,7 @@ def main(args):
         print(f'\n[{i}/{len(files)}]')
         out_file = output_dir / f'{file.stem}_subsampled.csv'
         print(out_file)
-        subsample(file, out_file)
+        subsample(file, out_file, cap=cap)
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description="subsample the input for round 2, to reduce the size for experiment")
