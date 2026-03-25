@@ -14,4 +14,5 @@ echo "Host: $(hostname)"
 set -euo pipefail
 
 #uv run src/first_round_results.py
-uv run src/make_subsample.py --input_dir subsample_testdata --output_dir results/subsample
+# try the agreement ones:
+uv run src/make_subsample.py --suffix agree --cap 100
