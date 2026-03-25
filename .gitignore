@@ -10,6 +10,8 @@ logs/
 results/
 
 
+.DS_Store
+
 # Distribution / packaging
 .Python
 build/
