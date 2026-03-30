@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=subsample_test
+#SBATCH --job-name=subsample_disagree
 #SBATCH --account=researchers
 #SBATCH --partition=scavenge
 #SBATCH --cpus-per-task=4
@@ -15,4 +15,4 @@ set -euo pipefail
 
 #uv run src/first_round_results.py
 # try the agreement ones:
-uv run src/make_subsample.py --suffix agree --cap 1000
+uv run src/make_subsample.py --suffix disagree --cap 7000
