@@ -15,47 +15,50 @@ pd.set_option('display.max_columns', None)
 
 
 def subsample(path, out_path, cap):
+    '''
+    Subsampling input for second round. 
+    For a given receiver (fixed in file), sample [CAP] many ids.
+    '''
     print(f'\nProcessing {path.name}...')
     df = pd.read_csv(path)
     
     senders = df["model_sender"].unique()
-    match_types = df["match_type"].unique()
 
     dfs = []
     for sender in senders:
         print(f'Looking at sender: {sender}.....')
         chosen = []
-        for mt in match_types:
+        df_sender = df[df['model_sender'] == sender] # get data specific for sender
+        for mt in df_sender["match_type"].unique(): # over the match-types the pair has together
             # cap = total 
             print(f'looking at match_type: {mt}.....')
-            slic = df[(df["model_sender"] == sender) & (df["match_type"] == mt)]
-            unique_ids = slic["id"].unique()
-            if len(unique_ids) <= cap:
+            slic = df_sender[df_sender["match_type"] == mt]
+            unique_ids = slic["id"].unique() # get unique ids for (receiver, sender, match_type)
+            if len(unique_ids) <= cap: # if smaller than cap, use all 
                 print(f'no need to sample, appending all ids :)')
                 chosen.extend(unique_ids)
                 continue
             
+            # take random ids at size [cap]
             np.random.shuffle(unique_ids)
             print(f'Now appending {len(unique_ids[:cap])}.. \n')
-            chosen.extend(unique_ids[:cap])
+            chosen.extend(unique_ids[:cap]) # keep track of ids 
 
-        chosen_df = df[df['id'].isin(chosen)]
-        print(f'now appending df with {chosen_df.shape[0]}')
-        dfs.append(chosen_df)
+            chosen_df = df_sender[df_sender['id'].isin(chosen)] # for (receiver, sender) get data
+            print(f'now appending df with {chosen_df.shape[0]}')
+            dfs.append(chosen_df)
 
     sample_df = pd.concat(dfs, axis=0)
     print('sample df')
     print(sample_df.groupby(['model_sender', 'match_type']).size().reset_index())
-
     sample_df.to_csv(out_path, index=False)
-
 
 
 def main(args):
     cap = args.cap # this is the number of unique ids
     suffix = args.suffix
     input_dir = Path(args.input_dir)
-    output_dir = Path( args.output_dir)
+    output_dir = Path(args.output_dir)
 
     output_dir.mkdir(parents=True, exist_ok=True)
 
