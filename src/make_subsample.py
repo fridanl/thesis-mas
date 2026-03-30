@@ -44,9 +44,9 @@ def subsample(path, out_path, cap):
             print(f'Now appending {len(unique_ids[:cap])}.. \n')
             chosen.extend(unique_ids[:cap]) # keep track of ids 
 
-            chosen_df = df_sender[df_sender['id'].isin(chosen)] # for (receiver, sender) get data
-            print(f'now appending df with {chosen_df.shape[0]}')
-            dfs.append(chosen_df)
+        chosen_df = df_sender[df_sender['id'].isin(chosen)] # for (receiver, sender) get data
+        print(f'now appending df with {chosen_df.shape[0]}')
+        dfs.append(chosen_df)
 
     sample_df = pd.concat(dfs, axis=0)
     print('sample df')
