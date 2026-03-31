@@ -15,4 +15,4 @@ set -euo pipefail
 
 #uv run src/first_round_results.py
 # try the agreement ones:
-uv run src/make_subsample.py --suffix disagree --cap 7000
+uv run src/make_subsample.py --suffix disagree --cap 7000 --dataset commonsense
