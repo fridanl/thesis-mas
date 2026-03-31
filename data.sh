@@ -5,7 +5,7 @@
 #SBATCH --cpus-per-task=4
 #SBATCH --time=01:00:00
 #SBATCH --output=logs/%x.%j.out
-
+#SBATCH --mem=80G
 
 echo "Host: $(hostname)"
 
