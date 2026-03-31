@@ -2,7 +2,7 @@ import pandas as pd
 from pathlib import Path 
 import argparse
 import yaml 
-
+import random
 
 def load_all_as_dataframe(df_dict) -> pd.DataFrame:
     """Load all first round results and tag with model column."""
@@ -52,21 +52,49 @@ def load_second_round_subsampled(base: Path, models: list, dataset: str, agreein
     return results
 
 
-
 def main(args):
     base = Path(args.base_path)
     profiles_root = yaml.safe_load(Path('configs/models.yaml').read_text())
     profiles = profiles_root.get('profiles', {})
     models = list(profiles.keys())
-    models = ['gemma-3-27b']
 
-    first_round = load_all_as_dataframe(load_first_round_results(base, models, 'sarcasm', failed = False))
-    second_round_input = load_all_as_dataframe(load_second_round_input(base, models, 'sarcasm', agreeing=False))
-    second_round_input_subsampled = load_all_as_dataframe(load_second_round_subsampled(base, models, 'sarcasm', agreeing=False))
+    models =  ["gpt-oss-20b", "llama-3.3-70b"] 
 
-    print(f'First round: {first_round.shape}')
-    print(f'Second round: {second_round_input.shape}')
-    print(f'Second round subsampled: {second_round_input_subsampled.shape}')
+    first_round = load_first_round_results(base, models, args.dataset, failed = False)
+    second_round_input = load_second_round_input(base, models, args.dataset, agreeing=False)
+    second_round_input_subsampled = load_second_round_subsampled(base, models, args.dataset, agreeing=False)
+
+    # First we check first run. 
+    for model in models:
+        print(f'############################# {model} #################################')
+        print('FIRST ROUND')
+        print(f'Number of rows in df: {first_round[model].shape[0]}')
+        grouped = first_round[model].groupby('id').size().reset_index(name='count')
+        print(f'Number of claims in df: {grouped.shape[0]}')
+        print(f'Number of claims after discarding claims with failed: {grouped[grouped['count'] == 10].shape[0]}')
+
+
+        print('SECOND ROUND')
+        second_round = second_round_input[model]
+        for sender in models:
+            if model == sender:
+                continue
+            print(f'SENDER: {sender}')
+            first_round_sender = first_round[sender]
+            first_round_receiver = first_round_sender[model]
+            second_round_pair = second_round[second_round['model_sender'] == sender]
+
+            print('Looking at 10 random samples')
+            candidates = list(second_round['id'].unique())
+            rands = random.sample(candidates, k=10)
+            for i in rands: 
+                print('First round results for receiver:\n')
+                print(first_round_receiver[first_round_receiver['id'] == i])
+                print('First round for sender:\n')
+                print(first_round_sender[first_round_sender['id'] == i])
+
+                print(f'From the second round input for model: {model} as receiver')
+                print(second_round_pair[second_round_pair['id'] == i])
 
 
 
