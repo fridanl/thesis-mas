@@ -84,7 +84,7 @@ def main(args):
         print('SECOND ROUND')
         second_round = second_round_input[model]
         for sender in list(second_round['model_sender'].unique()):
-            if model == sender:
+            if model == sender or sender not in models:
                 continue
             print(f'SENDER: {sender}')
             first_round_sender = first_round[sender]
