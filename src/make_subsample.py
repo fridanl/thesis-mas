@@ -57,8 +57,8 @@ def subsample(path, out_path, cap):
 def main(args):
     cap = args.cap # this is the number of unique ids
     suffix = args.suffix
-    input_dir = Path(args.input_dir)
-    output_dir = Path(args.output_dir)
+    input_dir = Path(args.input_dir) / args.dataset
+    output_dir = Path(args.output_dir) / args.dataset
 
     output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -85,5 +85,7 @@ if __name__ == "__main__":
                     default="/home/rp-fril-mhpe/input_round2")
     ap.add_argument("--output_dir",
                     default="/home/rp-fril-mhpe/subsampled_input_round2")
+    ap.add_argument('--dataset',
+                    help= 'Specify the dataset of interest')
     args = ap.parse_args()
     main(args)
