@@ -108,10 +108,11 @@ def main(args):
         #         print(first_round_receiver[first_round_receiver['id'] == i]['id', 'label'])
         #         print('First round for sender:\n')
         #         print(first_round_sender[first_round_sender['id'] == i]['id', 'label'])
+                # print(second_round_pair[second_round_pair['id'] == i][['id', 'model_receiver', 'model_sender','label_receiver', 'label_sender','match_type']])
 
         #         print(f'From the second round input for model: {model} as receiver')
 
-        #         print(second_round_pair[second_round_pair['id'] == i]['id', 'model_receiver', 'model_sender','label_receiver', 'label_sender','match_type'])
+        #         print(second_round_pair[second_round_pair['id'] == i][['id', 'model_receiver', 'model_sender','label_receiver', 'label_sender','match_type']])
 
     
 
