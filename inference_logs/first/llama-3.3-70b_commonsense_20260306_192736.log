@@ -1,0 +1,9 @@
+2026-03-06 19:27:36 | INFO     | Logging initialised. Log file: inference_logs/first/llama-3.3-70b_commonsense_20260306_192736.log
+2026-03-06 19:27:36 | INFO     | SLURM output file: logs/commonsense-llama-3.3-70b.55669.out
+2026-03-06 19:27:36 | INFO     | ==================================================
+2026-03-06 19:27:36 | INFO     | Starting inference pipeline
+2026-03-06 19:27:36 | INFO     | ==================================================
+2026-03-06 19:27:36 | INFO     | Arguments: {'model_name': 'llama-3.3-70b', 'dataset': 'commonsense', 'dataset_path': 'data/commonsense/commonsense.csv', 'repetition': 10, 'round': 1, 'slurm_output': 'logs/commonsense-llama-3.3-70b.55669.out', 'history': False, 'models_config_path': 'configs/models.yaml', 'outdir': 'results', 'batch_size': 256, 'no_logging': False, 'limit': None, 'idx_start': 0}
+2026-03-06 19:27:36 | INFO     | Results will be written to: results/first/llama-3.3-70b-commonsense.csv
+2026-03-06 19:27:37 | INFO     | Ensuring local model availability...
+2026-03-06 19:27:37 | INFO     | Location of model: /home/fril/.cache/huggingface/hub/models--unsloth--Llama-3.3-70B-Instruct-bnb-4bit
