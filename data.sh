@@ -12,4 +12,7 @@ echo "Host: $(hostname)"
 set -euo pipefail
 
 #uv run src/first_round_results.py
-uv run check.py
+#uv run check.py
+
+
+uv run results.py --dataset sarcasm
