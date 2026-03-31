@@ -1,0 +1,68 @@
+2026-03-07 15:34:00 | INFO     | Logging initialised. Log file: inference_logs/first/qwen-2.5-72b_commonsense_20260307_153400.log
+2026-03-07 15:34:00 | INFO     | SLURM output file: logs/commonsense-qwen-2.5-72b.55704.out
+2026-03-07 15:34:00 | INFO     | ==================================================
+2026-03-07 15:34:00 | INFO     | Starting inference pipeline
+2026-03-07 15:34:00 | INFO     | ==================================================
+2026-03-07 15:34:00 | INFO     | Arguments: {'model_name': 'qwen-2.5-72b', 'dataset': 'commonsense', 'dataset_path': 'data/commonsense/commonsense.csv', 'repetition': 10, 'round': 1, 'slurm_output': 'logs/commonsense-qwen-2.5-72b.55704.out', 'history': False, 'models_config_path': 'configs/models.yaml', 'outdir': 'results', 'batch_size': 256, 'no_logging': False, 'limit': None, 'idx_start': 0}
+2026-03-07 15:34:00 | INFO     | Results will be written to: results/first/qwen-2.5-72b-commonsense.csv
+2026-03-07 15:34:00 | INFO     | Ensuring local model availability...
+2026-03-07 15:40:57 | INFO     | Location of model: /home/fril/.cache/huggingface/hub/models--unsloth--Qwen2.5-72B-Instruct-bnb-4bit
+2026-03-07 15:50:04 | INFO     | ########## Shared decoding parameters ##########
+2026-03-07 15:50:04 | INFO     | Repetitions (no. outputs from one input): 10 
+ Max tokens: 254
+2026-03-07 15:50:04 | INFO     | The model has been set to have default sampling params.
+2026-03-07 15:50:04 | INFO     | ########## Sampling parameters ########## 
+ SamplingParams(n=10, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.05, temperature=0.7, top_p=0.8, top_k=20, min_p=0.0, seed=None, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=254, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=GuidedDecodingParams(json={'$defs': {'LabelCommonsense': {'enum': ['yes', 'no'], 'title': 'LabelCommonsense', 'type': 'string'}}, 'properties': {'label': {'$ref': '#/$defs/LabelCommonsense'}, 'explanation': {'title': 'Explanation', 'type': 'string'}}, 'required': ['label', 'explanation'], 'title': 'OutputCommonsense', 'type': 'object'}, regex=None, choice=None, grammar=None, json_object=None, backend=None, backend_was_auto=False, disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, whitespace_pattern=None, structural_tag=None), extra_args=None)
+2026-03-07 15:51:39 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 15:52:39 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 15:53:43 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 15:54:46 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 15:55:48 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 15:56:50 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 15:57:53 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 15:58:57 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 15:59:58 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 16:01:00 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 16:02:03 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 16:03:06 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 16:04:09 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 16:05:10 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 16:06:13 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 16:07:16 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 16:08:19 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 16:09:22 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 16:10:27 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 16:11:53 | INFO     | Writing 2558 valid results to CSV
+2026-03-07 16:12:56 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 16:13:59 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 16:15:05 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 16:16:08 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 16:17:13 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 16:18:16 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 16:19:19 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 16:20:24 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 16:21:30 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 16:22:34 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 16:23:38 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 16:24:42 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 16:25:46 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 16:26:50 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 16:27:54 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 16:28:58 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 16:29:15 | INFO     | Writing 480 valid results to CSV
+2026-03-07 16:29:15 | INFO     | ==================================================
+2026-03-07 16:29:15 | INFO     | Inference pipeline completed
+2026-03-07 16:29:15 | INFO     | ==================================================
+2026-03-07 16:29:15 | INFO     | Total batches processed: 37
+2026-03-07 16:29:15 | INFO     | Total successful results: 92638
+2026-03-07 16:29:15 | INFO     | Total failed examples: 2
+2026-03-07 16:29:15 | INFO     | Output directory: results/first
+2026-03-07 16:29:15 | INFO     | ==================================================
+2026-03-07 16:29:15 | INFO     | Timing summary
+2026-03-07 16:29:15 | INFO     | Total script execution time: 55m 14.53s (3314.53s)
+2026-03-07 16:29:15 | INFO     | Total inference time: 39m 7.58s (2347.58s)
+2026-03-07 16:29:15 | INFO     | Overhead time (I/O, parsing, etc.): 16m 6.95s (966.95s)
+2026-03-07 16:29:15 | INFO     | Inference percentage: 70.8%
+2026-03-07 16:29:15 | INFO     | Average time per batch: 89.58s
+2026-03-07 16:29:15 | INFO     | Average time per result: 0.04s
+2026-03-07 16:29:15 | INFO     | ==================================================

@@ -1,0 +1,68 @@
+2026-03-07 14:30:15 | INFO     | Logging initialised. Log file: inference_logs/first/llama-3.3-70b_commonsense_20260307_143015.log
+2026-03-07 14:30:15 | INFO     | SLURM output file: logs/commonsense-llama-3.3-70b.55701.out
+2026-03-07 14:30:15 | INFO     | ==================================================
+2026-03-07 14:30:15 | INFO     | Starting inference pipeline
+2026-03-07 14:30:15 | INFO     | ==================================================
+2026-03-07 14:30:15 | INFO     | Arguments: {'model_name': 'llama-3.3-70b', 'dataset': 'commonsense', 'dataset_path': 'data/commonsense/commonsense.csv', 'repetition': 10, 'round': 1, 'slurm_output': 'logs/commonsense-llama-3.3-70b.55701.out', 'history': False, 'models_config_path': 'configs/models.yaml', 'outdir': 'results', 'batch_size': 256, 'no_logging': False, 'limit': None, 'idx_start': 0}
+2026-03-07 14:30:15 | INFO     | Results will be written to: results/first/llama-3.3-70b-commonsense.csv
+2026-03-07 14:30:15 | INFO     | Ensuring local model availability...
+2026-03-07 14:30:16 | INFO     | Location of model: /home/fril/.cache/huggingface/hub/models--unsloth--Llama-3.3-70B-Instruct-bnb-4bit
+2026-03-07 14:42:13 | INFO     | ########## Shared decoding parameters ##########
+2026-03-07 14:42:13 | INFO     | Repetitions (no. outputs from one input): 10 
+ Max tokens: 254
+2026-03-07 14:42:13 | INFO     | The model has been set to have default sampling params.
+2026-03-07 14:42:13 | INFO     | ########## Sampling parameters ########## 
+ SamplingParams(n=10, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.0, temperature=0.6, top_p=0.9, top_k=0, min_p=0.0, seed=None, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=254, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=GuidedDecodingParams(json={'$defs': {'LabelCommonsense': {'enum': ['yes', 'no'], 'title': 'LabelCommonsense', 'type': 'string'}}, 'properties': {'label': {'$ref': '#/$defs/LabelCommonsense'}, 'explanation': {'title': 'Explanation', 'type': 'string'}}, 'required': ['label', 'explanation'], 'title': 'OutputCommonsense', 'type': 'object'}, regex=None, choice=None, grammar=None, json_object=None, backend=None, backend_was_auto=False, disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, whitespace_pattern=None, structural_tag=None), extra_args=None)
+2026-03-07 14:43:20 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 14:44:07 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 14:44:53 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 14:45:46 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 14:46:40 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 14:47:53 | INFO     | Writing 2556 valid results to CSV
+2026-03-07 14:48:49 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 14:49:38 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 14:50:24 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 14:51:09 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 14:51:56 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 14:52:45 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 14:53:31 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 14:54:45 | INFO     | Writing 2559 valid results to CSV
+2026-03-07 14:55:34 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 14:56:43 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 14:57:43 | INFO     | Writing 2559 valid results to CSV
+2026-03-07 14:58:29 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 14:59:17 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 15:00:37 | INFO     | Writing 2555 valid results to CSV
+2026-03-07 15:01:36 | INFO     | Writing 2559 valid results to CSV
+2026-03-07 15:02:26 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 15:03:14 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 15:04:00 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 15:05:21 | INFO     | Writing 2556 valid results to CSV
+2026-03-07 15:06:11 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 15:07:12 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 15:08:13 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 15:09:31 | INFO     | Writing 2558 valid results to CSV
+2026-03-07 15:10:49 | INFO     | Writing 2557 valid results to CSV
+2026-03-07 15:11:45 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 15:12:34 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 15:13:48 | INFO     | Writing 2558 valid results to CSV
+2026-03-07 15:14:35 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 15:15:24 | INFO     | Writing 2560 valid results to CSV
+2026-03-07 15:16:46 | INFO     | Writing 2558 valid results to CSV
+2026-03-07 15:16:58 | INFO     | Writing 480 valid results to CSV
+2026-03-07 15:16:58 | INFO     | ==================================================
+2026-03-07 15:16:58 | INFO     | Inference pipeline completed
+2026-03-07 15:16:58 | INFO     | ==================================================
+2026-03-07 15:16:58 | INFO     | Total batches processed: 37
+2026-03-07 15:16:58 | INFO     | Total successful results: 92615
+2026-03-07 15:16:58 | INFO     | Total failed examples: 25
+2026-03-07 15:16:58 | INFO     | Output directory: results/first
+2026-03-07 15:16:58 | INFO     | ==================================================
+2026-03-07 15:16:58 | INFO     | Timing summary
+2026-03-07 15:16:58 | INFO     | Total script execution time: 46m 43.01s (2803.01s)
+2026-03-07 15:16:58 | INFO     | Total inference time: 34m 42.43s (2082.43s)
+2026-03-07 15:16:58 | INFO     | Overhead time (I/O, parsing, etc.): 12m 0.58s (720.58s)
+2026-03-07 15:16:58 | INFO     | Inference percentage: 74.3%
+2026-03-07 15:16:58 | INFO     | Average time per batch: 75.76s
+2026-03-07 15:16:58 | INFO     | Average time per result: 0.03s
+2026-03-07 15:16:58 | INFO     | ==================================================
