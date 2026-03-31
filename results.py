@@ -68,6 +68,8 @@ def main(args):
     first_round = load_first_round_results(base, models, args.dataset, failed = False)
     second_round_input = load_second_round_input(base, models, args.dataset, agreeing=False)
     second_round_input_subsampled = load_second_round_subsampled(base, models, args.dataset, agreeing=False)
+    second_round_input_agree = load_second_round_input(base, models, args.dataset, agreeing=True)
+    second_round_input_subsampled_agree = load_second_round_subsampled(base, models, args.dataset, agreeing=True)
 
     # First we check first run. 
     for model in models:
@@ -88,6 +90,18 @@ def main(args):
         second_sub_grouped = second_sub.groupby(['model_sender', 'match_type']).size().reset_index(name='count')
         print('Subsampled')
         print(second_round_input_subsampled)
+
+        print('########## Agreeing ##############')
+        second = second_round_input_agree[model]
+        second_grouped = second.groupby(['model_sender', 'match_type']).size().reset_index(name='count')
+        print('Second')
+        print(second_grouped)
+
+        second_sub = second_round_input_subsampled_agree[model]
+        second_sub_grouped = second_sub.groupby(['model_sender', 'match_type']).size().reset_index(name='count')
+        print('Subsampled')
+        print(second_sub_grouped)
+        
 
         # CODE FOR RANDOM CHECK OF CONSTRUCTED INPUT TO SECOND ROUND. 
         # print('SECOND ROUND')
