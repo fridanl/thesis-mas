@@ -58,7 +58,24 @@ def main(args):
     profiles_root = yaml.safe_load(Path('configs/models.yaml').read_text())
     profiles = profiles_root.get('profiles', {})
     models = list(profiles.keys())
-    models = 'gemma-3-27b'
+    models = ['gemma-3-27b']
+
+    first_round = load_first_round_results(base, models, 'sarcasm', failed = False)
+    second_round_input = load_second_round_input(base, models, 'sarcasm', agreeing=False)
+    second_round_input_subsampled = load_second_round_subsampled(base, models, 'sarcasm', agreeing=False)
+
+    for model in models:
+        print('This is the results df')
+        print(first_round[model].head())
+        print(first_round[model].shape)
+
+        print('this is the second round input')
+        print(second_round_input[model].head())
+        print(second_round_input[model].shape)
+
+        print('this is the second round input subsampled')
+        print(second_round_input_subsampled[model].head())
+        print(second_round_input_subsampled[model].shape)
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
