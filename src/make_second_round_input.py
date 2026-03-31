@@ -278,7 +278,7 @@ def main(args):
     outdir = args.output_root 
     model_claim_dict, discard = load_and_preprocess(combined, t_config)
     print(outdir)
-    discard.to_csv(f'{outdir}/discarded.csv', index=False)    
+    discard.to_csv(f'{args.dataset}/{outdir}/discarded.csv', index=False)    
     
     
     for receiver in model_names:
@@ -286,10 +286,8 @@ def main(args):
             continue
         agree, disagree = process_all_pairs(model_claim_dict=model_claim_dict, receiver=receiver, config=t_config)
 
-        agree.to_csv(f'{outdir}/{receiver}_agree.csv', index=False)
-        disagree.to_csv(f'{outdir}/{receiver}_disagree.csv', index=False)
-
-
+        agree.to_csv(f'{args.dataset}/{outdir}/{receiver}_agree.csv', index=False)
+        disagree.to_csv(f'{args.dataset}/{outdir}/{receiver}_disagree.csv', index=False)
 
 
 if __name__ == "__main__":
