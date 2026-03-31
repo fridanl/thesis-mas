@@ -171,7 +171,7 @@ def get_prompt_spec(dataset: str, round: int, history: bool) -> PromptSpec:
             round = 2,
             history=history,
             system=make_system_json(schema, round=2),
-            user_template=make_user_r2(task_question=ds.task_question, history=True),
+            user_template=make_user_r2(task_question=ds.task_question, history=history),
             output_model=ds.output_r2
         )
 

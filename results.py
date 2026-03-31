@@ -89,7 +89,7 @@ def main(args):
         second_sub = second_round_input_subsampled[model]
         second_sub_grouped = second_sub.groupby(['model_sender', 'match_type']).size().reset_index(name='count')
         print('Subsampled')
-        print(second_round_input_subsampled)
+        print(second_sub_grouped)
 
         print('########## Agreeing ##############')
         second = second_round_input_agree[model]
@@ -101,7 +101,7 @@ def main(args):
         second_sub_grouped = second_sub.groupby(['model_sender', 'match_type']).size().reset_index(name='count')
         print('Subsampled')
         print(second_sub_grouped)
-        
+
 
         # CODE FOR RANDOM CHECK OF CONSTRUCTED INPUT TO SECOND ROUND. 
         # print('SECOND ROUND')
