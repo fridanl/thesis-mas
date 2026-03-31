@@ -4,6 +4,13 @@ import argparse
 import yaml 
 import random
 
+
+pd.set_option('display.max_rows', None)
+pd.set_option('display.max_columns', None)
+pd.set_option('display.width', None)
+pd.set_option('display.max_colwidth', None)
+
+
 def load_all_as_dataframe(df_dict) -> pd.DataFrame:
     """Load all first round results and tag with model column."""
     dfs = []
@@ -76,25 +83,26 @@ def main(args):
 
         print('SECOND ROUND')
         second_round = second_round_input[model]
-        for sender in models:
+        for sender in list(second_round['model_sender'].unique()):
             if model == sender:
                 continue
             print(f'SENDER: {sender}')
             first_round_sender = first_round[sender]
-            first_round_receiver = first_round_sender[model]
+            first_round_receiver = first_round[model]
             second_round_pair = second_round[second_round['model_sender'] == sender]
 
-            print('Looking at 10 random samples')
+            print('Looking at 3 random samples')
             candidates = list(second_round['id'].unique())
-            rands = random.sample(candidates, k=10)
+            rands = random.sample(candidates, k=3)
             for i in rands: 
                 print('First round results for receiver:\n')
-                print(first_round_receiver[first_round_receiver['id'] == i])
+                print(first_round_receiver[first_round_receiver['id'] == i]['id', 'label'])
                 print('First round for sender:\n')
-                print(first_round_sender[first_round_sender['id'] == i])
+                print(first_round_sender[first_round_sender['id'] == i]['id', 'label'])
 
                 print(f'From the second round input for model: {model} as receiver')
-                print(second_round_pair[second_round_pair['id'] == i])
+
+                print(second_round_pair[second_round_pair['id'] == i]['id', 'model_receiver', 'model_sender','label_receiver', 'label_sender','match_type'])
 
 
 
