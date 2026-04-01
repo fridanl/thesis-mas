@@ -164,7 +164,7 @@ def make_sender_receiver_matrix(inputs, model_names, model_pairs):
             print("\\centering")
             print("\\begin{tabular}{c|ccc}")
             print("\\toprule")
-            print(f"\\multirow{{2}}{{*}}{{\\textbf{sender}}} & \multicolumn{{3}}{{c}}{{\\textbf{receiver}}} \\\\")
+            print(f"\\multirow{{2}}{{*}}{{\\textbf{{{sender}}}}} & \\multicolumn{{3}}{{c}}{{\\textbf{{{receiver}}}}} \\\\")
             print('\\cmidrule(l){2-4}')
             print(" & 0 & 1 & B \\\\")
             print("\\midrule")
