@@ -18,6 +18,6 @@ uv run src/first_round_results.py --dataset sarcasm
 #uv run results.py --dataset sarcasm
 
 #uv run src/first_round_results.py
-uv run check.py --dataset sarcasm
+#uv run check.py --dataset sarcasm
 
 #uv run results_.py --dataset sarcasm
