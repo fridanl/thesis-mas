@@ -14,7 +14,11 @@ def load_all_as_dataframe(df_dict) -> pd.DataFrame:
     """Load all first round results and tag with model column."""
     dfs = []
     for model, df in df_dict.items():
+        print(f'looking at model {model}')
         dfs.append(df)
+    
+    #DEBUG: 
+    print(f'number of dataframes: {len(dfs)}')
     return pd.concat(dfs, ignore_index=True)
 
 def load_first_round_results(base: Path, models: list, dataset: str, failed: bool = False) -> dict[str, pd.DataFrame]:
@@ -26,7 +30,9 @@ def load_first_round_results(base: Path, models: list, dataset: str, failed: boo
     suffix = '-failed' if failed else ''
     results = {}
     for model in models:
+        print(f'model: {model}')
         path = base / f'{model}-{dataset}{suffix}.csv'
+        print(f'path: {path}')
         if path.exists():
             results[model] = pd.read_csv(path)
 
@@ -191,7 +197,10 @@ def main(args):
                    "gemma-3-4b": ["gemma-3-27b"],
                    "gpt-oss-20b": ["llama-3.3-70b", "qwen-2.5-72b", "gemma-3-27b"]}
 
+    print('Running: first_round = load_first_round_results(base, models, args.dataset, failed=False)')
     first_round = load_first_round_results(base, models, args.dataset, failed=False)
+    print(f'Running load_all_as_dataframe(firist_round)')
+
     inputs = load_all_as_dataframe(first_round)
     make_sender_receiver_matrix(inputs, model_names=models, model_pairs=model_pairs)
 
