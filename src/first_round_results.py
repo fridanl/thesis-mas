@@ -133,7 +133,36 @@ def get_discarded_claims(dataset: str, base: Path) -> pd.DataFrame:
 #         print(f"\nNO FAILED (model, claim) PAIRS")
 
 
-def plot_label_claim_distribution(grouped_dfs: dict[str, pd.DataFrame], kde=True):
+def discarded_claims_to_latex(df: pd.DataFrame) -> str:
+    grouped = (
+        df.groupby('model')['id']
+        .apply(lambda x: ', '.join(map(str, sorted(x))))
+        .reset_index()
+    )
+    grouped['count'] = df.groupby('model')['id'].count().values
+
+    rows = []
+    for _, row in grouped.iterrows():
+        rows.append(f"    {row['model']} & {row['id']} & {row['count']} \\\\")
+
+    body = "\n\\midrule\n".join(rows)
+
+    latex = f"""\\begin{{table}}[h]
+                \\centering
+                \\caption{{Claims discarded due to insufficient valid outputs ($<$10) per model.}}
+                \\label{{tab:discarded_claims}}
+                \\begin{{tabular}}{{lll}}
+                \\toprule
+                \\textbf{{Model}} & \\textbf{{Discarded Claim IDs}} & \\textbf{{Count}} \\\\
+                \\midrule
+                {body}
+                \\bottomrule
+                \\end{{tabular}}
+                \\end{{table}}"""
+
+    return latex
+
+def plot_label_claim_distribution(grouped_dfs: dict[str, pd.DataFrame]):
     """
     Plotting the positive rate distribution of results in round 1.
     """
@@ -144,26 +173,36 @@ def plot_label_claim_distribution(grouped_dfs: dict[str, pd.DataFrame], kde=True
     nrows = math.ceil(n_models / ncols)
     fig, axs = plt.subplots(ncols=ncols, nrows=nrows, figsize=(16, 4 * nrows), sharey=True)
 
-    for model_name, ax in zip(models, axs.ravel()):
+    axs_flat = axs.ravel()
+
+    for i, (model_name, ax) in enumerate(zip(models, axs_flat)):
         model_res = grouped_dfs[model_name]
+        sns.histplot(data=model_res, ax=ax, x="positive_rate", stat='percent')
 
-        if kde:
-            sns.kdeplot(
-                data=model_res,
-                ax=ax,
-                x="positive_rate",
-                fill=True,
-            )
+        # Letters from a-f 
+        ax.text(-0.05, 1.05, f"{chr(97 + i)}", transform=ax.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
+
+        ax.set_title(model_name, fontsize = 13)
+
+
+        if i % ncols == 0:
+            ax.set_ylabel('Percent', fontsize = 12)
         else:
-            sns.histplot(data=model_res, ax=ax, x="positive_rate")
+            ax.set_ylabel("")
 
-        ax.set_title(f"{model_name}")
-        ax.set_xlabel("Positive Rate")
+        if i // ncols == nrows - 1:
+            ax.set_xlabel('Positive Rate', fontsize = 12)
+        else:
+            ax.set_xlabel("")
+        
+        ax.tick_params(labelsize=11)
+
+    for j in range(len(models), len(axs_flat)):
+        axs_flat[j].set_visible(False)
 
     plt.tight_layout()
     sns.despine()
     plt.savefig("plots/label-dist-all.png", dpi=300, bbox_inches="tight")
-
 
 
 def get_grouped_df(df: pd.DataFrame, conf: DatasetTaskSpec):
@@ -207,7 +246,7 @@ def main(args):
 
         grouped_d[model] = grouped
 
-
+    print(discarded_claims_to_latex(discarded_claims))    
     plot_label_claim_distribution(grouped_dfs=grouped_d)
 
 
