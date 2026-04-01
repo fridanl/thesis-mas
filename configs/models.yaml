@@ -4,9 +4,6 @@ sampling_presets:
   gpt20b: &gpt20b
     temperature: 1.0
     top_p: 1.0
-  gpt9b: &gpt9b
-    temperature: 1.0
-    top_p: 1.0
   gemma4b: &gemma4b
     temperature: 1.0
     top_k: 64
@@ -31,11 +28,6 @@ profiles:
     quantization: bitsandbytes
     has_default_sampling_params: False
     sampling: *gpt20b
-  gpt-oss-9b: # new
-    repo_id: mradermacher/gpt-oss-nano-GGUF
-    quantization: gguf
-    has_default_sampling_params: False
-    sampling: *gpt9b
   qwen-2.5-72b: # new
     repo_id: unsloth/Qwen2.5-72B-Instruct-bnb-4bit
     quantization: bitsandbytes
