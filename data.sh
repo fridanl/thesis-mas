@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=check
+#SBATCH --job-name=check-test-cleaned-script
 #SBATCH --account=researchers
 #SBATCH --partition=scavenge
 #SBATCH --cpus-per-task=4
@@ -12,6 +12,6 @@ echo "Host: $(hostname)"
 set -euo pipefail
 
 #uv run src/first_round_results.py
-#uv run check.py
+uv run check.py --dataset sarcasm
 
-uv run results_.py --dataset sarcasm
+#uv run results_.py --dataset sarcasm
