@@ -205,12 +205,12 @@ def main(args):
 
     make_sender_receiver_matrix(inputs, model_names=models, model_pairs=model_pairs)
 
-    #first_round = load_first_round_results(base, models, args.dataset, failed=False)
+    ## first_round = load_first_round_results(base, models, args.dataset, failed=False)
     # second_round_input_subsampled = load_second_round_subsampled(base, models, args.dataset, agreeing=False)
     # second_round_input_agree = load_second_round_input(base, models, args.dataset, agreeing=True)
     # second_round_input_subsampled_agree = load_second_round_subsampled(base, models, args.dataset, agreeing=True)
     
-    # printing the first round input stats here:
+    ## printing the first round input stats here:
     # print_first_round_stats(models, first_round, second_round_input, second_round_input_subsampled, second_round_input_agree, second_round_input_subsampled_agree, random_check=False)
     
 
