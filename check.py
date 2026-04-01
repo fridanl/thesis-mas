@@ -197,14 +197,15 @@ def main(args):
                    "gemma-3-4b": ["gemma-3-27b"],
                    "gpt-oss-20b": ["llama-3.3-70b", "qwen-2.5-72b", "gemma-3-27b"]}
 
-    print('Running: first_round = load_first_round_results(base, models, args.dataset, failed=False)')
-    first_round = load_first_round_results(base, models, args.dataset, failed=False)
-    print(f'Running load_all_as_dataframe(firist_round)')
+    print('Running: second_round_input')
+    
+    second_round_input = load_second_round_input(base, models, args.dataset, agreeing=False)
+    print(f'Running load_all_as_dataframe(second_round_input)')
+    inputs = load_all_as_dataframe(second_round_input)
 
-    inputs = load_all_as_dataframe(first_round)
     make_sender_receiver_matrix(inputs, model_names=models, model_pairs=model_pairs)
 
-    # second_round_input = load_second_round_input(base, models, args.dataset, agreeing=False)
+    #first_round = load_first_round_results(base, models, args.dataset, failed=False)
     # second_round_input_subsampled = load_second_round_subsampled(base, models, args.dataset, agreeing=False)
     # second_round_input_agree = load_second_round_input(base, models, args.dataset, agreeing=True)
     # second_round_input_subsampled_agree = load_second_round_subsampled(base, models, args.dataset, agreeing=True)
