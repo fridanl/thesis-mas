@@ -64,7 +64,6 @@ def main(args):
     profiles_root = yaml.safe_load(Path('configs/models.yaml').read_text())
     profiles = profiles_root.get('profiles', {})
     models = list(profiles.keys())
-    models.remove('gpt-oss-9b')
 
     first_round = load_first_round_results(base, models, args.dataset, failed = False)
     second_round_input = load_second_round_input(base, models, args.dataset, agreeing=False)
