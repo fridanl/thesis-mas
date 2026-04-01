@@ -1,35 +1,60 @@
 import argparse
 import math
 from pathlib import Path
-
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 import yaml
+from utils.prompt_registry import DATASETS, DatasetTaskSpec
+
+#TODO: Micro-average label distribution per model.
+#TODO: Positive-rate distribution, both metric and also plot.
+#TODO: Create overview over dropped claims.
+#TODO: Input for round 2 (before and after )
+
 
 pd.set_option("display.max_rows", None)
 pd.set_option("display.max_columns", None)
 pd.set_option("display.width", None)
 pd.set_option("display.max_colwidth", None)
 
+def load_first_round_results(base: Path, models: list, dataset: str, failed: bool = False) -> dict[str, pd.DataFrame]:
+    '''
+    Load all model results for a dataset from first round. 
+    failed: indicates whether to load all failed examples instead. 
+    '''
 
-def get_dropped_claims(grouped_df):
-    """
-    Function to get df over model and the dropped claims on given dataset.
-    """
+    suffix = '-failed' if failed else ''
+    results = {}
+    for model in models:
+        path = base / f'{model}-{dataset}{suffix}.csv'
+        if path.exists():
+            results[model] = pd.read_csv(path)
 
+    return results 
 
-
-def compute_prediction_distribution(df: pd.DataFrame):
+def compute_prediction_distribution(df: pd.DataFrame, conf: DatasetTaskSpec) -> float:
     """
     Function to compute the overall prediction distribution.
+    Takes a single df for a single model. 
     I.e. with this we mean over all rows, NOT on a claim level.
     """
-    # Need to group by model, label.
 
-    df.groupby
-    # What do we want?
-    return
+    positive_count = (df['label'] == conf.positive_label).sum()
+
+    return positive_count / df.shape[0]
+
+def get_discarded_claims(dataset: str, base: Path) -> pd.DataFrame:
+    """
+    Function to get df over all discarded claims, for all models on a given dataset. 
+    """
+
+    discarded_path = base / 'input_round2' / dataset / 'discarded.csv'
+
+    return pd.read_csv(discarded_path)
+
+
+
 
 
 def check_results(combined, *, dataset_name, n_repetitions):
@@ -210,25 +235,33 @@ def load_results(
 
 
 def main(args):
+    base = Path(args.base_path)
     profiles_root = yaml.safe_load(Path("configs/models.yaml").read_text())
     profiles = profiles_root.get("profiles", {})
     model_names = list(profiles.keys())
-    
-    combined_all = load_results(
-        model_names=model_names, dataset=args.dataset, with_failed=False
-    )
-    
 
-   
-   
-    #    check_results(combined_all, dataset_name=args.dataset, n_repetitions=10)
+    ds_config = DATASETS[args.dataset]
 
-    compute_prediction_distribution(combined_all)
+    first = load_first_round_results(base, model_names, ds_config.dataset, failed=False)
+    discarded_claims = get_discarded_claims(ds_config.dataset, base)
+
+
+    print(discarded_claims)
+
+
+    for model in model_names:
+        pass 
+
+    # compute_prediction_distribution(combined_all)
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--dataset", help="Specify name of dataset", default="sarcasm")
-
+    ap.add_argument('--base_path',
+                default='/home/rp-fril-mhpe',
+                help='base path for results.')
+    ap.add_argument("--dataset", 
+                    help="Specify name of dataset",
+                    default="sarcasm")
     args = ap.parse_args()
     main(args)

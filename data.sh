@@ -14,4 +14,4 @@ set -euo pipefail
 #uv run src/first_round_results.py
 #uv run check.py
 
-uv run results.py --dataset commonsense
+uv run results_.py --dataset sarcasm
