@@ -10,8 +10,8 @@
 echo "Host: $(hostname)"
 
 set -euo pipefail
-
-#uv run src/first_round_results.py
+export PYTHONPATH=/home/fril/thesis-mas${PYTHONPATH:+:$PYTHONPATH}
+uv run src/first_round_results.py --dataset sarcasm
 #uv run check.py
 
-uv run results_.py --dataset sarcasm
+#uv run results.py --dataset sarcasm
