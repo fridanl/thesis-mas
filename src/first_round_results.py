@@ -33,7 +33,7 @@ def load_first_round_results(base: Path, models: list, dataset: str, failed: boo
 
     return results 
 
-def compute_prediction_distribution(df: pd.DataFrame, conf: DatasetTaskSpec) -> float:
+def compute_overall_positive_rate(df: pd.DataFrame, conf: DatasetTaskSpec) -> float:
     """
     Function to compute the overall prediction distribution.
     Takes a single df for a single model. 
@@ -55,99 +55,97 @@ def get_discarded_claims(dataset: str, base: Path) -> pd.DataFrame:
 
 
 
+# def check_results(combined, *, dataset_name, n_repetitions):
+#     """Function to check if the output in files (valid and failed) correspond to expected number."""
+#     datasets = {"sarcasm": "data/sarc/sarcasm.csv"}
+
+#     if dataset_name not in datasets:
+#         raise ValueError(f"Unknown dataset: {dataset_name}")
+
+#     path_data = Path(datasets[dataset_name])
+#     data = pd.read_csv(path_data, low_memory=False)
+
+#     n_claims = data.shape[0]
+#     expected_output_size = n_claims * n_repetitions
+
+#     print(f"[DATASET]: {dataset_name}")
+#     print(f"[CLAIMS IN DATASET]: {n_claims}")
+#     print(f"[REPETITIONS PER CLAIM]: {n_repetitions}")
+#     print(f"[EXPECTED ROWS PER MODEL]: {expected_output_size}")
+
+#     print(f"\n {'-' * 8} PER MODEL CHECK {'-' * 8}")
+#     print(f"[SIZE OF OUTPUT PER MODEL, GROUPED BY VALID, FAILED]:")
+#     output_sizes = (
+#         combined.groupby(["model", "valid_json"])
+#         .agg(output_size=("id", "size"))
+#         .reset_index()
+#     )
+#     print(output_sizes)
+
+#     grouped = (
+#         combined.groupby(["model", "id"])
+#         .agg(
+#             total_outputs=("id", "size"),
+#             valid_outputs=("valid_json", lambda x: (x == True).sum()),
+#             invalid=("valid_json", lambda x: (x == False).sum()),
+#             unique_reps=("repetition", "nunique"),
+#         )
+#         .reset_index()
+#     )
+
+#     # Complete and incomplete outputs in terms of number of valid + number of invalid
+#     grouped["complete_output"] = grouped["total_outputs"] == n_repetitions
+#     grouped["incomplete_output"] = grouped["total_outputs"] < n_repetitions
+
+#     summary = (
+#         grouped.groupby("model")
+#         .agg(
+#             claims_total=("id", "count"),
+#             complete_claims=("complete_output", "sum"),
+#             incomplete_claims=("incomplete_output", "sum"),
+#         )
+#         .reset_index()
+#     )
+
+#     print(f"\n {'-' * 8} PER MODEL CLAIM COMPLETION SUMMARY: {'-' * 8}")
+#     print(summary)
+#     print("-" * 16)
+
+#     incomplete = grouped[grouped["incomplete_output"] == 1]
+#     if not incomplete.empty:
+#         print(f"\nINCOMPLETE (model, claim)")
+#         print(
+#             incomplete.groupby("model")
+#             .agg(incomplete_counts=("id", "count"))
+#             .reset_index()
+#         )
+#     else:
+#         print(f"\nNO INCOMPLETE PAIRS FOR ALL MODELS")
+
+#     failed = grouped[grouped["invalid"] > 0]
+#     if not failed.empty:
+#         print(f"\nFAILED (model, claim)")
+#         print(
+#             failed.groupby("model").agg(failed_counts=("invalid", "sum")).reset_index()
+#         )
+#         # print(failed)
+#     else:
+#         print(f"\nNO FAILED (model, claim) PAIRS")
 
 
-def check_results(combined, *, dataset_name, n_repetitions):
-    """Function to check if the output in files (valid and failed) correspond to expected number."""
-    datasets = {"sarcasm": "data/sarc/sarcasm.csv"}
-
-    if dataset_name not in datasets:
-        raise ValueError(f"Unknown dataset: {dataset_name}")
-
-    path_data = Path(datasets[dataset_name])
-    data = pd.read_csv(path_data, low_memory=False)
-
-    n_claims = data.shape[0]
-    expected_output_size = n_claims * n_repetitions
-
-    print(f"[DATASET]: {dataset_name}")
-    print(f"[CLAIMS IN DATASET]: {n_claims}")
-    print(f"[REPETITIONS PER CLAIM]: {n_repetitions}")
-    print(f"[EXPECTED ROWS PER MODEL]: {expected_output_size}")
-
-    print(f"\n {'-' * 8} PER MODEL CHECK {'-' * 8}")
-    print(f"[SIZE OF OUTPUT PER MODEL, GROUPED BY VALID, FAILED]:")
-    output_sizes = (
-        combined.groupby(["model", "valid_json"])
-        .agg(output_size=("id", "size"))
-        .reset_index()
-    )
-    print(output_sizes)
-
-    grouped = (
-        combined.groupby(["model", "id"])
-        .agg(
-            total_outputs=("id", "size"),
-            valid_outputs=("valid_json", lambda x: (x == True).sum()),
-            invalid=("valid_json", lambda x: (x == False).sum()),
-            unique_reps=("repetition", "nunique"),
-        )
-        .reset_index()
-    )
-
-    # Complete and incomplete outputs in terms of number of valid + number of invalid
-    grouped["complete_output"] = grouped["total_outputs"] == n_repetitions
-    grouped["incomplete_output"] = grouped["total_outputs"] < n_repetitions
-
-    summary = (
-        grouped.groupby("model")
-        .agg(
-            claims_total=("id", "count"),
-            complete_claims=("complete_output", "sum"),
-            incomplete_claims=("incomplete_output", "sum"),
-        )
-        .reset_index()
-    )
-
-    print(f"\n {'-' * 8} PER MODEL CLAIM COMPLETION SUMMARY: {'-' * 8}")
-    print(summary)
-    print("-" * 16)
-
-    incomplete = grouped[grouped["incomplete_output"] == 1]
-    if not incomplete.empty:
-        print(f"\nINCOMPLETE (model, claim)")
-        print(
-            incomplete.groupby("model")
-            .agg(incomplete_counts=("id", "count"))
-            .reset_index()
-        )
-    else:
-        print(f"\nNO INCOMPLETE PAIRS FOR ALL MODELS")
-
-    failed = grouped[grouped["invalid"] > 0]
-    if not failed.empty:
-        print(f"\nFAILED (model, claim)")
-        print(
-            failed.groupby("model").agg(failed_counts=("invalid", "sum")).reset_index()
-        )
-        # print(failed)
-    else:
-        print(f"\nNO FAILED (model, claim) PAIRS")
-
-
-def plot_label_claim_distribution(df, kde=True):
+def plot_label_claim_distribution(grouped_dfs: dict[str, pd.DataFrame], kde=True):
     """
     Plotting the positive rate distribution of results in round 1.
     """
-    models = df["model"].unique()
+    models = list(grouped_dfs.keys())
 
     n_models = len(models)
     ncols = 2
     nrows = math.ceil(n_models / ncols)
-    fig, axs = plt.subplots(ncols=ncols, nrows=nrows, figsize=(16, 4 * nrows))
+    fig, axs = plt.subplots(ncols=ncols, nrows=nrows, figsize=(16, 4 * nrows), sharey=True)
 
     for model_name, ax in zip(models, axs.ravel()):
-        model_res = df[df["model"] == model_name].copy()
+        model_res = grouped_dfs[model_name]
 
         if kde:
             sns.kdeplot(
@@ -167,71 +165,20 @@ def plot_label_claim_distribution(df, kde=True):
     plt.savefig("plots/label-dist-all.png", dpi=300, bbox_inches="tight")
 
 
-def label_distribution(df):
 
-    # Overall label distribution for models
-    grouped_model = (
-        df[["model", "label"]]
-        .groupby("model")
-        .agg(positive_count_overall=("label", lambda x: (x == "sarcastic").sum()))
-    )
-    grouped_model = grouped_model["positive_count_overall"] / 1374540
+def get_grouped_df(df: pd.DataFrame, conf: DatasetTaskSpec):
+    '''
+    Computes the positive rate on a claim-level.
+    df:
+        df: For specific model.
+    '''
 
-    print("Label distribution over models")
-    print(grouped_model)
-
-    # Per model, claim
-    grouped = (
-        df.groupby(["model", "id"])
-        .agg(
-            valid_outputs=("valid_json", lambda x: (x == True).sum()),
-            positive_count=("label", lambda x: (x == "sarcastic").sum()),
-        )
-        .reset_index()
-    )
-
-    grouped["positive_rate"] = grouped["positive_count"] / grouped["valid_outputs"]
-
-    grouped_pr = grouped.groupby(["model", "positive_rate"]).size().reset_index()
-    print("Grouped per model, id, positive rate")
-    print(grouped_pr)
-
-    #  print('Positive rate per model/claim')
-    #  print(grouped)
+    grouped = (df.groupby(['model', 'id'])['label']
+               .apply(lambda x: (x == conf.positive_label).mean())
+               .reset_index()
+               .rename(columns={'label': 'positive_rate'}))
+    
     return grouped
-
-
-def load_results(
-    model_names: list[str], dataset: str, with_failed: bool
-) -> pd.DataFrame:
-    """ """
-    dfs = []
-    columns = ["model", "id", "claim", "repetition", "valid_json", "label"]
-
-    if with_failed:
-        suffixes = ("", "-failed")
-    else:
-        suffixes = ("",)
-
-    for model_n in model_names:
-        for suffix in suffixes:
-            path = Path(f"/home/rp-fril-mhpe/{model_n}-{dataset}{suffix}.csv")
-
-            if not path.exists():
-                print(f"File not found: {path}")
-                continue
-
-            df = pd.read_csv(path, low_memory=False)
-            if suffix == "-failed":
-                df["valid_json"] = False
-                df["model"] = model_n
-                df["label"] = None
-
-            df = df[columns]
-            dfs.append(df)
-
-    combined = pd.concat(dfs, ignore_index=True) if dfs else pd.DataFrame()
-    return combined
 
 
 def main(args):
@@ -242,17 +189,26 @@ def main(args):
 
     ds_config = DATASETS[args.dataset]
 
-    first = load_first_round_results(base, model_names, ds_config.dataset, failed=False)
+    first_d = load_first_round_results(base, model_names, ds_config.dataset, failed=False)
     discarded_claims = get_discarded_claims(ds_config.dataset, base)
 
-
-    print(discarded_claims)
-
+    grouped_d = {}
 
     for model in model_names:
-        pass 
+        print(f'LOOKING AT MODEL: {model}')
+        first_raw = first_d[model]
+        discarded = discarded_claims[discarded_claims['model'] == model]['id'].to_list()
+        first = first_raw[~first_raw['id'].isin(discarded)]
+        print(f'Dropped {first_raw.shape[0]-first.shape[0]} rows, due to at least one failed attempt for claim.')
+        pr = compute_overall_positive_rate(first, conf=ds_config)
+        print(f'Overall positive rate: {pr}')
+        grouped = get_grouped_df(first, ds_config)
+        print(f'Macro-average positive rate: {grouped['positive_rate'].mean()}')
 
-    # compute_prediction_distribution(combined_all)
+        grouped_d[model] = grouped
+
+
+    plot_label_claim_distribution(grouped_dfs=grouped_d)
 
 
 if __name__ == "__main__":
