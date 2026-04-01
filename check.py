@@ -136,7 +136,7 @@ def make_sender_receiver_matrix(inputs, model_names, model_pairs):
         print("\n" + "="*80)
         print(f"% RECEIVER: {receiver}")
         print("="*80)
-
+        print(inputs.columns)
         slice_df = inputs[inputs['model_receiver'] == receiver]
 
         for sender in model_pairs.get(receiver, []):
