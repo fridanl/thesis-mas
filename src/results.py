@@ -170,7 +170,7 @@ def plot_label_claim_distribution(grouped_dfs: dict[str, pd.DataFrame]):
     n_models = len(models)
     ncols = 2
     nrows = math.ceil(n_models / ncols)
-    fig, axs = plt.subplots(ncols=ncols, nrows=nrows, figsize=(16, 4 * nrows), sharey=True)
+    fig, axs = plt.subplots(ncols=ncols, nrows=nrows, figsize=(16, 4 * nrows))
     axs_flat = axs.ravel()
 
     x_ticks = [round(x * 0.1, 1) for x in range(11)]
@@ -188,9 +188,10 @@ def plot_label_claim_distribution(grouped_dfs: dict[str, pd.DataFrame]):
                     ax=ax)
 
         ax.set_xticks(x_ticks)
-
+        ax.set_xticklabels(x_ticks)
+        
         # Letters from a-g 
-        ax.text(-0.05, 1.05, f"{chr(97 + i)}", transform=ax.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
+        ax.text(-0.15, 1.05, f"{chr(97 + i)}", transform=ax.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
 
         ax.set_title(model_name, fontsize = 13)
 
