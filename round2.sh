@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=round2-llama70b
+#SBATCH --job-name=round2-gemma-3-27b
 #SBATCH --account=researchers
 #SBATCH --partition=scavenge
 #SBATCH --gres=gpu:a100_80gb:1
@@ -21,13 +21,12 @@ SLURM_OUTPUT_FILE="logs/${SLURM_JOB_NAME}.${SLURM_JOB_ID}.out"
 
 # ROUND 2
 
-# TEST 
+# TEST
 # uv run run.py --model_name gemma-3-4b --repetition 1 --round 2 --batch_size 256 --history --dataset_path test_data_round2.csv --slurm_output "${SLURM_OUTPUT_FILE}"
-
 
 # RUNS
 
-# SARCASM 
+# SARCASM
 
 # gemma-3-4b
 # # Disagreeing
@@ -37,15 +36,15 @@ SLURM_OUTPUT_FILE="logs/${SLURM_JOB_NAME}.${SLURM_JOB_ID}.out"
 
 # # gemma-3-27b
 # # Disagreeing
-# uv run run.py --model_name gemma-3-27b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sarcasm/gemma-3-27b_disagree_subsampled.csv --outdir /home/rp-fril-mhpe  --slurm_output "${SLURM_OUTPUT_FILE}"
+uv run run.py --model_name gemma-3-27b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sarcasm/gemma-3-27b_disagree_subsampled.csv --outdir /home/rp-fril-mhpe --slurm_output "${SLURM_OUTPUT_FILE}"
 # # Agreeing
-# uv run run.py --model_name gemma-3-27b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sarcasm/gemma-3-27b_agree_subsampled.csv --outdir /home/rp-fril-mhpe  --slurm_output "${SLURM_OUTPUT_FILE}"
+uv run run.py --model_name gemma-3-27b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sarcasm/gemma-3-27b_agree_subsampled.csv --outdir /home/rp-fril-mhpe --slurm_output "${SLURM_OUTPUT_FILE}"
 
 # # llama-3.3-70b
 # # Disagreeing
-uv run run.py --model_name llama-3.3-70b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sarcasm/llama-3.3-70b_disagree_subsampled.csv --outdir /home/rp-fril-mhpe  --slurm_output "${SLURM_OUTPUT_FILE}"
+#uv run run.py --model_name llama-3.3-70b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sarcasm/llama-3.3-70b_disagree_subsampled.csv --outdir /home/rp-fril-mhpe  --slurm_output "${SLURM_OUTPUT_FILE}"
 # # Agreeing
-uv run run.py --model_name llama-3.3-70b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sarcasm/llama-3.3-70b_agree_subsampled.csv --outdir /home/rp-fril-mhpe  --slurm_output "${SLURM_OUTPUT_FILE}"
+#uv run run.py --model_name llama-3.3-70b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sarcasm/llama-3.3-70b_agree_subsampled.csv --outdir /home/rp-fril-mhpe  --slurm_output "${SLURM_OUTPUT_FILE}"
 
 # # llama-3.1-8b
 # # Disagreeing
@@ -67,7 +66,7 @@ uv run run.py --model_name llama-3.3-70b --repetition 1 --round 2 --batch_size 2
 
 #-------------------------------------------------------------------------------------------------
 
-# COMMONSENSE 
+# COMMONSENSE
 
 #----- gemma-3-4b
 # Disagreeing
@@ -80,7 +79,6 @@ uv run run.py --model_name llama-3.3-70b --repetition 1 --round 2 --batch_size 2
 # uv run run.py --model_name gemma-3-27b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/commonsense/gemma-3-27b_disagree_subsampled.csv --outdir /home/rp-fril-mhpe  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset commonsense
 # # Agreeing
 # uv run run.py --model_name gemma-3-27b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/commonsense/gemma-3-27b_agree_subsampled.csv --outdir /home/rp-fril-mhpe  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset commonsense
-
 
 #---- llama-3.3-70b
 # # Disagreeing
@@ -105,3 +103,4 @@ uv run run.py --model_name llama-3.3-70b --repetition 1 --round 2 --batch_size 2
 # uv run run.py --model_name qwen-2.5-7b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/commonsense/qwen-2.5-7b_disagree_subsampled.csv --outdir /home/rp-fril-mhpe  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset commonsense
 # # Agreeing
 # uv run run.py --model_name qwen-2.5-7b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/commonsense/qwen-2.5-7b_agree_subsampled.csv --outdir /home/rp-fril-mhpe  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset commonsense
+
