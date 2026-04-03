@@ -1,0 +1,9 @@
+2026-04-02 08:55:49 | INFO     | Logging initialised. Log file: inference_logs/second/qwen-2.5-72b_sarcasm_20260402_085549.log
+2026-04-02 08:55:49 | INFO     | SLURM output file: logs/round2-gwen-2.5-72b.61097.out
+2026-04-02 08:55:49 | INFO     | ==================================================
+2026-04-02 08:55:49 | INFO     | Starting inference pipeline
+2026-04-02 08:55:49 | INFO     | ==================================================
+2026-04-02 08:55:49 | INFO     | Arguments: {'model_name': 'qwen-2.5-72b', 'dataset': 'sarcasm', 'dataset_path': '/home/rp-fril-mhpe/subsampled_input_round2/sarcasm/qwen-2.5-72b_disagree_subsampled.csv', 'repetition': 1, 'round': 2, 'slurm_output': 'logs/round2-gwen-2.5-72b.61097.out', 'history': True, 'models_config_path': 'configs/models.yaml', 'outdir': '/home/rp-fril-mhpe', 'batch_size': 256, 'no_logging': False, 'limit': None, 'idx_start': 0}
+2026-04-02 08:55:49 | INFO     | Results will be written to: /home/rp-fril-mhpe/second/qwen-2.5-72b-sarcasm.csv
+2026-04-02 08:55:49 | INFO     | Ensuring local model availability...
+2026-04-02 08:55:49 | INFO     | Location of model: /home/fril/.cache/huggingface/hub/models--unsloth--Qwen2.5-72B-Instruct-bnb-4bit
