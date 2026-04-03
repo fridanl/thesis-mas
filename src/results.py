@@ -167,19 +167,25 @@ def plot_label_claim_distribution(grouped_dfs: dict[str, pd.DataFrame]):
     Plotting the positive rate distribution of results in round 1.
     """
     models = list(grouped_dfs.keys())
-
     n_models = len(models)
     ncols = 2
     nrows = math.ceil(n_models / ncols)
     fig, axs = plt.subplots(ncols=ncols, nrows=nrows, figsize=(16, 4 * nrows), sharey=True)
-
     axs_flat = axs.ravel()
+
+    x_ticks = [round(x * 0.1, 1) for x in range(11)]
 
     for i, (model_name, ax) in enumerate(zip(models, axs_flat)):
         model_res = grouped_dfs[model_name]
-        sns.histplot(data=model_res, ax=ax, x="positive_rate", stat='percent')
 
-        # Letters from a-f 
+
+        sns.histplot(data=model_res, 
+                     ax=ax, 
+                     x="positive_rate", 
+                     stat='percent',
+                     discrete=True)
+
+        # Letters from a-g 
         ax.text(-0.05, 1.05, f"{chr(97 + i)}", transform=ax.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
 
         ax.set_title(model_name, fontsize = 13)
@@ -246,7 +252,7 @@ def main(args):
 
         grouped_d[model] = grouped
 
-    print(discarded_claims_to_latex(discarded_claims))    
+    # print(discarded_claims_to_latex(discarded_claims))    
     plot_label_claim_distribution(grouped_dfs=grouped_d)
 
 
