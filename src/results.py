@@ -180,14 +180,14 @@ def plot_label_claim_distribution(grouped_dfs: dict[str, pd.DataFrame]):
 
         counts_perc = model_res['positive_rate'].value_counts(normalize=True).reindex(x_ticks, fill_value=0)*100
 
+        print('Model: {model_name}')
+        print(counts_perc)
+
         sns.barplot(x = counts_perc.index,
                     y = counts_perc.values,
-                    ax=ax
-                     )
+                    ax=ax)
 
         ax.set_xticks(x_ticks)
-        ax.set_xticklabels(x_ticks, rotation=90)
-        ax.set_xlim(-0.15, 1.15)
 
         # Letters from a-g 
         ax.text(-0.05, 1.05, f"{chr(97 + i)}", transform=ax.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
