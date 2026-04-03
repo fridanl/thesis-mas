@@ -178,17 +178,17 @@ def plot_label_claim_distribution(grouped_dfs: dict[str, pd.DataFrame]):
     for i, (model_name, ax) in enumerate(zip(models, axs_flat)):
         model_res = grouped_dfs[model_name]
 
+        counts_perc = model_res['positive_rate'].value_counts(normalize=True).reindex(x_ticks, fill_value=0)*100
 
-        sns.histplot(data=model_res, 
-                     ax=ax, 
-                     x="positive_rate", 
-                     stat='percent',
-                     discrete=True)
+        sns.barplot(x = counts_perc.index,
+                    y = counts_perc.values,
+                    ax=ax
+                     )
 
         ax.set_xticks(x_ticks)
-        ax.set_xticklabels(x_ticks, rotation=45)
+        ax.set_xticklabels(x_ticks, rotation=90)
         ax.set_xlim(-0.15, 1.15)
-        
+
         # Letters from a-g 
         ax.text(-0.05, 1.05, f"{chr(97 + i)}", transform=ax.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
 
@@ -210,8 +210,10 @@ def plot_label_claim_distribution(grouped_dfs: dict[str, pd.DataFrame]):
     for j in range(len(models), len(axs_flat)):
         axs_flat[j].set_visible(False)
 
+
     plt.tight_layout()
     sns.despine()
+    print('Saving plots over distribution to file: "plots/label-dist-all.png')
     plt.savefig("plots/label-dist-all.png", dpi=300, bbox_inches="tight")
 
 
