@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=check-test-cleaned-script
+#SBATCH --job-name=results
 #SBATCH --account=researchers
 #SBATCH --partition=scavenge
 #SBATCH --cpus-per-task=4

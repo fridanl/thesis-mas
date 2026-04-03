@@ -185,6 +185,10 @@ def plot_label_claim_distribution(grouped_dfs: dict[str, pd.DataFrame]):
                      stat='percent',
                      discrete=True)
 
+        ax.set_xticks(x_ticks)
+        ax.set_xticklabels(x_ticks, rotation=45)
+        ax.set_xlim(-0.15, 1.15)
+        
         # Letters from a-g 
         ax.text(-0.05, 1.05, f"{chr(97 + i)}", transform=ax.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
 
