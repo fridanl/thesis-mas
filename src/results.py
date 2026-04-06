@@ -270,7 +270,7 @@ def compute_delta_overall(delta_df: pd.DataFrame):
     )
     macro['match_type'] = 'all'
 
-    columns = ['model_receiver', 'model_sender', 'match_type', 'influence']
+    columns = ['model_receiver', 'model_sender', 'match_type', 'influence', 'count']
 
     result = pd.concat([
         agg[columns],
@@ -328,9 +328,9 @@ def main(args):
     print(delta_overall)
 
     # Overall excluding any negative cases
-
     delta_pos = deltas_df[deltas_df['delta'] >= 0]
     delta_overall_pos = compute_delta_overall(delta_df=delta_pos)
+    delta_overall_pos.to_csv(f'positive_deltas_{ds_config.dataset}.csv')
     print('Delta overall, only positive deltas')
     print(delta_overall_pos)
 
