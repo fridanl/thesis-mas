@@ -221,6 +221,8 @@ def get_delta_df(first_df: pd.DataFrame, second_df: pd.DataFrame, conf: DatasetT
         1 - combined['p_pos']
     ).where(influenced_towards_pos, 1-combined['p_neg'])
 
+    print('True')
+    print(combined[(abs(combined['delta']) > abs(combined['max_delta']))])
     # combined['delta'] = combined.apply(
     #     lambda r: r['p_round_2'] - r['p_pos']
     #     if r['label_sender_before'] == positive
@@ -254,7 +256,8 @@ def compute_delta_overall(delta_df: pd.DataFrame):
         delta_df.groupby(['model_receiver', 'model_sender', 'match_type'], as_index=False)
         .agg(
             sum_delta=('delta', 'sum'),
-            sum_max_delta=('max_delta', 'sum')
+            sum_max_delta=('max_delta', 'sum'),
+            count=('delta', 'count')
         )
     )
 
@@ -262,7 +265,8 @@ def compute_delta_overall(delta_df: pd.DataFrame):
 
     macro = (
         agg.groupby(['model_receiver', 'model_sender'], as_index=False)
-        .agg(influence = ('influence', 'mean'))
+        .agg(influence = ('influence', 'mean'),
+             count=('count', 'sum'))
     )
     macro['match_type'] = 'all'
 
@@ -275,6 +279,9 @@ def compute_delta_overall(delta_df: pd.DataFrame):
         ignore_index=True
         )
     
+
+    ## Add count to rows. 
+    ## Consider using 1-max_delta for the negative influences. 
     return result 
 
 
@@ -297,13 +304,13 @@ def main(args):
     first = first.merge(discarded_pairs, on=['model', 'id'], how='left')
     first = first[first['_discard'].isna()].drop(columns='_discard')
 
-    prs = compute_overall_positive_rate(first, conf=ds_config)
-    print(prs)
+    # prs = compute_overall_positive_rate(first, conf=ds_config)
+    # print(prs)
 
-    grouped_first = get_grouped_df(first, ds_config)
-    print(f'Macro-average positive rate: {grouped_first.groupby('model')['positive_rate'].mean()}')
+    # grouped_first = get_grouped_df(first, ds_config)
+    # print(f'Macro-average positive rate: {grouped_first.groupby('model')['positive_rate'].mean()}')
     
-    plot_label_claim_distribution(grouped_df=grouped_first)
+    # plot_label_claim_distribution(grouped_df=grouped_first)
 
     second = load_all_as_dataframe(load_second_round_results(base, model_names, ds_config.dataset))
 
