@@ -329,14 +329,15 @@ def main(args):
 
     # Overall excluding any negative cases
     delta_pos = deltas_df[deltas_df['delta'] >= 0]
+    delta_pos.to_csv(f'positive_deltas_{ds_config.dataset}.csv')
     delta_overall_pos = compute_delta_overall(delta_df=delta_pos)
-    delta_overall_pos.to_csv(f'positive_deltas_{ds_config.dataset}.csv')
     print('Delta overall, only positive deltas')
     print(delta_overall_pos)
 
     # Average of the negative cases
     delta_neg = deltas_df[deltas_df['delta'] < 0]
     delta_overall_neg = compute_delta_overall(delta_df=delta_neg)
+    delta_overall_neg.to_csv(f'negative_deltas_overall_{ds_config.dataset}.csv')
     print('Delta overall, only negative deltas')
     print(delta_overall_neg)
 
