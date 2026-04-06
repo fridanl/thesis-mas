@@ -12,12 +12,13 @@ echo "Host: $(hostname)"
 set -euo pipefail
 
 export PYTHONPATH=/home/fril/thesis-mas${PYTHONPATH:+:$PYTHONPATH}
+
 uv run src/results.py --dataset sarcasm
+uv run src/results.py --dataset commonsense
+
+
 #uv run check.py
-
 #uv run results.py --dataset sarcasm
-
 #uv run src/first_round_results.py
 #uv run check.py --dataset sarcasm
-
 #uv run results_.py --dataset sarcasm

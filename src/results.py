@@ -3,6 +3,7 @@ import math
 from pathlib import Path
 import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
 import seaborn as sns
 import yaml
 from utils.prompt_registry import DATASETS, DatasetTaskSpec
@@ -33,16 +34,39 @@ def load_first_round_results(base: Path, models: list, dataset: str, failed: boo
 
     return results 
 
-def compute_overall_positive_rate(df: pd.DataFrame, conf: DatasetTaskSpec) -> float:
+def load_second_round_results(base: Path, models: list, dataset: str) -> dict[str, pd.DataFrame]:
+    '''
+    Load all model results for a dataset for second round.
+    '''
+
+    results = {}
+    for model in models:
+        path = base / 'second' / f'{model}-{dataset}.csv'
+        if path.exists():
+            results[model] = pd.read_csv(path)
+    
+    return results
+
+
+def load_all_as_dataframe(df_dict: dict[str, pd.DataFrame]) -> pd.DataFrame:
+    """Load all first round results and tag with model column."""
+    dfs = []
+    for model, df in df_dict.items():
+        print(f'looking at model {model}')
+        dfs.append(df)
+    
+    #DEBUG: 
+    print(f'number of dataframes: {len(dfs)}')
+    return pd.concat(dfs, ignore_index=True)
+
+def compute_overall_positive_rate(df: pd.DataFrame, conf: DatasetTaskSpec) -> dict:
     """
     Function to compute the overall prediction distribution.
     Takes a single df for a single model. 
     I.e. with this we mean over all rows, NOT on a claim level.
     """
 
-    positive_count = (df['label'] == conf.positive_label).sum()
-
-    return positive_count / df.shape[0]
+    return df.groupby('model')['label'].apply(lambda x: (x == conf.positive_label).sum() / len(x)).to_dict()
 
 def get_discarded_claims(dataset: str, base: Path) -> pd.DataFrame:
     """
@@ -52,85 +76,6 @@ def get_discarded_claims(dataset: str, base: Path) -> pd.DataFrame:
     discarded_path = base / 'input_round2' / dataset / 'discarded.csv'
 
     return pd.read_csv(discarded_path)
-
-
-
-# def check_results(combined, *, dataset_name, n_repetitions):
-#     """Function to check if the output in files (valid and failed) correspond to expected number."""
-#     datasets = {"sarcasm": "data/sarc/sarcasm.csv"}
-
-#     if dataset_name not in datasets:
-#         raise ValueError(f"Unknown dataset: {dataset_name}")
-
-#     path_data = Path(datasets[dataset_name])
-#     data = pd.read_csv(path_data, low_memory=False)
-
-#     n_claims = data.shape[0]
-#     expected_output_size = n_claims * n_repetitions
-
-#     print(f"[DATASET]: {dataset_name}")
-#     print(f"[CLAIMS IN DATASET]: {n_claims}")
-#     print(f"[REPETITIONS PER CLAIM]: {n_repetitions}")
-#     print(f"[EXPECTED ROWS PER MODEL]: {expected_output_size}")
-
-#     print(f"\n {'-' * 8} PER MODEL CHECK {'-' * 8}")
-#     print(f"[SIZE OF OUTPUT PER MODEL, GROUPED BY VALID, FAILED]:")
-#     output_sizes = (
-#         combined.groupby(["model", "valid_json"])
-#         .agg(output_size=("id", "size"))
-#         .reset_index()
-#     )
-#     print(output_sizes)
-
-#     grouped = (
-#         combined.groupby(["model", "id"])
-#         .agg(
-#             total_outputs=("id", "size"),
-#             valid_outputs=("valid_json", lambda x: (x == True).sum()),
-#             invalid=("valid_json", lambda x: (x == False).sum()),
-#             unique_reps=("repetition", "nunique"),
-#         )
-#         .reset_index()
-#     )
-
-#     # Complete and incomplete outputs in terms of number of valid + number of invalid
-#     grouped["complete_output"] = grouped["total_outputs"] == n_repetitions
-#     grouped["incomplete_output"] = grouped["total_outputs"] < n_repetitions
-
-#     summary = (
-#         grouped.groupby("model")
-#         .agg(
-#             claims_total=("id", "count"),
-#             complete_claims=("complete_output", "sum"),
-#             incomplete_claims=("incomplete_output", "sum"),
-#         )
-#         .reset_index()
-#     )
-
-#     print(f"\n {'-' * 8} PER MODEL CLAIM COMPLETION SUMMARY: {'-' * 8}")
-#     print(summary)
-#     print("-" * 16)
-
-#     incomplete = grouped[grouped["incomplete_output"] == 1]
-#     if not incomplete.empty:
-#         print(f"\nINCOMPLETE (model, claim)")
-#         print(
-#             incomplete.groupby("model")
-#             .agg(incomplete_counts=("id", "count"))
-#             .reset_index()
-#         )
-#     else:
-#         print(f"\nNO INCOMPLETE PAIRS FOR ALL MODELS")
-
-#     failed = grouped[grouped["invalid"] > 0]
-#     if not failed.empty:
-#         print(f"\nFAILED (model, claim)")
-#         print(
-#             failed.groupby("model").agg(failed_counts=("invalid", "sum")).reset_index()
-#         )
-#         # print(failed)
-#     else:
-#         print(f"\nNO FAILED (model, claim) PAIRS")
 
 
 def discarded_claims_to_latex(df: pd.DataFrame) -> str:
@@ -162,11 +107,11 @@ def discarded_claims_to_latex(df: pd.DataFrame) -> str:
 
     return latex
 
-def plot_label_claim_distribution(grouped_dfs: dict[str, pd.DataFrame]):
+def plot_label_claim_distribution(grouped_df: pd.DataFrame):
     """
     Plotting the positive rate distribution of results in round 1.
     """
-    models = list(grouped_dfs.keys())
+    models = grouped_df['model'].unique()
     n_models = len(models)
     ncols = 2
     nrows = math.ceil(n_models / ncols)
@@ -176,11 +121,11 @@ def plot_label_claim_distribution(grouped_dfs: dict[str, pd.DataFrame]):
     x_ticks = [round(x * 0.1, 1) for x in range(11)]
 
     for i, (model_name, ax) in enumerate(zip(models, axs_flat)):
-        model_res = grouped_dfs[model_name]
+        model_res = grouped_df[grouped_df['model'] == model_name]
 
         counts_perc = model_res['positive_rate'].value_counts(normalize=True).reindex(x_ticks, fill_value=0)*100
 
-        print('Model: {model_name}')
+        print(f'Model: {model_name}')
         print(counts_perc)
 
         sns.barplot(x = counts_perc.index,
@@ -221,8 +166,7 @@ def plot_label_claim_distribution(grouped_dfs: dict[str, pd.DataFrame]):
 def get_grouped_df(df: pd.DataFrame, conf: DatasetTaskSpec):
     '''
     Computes the positive rate on a claim-level.
-    df:
-        df: For specific model.
+    df
     '''
 
     grouped = (df.groupby(['model', 'id'])['label']
@@ -231,6 +175,107 @@ def get_grouped_df(df: pd.DataFrame, conf: DatasetTaskSpec):
                .rename(columns={'label': 'positive_rate'}))
     
     return grouped
+
+
+def get_delta_df(first_df: pd.DataFrame, second_df: pd.DataFrame, conf: DatasetTaskSpec) -> pd.DataFrame:
+    '''
+    Computes the delta dataframe, based on first and second round results. 
+    '''
+    positive = conf.positive_label
+    negative = conf.negative_label
+
+
+    first_grouped = (
+        first_df
+        .groupby(['model', 'id'])
+        .apply(lambda x: pd.Series({
+            "p_pos": (x['label'] == positive).mean(),
+            "p_neg": (x['label'] == negative).mean(),
+        }))
+        .reset_index()
+    )
+    second_df['flip'] = (second_df['label_receiver_now'] == second_df['label_sender_before'])
+
+    second_grouped = (
+        second_df
+        .groupby(['model_receiver', 'model_sender', 'label_receiver_before', 'label_sender_before', 'id', 'match_type'])['flip'].mean()
+        .reset_index(name = 'p_round_2')
+    )
+
+    combined = second_grouped.merge(
+        first_grouped,
+        left_on=['model_receiver', 'id'],
+        right_on=['model', 'id'],
+        how='left'
+    )
+
+
+    influenced_towards_pos = combined['label_sender_before'] == positive
+
+    combined['delta'] = (
+        combined['p_round_2'] - combined['p_pos']
+    ).where(influenced_towards_pos, combined['p_round_2'] - combined['p_neg'])
+
+
+    combined['max_delta'] = (
+        1 - combined['p_pos']
+    ).where(influenced_towards_pos, 1-combined['p_neg'])
+
+    # combined['delta'] = combined.apply(
+    #     lambda r: r['p_round_2'] - r['p_pos']
+    #     if r['label_sender_before'] == positive
+    #     else r['p_round_2'] - r['p_neg'],
+    #     axis=1
+    # )    
+    # combined['max_delta'] = combined.apply(
+    #     lambda r: 1 - r['p_pos']
+    #     if r['label_sender_before'] == positive
+    #     else 1 - r['p_neg'],
+    #     axis=1
+    # )
+    # Grouping all the B:B cases that have more than one row for receiver, sender, id
+    # result = (
+    #     combined
+    #     .groupby(['model_receiver', 'model_sender', 'id'])
+    #     .agg(
+    #         delta_total = ('delta', 'sum'),
+    #         max_delta_total = ('max_delta', 'sum')
+    #     )
+    #     .reset_index()
+    # )
+
+    return combined
+
+
+def compute_delta_overall(delta_df: pd.DataFrame):
+
+    # First we group by model_receiver, model_sender, match type, sum(delta)/sum(max_delta)
+    agg = (
+        delta_df.groupby(['model_receiver', 'model_sender', 'match_type'], as_index=False)
+        .agg(
+            sum_delta=('delta', 'sum'),
+            sum_max_delta=('max_delta', 'sum')
+        )
+    )
+
+    agg['influence'] = agg['sum_delta'] / agg['sum_max_delta'].replace(0, pd.NA)
+
+    macro = (
+        agg.groupby(['model_receiver', 'model_sender'], as_index=False)
+        .agg(influence = ('influence', 'mean'))
+    )
+    macro['match_type'] = 'all'
+
+    columns = ['model_receiver', 'model_sender', 'match_type', 'influence']
+
+    result = pd.concat([
+        agg[columns],
+        macro[columns],
+        ],
+        ignore_index=True
+        )
+    
+    return result 
 
 
 def main(args):
@@ -242,26 +287,51 @@ def main(args):
     ds_config = DATASETS[args.dataset]
 
     first_d = load_first_round_results(base, model_names, ds_config.dataset, failed=False)
+    first = load_all_as_dataframe(first_d)
     discarded_claims = get_discarded_claims(ds_config.dataset, base)
 
-    grouped_d = {}
+    discarded_pairs = discarded_claims[['model', 'id']].drop_duplicates()
+    discarded_pairs['_discard'] = True
 
-    for model in model_names:
-        print(f'LOOKING AT MODEL: {model}')
-        first_raw = first_d[model]
-        discarded = discarded_claims[discarded_claims['model'] == model]['id'].to_list()
-        first = first_raw[~first_raw['id'].isin(discarded)]
-        print(f'Dropped {first_raw.shape[0]-first.shape[0]} rows, due to at least one failed attempt for claim.')
-        pr = compute_overall_positive_rate(first, conf=ds_config)
-        print(f'Overall positive rate: {pr}')
-        grouped = get_grouped_df(first, ds_config)
-        print(f'Macro-average positive rate: {grouped['positive_rate'].mean()}')
+    # Removing discarded claims for given model
+    first = first.merge(discarded_pairs, on=['model', 'id'], how='left')
+    first = first[first['_discard'].isna()].drop(columns='_discard')
 
-        grouped_d[model] = grouped
+    prs = compute_overall_positive_rate(first, conf=ds_config)
+    print(prs)
 
-    # print(discarded_claims_to_latex(discarded_claims))    
-    plot_label_claim_distribution(grouped_dfs=grouped_d)
+    grouped_first = get_grouped_df(first, ds_config)
+    print(f'Macro-average positive rate: {grouped_first.groupby('model')['positive_rate'].mean()}')
+    
+    plot_label_claim_distribution(grouped_df=grouped_first)
 
+    second = load_all_as_dataframe(load_second_round_results(base, model_names, ds_config.dataset))
+
+    second_disagreeing = second[~second['match_type'].isin(['1:1', '0:0'])]
+
+    # first = pd.read_csv('src/test-first-gemma.csv')
+    # second_disagreeing = pd.read_csv('src/test-second-gemma.csv')
+
+    deltas_df = get_delta_df(first, second_disagreeing, ds_config)
+
+
+    # Overall average of delta (denominator is the sum of max_delta.)
+    delta_overall = compute_delta_overall(delta_df=deltas_df)
+    print('Delta overall, all deltas, no filter')
+    print(delta_overall)
+
+    # Overall excluding any negative cases
+
+    delta_pos = deltas_df[deltas_df['delta'] >= 0]
+    delta_overall_pos = compute_delta_overall(delta_df=delta_pos)
+    print('Delta overall, only positive deltas')
+    print(delta_overall_pos)
+
+    # Average of the negative cases
+    delta_neg = deltas_df[deltas_df['delta'] < 0]
+    delta_overall_neg = compute_delta_overall(delta_df=delta_neg)
+    print('Delta overall, only negative deltas')
+    print(delta_overall_neg)
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
