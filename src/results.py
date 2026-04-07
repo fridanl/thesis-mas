@@ -184,7 +184,7 @@ def get_delta_df(first_df: pd.DataFrame, second_df: pd.DataFrame, conf: DatasetT
     positive = conf.positive_label
     negative = conf.negative_label
 
-
+    # Group baseline outputs by model, (claim) id, and compute probability positive and negative label
     first_grouped = (
         first_df
         .groupby(['model', 'id'])
@@ -194,14 +194,18 @@ def get_delta_df(first_df: pd.DataFrame, second_df: pd.DataFrame, conf: DatasetT
         }))
         .reset_index()
     )
+
+    # Create flag 'flip', to keep track whether the receiver changed its label to the label the sender proposed. 
     second_df['flip'] = (second_df['label_receiver_now'] == second_df['label_sender_before'])
 
+    # Group by such that we get all cases and the p(label proposed by sender) over the 10 repetitions. 
     second_grouped = (
         second_df
         .groupby(['model_receiver', 'model_sender', 'label_receiver_before', 'label_sender_before', 'id', 'match_type'])['flip'].mean()
         .reset_index(name = 'p_round_2')
     )
 
+    # Left join baseline probabilities. 
     combined = second_grouped.merge(
         first_grouped,
         left_on=['model_receiver', 'id'],
@@ -209,79 +213,31 @@ def get_delta_df(first_df: pd.DataFrame, second_df: pd.DataFrame, conf: DatasetT
         how='left'
     )
 
-
+    # Flag direction of influence
     influenced_towards_pos = combined['label_sender_before'] == positive
 
+    # Delta = interaction(label_sender) -  baseline p(label_sender)
     combined['delta'] = (
         combined['p_round_2'] - combined['p_pos']
     ).where(influenced_towards_pos, combined['p_round_2'] - combined['p_neg'])
 
-
+    # max delta: The maximum a receiver can be influenced towards the proposed label, relative to baseline, i.e. reinforcing stance on proposed label. 
     combined['max_delta'] = (
         1 - combined['p_pos']
     ).where(influenced_towards_pos, 1-combined['p_neg'])
 
+    # max_delta_neg = The maximum a receiver can be influenced/move away from the proposed label, relative to baseline, i.e. reinforcing stance on starting label. 
+    combined['max_delta_neg'] = 1 - combined['max_delta']
 
-    # combined['delta'] = combined.apply(
-    #     lambda r: r['p_round_2'] - r['p_pos']
-    #     if r['label_sender_before'] == positive
-    #     else r['p_round_2'] - r['p_neg'],
-    #     axis=1
-    # )    
-    # combined['max_delta'] = combined.apply(
-    #     lambda r: 1 - r['p_pos']
-    #     if r['label_sender_before'] == positive
-    #     else 1 - r['p_neg'],
-    #     axis=1
-    # )
-    # Grouping all the B:B cases that have more than one row for receiver, sender, id
-    # result = (
-    #     combined
-    #     .groupby(['model_receiver', 'model_sender', 'id'])
-    #     .agg(
-    #         delta_total = ('delta', 'sum'),
-    #         max_delta_total = ('max_delta', 'sum')
-    #     )
-    #     .reset_index()
-    # )
+    # Delta_clipped_neg: We clip any negative delta values to be 0.
+    # We do this such, that we can keep the potential influence (i.e. max_delta) but count the influence as 'not achieved'.
+    combined['delta_positive_only'] = combined['delta'].clip(lower = 0)
+
+    # Delta_clipped_positive: We clip any positive delta values to be 0. 
+    # Same reasoning as negative. 
+    combined['delta_negative_only'] = combined['delta'].clip(upper = 0)
 
     return combined
-
-
-def compute_delta_overall(delta_df: pd.DataFrame):
-
-    # First we group by model_receiver, model_sender, match type, sum(delta)/sum(max_delta)
-    agg = (
-        delta_df.groupby(['model_receiver', 'model_sender', 'match_type'], as_index=False)
-        .agg(
-            sum_delta=('delta', 'sum'),
-            sum_max_delta=('max_delta', 'sum'),
-            count=('delta', 'count')
-        )
-    )
-
-    agg['influence'] = agg['sum_delta'] / agg['sum_max_delta'].replace(0, pd.NA)
-
-    macro = (
-        agg.groupby(['model_receiver', 'model_sender'], as_index=False)
-        .agg(influence = ('influence', 'mean'),
-             count=('count', 'sum'))
-    )
-    macro['match_type'] = 'all'
-
-    columns = ['model_receiver', 'model_sender', 'match_type', 'influence', 'count']
-
-    result = pd.concat([
-        agg[columns],
-        macro[columns],
-        ],
-        ignore_index=True
-        )
-    
-
-    ## Add count to rows. 
-    ## Consider using 1-max_delta for the negative influences. 
-    return result 
 
 
 def main(args):
@@ -314,38 +270,11 @@ def main(args):
     second = load_all_as_dataframe(load_second_round_results(base, model_names, ds_config.dataset))
 
     second_disagreeing = second[~second['match_type'].isin(['1:1', '0:0'])]
-
-    # first = pd.read_csv('src/test-first-gemma.csv')
-    # second_disagreeing = pd.read_csv('src/test-second-gemma.csv')
-
-    deltas_df = get_delta_df(first, second_disagreeing, ds_config)
-
-
-    # Overall average of delta (denominator is the sum of max_delta.)
-    # delta_overall = compute_delta_overall(delta_df=deltas_df)
-    # print('Delta overall, all deltas, no filter')
-    # print(delta_overall)
-
-    # Overall excluding any negative cases
-    # delta_pos = deltas_df[deltas_df['delta'] >= 0]
-    # delta_pos.to_csv(f'positive_deltas_{ds_config.dataset}.csv')
-    # delta_overall_pos = compute_delta_overall(delta_df=delta_pos)
-    # print('Delta overall, only positive deltas')
-    # print(delta_overall_pos)
-
-    print('Set all negative deltas to 0')
-    delta_clipped = deltas_df.copy()
-    delta_clipped['delta_pos'] = delta_clipped['delta'].clip(lower=0)
-    delta_clipped['delta_neg'] = delta_clipped['delta'].clip(upper=0)
-    delta_clipped['max_delta_neg'] = 1 - delta_clipped['max_delta']
-    delta_clipped.to_csv(f'deltas{ds_config.dataset}.csv')
     
-    # # Average of the negative cases
-    # delta_neg = deltas_df[deltas_df['delta'] < 0]
-    # delta_overall_neg = compute_delta_overall(delta_df=delta_neg)
-    # delta_overall_neg.to_csv(f'negative_deltas_overall_{ds_config.dataset}.csv')
-    # print('Delta overall, only negative deltas')
-    # print(delta_overall_neg)
+    # For disagreeing cases
+    deltas_df = get_delta_df(first, second_disagreeing, ds_config)
+    deltas_df.to_csv(f'deltas_{ds_config.dataset}.csv', index=False)
+
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
