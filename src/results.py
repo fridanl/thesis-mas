@@ -334,6 +334,11 @@ def main(args):
     print('Delta overall, only positive deltas')
     print(delta_overall_pos)
 
+    print('Set all negative deltas to 0')
+    delta_clipped = deltas_df.copy()
+    delta_clipped['delta_clipped'] = delta_clipped['delta'].clip(lower=0)
+    delta_clipped.to_csv(f'delta_clipped_{ds_config.dataset}.csv')
+
     # Average of the negative cases
     delta_neg = deltas_df[deltas_df['delta'] < 0]
     delta_overall_neg = compute_delta_overall(delta_df=delta_neg)
