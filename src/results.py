@@ -221,8 +221,7 @@ def get_delta_df(first_df: pd.DataFrame, second_df: pd.DataFrame, conf: DatasetT
         1 - combined['p_pos']
     ).where(influenced_towards_pos, 1-combined['p_neg'])
 
-    print('True')
-    print(combined[(abs(combined['delta']) > abs(combined['max_delta']))])
+
     # combined['delta'] = combined.apply(
     #     lambda r: r['p_round_2'] - r['p_pos']
     #     if r['label_sender_before'] == positive
@@ -323,28 +322,30 @@ def main(args):
 
 
     # Overall average of delta (denominator is the sum of max_delta.)
-    delta_overall = compute_delta_overall(delta_df=deltas_df)
-    print('Delta overall, all deltas, no filter')
-    print(delta_overall)
+    # delta_overall = compute_delta_overall(delta_df=deltas_df)
+    # print('Delta overall, all deltas, no filter')
+    # print(delta_overall)
 
     # Overall excluding any negative cases
-    delta_pos = deltas_df[deltas_df['delta'] >= 0]
-    delta_pos.to_csv(f'positive_deltas_{ds_config.dataset}.csv')
-    delta_overall_pos = compute_delta_overall(delta_df=delta_pos)
-    print('Delta overall, only positive deltas')
-    print(delta_overall_pos)
+    # delta_pos = deltas_df[deltas_df['delta'] >= 0]
+    # delta_pos.to_csv(f'positive_deltas_{ds_config.dataset}.csv')
+    # delta_overall_pos = compute_delta_overall(delta_df=delta_pos)
+    # print('Delta overall, only positive deltas')
+    # print(delta_overall_pos)
 
     print('Set all negative deltas to 0')
     delta_clipped = deltas_df.copy()
-    delta_clipped['delta_clipped'] = delta_clipped['delta'].clip(lower=0)
-    delta_clipped.to_csv(f'delta_clipped_{ds_config.dataset}.csv')
-
-    # Average of the negative cases
-    delta_neg = deltas_df[deltas_df['delta'] < 0]
-    delta_overall_neg = compute_delta_overall(delta_df=delta_neg)
-    delta_overall_neg.to_csv(f'negative_deltas_overall_{ds_config.dataset}.csv')
-    print('Delta overall, only negative deltas')
-    print(delta_overall_neg)
+    delta_clipped['delta_pos'] = delta_clipped['delta'].clip(lower=0)
+    delta_clipped['delta_neg'] = delta_clipped['delta'].clip(upper=0)
+    delta_clipped['max_delta_neg'] = 1 - delta_clipped['max_delta']
+    delta_clipped.to_csv(f'deltas{ds_config.dataset}.csv')
+    
+    # # Average of the negative cases
+    # delta_neg = deltas_df[deltas_df['delta'] < 0]
+    # delta_overall_neg = compute_delta_overall(delta_df=delta_neg)
+    # delta_overall_neg.to_csv(f'negative_deltas_overall_{ds_config.dataset}.csv')
+    # print('Delta overall, only negative deltas')
+    # print(delta_overall_neg)
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
