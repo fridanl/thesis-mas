@@ -240,6 +240,10 @@ def get_delta_df(first_df: pd.DataFrame, second_df: pd.DataFrame, conf: DatasetT
     return combined
 
 
+def get_delta_df_agree(first_df: pd.DataFrame, second_df: pd.DataFrame, conf: DatasetTaskSpec):
+    pass
+
+
 def main(args):
     base = Path(args.base_path)
     profiles_root = yaml.safe_load(Path("configs/models.yaml").read_text())
