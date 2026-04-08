@@ -16,4 +16,5 @@ set -euo pipefail
 
 nvidia-smi
 
-uv run -m src.make_second_round_input --dataset commonsense --output_root /home/rp-fril-mhpe/input_round2/commonsense
+#uv run -m src.make_second_round_input --dataset commonsense --output_root /home/rp-fril-mhpe/input_round2/commonsense
+uv run -m src.make_second_round_input --self_interaction True

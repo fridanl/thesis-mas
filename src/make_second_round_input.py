@@ -87,6 +87,8 @@ def generate_agree_rows(sender: str, receiver: str, claim_id: int, sender_data: 
     claim = sender_data['claim']
 
     sender_expls = sender_data["explanations_by_label"][label]
+    if args.self_interaction:
+        random.shuffle(sender_expls)
     receiver_expls = receiver_data["explanations_by_label"][label]
     label_bool = 1 if label == config.positive_label else 0 
 
@@ -186,16 +188,26 @@ def process_all_pairs(model_claim_dict: dict, receiver: str, config: TaskConfig)
     '''
     models = list(model_claim_dict.keys())
 
-    # a fixed set of model pairs that we chose to match up, so we don't get every possible pair
-    # only within family and the large models across family
-    model_pairs = {"llama-3.3-70b": ["llama-3.1-8b", "qwen-2.5-72b", "gemma-3-27b", "gpt-oss-20b"], # matching with big models and family
-                   "llama-3.1-8b": ["llama-3.3-70b"],
-                   "qwen-2.5-72b": ["qwen-2.5-7b", "llama-3.3-70b", "gemma-3-27b", "gpt-oss-20b"], # only matching with same family
-                   "qwen-2.5-7b": ["qwen-2.5-72b"],
-                   "gemma-3-27b": ["gemma-3-4b", "llama-3.3-70b", "qwen-2.5-72b", "gpt-oss-20b"],
-                   "gemma-3-4b": ["gemma-3-27b"],
-                   "gpt-oss-20b": ["llama-3.3-70b", "qwen-2.5-72b", "gemma-3-27b"]}
     
+    if args.self_interaction: # matching the models up with themselves only, when self_interaction is set to True
+        model_pairs = {"llama-3.3-70b": ["llama-3.3-70b"], 
+                    "llama-3.1-8b": ["llama-3.1-8b"],
+                    "qwen-2.5-72b": ["qwen-2.5-72b"],
+                    "qwen-2.5-7b": ["qwen-2.5-7b"],
+                    "gemma-3-27b": ["gemma-3-27b"],
+                    "gemma-3-4b": ["gemma-3-4b"],
+                    "gpt-oss-20b": ["gpt-oss-20b"]}
+    else:
+        # a fixed set of model pairs that we chose to match up, so we don't get every possible pair
+        # only within family and the large models across family
+        model_pairs = {"llama-3.3-70b": ["llama-3.1-8b", "qwen-2.5-72b", "gemma-3-27b", "gpt-oss-20b"], # matching with big models and family
+                    "llama-3.1-8b": ["llama-3.3-70b"],
+                    "qwen-2.5-72b": ["qwen-2.5-7b", "llama-3.3-70b", "gemma-3-27b", "gpt-oss-20b"], # only matching with same family
+                    "qwen-2.5-7b": ["qwen-2.5-72b"],
+                    "gemma-3-27b": ["gemma-3-4b", "llama-3.3-70b", "qwen-2.5-72b", "gpt-oss-20b"],
+                    "gemma-3-4b": ["gemma-3-27b"],
+                    "gpt-oss-20b": ["llama-3.3-70b", "qwen-2.5-72b", "gemma-3-27b"]}
+        
 
     # Dicts for agree and disagree rows sender model
     agree_rows_for_receiver: list[dict] = []
@@ -205,11 +217,10 @@ def process_all_pairs(model_claim_dict: dict, receiver: str, config: TaskConfig)
     receiver_ids = set(model_claim_dict[receiver].keys())
     # Loop over all possible models to match up with. 
     for sender in models:    
-        if sender == receiver:
-            continue # skip matching up with itself 
+        if sender == receiver and not args.self_interaction:
+            continue # skip matching up with itself if self_interaction is false
         if sender not in model_pairs.get(receiver, []):  #making sure we only take the fixed pairs
             continue
-        print(f"currently looking at pair: receiver: {receiver}, sender: {sender}")
         sender_ids = set(model_claim_dict[sender].keys())
         shared_ids = sender_ids & receiver_ids
 
@@ -244,19 +255,13 @@ def process_all_pairs(model_claim_dict: dict, receiver: str, config: TaskConfig)
 
     return df_agree, df_disagree
     
-    # For test-data-r1.csv 
-    # ID 1: Both models agree on claim, so that should be in the agree data. 
-    # ID 2: Both models are consistent but disagree, 10 cases here per model. 
-    # ID 3: Gemma is inconsistent, Llama is consistent, also 10 cases here per model.
-    # ID 4: Llama is inconsistent, gemma is consistent, also 10 cases here per model. 
-    # ID 5: Both models are inconsistent, 20 cases here per model. 
-    
 def main(args):
     profiles_root = yaml.safe_load(Path('configs/models.yaml').read_text())
     profiles = profiles_root.get('profiles', {})
     model_names = list(profiles.keys())
 
     dfs = [] 
+    
     for model_n in model_names:
         path = Path(f'/home/rp-fril-mhpe/{model_n}-{args.dataset}.csv')
         if not path.exists():
@@ -264,31 +269,32 @@ def main(args):
             continue
         df = pd.read_csv(path, low_memory=False)
         dfs.append(df)
-            
+        
     combined = pd.concat(dfs, ignore_index=True) if dfs else pd.DataFrame()
-    
-    #combined = pd.read_csv('test-data2.csv')           test data
-    
+
     dataset_spec = DATASETS[args.dataset]
     t_config = TaskConfig(
         positive_label=dataset_spec.positive_label,
         negative_label=dataset_spec.negative_label
     )
     random.seed(t_config.random_seed)
+
     outdir = args.output_root 
     model_claim_dict, discard = load_and_preprocess(combined, t_config)
-    print(outdir)
-    discard.to_csv(f'{args.dataset}/{outdir}/discarded.csv', index=False)    
-    
-    
+    discard.to_csv(f'{args.dataset}/{outdir}/discarded.csv', index=False)                                  
+
+    print(f'Saving the discarded claims to {args.dataset}/{outdir}/discarded.csv')  
+
     for receiver in model_names:
         if receiver not in model_claim_dict.keys():
             continue
         agree, disagree = process_all_pairs(model_claim_dict=model_claim_dict, receiver=receiver, config=t_config)
-
-        agree.to_csv(f'{args.dataset}/{outdir}/{receiver}_agree.csv', index=False)
-        disagree.to_csv(f'{args.dataset}/{outdir}/{receiver}_disagree.csv', index=False)
-
+    if not args.self_interaction:
+        agree.to_csv(f'{outdir}/{args.dataset}/{receiver}_agree.csv', index=False)                          
+        disagree.to_csv(f'{outdir}/{args.dataset}/{receiver}_disagree.csv', index=False)                    
+    else:
+        both = pd.concat([agree, disagree]) # concat agree and disagree
+        both.to_csv("{outdir}/{args.dataset}/{receiver}-self-interaction.csv", index=False)
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
@@ -298,5 +304,8 @@ if __name__ == "__main__":
     ap.add_argument('--output_root',
                     help='Path of root to save files',
                     default="/home/rp-fril-mhpe/input_round2")
+    ap.add_argument('--self_interaction',
+                    help='If set to true, a dataset for self interaction is created from B:B instances',
+                    default=False)
     args = ap.parse_args()
     main(args)
