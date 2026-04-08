@@ -86,10 +86,13 @@ def generate_agree_rows(sender: str, receiver: str, claim_id: int, sender_data: 
     label = sender_data["consistent_label"]
     claim = sender_data['claim']
 
-    sender_expls = sender_data["explanations_by_label"][label]
+    sender_expls = sender_data["explanations_by_label"][label].copy()
+    receiver_expls = receiver_data["explanations_by_label"][label].copy()
+    
     if args.self_interaction:
         random.shuffle(sender_expls)
-    receiver_expls = receiver_data["explanations_by_label"][label]
+        random.shuffle(receiver_expls)
+
     label_bool = 1 if label == config.positive_label else 0 
 
     for i in range(config.n_repetitions):
