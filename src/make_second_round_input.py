@@ -283,19 +283,19 @@ def main(args):
     model_claim_dict, discard = load_and_preprocess(combined, t_config)
     if not args.self_interaction:
         discard.to_csv(f'{outdir}/{args.dataset}/discarded.csv', index=False)                                  
-
-    print(f'Saving the discarded claims to {outdir}/{args.dataset}/discarded.csv')  
+        print(f'Saving the discarded claims to {outdir}/{args.dataset}/discarded.csv')  
 
     for receiver in model_names:
         if receiver not in model_claim_dict.keys():
             continue
         agree, disagree = process_all_pairs(model_claim_dict=model_claim_dict, receiver=receiver, config=t_config)
-    if not args.self_interaction:
-        agree.to_csv(f'{outdir}/{args.dataset}/{receiver}_agree.csv', index=False)                          
-        disagree.to_csv(f'{outdir}/{args.dataset}/{receiver}_disagree.csv', index=False)                    
-    else:
-        both = pd.concat([agree, disagree]) # concat agree and disagree
-        both.to_csv("{outdir}/{args.dataset}/{receiver}-self-interaction.csv", index=False)
+        
+        if not args.self_interaction:
+            agree.to_csv(f'{outdir}/{args.dataset}/{receiver}_agree.csv', index=False)                          
+            disagree.to_csv(f'{outdir}/{args.dataset}/{receiver}_disagree.csv', index=False)                    
+        else:
+            both = pd.concat([agree, disagree]) # concat agree and disagree
+            both.to_csv(f"{outdir}/{args.dataset}/{receiver}-self-interaction.csv", index=False)
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
@@ -307,6 +307,6 @@ if __name__ == "__main__":
                     default="/home/rp-fril-mhpe/input_round2")
     ap.add_argument('--self_interaction',
                     help='If set to true, a dataset for self interaction is created from B:B instances',
-                    default=False)
+                    action='store_true')
     args = ap.parse_args()
     main(args)

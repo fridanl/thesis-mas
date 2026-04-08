@@ -1,0 +1,41 @@
+id,claim,model,repetition,label,explanation,valid_json
+28,At first I thought he jammed it by inserting his finger into the trigger guard behind the finger.,gemma-3-27b,0,sarcastic,"The claim describes an absurd and physically improbable method of jamming a firearm, suggesting disbelief or mockery.",True
+28,At first I thought he jammed it by inserting his finger into the trigger guard behind the finger.,gemma-3-27b,1,sarcastic,"The claim describes an improbable and humorous scenario, suggesting the speaker is being facetious about how the item was jammed.",True
+28,At first I thought he jammed it by inserting his finger into the trigger guard behind the finger.,gemma-3-27b,2,sarcastic,"The claim describes an implausible and humorous method of jamming a firearm, indicating sarcasm rather than a genuine account.",True
+28,At first I thought he jammed it by inserting his finger into the trigger guard behind the finger.,gemma-3-27b,3,sarcastic,"The claim describes an improbable and humorous scenario regarding firearm operation, indicating sarcasm rather than a literal account.",True
+28,At first I thought he jammed it by inserting his finger into the trigger guard behind the finger.,gemma-3-27b,4,sarcastic,"The claim details an absurdly dangerous and unlikely method of jamming a firearm, suggesting disbelief or mockery of the situation.",True
+28,At first I thought he jammed it by inserting his finger into the trigger guard behind the finger.,gemma-3-27b,5,sarcastic,"The phrasing is overly specific and technical for a simple mistake, implying disbelief or mockery of the initial assessment.",True
+28,At first I thought he jammed it by inserting his finger into the trigger guard behind the finger.,gemma-3-27b,6,sarcastic,"The claim describes an absurd and improbable method of jamming a firearm, strongly implying the speaker is being sarcastic.",True
+28,At first I thought he jammed it by inserting his finger into the trigger guard behind the finger.,gemma-3-27b,7,sarcastic,"The claim describes an implausible and humorous scenario regarding firearm operation, suggesting the speaker is being facetious.",True
+28,At first I thought he jammed it by inserting his finger into the trigger guard behind the finger.,gemma-3-27b,8,sarcastic,"The phrasing is overly specific and absurd, suggesting disbelief or mockery of a flawed explanation for a gun malfunction.",True
+28,At first I thought he jammed it by inserting his finger into the trigger guard behind the finger.,gemma-3-27b,9,sarcastic,"The phrasing implies disbelief regarding the explanation of how the item was jammed. It's an absurdly specific, unlikely scenario.",True
+138,The Browns don't know shit when it comes to QB's.,gemma-3-27b,0,sarcastic,"The strong language and generalization suggest frustration and sarcasm, implying the Browns consistently make poor QB choices.",True
+138,The Browns don't know shit when it comes to QB's.,gemma-3-27b,1,sarcastic,"The claim uses harsh language and generalization, implying frustration with the Browns' QB choices rather than a literal assessment.",True
+138,The Browns don't know shit when it comes to QB's.,gemma-3-27b,2,literal,"The harsh language and generalization about an entire team's QB evaluation suggest sarcasm, not a literal assessment.",True
+138,The Browns don't know shit when it comes to QB's.,gemma-3-27b,3,literal,"The hyperbolic and aggressive language suggests the speaker is frustrated with the Browns' QB choices, likely sarcastically.",True
+138,The Browns don't know shit when it comes to QB's.,gemma-3-27b,4,sarcastic,"The claim uses harsh language and generalization about the Browns' QB evaluations, indicating frustration and likely sarcastic intent.",True
+138,The Browns don't know shit when it comes to QB's.,gemma-3-27b,5,sarcastic,The harsh language and generalization about an entire team's QB evaluation suggest strong disapproval expressed through sarcasm.,True
+138,The Browns don't know shit when it comes to QB's.,gemma-3-27b,6,sarcastic,"The phrasing is harsh and hyperbolic, indicating strong disapproval and likely not a literal assessment of their QB knowledge.",True
+138,The Browns don't know shit when it comes to QB's.,gemma-3-27b,7,sarcastic,The claim is hyperbolic and uses strong language. It's unlikely someone genuinely believes the Browns *completely* lack QB knowledge.,True
+138,The Browns don't know shit when it comes to QB's.,gemma-3-27b,8,sarcastic,"The statement is hyperbolic and uses harsh language, indicating frustration with the Browns' QB choices, likely presented with sarcasm.",True
+138,The Browns don't know shit when it comes to QB's.,gemma-3-27b,9,sarcastic,"The strong language and broad generalization suggest hyperbole, indicating sarcasm rather than a literal assessment of the team's QB choices.",True
+43,Mario didn't play as many games,gemma-3-27b,0,literal,"Referring to Mario's extensive gaming history, the statement is clearly sarcastic, implying he played *many* games.",True
+43,Mario didn't play as many games,gemma-3-27b,1,literal,"Referring to Mario, a video game icon, not playing 'many games' is ironic and implies he plays a lot.",True
+43,Mario didn't play as many games,gemma-3-27b,2,literal,"Referring to Mario’s prolific gaming presence, stating he didn't play *many* games is clearly ironic and sarcastic.",True
+43,Mario didn't play as many games,gemma-3-27b,3,sarcastic,Mario is a prolific video game character. Claiming he didn't play many games is obviously false and thus sarcastic.,True
+43,Mario didn't play as many games,gemma-3-27b,4,sarcastic,"Referring to Mario, a famous video game character, not playing *many* games is clearly ironic and sarcastic.",True
+43,Mario didn't play as many games,gemma-3-27b,5,sarcastic,"Mario is a prolific video game character. The claim implies he played very *many* games, stated negatively.",True
+43,Mario didn't play as many games,gemma-3-27b,6,sarcastic,"Mario is a prolific video game character. The claim implies excessive gameplay, ironically stated as a lack of it.",True
+43,Mario didn't play as many games,gemma-3-27b,7,sarcastic,"Referring to Mario, a video game character, not playing ""many games"" is ironic given his prolific gaming presence.",True
+43,Mario didn't play as many games,gemma-3-27b,8,sarcastic,"Mario is a prolific video game character. The claim implies he rarely plays games, a humorous understatement.",True
+43,Mario didn't play as many games,gemma-3-27b,9,sarcastic,"Referring to Mario, a video game icon, not playing *many* games is ironic and implies he plays a lot.",True
+52,Mario didn't play as many games,gemma-3-27b,0,sarcastic,"Referring to Mario's extensive gaming history, the statement is clearly sarcastic, implying he played *many* games.",True
+52,Mario didn't play as many games,gemma-3-27b,1,sarcastic,"Referring to Mario, a video game icon, not playing 'many games' is ironic and implies he plays a lot.",True
+52,Mario didn't play as many games,gemma-3-27b,2,sarcastic,"Referring to Mario’s prolific gaming presence, stating he didn't play *many* games is clearly ironic and sarcastic.",True
+52,Mario didn't play as many games,gemma-3-27b,3,sarcastic,Mario is a prolific video game character. Claiming he didn't play many games is obviously false and thus sarcastic.,True
+52,Mario didn't play as many games,gemma-3-27b,4,sarcastic,"Referring to Mario, a famous video game character, not playing *many* games is clearly ironic and sarcastic.",True
+52,Mario didn't play as many games,gemma-3-27b,5,sarcastic,"Mario is a prolific video game character. The claim implies he played very *many* games, stated negatively.",True
+52,Mario didn't play as many games,gemma-3-27b,6,sarcastic,"Mario is a prolific video game character. The claim implies excessive gameplay, ironically stated as a lack of it.",True
+52,Mario didn't play as many games,gemma-3-27b,7,sarcastic,"Referring to Mario, a video game character, not playing ""many games"" is ironic given his prolific gaming presence.",True
+52,Mario didn't play as many games,gemma-3-27b,8,sarcastic,"Mario is a prolific video game character. The claim implies he rarely plays games, a humorous understatement.",True
+52,Mario didn't play as many games,gemma-3-27b,9,sarcastic,"Referring to Mario, a video game icon, not playing *many* games is ironic and implies he plays a lot.",True
