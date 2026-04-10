@@ -263,6 +263,10 @@ def main(args):
     first = first.merge(discarded_pairs, on=['model', 'id'], how='left')
     first = first[first['_discard'].isna()].drop(columns='_discard')
 
+    first_grouped = first.groupby(['model', 'id']).size().reset_index(name='count')
+
+    print(first_grouped[first_grouped['count'] != 10])
+
     # prs = compute_overall_positive_rate(first, conf=ds_config)
     # print(prs)
 
@@ -273,6 +277,13 @@ def main(args):
 
     second = load_all_as_dataframe(load_second_round_results(base, model_names, ds_config.dataset))
 
+    second_grouped = second.groupby(['model_receiver', 'model_sender', 'label_receiver_before', 'label_sender_before', 'id', 'match_type']).size().reset_index(name='count')
+    print(second_grouped[second_grouped['count'] != 10])
+
+    print(first_grouped['count'].value_counts())
+    print(second_grouped['count'].value_counts())
+
+    return 
     second_disagreeing = second[~second['match_type'].isin(['1:1', '0:0'])]
     
     # For disagreeing cases
