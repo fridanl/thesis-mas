@@ -262,25 +262,25 @@ def main(args):
 
     ds_config = DATASETS[args.dataset]
 
-    first_d = load_first_round_results(base, model_names, ds_config.dataset, failed=False)
-    first = load_all_as_dataframe(first_d)
-    discarded_claims = get_discarded_claims(ds_config.dataset, base)
+    # first_d = load_first_round_results(base, model_names, ds_config.dataset, failed=False)
+    # first = load_all_as_dataframe(first_d)
+    # discarded_claims = get_discarded_claims(ds_config.dataset, base)
 
-    discarded_pairs = discarded_claims[['model', 'id']].drop_duplicates()
-    discarded_pairs['_discard'] = True
+    # discarded_pairs = discarded_claims[['model', 'id']].drop_duplicates()
+    # discarded_pairs['_discard'] = True
 
-    # Removing discarded claims for given model
-    first = first.merge(discarded_pairs, on=['model', 'id'], how='left')
-    first = first[first['_discard'].isna()].drop(columns='_discard')
+    # # Removing discarded claims for given model
+    # first = first.merge(discarded_pairs, on=['model', 'id'], how='left')
+    # first = first[first['_discard'].isna()].drop(columns='_discard')
 
-    first_grouped = first.groupby(['model', 'id']).size().reset_index(name='count')
+    # first_grouped = first.groupby(['model', 'id']).size().reset_index(name='count')
 
-    invalid = first_grouped[first_grouped['count'] != 10]
-    if not invalid.empty:
-        print(f"WARNING: {len(invalid)} IDs with unexpected counts:\n{invalid}")
+    # invalid = first_grouped[first_grouped['count'] != 10]
+    # if not invalid.empty:
+    #     print(f"WARNING: {len(invalid)} IDs with unexpected counts:\n{invalid}")
 
-    grouped_first = get_grouped_df(first, ds_config)
-    print(summarise_model_rates(grouped_df=grouped_first))
+    # grouped_first = get_grouped_df(first, ds_config)
+    # print(summarise_model_rates(grouped_df=grouped_first))
 
     # Delete later, this is just a check: 
     # for model in model_names: 
@@ -288,17 +288,17 @@ def main(args):
     #     print(f'MODEL: {model}')
     #     print(df['match_type'].value_counts())
 
-    print(f'Macro-average positive rate: {grouped_first.groupby('model')['positive_rate'].mean()}')
-    print('Overall positive rates:')
-    prs = compute_overall_positive_rate(first, conf=ds_config)
-    print(prs)
+    # print(f'Macro-average positive rate: {grouped_first.groupby('model')['positive_rate'].mean()}')
+    # print('Overall positive rates:')
+    # prs = compute_overall_positive_rate(first, conf=ds_config)
+    # print(prs)
 
 
     
     # plot_label_claim_distribution(grouped_df=grouped_first)
     second = load_all_as_dataframe(load_second_round_results(base, model_names, ds_config.dataset))
 
-    second_grouped = second.groupby(['model_receiver', 'model_sender', 'label_receiver_before', 'label_sender_before', 'id', 'match_type']).size().reset_index(name='count')
+    second_grouped = second.groupby(['model_receiver', 'model_sender', 'label_receiver_before', 'label_sender_before', 'match_type']).size().reset_index(name='count')
     
     print(second_grouped[second_grouped['model_receiver'] == 'gemma-3-4b'])
     # print(second_grouped[second_grouped['count'] != 10])
