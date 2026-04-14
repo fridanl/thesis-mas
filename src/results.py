@@ -283,10 +283,10 @@ def main(args):
     print(summarise_model_rates(grouped_df=grouped_first))
 
     # Delete later, this is just a check: 
-    for model in model_names: 
-        df = pd.read_csv(f'/home/rp-fril-mhpe/input_round2/{ds_config.dataset}/{model}-self-interaction.csv')
-        print(f'MODEL: {model}')
-        print(df['match_type'].value_counts())
+    # for model in model_names: 
+    #     df = pd.read_csv(f'/home/rp-fril-mhpe/input_round2/{ds_config.dataset}/{model}-self-interaction.csv')
+    #     print(f'MODEL: {model}')
+    #     print(df['match_type'].value_counts())
 
     print(f'Macro-average positive rate: {grouped_first.groupby('model')['positive_rate'].mean()}')
     print('Overall positive rates:')
@@ -296,15 +296,15 @@ def main(args):
 
     
     # plot_label_claim_distribution(grouped_df=grouped_first)
-
-    return 
     second = load_all_as_dataframe(load_second_round_results(base, model_names, ds_config.dataset))
 
     second_grouped = second.groupby(['model_receiver', 'model_sender', 'label_receiver_before', 'label_sender_before', 'id', 'match_type']).size().reset_index(name='count')
-    print(second_grouped[second_grouped['count'] != 10])
+    
+    print(second_grouped[second_grouped['model_receiver'] == 'gemma-3-4b'])
+    # print(second_grouped[second_grouped['count'] != 10])
 
-    print(first_grouped['count'].value_counts())
-    print(second_grouped['count'].value_counts())
+    # print(first_grouped['count'].value_counts())
+    # print(second_grouped['count'].value_counts())
 
     return 
     second_disagreeing = second[~second['match_type'].isin(['1:1', '0:0'])]
