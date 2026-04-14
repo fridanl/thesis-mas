@@ -1,8 +1,8 @@
 #!/bin/bash
-#SBATCH --job-name=round2-gemma-3-27b-self
+#SBATCH --job-name=round2-gemma-3-27b-self-test
 #SBATCH --account=researchers
 #SBATCH --partition=scavenge
-#SBATCH --gres=gpu:a100_80gb:1
+#SBATCH --gres=gpu:a30:1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=80G
 #SBATCH --time=12:00:00
@@ -27,10 +27,10 @@ uv run run.py \
   --round 2 \
   --batch_size 256 \
   --history \
-  --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sarcasm/gemma-3-4b-self-interaction.csv \
+  --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sarcasm/gemma-3-4b-self-interaction_subsampled.csv \
   --outdir /home/rp-fril-mhpe/tmp/test_run2 \
   --no_logging \
-  --limit 10
+  -limit 10
 
 # We run two times to see if successfully appends to file
 uv run run.py \
@@ -39,10 +39,10 @@ uv run run.py \
   --round 2 \
   --batch_size 256 \
   --history \
-  --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sarcasm/gemma-3-4b-self-interaction.csv \
+  --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sarcasm/gemma-3-4b-self-interaction_subsampled.csv \
   --outdir /home/rp-fril-mhpe/tmp/test_run2 \
   --no_logging \
-  --limit 10
+  -limit 10
 
 # RUNS
 
