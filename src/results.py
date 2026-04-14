@@ -177,6 +177,16 @@ def get_grouped_df(df: pd.DataFrame, conf: DatasetTaskSpec):
     return grouped
 
 
+def summarise_model_rates(grouped_df: pd.DataFrame) -> pd.DataFrame:
+    return (grouped_df.groupby('model')
+            .apply(lambda g: pd.Series({
+                'all_negative': (g['positive_rate'] == 0).sum(),
+                'all_positive': (g['positive_rate'] == 1).sum(),
+                'mixed':        ((g['positive_rate'] > 0) & (g['positive_rate'] < 1)).sum(),
+            }))
+            .reset_index())
+
+
 def get_delta_df(first_df: pd.DataFrame, second_df: pd.DataFrame, conf: DatasetTaskSpec) -> pd.DataFrame:
     '''
     Computes the delta dataframe, based on first and second round results. 
@@ -265,16 +275,29 @@ def main(args):
 
     first_grouped = first.groupby(['model', 'id']).size().reset_index(name='count')
 
-    print(first_grouped[first_grouped['count'] != 10])
+    invalid = first_grouped[first_grouped['count'] != 10]
+    if not invalid.empty:
+        print(f"WARNING: {len(invalid)} IDs with unexpected counts:\n{invalid}")
 
-    # prs = compute_overall_positive_rate(first, conf=ds_config)
-    # print(prs)
+    grouped_first = get_grouped_df(first, ds_config)
+    print(summarise_model_rates(grouped_df=grouped_first))
 
-    # grouped_first = get_grouped_df(first, ds_config)
-    # print(f'Macro-average positive rate: {grouped_first.groupby('model')['positive_rate'].mean()}')
+    # Delete later, this is just a check: 
+    for model in model_names: 
+        df = pd.read_csv(f'/home/rp-fril-mhpe/input_round2/{ds_config.dataset}/{model}-self-interaction.csv')
+        print(f'MODEL: {model}')
+        print(df['match_type'].value_counts())
+
+    print(f'Macro-average positive rate: {grouped_first.groupby('model')['positive_rate'].mean()}')
+    print('Overall positive rates:')
+    prs = compute_overall_positive_rate(first, conf=ds_config)
+    print(prs)
+
+
     
     # plot_label_claim_distribution(grouped_df=grouped_first)
 
+    return 
     second = load_all_as_dataframe(load_second_round_results(base, model_names, ds_config.dataset))
 
     second_grouped = second.groupby(['model_receiver', 'model_sender', 'label_receiver_before', 'label_sender_before', 'id', 'match_type']).size().reset_index(name='count')
