@@ -4,15 +4,6 @@ import argparse
 from pathlib import Path
 from collections import defaultdict
 
-pd.set_option('display.max_rows', None)
-pd.set_option('display.max_columns', None)
-# pd.set_option('display.width', None)
-# pd.set_option('display.max_colwidth', None)
-# vi vælger cap der er ens over modeller
-
-# sørg for at group by id, match_type, sender_model så der bliver subsamplet lige mange for hver model
-
-
 
 def subsample(path, out_path, cap):
     '''
@@ -61,8 +52,9 @@ def main(args):
     output_dir = Path(args.output_dir) / args.dataset
 
     output_dir.mkdir(parents=True, exist_ok=True)
-
-    files = list(input_dir.glob(f'*_{suffix}.csv'))
+    pattern = args.glob_pattern if args.glob_pattern else f'*_{suffix}.csv'
+    files = list(input_dir.glob(pattern))
+    
     print(f'found {len(files)} files')
 
     for i, file in enumerate(files):
@@ -77,6 +69,10 @@ if __name__ == "__main__":
                     type=str,
                     default="disagree",
                     help="suffix of the files to procces (either disagree or agree)")
+    ap.add_argument("--glob_pattern",
+                type=str,
+                default=None,
+                help="Override the default glob pattern for file matching (e.g. '*-self-interaction.csv')")
     ap.add_argument("--cap",
                     type=int,
                     default=7000,
