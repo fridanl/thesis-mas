@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=subsample_disagree
+#SBATCH --job-name=subsample_self_sarcasm
 #SBATCH --account=researchers
 #SBATCH --partition=scavenge
 #SBATCH --cpus-per-task=4
@@ -14,7 +14,7 @@ echo "Host: $(hostname)"
 set -euo pipefail
 
 
-uv run src/make_subsample.py --glob_pattern "*-self-interaction.csv' --cap 7000 --dataset sarcasm
+uv run src/make_subsample.py --glob_pattern *-self-interaction.csv --cap 7000 --dataset sarcasm
 
 #uv run src/first_round_results.py
 

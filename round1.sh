@@ -1,12 +1,11 @@
 #!/bin/bash
-#SBATCH --job-name=sentiment-test
+#SBATCH --job-name=sentiment-llama-3.3-70b
 #SBATCH --account=researchers
 #SBATCH --partition=scavenge
-#SBATCH --gres=gpu:1
+#SBATCH --gres=gpu:h100:1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=80G
-#SBATCH --time=2:00:00
-#SBATCH --constraint="gpu_a100_80gb|gpu_h100|gpu_l40s|gpu_a30"
+#SBATCH --time=24:00:00
 #SBATCH --output=logs/%x.%j.out
 #SBATCH --mail-type=BEGIN,END
 
@@ -53,14 +52,14 @@ SLURM_OUTPUT_FILE="logs/${SLURM_JOB_NAME}.${SLURM_JOB_ID}.out"
 
 # SENTIMENT RUNS
 # small models
-uv run run.py --model_name llama-3.1-8b --repetition 10 --round 1 --batch_size 256 -limit 100 --dataset sentiment --dataset_path data/sentiment/sentiment.csv --slurm_output "${SLURM_OUTPUT_FILE}"
+#uv run run.py --model_name llama-3.1-8b --repetition 10 --round 1 --batch_size 256 -limit 100 --dataset sentiment --dataset_path data/sentiment/sentiment.csv --slurm_output "${SLURM_OUTPUT_FILE}"
 
 # uv run run.py --model_name gemma-3-4b --repetition 10 --round 1 --batch_size 256 --dataset sentiment --dataset_path data/sentiment/sentiment.csv --slurm_output "${SLURM_OUTPUT_FILE}"
 
 # uv run run.py --model_name qwen-2.5-7b --repetition 10 --round 1 --batch_size 256 --dataset sentiment --dataset_path data/sentiment/sentiment.csv --slurm_output "${SLURM_OUTPUT_FILE}"
 
 #large models (one at a time)
-#uv run run.py --model_name llama-3.3-70b --repetition 10 --round 1 --batch_size 256 --dataset sentiment --dataset_path data/sentiment/sentiment.csv --slurm_output "${SLURM_OUTPUT_FILE}"
+uv run run.py --model_name llama-3.3-70b --repetition 10 --round 1 --batch_size 256 --dataset sentiment --dataset_path data/sentiment/sentiment.csv --slurm_output "${SLURM_OUTPUT_FILE}"
 
 #uv run run.py --model_name gemma-3-27b --repetition 10 --round 1 --batch_size 256 --dataset sentiment --dataset_path data/sentiment/sentiment.csv --slurm_output "${SLURM_OUTPUT_FILE}"
 
