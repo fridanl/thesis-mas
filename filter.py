@@ -1,9 +1,9 @@
 import pandas as pd
  
 # ── Paths ──────────────────────────────────────────────────────────────────────
-MAIN_CSV   = "/home/rp-fril-mhpe/second/gemma-3-4b-sarcasm.csv"
-SELF_INTERACTION  = "/home/rp-fril-mhpe/subsampled_input_round2/sarcasm/gemma-3-4b-self-interaction_subsampled.csv"
-OUTPUT_CSV = "/home/rp-fril-mhpe/second/gemma-3-4b-sarcasm_filtered.csv"
+MAIN_CSV   = "/home/rp-fril-mhpe/second/llama-3.1-8b-sarcasm.csv"
+SELF_INTERACTION  = "/home/rp-fril-mhpe/subsampled_input_round2/sarcasm/llama-3.1-8b-self-interaction_subsampled.csv"
+OUTPUT_CSV = "/home/rp-fril-mhpe/second/llama-3.1-8b-sarcasm_filtered.csv"
  
 # ── Load data ──────────────────────────────────────────────────────────────────
 df        = pd.read_csv(MAIN_CSV)
@@ -13,7 +13,7 @@ print(f"Loaded main CSV:        {len(df):,} rows")
 print(f'Input rows for self-interaction: {len(interact)}')
 
 # ── Define self-interaction mask ───────────────────────────────────────────────
-MODEL = "gemma-3-4b"
+MODEL = "llama-3.1-8b"
 is_self = (df["model_receiver"] == MODEL) & (df["model_sender"] == MODEL)
  
 print(f"\nSelf-interaction rows:  {is_self.sum():,}")
