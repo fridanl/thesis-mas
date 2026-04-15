@@ -297,8 +297,10 @@ def main(args):
             agree.to_csv(f'{outdir}/{args.dataset}/{receiver}_agree.csv', index=False)                          
             disagree.to_csv(f'{outdir}/{args.dataset}/{receiver}_disagree.csv', index=False)                    
         else:
-            both = pd.concat([agree, disagree]) # concat agree and disagree
-            both.to_csv(f"{outdir}/{args.dataset}/{receiver}-self-interaction.csv", index=False)
+            agree.to_csv(f'{outdir}/{args.dataset}/{receiver}_self_interaction.csv', index=False)
+            disagree.to_csv(f'{outdir}/{args.dataset}/{receiver}_self_interaction.csv', index=False)     
+            # both = pd.concat([agree, disagree]) # concat agree and disagree
+            # both.to_csv(f"{outdir}/{args.dataset}/{receiver}-self-interaction.csv", index=False)
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
