@@ -38,10 +38,23 @@ def load_second_round_results(base: Path, models: list, dataset: str) -> dict[st
 
     results = {}
     for model in models:
+        dfs = []
+
+        # main results 
         path = base / 'second' / f'{model}-{dataset}.csv'
         if path.exists():
-            results[model] = pd.read_csv(path)
-    
+            dfs.append(pd.read_csv(path))
+
+        # self-interaction 
+        if dataset == 'sarcasm': #TODO: change this when get all results for self-interaction 
+            self_path = base / 'self' / 'second' / f'{model}-{dataset}.csv'
+            if self_path.exists():
+                dfs.append(pd.read_csv(self_path))
+
+        if dfs:
+            results[model] = pd.concat(dfs, ignore_index=True)
+    if not results:
+        raise ValueError(f'No second round data loaded for {dataset}')
     return results
 
 
@@ -107,6 +120,13 @@ def discarded_claims_to_latex(df: pd.DataFrame) -> str:
 
     return latex
 
+def validate_repetitions(df: pd.DataFrame, group_cols: list, expected: int = 10):
+    counts = df.groupby(group_cols).size().reset_index(name='count')
+    invalid = counts[counts['count'] != expected]
+
+    if not invalid.empty:
+        print(f"{len(invalid)} groups with unexpected counts:\n{invalid}")
+
 def plot_label_claim_distribution(grouped_df: pd.DataFrame, dataset: str):
     """
     Plotting the positive rate distribution of results in round 1.
@@ -153,15 +173,15 @@ def plot_label_claim_distribution(grouped_df: pd.DataFrame, dataset: str):
         
         ax.tick_params(labelsize=11)
 
-        for p in ax.patches:
-            height = p.get_height()
-            if height > 0:
-                ax.annotate(f'{height:.1f}%', (p.get_x() + p.get_width() / 2, height),
-                    ha='center', va='bottom', fontsize=9)
+        # This is putting values over the bars 
+        # for p in ax.patches:
+        #     height = p.get_height()
+        #     if height > 0:
+        #         ax.annotate(f'{height:.1f}%', (p.get_x() + p.get_width() / 2, height),
+        #             ha='center', va='bottom', fontsize=9)
                 
     for j in range(len(models), len(axs_flat)):
         axs_flat[j].set_visible(False)
-
 
     plt.tight_layout()
     sns.despine()
@@ -299,7 +319,8 @@ def summarise_deltas(delta_df):
     # Computing macro-averages 
     per_model_pair = per_match_type.groupby(['model_receiver', 'model_sender']).agg(
         macro_pos_delta_realisation = ('positive_delta_realisation', 'mean'),
-        macro_neg_delta_realisation = ('negative_delta_realisation', 'mean')
+        macro_neg_delta_realisation = ('negative_delta_realisation', 'mean'),
+        count = ('count', 'size') 
     ).reset_index()
 
     return per_match_type, per_model_pair
@@ -326,12 +347,7 @@ def main(args):
     first = first.merge(discarded_pairs, on=['model', 'id'], how='left')
     first = first[first['_discard'].isna()].drop(columns='_discard')
 
-    # Counting how many rows per. model, id 
-    first_grouped = first.groupby(['model', 'id']).size().reset_index(name='count')
-
-    invalid = first_grouped[first_grouped['count'] != 10]
-    if not invalid.empty:
-        print(f"WARNING: {len(invalid)} IDs with unexpected counts:\n{invalid}")
+    validate_repetitions(first, group_cols=['model', 'id'], expected=10)
 
     grouped_first = get_grouped_df(first, ds_config)
 
@@ -351,33 +367,40 @@ def main(args):
     print('Computing results from the second round...')
     second = load_all_as_dataframe(load_second_round_results(base, model_names, ds_config.dataset))
 
-    # We group such that there are 10 repetitions for each group. 
+
+    # We group such that we know how many are in each sender, receiver, match_type 
     second_grouped = second.groupby(['model_receiver', 'model_sender', 'label_receiver_before', 'label_sender_before', 'match_type']).size().reset_index(name='count').sort_values(by='model_receiver')
     print('Counts of rows in cases')
     print(second_grouped)
 
+    validate_repetitions(second, group_cols=['model_receiver', 'model_sender', 'label_receiver_before', 'label_sender_before', 'match_type', 'id'], expected=10)
+
     agreeing_input = second['match_type'].isin(['1:1', '0:0'])
     second_disagreeing = second[~agreeing_input]
     
+    output_dir = Path('evaluation') / ds_config.dataset
+    output_dir.mkdir(parents=True, exist_ok=True)
+    
     # For disagreeing cases
     deltas_df = get_delta_df(first, second_disagreeing, ds_config)
-    deltas_df.to_csv(f'results/{ds_config.dataset}/deltas_disagreeing.csv', index=False)
+    deltas_df.to_csv(f'{output_dir}/deltas_disagreeing.csv', index=False)
 
     per_match_type, per_model_pair = summarise_deltas(deltas_df)
-    per_match_type.to_csv(f'results/{ds_config.dataset}/deltas_match_type_disagreeing.csv', index=False)
+    per_match_type.to_csv(f'{output_dir}/deltas_match_type_disagreeing.csv', index=False)
+    per_model_pair.to_csv(f'{output_dir}/deltas_model_disagreeing.csv', index=False)
     print('Summary of deltas for disagreeing cases:')
     print(per_model_pair)
 
     # For agreeing cases 
     second_agreeing = second[agreeing_input]
     deltas_df_agree = get_delta_df(first, second_agreeing, ds_config)
-    deltas_df_agree.to_csv(f'results/{ds_config.dataset}/deltas_agreeing.csv', index=False)
+    deltas_df_agree.to_csv(f'{output_dir}/deltas_agreeing.csv', index=False)
 
     per_match_type, per_model_pair = summarise_deltas(deltas_df_agree)
-    per_match_type.to_csv(f'results/{ds_config.dataset}/deltas_match_type_agreeing.csv', index=False)
+    per_match_type.to_csv(f'{output_dir}/deltas_match_type_agreeing.csv', index=False)
+    per_model_pair.to_csv(f'{output_dir}/deltas_model_agreeing.csv', index=False)
     print('Summary of deltas for agreeing cases:')
     print(per_model_pair)
-
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
