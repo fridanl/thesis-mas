@@ -13,10 +13,10 @@ set -euo pipefail
 
 export PYTHONPATH=/home/fril/thesis-mas${PYTHONPATH:+:$PYTHONPATH}
 
-uv run src/results.py --dataset sarcasm
-uv run src/results.py --dataset commonsense
+# uv run src/results.py --dataset sarcasm
+# uv run src/results.py --dataset commonsense
 
-
+ub run filter.py
 #uv run check.py
 #uv run results.py --dataset sarcasm
 #uv run src/first_round_results.py
