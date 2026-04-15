@@ -1,0 +1,15 @@
+2026-04-15 15:00:24 | INFO     | Logging initialised. Log file: inference_logs/second/gemma-3-4b_sarcasm_20260415_150024.log
+2026-04-15 15:00:24 | INFO     | SLURM output file: logs/round2-self-sarcasm-small.68839.out
+2026-04-15 15:00:24 | INFO     | ==================================================
+2026-04-15 15:00:24 | INFO     | Starting inference pipeline
+2026-04-15 15:00:24 | INFO     | ==================================================
+2026-04-15 15:00:24 | INFO     | Arguments: {'model_name': 'gemma-3-4b', 'dataset': 'sarcasm', 'dataset_path': '/home/rp-fril-mhpe/subsampled_input_round2/sarcasm/gemma-3-4b_self_interaction_disagree_subsampledcsv', 'repetition': 1, 'round': 2, 'slurm_output': 'logs/round2-self-sarcasm-small.68839.out', 'history': True, 'models_config_path': 'configs/models.yaml', 'outdir': '/home/rp-fril-mhpe/self', 'batch_size': 256, 'no_logging': False, 'limit': None, 'idx_start': 0}
+2026-04-15 15:00:24 | INFO     | Results will be written to: /home/rp-fril-mhpe/self/second/gemma-3-4b-sarcasm.csv
+2026-04-15 15:00:24 | INFO     | Ensuring local model availability...
+2026-04-15 15:00:24 | INFO     | Location of model: /home/fril/.cache/huggingface/hub/models--unsloth--gemma-3-4b-it-unsloth-bnb-4bit
+2026-04-15 15:01:25 | INFO     | ########## Shared decoding parameters ##########
+2026-04-15 15:01:25 | INFO     | Repetitions (no. outputs from one input): 1 
+ Max tokens: 254
+2026-04-15 15:01:25 | INFO     | Using sampling params as specified in models.yaml.
+2026-04-15 15:01:25 | INFO     | ########## Sampling parameters ########## 
+ SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.0, temperature=1.0, top_p=0.95, top_k=64, min_p=0.0, seed=None, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=254, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=GuidedDecodingParams(json={'$defs': {'LabelSarc': {'enum': ['sarcastic', 'literal'], 'title': 'LabelSarc', 'type': 'string'}}, 'properties': {'label': {'$ref': '#/$defs/LabelSarc'}}, 'required': ['label'], 'title': 'OutputSarcR2', 'type': 'object'}, regex=None, choice=None, grammar=None, json_object=None, backend=None, backend_was_auto=False, disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, whitespace_pattern=None, structural_tag=None), extra_args=None)
