@@ -57,15 +57,15 @@ SLURM_OUTPUT_FILE="logs/${SLURM_JOB_NAME}.${SLURM_JOB_ID}.out"
 # gemma-3-4b
 
 # Agree 
-uv run run.py \
-  --model_name gemma-3-4b \
-  --repetition 1 \
-  --round 2 \
-  --batch_size 256 \
-  --history \
-  --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sarcasm/gemma-3-4b_self_interaction_agree_subsampled.csv \
-  --outdir /home/rp-fril-mhpe/self \
-  --slurm_output "${SLURM_OUTPUT_FILE}" 
+#uv run run.py \
+#  --model_name gemma-3-4b \
+#  --repetition 1 \
+#  --round 2 \
+#  --batch_size 256 \
+#  --history \
+#  --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sarcasm/gemma-3-4b_self_interaction_agree_subsampled.csv \
+#  --outdir /home/rp-fril-mhpe/self \
+#  --slurm_output "${SLURM_OUTPUT_FILE}" 
 
 # Disagree 
 uv run run.py \
@@ -74,7 +74,7 @@ uv run run.py \
   --round 2 \
   --batch_size 256 \
   --history \
-  --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sarcasm/gemma-3-4b_self_interaction_disagree_subsampledcsv \
+  --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sarcasm/gemma-3-4b_self_interaction_disagree_subsampled.csv \
   --outdir /home/rp-fril-mhpe/self \
   --slurm_output "${SLURM_OUTPUT_FILE}" 
 
