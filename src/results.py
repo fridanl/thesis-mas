@@ -8,11 +8,8 @@ import seaborn as sns
 import yaml
 from utils.prompt_registry import DATASETS, DatasetTaskSpec
 
-#TODO: Micro-average label distribution per model.
-#TODO: Positive-rate distribution, both metric and also plot.
 #TODO: Create overview over dropped claims.
 #TODO: Input for round 2 (before and after )
-
 
 pd.set_option("display.max_rows", None)
 pd.set_option("display.max_columns", None)
@@ -59,14 +56,17 @@ def load_all_as_dataframe(df_dict: dict[str, pd.DataFrame]) -> pd.DataFrame:
     print(f'number of dataframes: {len(dfs)}')
     return pd.concat(dfs, ignore_index=True)
 
-def compute_overall_positive_rate(df: pd.DataFrame, conf: DatasetTaskSpec) -> dict:
+def compute_overall_positive_rate(df: pd.DataFrame, conf: DatasetTaskSpec) -> pd.DataFrame:
     """
     Function to compute the overall prediction distribution.
-    Takes a single df for a single model. 
+    Takes the first round combined df. 
     I.e. with this we mean over all rows, NOT on a claim level.
     """
-
-    return df.groupby('model')['label'].apply(lambda x: (x == conf.positive_label).sum() / len(x)).to_dict()
+    df = df.copy()
+    df['is_positive'] = df['label'] == conf.positive_label
+    pr = df.groupby('model')['is_positive'].agg('mean').reset_index()
+    
+    return pr  
 
 def get_discarded_claims(dataset: str, base: Path) -> pd.DataFrame:
     """
@@ -107,7 +107,7 @@ def discarded_claims_to_latex(df: pd.DataFrame) -> str:
 
     return latex
 
-def plot_label_claim_distribution(grouped_df: pd.DataFrame):
+def plot_label_claim_distribution(grouped_df: pd.DataFrame, dataset: str):
     """
     Plotting the positive rate distribution of results in round 1.
     """
@@ -138,29 +138,36 @@ def plot_label_claim_distribution(grouped_df: pd.DataFrame):
         # Letters from a-g 
         ax.text(-0.1, 1.05, f"{chr(97 + i)}", transform=ax.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
 
-        ax.set_title(model_name, fontsize = 13)
+        ax.set_title(model_name, fontsize = 16)
 
 
         if i % ncols == 0:
-            ax.set_ylabel('Percent', fontsize = 12)
+            ax.set_ylabel('Percent', fontsize = 14)
         else:
             ax.set_ylabel("")
 
         if i // ncols == nrows - 1:
-            ax.set_xlabel('Positive Rate', fontsize = 12)
+            ax.set_xlabel('Positive Rate', fontsize = 14)
         else:
             ax.set_xlabel("")
         
         ax.tick_params(labelsize=11)
 
+        for p in ax.patches:
+            height = p.get_height()
+            if height > 0:
+                ax.annotate(f'{height:.1f}%', (p.get_x() + p.get_width() / 2, height),
+                    ha='center', va='bottom', fontsize=9)
+                
     for j in range(len(models), len(axs_flat)):
         axs_flat[j].set_visible(False)
 
 
     plt.tight_layout()
     sns.despine()
-    print('Saving plots over distribution to file: "plots/label-dist-all.png')
-    plt.savefig("plots/label-dist-all.png", dpi=300, bbox_inches="tight")
+    save_path = f'plots/positive-rate-distr-{dataset}.png'
+    print(f'Saving plots over distribution to file: {save_path}')
+    plt.savefig(save_path, dpi=300, bbox_inches="tight")
 
 
 def get_grouped_df(df: pd.DataFrame, conf: DatasetTaskSpec):
@@ -169,15 +176,20 @@ def get_grouped_df(df: pd.DataFrame, conf: DatasetTaskSpec):
     df
     '''
 
-    grouped = (df.groupby(['model', 'id'])['label']
-               .apply(lambda x: (x == conf.positive_label).mean())
-               .reset_index()
-               .rename(columns={'label': 'positive_rate'}))
-    
+    df = df.copy()
+    df['is_positive'] = df['label'] == conf.positive_label
+
+    grouped = df.groupby(['model', 'id']).agg(positive_rate = ('is_positive', 'mean')).reset_index()
     return grouped
 
 
 def summarise_model_rates(grouped_df: pd.DataFrame) -> pd.DataFrame:
+    '''
+    Input: Combined first-round df, that has been grouped on model, id and has positive_rate column. 
+    Returns:
+        Grouped df on model.
+        Counts distribution consistent / inconsistent labelling for given id (claim).
+    '''
     return (grouped_df.groupby('model')
             .apply(lambda g: pd.Series({
                 'all_negative': (g['positive_rate'] == 0).sum(),
@@ -191,19 +203,25 @@ def get_delta_df(first_df: pd.DataFrame, second_df: pd.DataFrame, conf: DatasetT
     '''
     Computes the delta dataframe, based on first and second round results. 
     '''
+
+    first_df = first_df.copy()
+    second_df = second_df.copy()
+
     positive = conf.positive_label
     negative = conf.negative_label
 
-    # Group baseline outputs by model, (claim) id, and compute probability positive and negative label
+    first_df['is_positive'] = first_df['label'] == positive
+    first_df['is_negative'] = first_df['label'] == negative
+
     first_grouped = (
         first_df
         .groupby(['model', 'id'])
-        .apply(lambda x: pd.Series({
-            "p_pos": (x['label'] == positive).mean(),
-            "p_neg": (x['label'] == negative).mean(),
-        }))
-        .reset_index()
-    )
+        .agg(
+            p_pos = ('is_positive', 'mean'),
+            p_neg = ('is_negative', 'mean')
+        )
+    ).reset_index()
+
 
     # Create flag 'flip', to keep track whether the receiver changed its label to the label the sender proposed. 
     second_df['flip'] = (second_df['label_receiver_now'] == second_df['label_sender_before'])
@@ -215,7 +233,7 @@ def get_delta_df(first_df: pd.DataFrame, second_df: pd.DataFrame, conf: DatasetT
         .reset_index(name = 'p_round_2')
     )
 
-    # Left join baseline probabilities. 
+    # Left join baseline probabilities (to take into account, that we have subsampled for r2, and only some cases on first df is in second df)
     combined = second_grouped.merge(
         first_grouped,
         left_on=['model_receiver', 'id'],
@@ -249,9 +267,42 @@ def get_delta_df(first_df: pd.DataFrame, second_df: pd.DataFrame, conf: DatasetT
 
     return combined
 
+def summarise_deltas(delta_df):
+    '''
+    Computes the macro average deltas per model pair and match type. 
+    '''
+    delta_df = delta_df.copy()
 
-def get_delta_df_agree(first_df: pd.DataFrame, second_df: pd.DataFrame, conf: DatasetTaskSpec):
-    pass
+    delta_df['possible_neg'] = delta_df['max_delta_neg'] > 0
+    delta_df['possible_pos'] = delta_df['max_delta'] > 0
+    
+    per_match_type = delta_df.groupby(['model_receiver', 'model_sender', 'match_type']).agg(
+        total_positive_delta = ('delta_positive_only', 'sum'),
+        total_positive_budget = ('max_delta', 'sum'),
+        total_negative_delta = ('delta_negative_only', 'sum'),
+        total_negative_budget = ('max_delta_neg', 'sum'),
+        possible_positive_count = ('possible_pos', 'sum'), 
+        possible_negative_count = ('possible_neg', 'sum'),
+        count = ('delta', 'size')
+    ).reset_index()
+
+    per_match_type['positive_delta_realisation'] = (
+        per_match_type['total_positive_delta'] / 
+        per_match_type['total_positive_budget'].replace(0, pd.NA)
+    )
+    per_match_type['negative_delta_realisation'] = (
+        per_match_type['total_negative_delta'] / 
+        per_match_type['total_negative_budget'].replace(0, pd.NA)
+    )
+
+    
+    # Computing macro-averages 
+    per_model_pair = per_match_type.groupby(['model_receiver', 'model_sender']).agg(
+        macro_pos_delta_realisation = ('positive_delta_realisation', 'mean'),
+        macro_neg_delta_realisation = ('negative_delta_realisation', 'mean')
+    ).reset_index()
+
+    return per_match_type, per_model_pair
 
 
 def main(args):
@@ -261,57 +312,69 @@ def main(args):
     model_names = list(profiles.keys())
 
     ds_config = DATASETS[args.dataset]
+    print(f'[DATASET] : {args.dataset}')
 
-    # first_d = load_first_round_results(base, model_names, ds_config.dataset, failed=False)
-    # first = load_all_as_dataframe(first_d)
-    # discarded_claims = get_discarded_claims(ds_config.dataset, base)
+    print('Computing results from the first round....')
+    first_d = load_first_round_results(base, model_names, ds_config.dataset, failed=False)
+    first = load_all_as_dataframe(first_d)
+    discarded_claims = get_discarded_claims(ds_config.dataset, base)
 
-    # discarded_pairs = discarded_claims[['model', 'id']].drop_duplicates()
-    # discarded_pairs['_discard'] = True
+    discarded_pairs = discarded_claims[['model', 'id']].drop_duplicates()
+    discarded_pairs['_discard'] = True
 
     # # Removing discarded claims for given model
-    # first = first.merge(discarded_pairs, on=['model', 'id'], how='left')
-    # first = first[first['_discard'].isna()].drop(columns='_discard')
+    first = first.merge(discarded_pairs, on=['model', 'id'], how='left')
+    first = first[first['_discard'].isna()].drop(columns='_discard')
 
-    # first_grouped = first.groupby(['model', 'id']).size().reset_index(name='count')
+    # Counting how many rows per. model, id 
+    first_grouped = first.groupby(['model', 'id']).size().reset_index(name='count')
 
-    # invalid = first_grouped[first_grouped['count'] != 10]
-    # if not invalid.empty:
-    #     print(f"WARNING: {len(invalid)} IDs with unexpected counts:\n{invalid}")
+    invalid = first_grouped[first_grouped['count'] != 10]
+    if not invalid.empty:
+        print(f"WARNING: {len(invalid)} IDs with unexpected counts:\n{invalid}")
 
-    # grouped_first = get_grouped_df(first, ds_config)
-    # print(summarise_model_rates(grouped_df=grouped_first))
+    grouped_first = get_grouped_df(first, ds_config)
 
-    # Delete later, this is just a check: 
-    # for model in model_names: 
-    #     df = pd.read_csv(f'/home/rp-fril-mhpe/input_round2/{ds_config.dataset}/{model}-self-interaction.csv')
-    #     print(f'MODEL: {model}')
-    #     print(df['match_type'].value_counts())
-
-    # print(f'Macro-average positive rate: {grouped_first.groupby('model')['positive_rate'].mean()}')
-    # print('Overall positive rates:')
-    # prs = compute_overall_positive_rate(first, conf=ds_config)
-    # print(prs)
-
-
+    print('Consistent / inconsistent labelling distribution')
+    print(summarise_model_rates(grouped_df=grouped_first))
     
-    # plot_label_claim_distribution(grouped_df=grouped_first)
+    print('Overall positive rate')
+    print(compute_overall_positive_rate(first, conf=ds_config))
+
+    print('"Model-bias", i.e. prediction distribution based on majority label.')
+    majority_label_prop = grouped_first.groupby('model')['positive_rate'].apply(lambda x: (x >= 0.5).mean()).reset_index(name='proportion_positive')
+    print(majority_label_prop)
+    
+    plot_label_claim_distribution(grouped_df=grouped_first, dataset=ds_config.dataset)
+    
+
+    print('Computing results from the second round...')
     second = load_all_as_dataframe(load_second_round_results(base, model_names, ds_config.dataset))
 
-    second_grouped = second.groupby(['model_receiver', 'model_sender', 'label_receiver_before', 'label_sender_before', 'match_type']).size().reset_index(name='count')
-    
-    print(second_grouped[second_grouped['model_receiver'] == 'gemma-3-4b'])
-    # print(second_grouped[second_grouped['count'] != 10])
+    # We group such that there are 10 repetitions for each group. 
+    second_grouped = second.groupby(['model_receiver', 'model_sender', 'label_receiver_before', 'label_sender_before', 'match_type']).size().reset_index(name='count').sort_values(by='model_receiver')
+    print('Counts of rows in cases')
+    print(second_grouped)
 
-    # print(first_grouped['count'].value_counts())
-    # print(second_grouped['count'].value_counts())
-
-    return 
-    second_disagreeing = second[~second['match_type'].isin(['1:1', '0:0'])]
+    agreeing_input = second['match_type'].isin(['1:1', '0:0'])
+    second_disagreeing = second[~agreeing_input]
     
     # For disagreeing cases
     deltas_df = get_delta_df(first, second_disagreeing, ds_config)
-    deltas_df.to_csv(f'deltas_{ds_config.dataset}.csv', index=False)
+    deltas_df.to_csv(f'deltas_{ds_config.dataset}_disagreeing.csv', index=False)
+
+    per_match_type, per_model_pair = summarise_deltas(deltas_df)
+    print('Summary of deltas for disagreeing cases:')
+    print(per_match_type)
+
+    # For agreeing cases 
+    second_agreeing = second[agreeing_input]
+    deltas_df_agree = get_delta_df(first, second_agreeing, ds_config)
+    deltas_df_agree.to_csv(f'deltas_{ds_config.dataset}_agreeing.csv', index=False)
+
+    per_match_type, per_model_pair = summarise_deltas(deltas_df_agree)
+    print('Summary of deltas for agreeing cases:')
+    print(per_match_type)
 
 
 if __name__ == "__main__":

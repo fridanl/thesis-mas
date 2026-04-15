@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=filter
+#SBATCH --job-name=sarcasm-results
 #SBATCH --account=researchers
 #SBATCH --partition=scavenge
 #SBATCH --cpus-per-task=4
@@ -13,10 +13,10 @@ set -euo pipefail
 
 export PYTHONPATH=/home/fril/thesis-mas${PYTHONPATH:+:$PYTHONPATH}
 
-# uv run src/results.py --dataset sarcasm
+uv run src/results.py --dataset sarcasm
 # uv run src/results.py --dataset commonsense
 
-uv run filter.py
+
 #uv run check.py
 #uv run results.py --dataset sarcasm
 #uv run src/first_round_results.py
