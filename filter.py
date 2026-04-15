@@ -13,7 +13,7 @@ print(f"Loaded main CSV:        {len(df):,} rows")
 print(f'Input rows for self-interaction: {len(interact)}')
 
 # ── Define self-interaction mask ───────────────────────────────────────────────
-MODEL = "gemma-3-4b-sarcasm"
+MODEL = "gemma-3-4b"
 is_self = (df["model_receiver"] == MODEL) & (df["model_sender"] == MODEL)
  
 print(f"\nSelf-interaction rows:  {is_self.sum():,}")
