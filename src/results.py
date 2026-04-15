@@ -125,8 +125,8 @@ def plot_label_claim_distribution(grouped_df: pd.DataFrame, dataset: str):
 
         counts_perc = model_res['positive_rate'].value_counts(normalize=True).reindex(x_ticks, fill_value=0)*100
 
-        print(f'Model: {model_name}')
-        print(counts_perc)
+        # print(f'Model: {model_name}')
+        # print(counts_perc)
 
         sns.barplot(x = counts_perc.index,
                     y = counts_perc.values,
@@ -361,20 +361,22 @@ def main(args):
     
     # For disagreeing cases
     deltas_df = get_delta_df(first, second_disagreeing, ds_config)
-    deltas_df.to_csv(f'deltas_{ds_config.dataset}_disagreeing.csv', index=False)
+    deltas_df.to_csv(f'results/{ds_config.dataset}/deltas_disagreeing.csv', index=False)
 
     per_match_type, per_model_pair = summarise_deltas(deltas_df)
+    per_match_type.to_csv(f'results/{ds_config.dataset}/deltas_match_type_disagreeing.csv', index=False)
     print('Summary of deltas for disagreeing cases:')
-    print(per_match_type)
+    print(per_model_pair)
 
     # For agreeing cases 
     second_agreeing = second[agreeing_input]
     deltas_df_agree = get_delta_df(first, second_agreeing, ds_config)
-    deltas_df_agree.to_csv(f'deltas_{ds_config.dataset}_agreeing.csv', index=False)
+    deltas_df_agree.to_csv(f'results/{ds_config.dataset}/deltas_agreeing.csv', index=False)
 
     per_match_type, per_model_pair = summarise_deltas(deltas_df_agree)
+    per_match_type.to_csv(f'results/{ds_config.dataset}/deltas_match_type_agreeing.csv', index=False)
     print('Summary of deltas for agreeing cases:')
-    print(per_match_type)
+    print(per_model_pair)
 
 
 if __name__ == "__main__":
