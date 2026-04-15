@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=results
+#SBATCH --job-name=filter
 #SBATCH --account=researchers
 #SBATCH --partition=scavenge
 #SBATCH --cpus-per-task=4
@@ -16,7 +16,7 @@ export PYTHONPATH=/home/fril/thesis-mas${PYTHONPATH:+:$PYTHONPATH}
 # uv run src/results.py --dataset sarcasm
 # uv run src/results.py --dataset commonsense
 
-ub run filter.py
+uv run filter.py
 #uv run check.py
 #uv run results.py --dataset sarcasm
 #uv run src/first_round_results.py

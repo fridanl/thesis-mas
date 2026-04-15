@@ -2,7 +2,7 @@
 #SBATCH --job-name=round2-self-sarcasm-llama
 #SBATCH --account=researchers
 #SBATCH --partition=scavenge
-#SBATCH --gres=gpu:h100:1
+#SBATCH --gres=gpu:a100_80gb:1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=80G
 #SBATCH --time=10:00:00

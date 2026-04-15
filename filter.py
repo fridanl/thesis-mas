@@ -10,7 +10,11 @@ models = list(profiles.keys())
 
 for model in models:
     path = base / f'{model}-sarcasm.csv'
-    df = pd.read_csv(path)
+    if path.exists():
+        df = pd.read_csv(path)
+    else:
+        continue
+
 
     has_self = (df['model_sender'] == model) & (df['model_receiver'] == model)
     if has_self.sum() > 0:
