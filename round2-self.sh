@@ -71,13 +71,24 @@ SLURM_OUTPUT_FILE="logs/${SLURM_JOB_NAME}.${SLURM_JOB_ID}.out"
 #   --slurm_output "${SLURM_OUTPUT_FILE}" 
 
 # # llama-3.3-70b
+# agree 
 uv run run.py \
   --model_name llama-3.3-70b \
   --repetition 1 \
   --round 2 \
   --batch_size 256 \
   --history \
-  --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sarcasm/llama-3.3-70b-self-interaction_subsampled.csv \
+  --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sarcasm/llama-3.3-70b_self_interaction_agree_subsampled.csv \
+  --outdir /home/rp-fril-mhpe \
+  --slurm_output "${SLURM_OUTPUT_FILE}" 
+#disagree
+uv run run.py \
+  --model_name llama-3.3-70b \
+  --repetition 1 \
+  --round 2 \
+  --batch_size 256 \
+  --history \
+  --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sarcasm/llama-3.3-70b_self_interaction_disagree_subsampled.csv \
   --outdir /home/rp-fril-mhpe \
   --slurm_output "${SLURM_OUTPUT_FILE}" 
 
