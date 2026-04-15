@@ -1,9 +1,9 @@
 import pandas as pd
  
 # ── Paths ──────────────────────────────────────────────────────────────────────
-MAIN_CSV   = "/home/rp-fril-mhpe/second/gemma-3-4b-sarcasm.csv"
-SELF_INTERACTION  = "/home/rp-fril-mhpe/subsampled_input_round2/sarcasm/gemma-3-4b-self-interaction_subsampled.csv"
-OUTPUT_CSV = "/home/rp-fril-mhpe/second/gemma-3-4b-sarcasm.csv"
+MAIN_CSV   = "/home/rp-fril-mhpe/second/qwen-2.5-7b-sarcasm.csv"
+SELF_INTERACTION  = "/home/rp-fril-mhpe/subsampled_input_round2/sarcasm/qwen-2.5-7b-self-interaction_subsampled.csv"
+OUTPUT_CSV = "/home/rp-fril-mhpe/second/qwen-2.5-7b-sarcasm.csv"
  
 # ── Load data ──────────────────────────────────────────────────────────────────
 df        = pd.read_csv(MAIN_CSV)
@@ -13,7 +13,7 @@ print(f"Loaded main CSV:        {len(df):,} rows")
 print(f'Input rows for self-interaction: {len(interact):,}')
 
 # ── Define self-interaction mask ───────────────────────────────────────────────
-MODEL = "gemma-3-4b"
+MODEL = "qwen-2.5-7b"
 is_self = (df["model_receiver"] == MODEL) & (df["model_sender"] == MODEL)
  
 print(f"\nSelf-interaction rows:  {is_self.sum():,}")
@@ -31,7 +31,7 @@ df_self = df[is_self].copy()
 print(f"\nFinal row count: {len(df_other):,}  (was {len(df):,})")
 print(f"Rows removed:    {len(df) - len(df_self):,}")
 
-if is_self.sum() != interact.shape[0]:
+if is_self.sum() == interact.shape[0]:
     df_other.to_csv(OUTPUT_CSV, index=False)
     print(f"\nSaved to:\n  {OUTPUT_CSV}")
 else:
