@@ -1,38 +1,20 @@
 import pandas as pd
- 
-# ── Paths ──────────────────────────────────────────────────────────────────────
-MAIN_CSV   = "/home/rp-fril-mhpe/second/qwen-2.5-7b-sarcasm.csv"
-SELF_INTERACTION  = "/home/rp-fril-mhpe/subsampled_input_round2/sarcasm/qwen-2.5-7b-self-interaction_subsampled.csv"
-OUTPUT_CSV = "/home/rp-fril-mhpe/second/qwen-2.5-7b-sarcasm.csv"
- 
-# ── Load data ──────────────────────────────────────────────────────────────────
-df        = pd.read_csv(MAIN_CSV)
-interact    = pd.read_csv(SELF_INTERACTION)
- 
-print(f"Loaded main CSV:        {len(df):,} rows")
-print(f'Input rows for self-interaction: {len(interact):,}')
+import yaml 
+from pathlib import Path
 
-# ── Define self-interaction mask ───────────────────────────────────────────────
-MODEL = "qwen-2.5-7b"
-is_self = (df["model_receiver"] == MODEL) & (df["model_sender"] == MODEL)
- 
-print(f"\nSelf-interaction rows:  {is_self.sum():,}")
- 
-# ── Rows NOT involved in self-interaction → keep as-is ────────────────────────
-df_other = df[~is_self].copy()
-print(f"Size of df without self-interaction: {len(df_other)}")
- 
-# ── Self-interaction rows, split by match_type ────────────────────────────────
-df_self = df[is_self].copy() 
+base = Path('/home/rp-fril-mhpe/second')
 
-# Restore original row order if there's a meaningful sort column
-# df_filtered = df_filtered.sort_values("id").reset_index(drop=True)
- 
-print(f"\nFinal row count: {len(df_other):,}  (was {len(df):,})")
-print(f"Rows removed:    {len(df) - len(df_self):,}")
+profiles_root = yaml.safe_load(Path('configs/models.yaml').read_text())
+profiles = profiles_root.get('profiles', {})
+models = list(profiles.keys())
 
-if is_self.sum() == interact.shape[0]:
-    df_other.to_csv(OUTPUT_CSV, index=False)
-    print(f"\nSaved to:\n  {OUTPUT_CSV}")
-else:
-    print('hiii')
+for model in models:
+    path = base / f'{model}-sarcasm.csv'
+    df = pd.read_csv(path)
+
+    has_self = (df['model_sender'] == model) & (df['model_receiver'] == model)
+    if has_self.sum() > 0:
+        print(f'MODEL: {model} has {has_self.sum()} self-interaction rows')
+
+    else:
+        print(f'No self-interaction for model: {model}')
