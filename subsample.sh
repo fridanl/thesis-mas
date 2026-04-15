@@ -15,7 +15,7 @@ set -euo pipefail
 
 
 uv run src/make_subsample.py --glob_pattern *_self_interaction_agree.csv --cap 1000 --dataset sarcasm
-uv run src/make_subsample.py --glob_pattern *_self_interaction_disagree.csv --cap 1000 --dataset sarcasm
+uv run src/make_subsample.py --glob_pattern *_self_interaction_disagree.csv --cap 7000 --dataset sarcasm
 
 #uv run src/first_round_results.py
 
