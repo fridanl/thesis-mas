@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=sarcasm-results
+#SBATCH --job-name=results-all
 #SBATCH --account=researchers
 #SBATCH --partition=scavenge
 #SBATCH --cpus-per-task=4
@@ -17,7 +17,6 @@ uv run src/results.py --dataset sarcasm
 uv run src/results.py --dataset commonsense
 uv run src/results.py --dataset sentiment
 # uv run src/results.py --dataset commonsense
-
 
 #uv run check.py
 #uv run results.py --dataset sarcasm
