@@ -336,6 +336,7 @@ def main(args):
     profiles_root = yaml.safe_load(Path("configs/models.yaml").read_text())
     profiles = profiles_root.get("profiles", {})
     model_names = list(profiles.keys())
+    print(model_names)
 
     ds_config = DATASETS[args.dataset]
     print(f'[DATASET] : {args.dataset}')
