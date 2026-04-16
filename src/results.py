@@ -26,6 +26,9 @@ def load_first_round_results(base: Path, models: list, dataset: str, failed: boo
     results = {}
     for model in models:
         path = base / f'{model}-{dataset}{suffix}.csv'
+        if dataset == 'sentiment':
+            path = base / 'first' /f'{model}-{dataset}{suffix}.csv'
+
         if path.exists():
             results[model] = pd.read_csv(path)
 
@@ -87,8 +90,10 @@ def get_discarded_claims(dataset: str, base: Path) -> pd.DataFrame:
     """
 
     discarded_path = base / 'input_round2' / dataset / 'discarded.csv'
-
-    return pd.read_csv(discarded_path)
+    if discarded_path.exists():
+        return pd.read_csv(discarded_path)
+    else:
+        return pd.DataFrame()
 
 
 def discarded_claims_to_latex(df: pd.DataFrame) -> str:
@@ -320,7 +325,7 @@ def summarise_deltas(delta_df):
     per_model_pair = per_match_type.groupby(['model_receiver', 'model_sender']).agg(
         macro_pos_delta_realisation = ('positive_delta_realisation', 'mean'),
         macro_neg_delta_realisation = ('negative_delta_realisation', 'mean'),
-        count = ('count', 'size') 
+        count = ('count', 'sum') 
     ).reset_index()
 
     return per_match_type, per_model_pair
