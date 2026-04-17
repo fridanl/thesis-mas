@@ -1,4 +1,4 @@
-model_receiver,model_sender,match_type,total_positive_delta,total_positive_budget,total_negative_delta,total_negative_budget,possible_positive_count,possible_negative_count,count,positive_delta_realisation,negative_delta_realisation
+model_receiver,model_sender,match_type_extended,total_positive_delta,total_positive_budget,total_negative_delta,total_negative_budget,possible_positive_count,possible_negative_count,count,positive_delta_realisation,negative_delta_realisation
 gemma-3-27b,gemma-3-4b,0:0,0.0,0.0,-10.4,1000.0,0,1000,1000,,-0.0104
 gemma-3-27b,gemma-3-4b,1:1,0.0,0.0,-16.0,1000.0,0,1000,1000,,-0.016
 gemma-3-27b,llama-3.3-70b,0:0,0.0,0.0,-1.1999999999999997,1000.0,0,1000,1000,,-0.0011999999999999997

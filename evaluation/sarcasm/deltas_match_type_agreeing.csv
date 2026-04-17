@@ -1,4 +1,4 @@
-model_receiver,model_sender,match_type,total_positive_delta,total_positive_budget,total_negative_delta,total_negative_budget,possible_positive_count,possible_negative_count,count,positive_delta_realisation,negative_delta_realisation
+model_receiver,model_sender,match_type_extended,total_positive_delta,total_positive_budget,total_negative_delta,total_negative_budget,possible_positive_count,possible_negative_count,count,positive_delta_realisation,negative_delta_realisation
 gemma-3-27b,gemma-3-4b,0:0,0.0,0.0,0.0,1000.0,0,1000,1000,,0.0
 gemma-3-27b,gemma-3-4b,1:1,0.0,0.0,-1.4,1000.0,0,1000,1000,,-0.0014
 gemma-3-27b,gpt-oss-20b,0:0,0.0,0.0,0.0,1000.0,0,1000,1000,,0.0
@@ -31,6 +31,8 @@ qwen-2.5-72b,gpt-oss-20b,0:0,0.0,0.0,0.0,1000.0,0,1000,1000,,0.0
 qwen-2.5-72b,gpt-oss-20b,1:1,0.0,0.0,0.0,1000.0,0,1000,1000,,0.0
 qwen-2.5-72b,llama-3.3-70b,0:0,0.0,0.0,-1.2999999999999998,1000.0,0,1000,1000,,-0.0012999999999999997
 qwen-2.5-72b,llama-3.3-70b,1:1,0.0,0.0,0.0,1000.0,0,1000,1000,,0.0
+qwen-2.5-72b,qwen-2.5-72b,0:0,0.0,0.0,-0.09999999999999998,1000.0,0,1000,1000,,-9.999999999999998e-05
+qwen-2.5-72b,qwen-2.5-72b,1:1,0.0,0.0,-0.29999999999999993,1000.0,0,1000,1000,,-0.0002999999999999999
 qwen-2.5-72b,qwen-2.5-7b,0:0,0.0,0.0,-0.09999999999999998,1000.0,0,1000,1000,,-9.999999999999998e-05
 qwen-2.5-72b,qwen-2.5-7b,1:1,0.0,0.0,-0.19999999999999996,1000.0,0,1000,1000,,-0.00019999999999999996
 qwen-2.5-7b,qwen-2.5-72b,0:0,0.0,0.0,-0.29999999999999993,1000.0,0,1000,1000,,-0.0002999999999999999
