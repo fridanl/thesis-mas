@@ -132,69 +132,6 @@ def validate_repetitions(df: pd.DataFrame, group_cols: list, expected: int = 10)
     if not invalid.empty:
         print(f"{len(invalid)} groups with unexpected counts:\n{invalid}")
 
-def plot_label_claim_distribution(grouped_df: pd.DataFrame, dataset: str):
-    """
-    Plotting the positive rate distribution of results in round 1.
-    """
-    models = grouped_df['model'].unique()
-    n_models = len(models)
-    ncols = 2
-    nrows = math.ceil(n_models / ncols)
-    fig, axs = plt.subplots(ncols=ncols, nrows=nrows, figsize=(16, 4 * nrows))
-    axs_flat = axs.ravel()
-
-    x_ticks = [round(x * 0.1, 1) for x in range(11)]
-
-    for i, (model_name, ax) in enumerate(zip(models, axs_flat)):
-        model_res = grouped_df[grouped_df['model'] == model_name]
-
-        counts_perc = model_res['positive_rate'].value_counts(normalize=True).reindex(x_ticks, fill_value=0)*100
-
-        # print(f'Model: {model_name}')
-        # print(counts_perc)
-
-        sns.barplot(x = counts_perc.index,
-                    y = counts_perc.values,
-                    ax=ax)
-
-        ax.set_xticks(range(11))
-        ax.set_xticklabels(x_ticks)
-        
-        # Letters from a-g 
-        ax.text(-0.1, 1.05, f"{chr(97 + i)}", transform=ax.transAxes, fontsize=14, fontweight='bold', va='top', ha='right')
-
-        ax.set_title(model_name, fontsize = 16)
-
-
-        if i % ncols == 0:
-            ax.set_ylabel('Percent', fontsize = 14)
-        else:
-            ax.set_ylabel("")
-
-        if i // ncols == nrows - 1:
-            ax.set_xlabel('Positive Rate', fontsize = 14)
-        else:
-            ax.set_xlabel("")
-        
-        ax.tick_params(labelsize=11)
-
-        # This is putting values over the bars 
-        # for p in ax.patches:
-        #     height = p.get_height()
-        #     if height > 0:
-        #         ax.annotate(f'{height:.1f}%', (p.get_x() + p.get_width() / 2, height),
-        #             ha='center', va='bottom', fontsize=9)
-                
-    for j in range(len(models), len(axs_flat)):
-        axs_flat[j].set_visible(False)
-
-    plt.tight_layout()
-    sns.despine()
-    save_path = f'plots/positive-rate-distr-{dataset}.png'
-    print(f'Saving plots over distribution to file: {save_path}')
-    plt.savefig(save_path, dpi=300, bbox_inches="tight")
-
-
 def get_grouped_df(df: pd.DataFrame, conf: DatasetTaskSpec):
     '''
     Computes the positive rate on a claim-level.
@@ -390,7 +327,6 @@ def main(args):
     majority_label_prop = grouped_first.groupby('model')['positive_rate'].apply(lambda x: (x >= 0.5).mean()).reset_index(name='proportion_positive')
     print(majority_label_prop)
     
-    plot_label_claim_distribution(grouped_df=grouped_first, dataset=ds_config.dataset)
     
 
     print('Computing results from the second round...')
