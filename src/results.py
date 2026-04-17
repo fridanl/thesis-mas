@@ -1,15 +1,8 @@
 import argparse
-import math
 from pathlib import Path
-import matplotlib.pyplot as plt
 import pandas as pd
-import numpy as np
-import seaborn as sns
 import yaml
 from utils.prompt_registry import DATASETS, DatasetTaskSpec
-
-#TODO: Create overview over dropped claims.
-#TODO: Input for round 2 (before and after )
 
 pd.set_option("display.max_rows", None)
 pd.set_option("display.max_columns", None)
@@ -25,10 +18,9 @@ def load_first_round_results(base: Path, models: list, dataset: str, failed: boo
     suffix = '-failed' if failed else ''
     results = {}
     for model in models:
-        path = base / f'{model}-{dataset}{suffix}.csv'
+        path = base / f'{model}-{dataset}{suffix}.csv' # TODO: Change this when we move results to first/
         if dataset == 'sentiment':
             path = base / 'first' /f'{model}-{dataset}{suffix}.csv'
-
         if path.exists():
             results[model] = pd.read_csv(path)
 
@@ -42,7 +34,6 @@ def load_second_round_results(base: Path, models: list, dataset: str) -> dict[st
     results = {}
     for model in models:
         dfs = []
-
         # main results 
         path = base / 'second' / f'{model}-{dataset}.csv'
         if path.exists():
@@ -63,13 +54,8 @@ def load_second_round_results(base: Path, models: list, dataset: str) -> dict[st
 
 def load_all_as_dataframe(df_dict: dict[str, pd.DataFrame]) -> pd.DataFrame:
     """Load all first round results and tag with model column."""
-    dfs = []
-    for model, df in df_dict.items():
-        print(f'looking at model {model}')
-        dfs.append(df)
-    
-    #DEBUG: 
-    print(f'number of dataframes: {len(dfs)}')
+    dfs = list(df_dict.values())
+    print(f'Number of dataframes: {len(dfs)}')
     return pd.concat(dfs, ignore_index=True)
 
 def compute_overall_positive_rate(df: pd.DataFrame, conf: DatasetTaskSpec) -> pd.DataFrame:
@@ -80,20 +66,18 @@ def compute_overall_positive_rate(df: pd.DataFrame, conf: DatasetTaskSpec) -> pd
     """
     df = df.copy()
     df['is_positive'] = df['label'] == conf.positive_label
-    pr = df.groupby('model')['is_positive'].agg('mean').reset_index()
+    return df.groupby('model')['is_positive'].agg('mean').reset_index()
     
-    return pr  
 
 def get_discarded_claims(dataset: str, base: Path) -> pd.DataFrame:
-    """
-    Function to get df over all discarded claims, for all models on a given dataset. 
-    """
-
+    '''
+    Function to get df over all discarded claims from first round, for all models on a given dataset. 
+    '''
     discarded_path = base / 'input_round2' / dataset / 'discarded.csv'
     if discarded_path.exists():
         return pd.read_csv(discarded_path)
-    else:
-        return pd.DataFrame()
+    print(f'[WARN] No discarded claims file found at {discarded_path}, skipping.')
+    return pd.DataFrame()
 
 
 def discarded_claims_to_latex(df: pd.DataFrame) -> str:
@@ -132,17 +116,15 @@ def validate_repetitions(df: pd.DataFrame, group_cols: list, expected: int = 10)
     if not invalid.empty:
         print(f"{len(invalid)} groups with unexpected counts:\n{invalid}")
 
-def get_grouped_df(df: pd.DataFrame, conf: DatasetTaskSpec):
+def get_grouped_df(df: pd.DataFrame, conf: DatasetTaskSpec) -> pd.DataFrame:
     '''
     Computes the positive rate on a claim-level.
-    df
     '''
 
     df = df.copy()
     df['is_positive'] = df['label'] == conf.positive_label
 
-    grouped = df.groupby(['model', 'id']).agg(positive_rate = ('is_positive', 'mean')).reset_index()
-    return grouped
+    return df.groupby(['model', 'id']).agg(positive_rate = ('is_positive', 'mean')).reset_index()
 
 
 def summarise_model_rates(grouped_df: pd.DataFrame) -> pd.DataFrame:
@@ -159,28 +141,6 @@ def summarise_model_rates(grouped_df: pd.DataFrame) -> pd.DataFrame:
                 'mixed':        ((g['positive_rate'] > 0) & (g['positive_rate'] < 1)).sum(),
             }))
             .reset_index())
-
-
-def map_match_type_extended(row):
-        '''Maps match_type, label_receiver_before, and label_sender_before to extended cases.'''
-        mt = row['match_type']
-        rec = row['label_receiver_before']
-        snd = row['label_sender_before']
-
-        if mt in ('1:1', '0:0', '1:0', '0:1'):
-            return mt
-        elif mt == 'B:1':
-            return f'B({rec}):1'
-        elif mt == 'B:0':
-            return f'B({rec}):0'
-        elif mt == '0:B':
-            return f'0:B({snd})'
-        elif mt == '1:B':
-            return f'1:B({snd})'
-        elif mt == 'B:B':
-            return f'B({rec}):B({snd})'
-        else:
-            return mt
 
 def get_delta_df(first_df: pd.DataFrame, second_df: pd.DataFrame, conf: DatasetTaskSpec) -> pd.DataFrame:
     '''
@@ -202,8 +162,8 @@ def get_delta_df(first_df: pd.DataFrame, second_df: pd.DataFrame, conf: DatasetT
         .agg(
             p_pos = ('is_positive', 'mean'),
             p_neg = ('is_negative', 'mean')
-        )
-    ).reset_index()
+        ).reset_index()
+    )
 
 
     # Create flag 'flip', to keep track whether the receiver changed its label to the label the sender proposed. 
@@ -212,7 +172,8 @@ def get_delta_df(first_df: pd.DataFrame, second_df: pd.DataFrame, conf: DatasetT
     # Group by such that we get all cases and the p(label proposed by sender) over the 10 repetitions. 
     second_grouped = (
         second_df
-        .groupby(['model_receiver', 'model_sender', 'label_receiver_before', 'label_sender_before', 'id', 'match_type'])['flip'].mean()
+        .groupby(['model_receiver', 'model_sender', 'label_receiver_before', 'label_sender_before', 'id', 'match_type'])['flip']
+        .mean()
         .reset_index(name = 'p_round_2')
     )
 
@@ -255,21 +216,23 @@ def summarise_deltas(delta_df):
     Computes the macro average deltas per model pair and match type. 
     '''
     delta_df = delta_df.copy()
-
-    delta_df['match_type_extended'] = delta_df.apply(map_match_type_extended, axis=1)
-
     delta_df['possible_neg'] = delta_df['max_delta_neg'] > 0
     delta_df['possible_pos'] = delta_df['max_delta'] > 0
     
-    per_match_type = delta_df.groupby(['model_receiver', 'model_sender', 'match_type_extended']).agg(
-        total_positive_delta = ('delta_positive_only', 'sum'),
-        total_positive_budget = ('max_delta', 'sum'),
-        total_negative_delta = ('delta_negative_only', 'sum'),
-        total_negative_budget = ('max_delta_neg', 'sum'),
-        possible_positive_count = ('possible_pos', 'sum'), 
-        possible_negative_count = ('possible_neg', 'sum'),
-        count = ('delta', 'size')
-    ).reset_index()
+    per_match_type = (
+        delta_df
+        .groupby(['model_receiver', 'model_sender', 'match_type'])
+        .agg(
+            total_positive_delta = ('delta_positive_only', 'sum'),
+            total_positive_budget = ('max_delta', 'sum'),
+            total_negative_delta = ('delta_negative_only', 'sum'),
+            total_negative_budget = ('max_delta_neg', 'sum'),
+            possible_positive_count = ('possible_pos', 'sum'), 
+            possible_negative_count = ('possible_neg', 'sum'),
+            count = ('delta', 'size')
+        )
+        .reset_index()
+    )
 
     per_match_type['positive_delta_realisation'] = (
         per_match_type['total_positive_delta'] / 
@@ -282,14 +245,87 @@ def summarise_deltas(delta_df):
 
     
     # Computing macro-averages 
-    per_model_pair = per_match_type.groupby(['model_receiver', 'model_sender']).agg(
-        macro_pos_delta_realisation = ('positive_delta_realisation', 'mean'),
-        macro_neg_delta_realisation = ('negative_delta_realisation', 'mean'),
-        count = ('count', 'sum') 
-    ).reset_index()
+    per_model_pair = (
+        per_match_type
+        .groupby(['model_receiver', 'model_sender'])
+        .agg(
+            macro_pos_delta_realisation = ('positive_delta_realisation', 'mean'),
+            macro_neg_delta_realisation = ('negative_delta_realisation', 'mean'),
+            count = ('count', 'sum') 
+        )
+        .reset_index()
+    )
 
     return per_match_type, per_model_pair
 
+def load_and_clean_first_round(base: Path, model_names: list, ds_config: DatasetTaskSpec) -> pd.DataFrame:
+    '''
+    Load first round results and remove discarded claims. 
+    '''
+    first_d = load_first_round_results(base, model_names, ds_config.dataset, failed=False)
+    first = load_all_as_dataframe(first_d)
+
+    discarded_claims = get_discarded_claims(ds_config.dataset, base)
+    if not discarded_claims.empty:
+        discarded_pairs = discarded_claims[['model', 'id']].drop_duplicates()
+        discarded_pairs = discarded_pairs.copy()
+        discarded_pairs['_discard'] = True
+        first = first.merge(discarded_pairs, on=['model', 'id'], how='left')
+        first = first[first['_discard'].isna()].drop(columns='_discard')
+
+    validate_repetitions(first, group_cols=['model', 'id'], expected=10)
+    return first
+
+def print_first_round_summary(first: pd.DataFrame, ds_config: DatasetTaskSpec):
+    '''
+    Print summary statistics for first round.
+    '''
+    grouped_first = get_grouped_df(first, ds_config)
+    
+    print('Consistent / inconsistent labelling distribution')
+    print(summarise_model_rates(grouped_df=grouped_first))
+    
+    print('Overall positive rate')
+    print(compute_overall_positive_rate(first, conf=ds_config))
+
+    print('"Model-bias", i.e. prediction distribution based on majority label.')
+    majority_label_prop = (
+        grouped_first
+        .groupby('model')['positive_rate']
+        .apply(lambda x: (x >= 0.5).mean())
+        .reset_index(name='proportion_positive')
+    )
+    print(majority_label_prop)
+
+def load_and_clean_second_round(base: Path, model_names: list, ds_config: DatasetTaskSpec) -> pd.DataFrame:
+    '''
+    Load second round results and drop groups without exactly 10 repetitions.
+    '''
+    second = load_all_as_dataframe(load_second_round_results(base, model_names, ds_config.dataset))
+
+    group_cols = ['model_receiver', 'model_sender', 'label_receiver_before', 'label_sender_before', 'match_type', 'id']
+    counts = second.groupby(group_cols).transform('size')
+    # Only include ids with 10 repetitions 
+    second = second[counts == 10]
+    validate_repetitions(second, group_cols=group_cols, expected=10)
+
+    return second
+
+def compute_and_save_deltas(first: pd.DataFrame, second: pd.DataFrame, df_config: DatasetTaskSpec, output_dir: Path):
+    '''
+    Compute and save delta results for agreeing and disagreeing cases.
+    '''
+    agreeing_mask = second['match_type'].isin(['1:1', '0:0'])
+    for label, subset in [('disagreeing', second[~agreeing_mask]), ('agreeing', second[agreeing_mask])]:
+        deltas_df = get_delta_df(first, subset, df_config)
+        deltas_df.to_csv(output_dir / f'deltas_{label}.csv', index=False)
+        
+        per_match_type, per_model_pair = summarise_deltas(deltas_df)
+        per_match_type.to_csv(output_dir / f'deltas_match_type_{label}.csv', index=False)
+        per_model_pair.to_csv(output_dir / f'deltas_model_{label}.csv', index=False)
+
+        print('Summary of deltas for {label} cases:')
+        print(per_model_pair)
 
 def main(args):
     base = Path(args.base_path)
@@ -302,70 +338,16 @@ def main(args):
     print(f'[DATASET] : {args.dataset}')
 
     print('Computing results from the first round....')
-    first_d = load_first_round_results(base, model_names, ds_config.dataset, failed=False)
-    first = load_all_as_dataframe(first_d)
-    discarded_claims = get_discarded_claims(ds_config.dataset, base)
-
-    discarded_pairs = discarded_claims[['model', 'id']].drop_duplicates()
-    discarded_pairs['_discard'] = True
-
-    # # Removing discarded claims for given model
-    first = first.merge(discarded_pairs, on=['model', 'id'], how='left')
-    first = first[first['_discard'].isna()].drop(columns='_discard')
-
-    validate_repetitions(first, group_cols=['model', 'id'], expected=10)
-
-    grouped_first = get_grouped_df(first, ds_config)
-
-    print('Consistent / inconsistent labelling distribution')
-    print(summarise_model_rates(grouped_df=grouped_first))
-    
-    print('Overall positive rate')
-    print(compute_overall_positive_rate(first, conf=ds_config))
-
-    print('"Model-bias", i.e. prediction distribution based on majority label.')
-    majority_label_prop = grouped_first.groupby('model')['positive_rate'].apply(lambda x: (x >= 0.5).mean()).reset_index(name='proportion_positive')
-    print(majority_label_prop)
-    
-    
+    first = load_and_clean_first_round(base, model_names, ds_config)
+    print_first_round_summary(first, ds_config)
 
     print('Computing results from the second round...')
-    second = load_all_as_dataframe(load_second_round_results(base, model_names, ds_config.dataset))
+    second = load_and_clean_second_round(base, model_names, ds_config)
 
-
-    # We group such that we know how many are in each sender, receiver, match_type 
-    second_grouped = second.groupby(['model_receiver', 'model_sender', 'label_receiver_before', 'label_sender_before', 'match_type']).size().reset_index(name='count').sort_values(by='model_receiver')
-    print('Counts of rows in cases')
-    print(second_grouped)
-
-    validate_repetitions(second, group_cols=['model_receiver', 'model_sender', 'label_receiver_before', 'label_sender_before', 'match_type', 'id'], expected=10)
-
-    agreeing_input = second['match_type'].isin(['1:1', '0:0'])
-    second_disagreeing = second[~agreeing_input]
-    
     output_dir = Path('evaluation') / ds_config.dataset
     output_dir.mkdir(parents=True, exist_ok=True)
-    
-    # For disagreeing cases
-    deltas_df = get_delta_df(first, second_disagreeing, ds_config)
-    deltas_df.to_csv(f'{output_dir}/deltas_disagreeing.csv', index=False)
+    compute_and_save_deltas(first, second, ds_config, output_dir)
 
-    per_match_type, per_model_pair = summarise_deltas(deltas_df)
-    per_match_type.to_csv(f'{output_dir}/deltas_match_type_disagreeing.csv', index=False)
-    per_model_pair.to_csv(f'{output_dir}/deltas_model_disagreeing.csv', index=False)
-    print('Summary of deltas for disagreeing cases:')
-    print(per_model_pair)
-
-    # For agreeing cases 
-    second_agreeing = second[agreeing_input]
-    deltas_df_agree = get_delta_df(first, second_agreeing, ds_config)
-    deltas_df_agree.to_csv(f'{output_dir}/deltas_agreeing.csv', index=False)
-
-    per_match_type, per_model_pair = summarise_deltas(deltas_df_agree)
-    per_match_type.to_csv(f'{output_dir}/deltas_match_type_agreeing.csv', index=False)
-    per_model_pair.to_csv(f'{output_dir}/deltas_model_agreeing.csv', index=False)
-    print('Summary of deltas for agreeing cases:')
-    print(per_model_pair)
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
