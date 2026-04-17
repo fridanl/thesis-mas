@@ -15,7 +15,8 @@ export PYTHONPATH=/home/fril/thesis-mas${PYTHONPATH:+:$PYTHONPATH}
 
 uv run src/results.py --dataset sarcasm
 uv run src/results.py --dataset commonsense
-uv run src/results.py --dataset sentiment
+# uv run src/results.py --dataset sentiment
+
 # uv run src/results.py --dataset commonsense
 
 #uv run check.py

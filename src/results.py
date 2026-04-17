@@ -224,6 +224,27 @@ def summarise_model_rates(grouped_df: pd.DataFrame) -> pd.DataFrame:
             .reset_index())
 
 
+def map_match_type_extended(row):
+        '''Maps match_type, label_receiver_before, and label_sender_before to extended cases.'''
+        mt = row['match_type']
+        rec = row['label_receiver_before']
+        snd = row['label_sender_before']
+
+        if mt in ('1:1', '0:0', '1:0', '0:1'):
+            return mt
+        elif mt == 'B:1':
+            return f'B({rec}):1'
+        elif mt == 'B:0':
+            return f'B({rec}):0'
+        elif mt == '0:B':
+            return f'0:B({snd})'
+        elif mt == '1:B':
+            return f'1:B({snd})'
+        elif mt == 'B:B':
+            return f'B({rec}):B({snd})'
+        else:
+            return mt
+
 def get_delta_df(first_df: pd.DataFrame, second_df: pd.DataFrame, conf: DatasetTaskSpec) -> pd.DataFrame:
     '''
     Computes the delta dataframe, based on first and second round results. 
@@ -298,10 +319,12 @@ def summarise_deltas(delta_df):
     '''
     delta_df = delta_df.copy()
 
+    delta_df['match_type_extended'] = delta_df.apply(map_match_type_extended, axis=1)
+
     delta_df['possible_neg'] = delta_df['max_delta_neg'] > 0
     delta_df['possible_pos'] = delta_df['max_delta'] > 0
     
-    per_match_type = delta_df.groupby(['model_receiver', 'model_sender', 'match_type']).agg(
+    per_match_type = delta_df.groupby(['model_receiver', 'model_sender', 'match_type_extended']).agg(
         total_positive_delta = ('delta_positive_only', 'sum'),
         total_positive_budget = ('max_delta', 'sum'),
         total_negative_delta = ('delta_negative_only', 'sum'),
