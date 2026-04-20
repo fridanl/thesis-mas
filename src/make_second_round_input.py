@@ -301,8 +301,8 @@ def main(args):
         # TODO: uncomment
         #discard.to_csv(f'{outdir}/{args.dataset}/discarded.csv', index=False)                                  
         #TODO: comment
-        discard.to_csv(f'{outdir}/{args.dataset}/discarded1.csv', index=False)
-        print(f'Saving the discarded claims to {outdir}/{args.dataset}/discarded1.csv') # TODO: change  
+        discard.to_csv(f'{outdir}/{args.dataset}2/discarded1.csv', index=False)
+        print(f'Saving the discarded claims to {outdir}/{args.dataset}2/discarded1.csv') # TODO: change and remove the 2  
 
     for receiver in model_names:
         if receiver not in model_claim_dict.keys():
@@ -310,8 +310,9 @@ def main(args):
         agree, disagree = process_all_pairs(model_claim_dict=model_claim_dict, receiver=receiver, config=t_config)
         
         if not args.self_interaction:
-            agree.to_csv(f'{outdir}/{args.dataset}/{receiver}_agree.csv', index=False)                          
-            disagree.to_csv(f'{outdir}/{args.dataset}/{receiver}_disagree.csv', index=False)                    
+            #TODO: change away from 2
+            agree.to_csv(f'{outdir}/{args.dataset}2/{receiver}_agree.csv', index=False)                          
+            disagree.to_csv(f'{outdir}/{args.dataset}2/{receiver}_disagree.csv', index=False)                    
         else:
             agree.to_csv(f'{outdir}/{args.dataset}/{receiver}_self_interaction_agree.csv', index=False)
             disagree.to_csv(f'{outdir}/{args.dataset}/{receiver}_self_interaction_disagree.csv', index=False)     
