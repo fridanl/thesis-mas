@@ -1,4 +1,5 @@
 model_receiver,model_sender,macro_pos_delta_realisation,macro_neg_delta_realisation,count
+gemma-3-27b,gemma-3-27b,,0.0,2000
 gemma-3-27b,gemma-3-4b,,-0.0007,2000
 gemma-3-27b,gpt-oss-20b,,0.0,2000
 gemma-3-27b,llama-3.3-70b,,-9.999999999999998e-05,2000
