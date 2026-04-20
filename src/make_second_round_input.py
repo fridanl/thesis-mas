@@ -298,8 +298,11 @@ def main(args):
     outdir = args.output_root 
     model_claim_dict, discard = load_and_preprocess(combined, t_config)
     if not args.self_interaction:
-        discard.to_csv(f'{outdir}/{args.dataset}/discarded.csv', index=False)                                  
-        print(f'Saving the discarded claims to {outdir}/{args.dataset}/discarded.csv')  
+        # TODO: uncomment
+        #discard.to_csv(f'{outdir}/{args.dataset}/discarded.csv', index=False)                                  
+        #TODO: comment
+        discard.to_csv(f'{outdir}/{args.dataset}/discarded1.csv', index=False)
+        print(f'Saving the discarded claims to {outdir}/{args.dataset}/discarded1.csv') # TODO: change  
 
     for receiver in model_names:
         if receiver not in model_claim_dict.keys():
