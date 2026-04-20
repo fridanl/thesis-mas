@@ -266,7 +266,7 @@ def main(args):
     dfs = [] 
     
     for model_n in model_names:
-        path = Path(f'/home/rp-fril-mhpe/{model_n}-{args.dataset}.csv')
+        path = Path(f'/home/rp-fril-mhpe/first/{model_n}-{args.dataset}.csv')
         if not path.exists():
             print(f'File not found: {path}')
             continue
