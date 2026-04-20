@@ -1,0 +1,9 @@
+2026-04-20 13:12:43 | INFO     | Logging initialised. Log file: inference_logs/second/gemma-3-27b_sentiment_20260420_131243.log
+2026-04-20 13:12:43 | INFO     | SLURM output file: logs/round2-self-sentiment-gemma-3-27b.71506.out
+2026-04-20 13:12:43 | INFO     | ==================================================
+2026-04-20 13:12:43 | INFO     | Starting inference pipeline
+2026-04-20 13:12:43 | INFO     | ==================================================
+2026-04-20 13:12:43 | INFO     | Arguments: {'model_name': 'gemma-3-27b', 'dataset': 'sentiment', 'dataset_path': '/home/rp-fril-mhpe/subsampled_input_round2/sentiment/gemma-3-27b_self_interaction_agree_subsampled.csv', 'repetition': 1, 'round': 2, 'slurm_output': 'logs/round2-self-sentiment-gemma-3-27b.71506.out', 'history': True, 'models_config_path': 'configs/models.yaml', 'outdir': '/home/rp-fril-mhpe/self', 'batch_size': 256, 'no_logging': False, 'limit': None, 'idx_start': 0}
+2026-04-20 13:12:43 | INFO     | Results will be written to: /home/rp-fril-mhpe/self/second/gemma-3-27b-sentiment.csv
+2026-04-20 13:12:43 | INFO     | Ensuring local model availability...
+2026-04-20 13:12:43 | INFO     | Location of model: /home/fril/.cache/huggingface/hub/models--unsloth--gemma-3-27b-it-bnb-4bit

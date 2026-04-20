@@ -1,0 +1,66 @@
+2026-04-20 02:37:13 | INFO     | Logging initialised. Log file: inference_logs/second/qwen-2.5-72b_commonsense_20260420_023712.log
+2026-04-20 02:37:13 | INFO     | SLURM output file: logs/round2-self-commonsense-qwen-2.5-72b.71191.out
+2026-04-20 02:37:13 | INFO     | ==================================================
+2026-04-20 02:37:13 | INFO     | Starting inference pipeline
+2026-04-20 02:37:13 | INFO     | ==================================================
+2026-04-20 02:37:13 | INFO     | Arguments: {'model_name': 'qwen-2.5-72b', 'dataset': 'commonsense', 'dataset_path': '/home/rp-fril-mhpe/subsampled_input_round2/commonsense/qwen-2.5-72b_self_interaction_disagree_subsampled.csv', 'repetition': 1, 'round': 2, 'slurm_output': 'logs/round2-self-commonsense-qwen-2.5-72b.71191.out', 'history': True, 'models_config_path': 'configs/models.yaml', 'outdir': '/home/rp-fril-mhpe/self', 'batch_size': 256, 'no_logging': False, 'limit': None, 'idx_start': 0}
+2026-04-20 02:37:13 | INFO     | Results will be written to: /home/rp-fril-mhpe/self/second/qwen-2.5-72b-commonsense.csv
+2026-04-20 02:37:13 | INFO     | Ensuring local model availability...
+2026-04-20 02:37:13 | INFO     | Location of model: /home/fril/.cache/huggingface/hub/models--unsloth--Qwen2.5-72B-Instruct-bnb-4bit
+2026-04-20 02:39:24 | INFO     | ########## Shared decoding parameters ##########
+2026-04-20 02:39:24 | INFO     | Repetitions (no. outputs from one input): 1 
+ Max tokens: 254
+2026-04-20 02:39:24 | INFO     | The model has been set to have default sampling params.
+2026-04-20 02:39:24 | INFO     | ########## Sampling parameters ########## 
+ SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.05, temperature=0.7, top_p=0.8, top_k=20, min_p=0.0, seed=None, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=254, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=GuidedDecodingParams(json={'$defs': {'LabelCommonsense': {'enum': ['yes', 'no'], 'title': 'LabelCommonsense', 'type': 'string'}}, 'properties': {'label': {'$ref': '#/$defs/LabelCommonsense'}}, 'required': ['label'], 'title': 'OutputCommonsenseR2', 'type': 'object'}, regex=None, choice=None, grammar=None, json_object=None, backend=None, backend_was_auto=False, disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, whitespace_pattern=None, structural_tag=None), extra_args=None)
+2026-04-20 02:40:15 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:40:26 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:40:32 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:40:38 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:40:45 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:40:52 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:40:58 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:41:05 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:41:13 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:41:20 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:41:26 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:41:33 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:41:39 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:41:46 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:41:52 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:41:59 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:42:06 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:42:12 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:42:19 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:42:26 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:42:33 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:42:39 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:42:46 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:42:53 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:42:59 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:43:06 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:43:12 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:43:20 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:43:26 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:43:33 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:43:40 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:43:47 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:43:53 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:44:00 | INFO     | Writing 256 valid results to CSV
+2026-04-20 02:44:05 | INFO     | Writing 136 valid results to CSV
+2026-04-20 02:44:05 | INFO     | ==================================================
+2026-04-20 02:44:05 | INFO     | Inference pipeline completed
+2026-04-20 02:44:05 | INFO     | ==================================================
+2026-04-20 02:44:05 | INFO     | Total batches processed: 35
+2026-04-20 02:44:05 | INFO     | Total successful results: 8840
+2026-04-20 02:44:05 | INFO     | Total failed examples: 0
+2026-04-20 02:44:05 | INFO     | Output directory: /home/rp-fril-mhpe/self/second
+2026-04-20 02:44:05 | INFO     | ==================================================
+2026-04-20 02:44:05 | INFO     | Timing summary
+2026-04-20 02:44:05 | INFO     | Total script execution time: 6m 52.77s (412.77s)
+2026-04-20 02:44:05 | INFO     | Total inference time: 4m 38.07s (278.07s)
+2026-04-20 02:44:05 | INFO     | Overhead time (I/O, parsing, etc.): 2m 14.69s (134.69s)
+2026-04-20 02:44:05 | INFO     | Inference percentage: 67.4%
+2026-04-20 02:44:05 | INFO     | Average time per batch: 11.79s
+2026-04-20 02:44:05 | INFO     | Average time per result: 0.05s
+2026-04-20 02:44:05 | INFO     | ==================================================
