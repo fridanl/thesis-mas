@@ -14,12 +14,15 @@ echo "Host: $(hostname)"
 set -euo pipefail
 
 
-uv run src/make_subsample.py --glob_pattern *_self_interaction_agree.csv --cap 1000 --dataset commonsense
-uv run src/make_subsample.py --glob_pattern *_self_interaction_disagree.csv --cap 7000 --dataset commonsense
+# uv run src/make_subsample.py --glob_pattern *_self_interaction_agree.csv --cap 1000 --dataset commonsense
+# uv run src/make_subsample.py --glob_pattern *_self_interaction_disagree.csv --cap 7000 --dataset commonsense
 
 
-#uv run src/first_round_results.py
+# uv run src/first_round_results.py
 # try the agreement ones:
 # uv run src/make_subsample.py --suffix disagree --cap 7000 --dataset commonsense
 # uv run src/make_subsample.py --suffix agree --cap 1000 --dataset commonsense
 
+# sentiment small models as receivers
+# uv run src/make_subsample.py --suffix disagree --cap 7000 --dataset sentiment
+# uv run src/make_subsample.py --suffix agree --cap 1000 --dataset sentiment
