@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=git-all
+#SBATCH --job-name=git-push
 #SBATCH --account=researchers
 #SBATCH --partition=scavenge
 #SBATCH --cpus-per-task=4
@@ -8,10 +8,5 @@
 
 module load git
 
-git pull
-
-git add .
-
-git commit -m "."
-
 git push
+

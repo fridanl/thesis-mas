@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=subsample_self_commonsense
+#SBATCH --job-name=subsample-senti-agr-small
 #SBATCH --account=researchers
 #SBATCH --partition=scavenge
 #SBATCH --cpus-per-task=4
@@ -24,8 +24,8 @@ set -euo pipefail
 # uv run src/make_subsample.py --suffix agree --cap 1000 --dataset commonsense
 
 # sentiment small models as receivers
-# uv run src/make_subsample.py --glob_pattern *_disagree2.csv --cap 7000 --dataset sentiment
-# uv run src/make_subsample.py --glob_pattern *_agree2.csv --cap 1000 --dataset sentiment
+#uv run src/make_subsample.py --glob_pattern *_disagree2.csv --cap 7000 --dataset sentiment
+uv run src/make_subsample.py --glob_pattern *_agree2.csv --cap 1000 --dataset sentiment
 
 
 # when ready for large mdoels for sentiment:
