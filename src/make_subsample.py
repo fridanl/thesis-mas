@@ -49,11 +49,9 @@ def main(args):
     cap = args.cap # this is the number of unique ids
     suffix = args.suffix
 
-    #TODO: uncomment and remove the other 2 lines
-    # input_dir = Path(args.input_dir) / args.dataset
-    # output_dir = Path(args.output_dir) / args.dataset
-    input_dir = Path(args.input_dir) / f"{args.dataset}2"
-    output_dir = Path(args.output_dir) / f"{args.dataset}2"
+    input_dir = Path(args.input_dir) / args.dataset
+    output_dir = Path(args.output_dir) / args.dataset
+
 
     output_dir.mkdir(parents=True, exist_ok=True)
     pattern = args.glob_pattern if args.glob_pattern else f'*_{suffix}.csv'
