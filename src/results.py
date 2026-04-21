@@ -164,7 +164,6 @@ def get_delta_df(first_df: pd.DataFrame, second_df: pd.DataFrame, conf: DatasetT
         ).reset_index()
     )
 
-
     # Create flag 'flip', to keep track whether the receiver changed its label to the label the sender proposed. 
     second_df['flip'] = (second_df['label_receiver_now'] == second_df['label_sender_before'])
 
@@ -301,16 +300,11 @@ def load_and_clean_second_round(base: Path, model_names: list, ds_config: Datase
     Load second round results and drop groups without exactly 10 repetitions.
     '''
     second = load_all_as_dataframe(load_second_round_results(base, model_names, ds_config.dataset))
-    print('before loading in')
-    print(second['model_receiver'].value_counts())
 
     group_cols = ['model_receiver', 'model_sender', 'label_receiver_before', 'label_sender_before', 'match_type', 'id']
     counts = second.groupby(group_cols)['id'].transform('size')
     # Only include ids with 10 repetitions 
     second = second[counts == 10]
-    print('After dropping counts')
-    print(second['model_receiver'].value_counts())
- 
     validate_repetitions(second, group_cols=group_cols, expected=10)
     return second
 
