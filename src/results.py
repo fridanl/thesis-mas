@@ -301,13 +301,17 @@ def load_and_clean_second_round(base: Path, model_names: list, ds_config: Datase
     Load second round results and drop groups without exactly 10 repetitions.
     '''
     second = load_all_as_dataframe(load_second_round_results(base, model_names, ds_config.dataset))
+    print('before loading in')
+    print(second['model_receiver'].value_counts())
 
     group_cols = ['model_receiver', 'model_sender', 'label_receiver_before', 'label_sender_before', 'match_type', 'id']
     counts = second.groupby(group_cols)['id'].transform('size')
     # Only include ids with 10 repetitions 
     second = second[counts == 10]
+    print('After dropping counts')
+    print(second['model_receiver'].value_counts())
+ 
     validate_repetitions(second, group_cols=group_cols, expected=10)
-
     return second
 
 def compute_and_save_deltas(first: pd.DataFrame, second: pd.DataFrame, df_config: DatasetTaskSpec, output_dir: Path):
