@@ -221,9 +221,11 @@ def process_all_pairs(model_claim_dict: dict, receiver: str, config: TaskConfig)
         #             "gpt-oss-20b": ["llama-3.3-70b", "qwen-2.5-72b", "gemma-3-27b"]}
         
         #TODO: comment out:
-        model_pairs = {"llama-3.1-8b": ["llama-3.3-70b"],
-                    "qwen-2.5-7b": ["qwen-2.5-72b"],
-                    "gemma-3-4b": ["gemma-3-27b"]}
+        # model_pairs = {"llama-3.1-8b": ["llama-3.3-70b"],
+        #             "qwen-2.5-7b": ["qwen-2.5-72b"],
+        #             "gemma-3-4b": ["gemma-3-27b"]}
+
+        model_pairs = {"llama-3.1-70b": ["gpt-oss-20b"]}
         
     # Dicts for agree and disagree rows sender model
     agree_rows_for_receiver: list[dict] = []
