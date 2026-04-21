@@ -8,6 +8,8 @@
 
 module load git
 
+git pull
+
 git add .
 
 git commit -m 'results debug'
