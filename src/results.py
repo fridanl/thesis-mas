@@ -18,12 +18,9 @@ def load_first_round_results(base: Path, models: list, dataset: str, failed: boo
     suffix = '-failed' if failed else ''
     results = {}
     for model in models:
-        path = base / f'{model}-{dataset}{suffix}.csv' # TODO: Change this when we move results to first/
-        if dataset == 'sentiment':
-            path = base / 'first' /f'{model}-{dataset}{suffix}.csv'
+        path = base / 'first' /f'{model}-{dataset}{suffix}.csv'
         if path.exists():
             results[model] = pd.read_csv(path)
-
     return results 
 
 def load_second_round_results(base: Path, models: list, dataset: str) -> dict[str, pd.DataFrame]:
