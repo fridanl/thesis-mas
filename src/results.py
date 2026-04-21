@@ -38,6 +38,9 @@ def load_second_round_results(base: Path, models: list, dataset: str) -> dict[st
         path = base / 'second' / f'{model}-{dataset}.csv'
         if path.exists():
             dfs.append(pd.read_csv(path))
+            print(f'Succesfully loaded the file: {path}')
+        else:
+            print(f'Was not able to load the file: {path}')
 
         # self-interaction 
         self_path = base / 'self' / 'second' / f'{model}-{dataset}.csv'
@@ -303,7 +306,7 @@ def load_and_clean_second_round(base: Path, model_names: list, ds_config: Datase
     second = load_all_as_dataframe(load_second_round_results(base, model_names, ds_config.dataset))
 
     group_cols = ['model_receiver', 'model_sender', 'label_receiver_before', 'label_sender_before', 'match_type', 'id']
-    counts = second.groupby(group_cols).transform('size')
+    counts = second.groupby(group_cols)['id'].transform('size')
     # Only include ids with 10 repetitions 
     second = second[counts == 10]
     validate_repetitions(second, group_cols=group_cols, expected=10)
@@ -323,7 +326,7 @@ def compute_and_save_deltas(first: pd.DataFrame, second: pd.DataFrame, df_config
         per_match_type.to_csv(output_dir / f'deltas_match_type_{label}.csv', index=False)
         per_model_pair.to_csv(output_dir / f'deltas_model_{label}.csv', index=False)
 
-        print('Summary of deltas for {label} cases:')
+        print(f'Summary of deltas for {label} cases:')
         print(per_model_pair)
 
 def main(args):
@@ -342,6 +345,7 @@ def main(args):
 
     print('Computing results from the second round...')
     second = load_and_clean_second_round(base, model_names, ds_config)
+    print(second['model_receiver'].value_counts())
 
     output_dir = Path('evaluation') / ds_config.dataset
     output_dir.mkdir(parents=True, exist_ok=True)
