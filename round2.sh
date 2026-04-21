@@ -36,9 +36,9 @@ SLURM_OUTPUT_FILE="logs/${SLURM_JOB_NAME}.${SLURM_JOB_ID}.out"
 
 # # gemma-3-27b
 # # Disagreeing
-uv run run.py --model_name gemma-3-27b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sarcasm/gemma-3-27b_disagree_subsampled.csv --outdir /home/rp-fril-mhpe --slurm_output "${SLURM_OUTPUT_FILE}"
+# uv run run.py --model_name gemma-3-27b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sarcasm/gemma-3-27b_disagree_subsampled.csv --outdir /home/rp-fril-mhpe --slurm_output "${SLURM_OUTPUT_FILE}"
 # # Agreeing
-uv run run.py --model_name gemma-3-27b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sarcasm/gemma-3-27b_agree_subsampled.csv --outdir /home/rp-fril-mhpe --slurm_output "${SLURM_OUTPUT_FILE}"
+# uv run run.py --model_name gemma-3-27b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sarcasm/gemma-3-27b_agree_subsampled.csv --outdir /home/rp-fril-mhpe --slurm_output "${SLURM_OUTPUT_FILE}"
 
 # # llama-3.3-70b
 # # Disagreeing
