@@ -1,0 +1,33 @@
+2026-04-20 01:38:39 | INFO     | Logging initialised. Log file: inference_logs/first/gemma-3-27b_sentiment_20260420_013839.log
+2026-04-20 01:38:39 | INFO     | SLURM output file: logs/failed-run-gemma27b.71179.out
+2026-04-20 01:38:39 | INFO     | ==================================================
+2026-04-20 01:38:39 | INFO     | Starting inference pipeline
+2026-04-20 01:38:39 | INFO     | ==================================================
+2026-04-20 01:38:39 | INFO     | Arguments: {'model_name': 'gemma-3-27b', 'dataset': 'sentiment', 'dataset_path': '/home/rp-fril-mhpe/first/gemma-3-27b-sentiment-failed1.csv', 'repetition': 1, 'round': 1, 'slurm_output': 'logs/failed-run-gemma27b.71179.out', 'history': False, 'models_config_path': 'configs/models.yaml', 'outdir': '/home/rp-fril-mhpe/', 'batch_size': 256, 'no_logging': False, 'limit': None, 'idx_start': 0}
+2026-04-20 01:38:39 | INFO     | Results will be written to: /home/rp-fril-mhpe/first/gemma-3-27b-sentiment.csv
+2026-04-20 01:38:39 | INFO     | Ensuring local model availability...
+2026-04-20 01:38:40 | INFO     | Location of model: /home/mhpe/.cache/huggingface/hub/models--unsloth--gemma-3-27b-it-bnb-4bit
+2026-04-20 01:40:46 | INFO     | ########## Shared decoding parameters ##########
+2026-04-20 01:40:46 | INFO     | Repetitions (no. outputs from one input): 1 
+ Max tokens: 254
+2026-04-20 01:40:46 | INFO     | Using sampling params as specified in models.yaml.
+2026-04-20 01:40:46 | INFO     | ########## Sampling parameters ########## 
+ SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.0, temperature=1.0, top_p=0.95, top_k=64, min_p=0.0, seed=None, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=254, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=GuidedDecodingParams(json={'$defs': {'LabelSentiment': {'enum': ['positive', 'negative'], 'title': 'LabelSentiment', 'type': 'string'}}, 'properties': {'label': {'$ref': '#/$defs/LabelSentiment'}, 'explanation': {'title': 'Explanation', 'type': 'string'}}, 'required': ['label', 'explanation'], 'title': 'OutputSentiment', 'type': 'object'}, regex=None, choice=None, grammar=None, json_object=None, backend=None, backend_was_auto=False, disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, whitespace_pattern=None, structural_tag=None), extra_args=None)
+2026-04-20 01:41:44 | INFO     | Writing 249 valid results to CSV
+2026-04-20 01:42:04 | INFO     | Writing 174 valid results to CSV
+2026-04-20 01:42:04 | INFO     | ==================================================
+2026-04-20 01:42:04 | INFO     | Inference pipeline completed
+2026-04-20 01:42:04 | INFO     | ==================================================
+2026-04-20 01:42:04 | INFO     | Total batches processed: 2
+2026-04-20 01:42:04 | INFO     | Total successful results: 423
+2026-04-20 01:42:04 | INFO     | Total failed examples: 12
+2026-04-20 01:42:04 | INFO     | Output directory: /home/rp-fril-mhpe/first
+2026-04-20 01:42:04 | INFO     | ==================================================
+2026-04-20 01:42:04 | INFO     | Timing summary
+2026-04-20 01:42:04 | INFO     | Total script execution time: 3m 25.01s (205.01s)
+2026-04-20 01:42:04 | INFO     | Total inference time: 1m 16.69s (76.69s)
+2026-04-20 01:42:04 | INFO     | Overhead time (I/O, parsing, etc.): 2m 8.33s (128.33s)
+2026-04-20 01:42:04 | INFO     | Inference percentage: 37.4%
+2026-04-20 01:42:04 | INFO     | Average time per batch: 102.51s
+2026-04-20 01:42:04 | INFO     | Average time per result: 0.48s
+2026-04-20 01:42:04 | INFO     | ==================================================

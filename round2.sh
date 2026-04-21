@@ -104,3 +104,43 @@ uv run run.py --model_name gemma-3-27b --repetition 1 --round 2 --batch_size 256
 # # Agreeing
 # uv run run.py --model_name qwen-2.5-7b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/commonsense/qwen-2.5-7b_agree_subsampled.csv --outdir /home/rp-fril-mhpe  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset commonsense
 
+#-------------------------------------------------------------------------------------------------
+
+# SENTIMENT
+
+#----- gemma-3-4b
+# Disagreeing
+# uv run run.py --model_name gemma-3-4b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sentiment/gemma-3-4b_disagree_subsampled.csv --outdir /home/rp-fril-mhpe  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset sentiment
+# # Agreeing
+# uv run run.py --model_name gemma-3-4b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sentiment/gemma-3-4b_agree_subsampled.csv --outdir /home/rp-fril-mhpe  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset sentiment
+
+#---- gemma-3-27b
+# Disagreeing
+# uv run run.py --model_name gemma-3-27b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sentiment/gemma-3-27b_disagree_subsampled.csv --outdir /home/rp-fril-mhpe  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset sentiment
+# # Agreeing
+# uv run run.py --model_name gemma-3-27b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sentiment/gemma-3-27b_agree_subsampled.csv --outdir /home/rp-fril-mhpe  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset sentiment
+
+#---- llama-3.3-70b
+# # Disagreeing
+# uv run run.py --model_name llama-3.3-70b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sentiment/llama-3.3-70b_disagree_subsampled.csv --outdir /home/rp-fril-mhpe  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset sentiment
+# # Agreeing
+# uv run run.py --model_name llama-3.3-70b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sentiment/llama-3.3-70b_agree_subsampled.csv --outdir /home/rp-fril-mhpe  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset sentiment
+
+#---- llama-3.1-8b
+# # Disagreeing
+# uv run run.py --model_name llama-3.1-8b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sentiment/llama-3.1-8b_disagree_subsampled.csv --outdir /home/rp-fril-mhpe  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset sentiment
+# # Agreeing
+# uv run run.py --model_name llama-3.1-8b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sentiment/llama-3.1-8b_agree_subsampled.csv --outdir /home/rp-fril-mhpe  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset sentiment
+
+#---- qwen-2.5-72b
+# # Disagreeing
+# uv run run.py --model_name qwen-2.5-72b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sentiment/qwen-2.5-72b_disagree_subsampled.csv --outdir /home/rp-fril-mhpe  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset sentiment
+# # Agreeing
+# uv run run.py --model_name qwen-2.5-72b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sentiment/qwen-2.5-72b_agree_subsampled.csv --outdir /home/rp-fril-mhpe  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset sentiment
+
+#----  qwen-2.5-7b
+# # Disagreeing
+# uv run run.py --model_name qwen-2.5-7b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sentiment/qwen-2.5-7b_disagree_subsampled.csv --outdir /home/rp-fril-mhpe  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset sentiment
+# # Agreeing
+# uv run run.py --model_name qwen-2.5-7b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sentiment/qwen-2.5-7b_agree_subsampled.csv --outdir /home/rp-fril-mhpe  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset sentiment
+
