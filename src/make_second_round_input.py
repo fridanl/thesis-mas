@@ -225,8 +225,13 @@ def process_all_pairs(model_claim_dict: dict, receiver: str, config: TaskConfig)
         #             "qwen-2.5-7b": ["qwen-2.5-72b"],
         #             "gemma-3-4b": ["gemma-3-27b"]}
 
-        model_pairs = {"llama-3.3-70b": ["gpt-oss-20b"]}
-        
+
+        # TODO: only for gpt pairs: (and fixup for late results)
+        model_pairs = {"llama-3.3-70b": ["gpt-oss-20b"], 
+                    "qwen-2.5-72b": ["gpt-oss-20b"], 
+                    "gemma-3-27b": ["gpt-oss-20b"],
+                    "gpt-oss-20b": ["llama-3.3-70b", "qwen-2.5-72b", "gemma-3-27b"]}
+
     # Dicts for agree and disagree rows sender model
     agree_rows_for_receiver: list[dict] = []
     disagree_rows_for_receiver: list[dict] = []
@@ -297,8 +302,9 @@ def main(args):
     outdir = args.output_root 
     model_claim_dict, discard = load_and_preprocess(combined, t_config)
     if not args.self_interaction:
-        discard.to_csv(f'{outdir}/{args.dataset}/discarded.csv', index=False)                                  
-        print(f'Saving the discarded claims to {outdir}/{args.dataset}/discarded.csv')
+        # TODO: also chnage here
+        discard.to_csv(f'{outdir}/{args.dataset}/_gpt_sender_discarded.csv', index=False)                                  
+        print(f'Saving the discarded claims to {outdir}/{args.dataset}/_gpt_sender_discarded.csv')
 
     for receiver in model_names:
         if receiver not in model_claim_dict.keys():
@@ -306,8 +312,9 @@ def main(args):
         agree, disagree = process_all_pairs(model_claim_dict=model_claim_dict, receiver=receiver, config=t_config)
         
         if not args.self_interaction:
-            agree.to_csv(f'{outdir}/{args.dataset}/{receiver}_agree.csv', index=False)                          
-            disagree.to_csv(f'{outdir}/{args.dataset}/{receiver}_disagree.csv', index=False)                    
+            # TODO: change back, wo. gpt
+            agree.to_csv(f'{outdir}/{args.dataset}/{receiver}_gpt_sender_agree.csv', index=False)                          
+            disagree.to_csv(f'{outdir}/{args.dataset}/{receiver}_gpt_sender_disagree.csv', index=False)                    
         else:
             if not agree.empty:
                 agree.to_csv(f'{outdir}/{args.dataset}/{receiver}_self_interaction_agree.csv', index=False)
