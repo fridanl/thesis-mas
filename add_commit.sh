@@ -8,6 +8,11 @@
 
 module load git
 
+git checkout --theirs subsample.sh
+
+git add subsample.sh
+git commit -m "Resolve merge conflict in subsample.sh"
+
 git add .
 
 git commit -m 'inference logs'
