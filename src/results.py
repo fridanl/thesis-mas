@@ -40,10 +40,9 @@ def load_second_round_results(base: Path, models: list, dataset: str) -> dict[st
             dfs.append(pd.read_csv(path))
 
         # self-interaction 
-        if dataset == 'sarcasm': #TODO: change this when get all results for self-interaction 
-            self_path = base / 'self' / 'second' / f'{model}-{dataset}.csv'
-            if self_path.exists():
-                dfs.append(pd.read_csv(self_path))
+        self_path = base / 'self' / 'second' / f'{model}-{dataset}.csv'
+        if self_path.exists():
+            dfs.append(pd.read_csv(self_path))
 
         if dfs:
             results[model] = pd.concat(dfs, ignore_index=True)
