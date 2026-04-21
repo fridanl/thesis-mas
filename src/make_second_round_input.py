@@ -225,7 +225,7 @@ def process_all_pairs(model_claim_dict: dict, receiver: str, config: TaskConfig)
         #             "qwen-2.5-7b": ["qwen-2.5-72b"],
         #             "gemma-3-4b": ["gemma-3-27b"]}
 
-        model_pairs = {"llama-3.1-70b": ["gpt-oss-20b"]}
+        model_pairs = {"llama-3.3-70b": ["gpt-oss-20b"]}
         
     # Dicts for agree and disagree rows sender model
     agree_rows_for_receiver: list[dict] = []
@@ -258,18 +258,15 @@ def process_all_pairs(model_claim_dict: dict, receiver: str, config: TaskConfig)
 
     if disagree_rows_for_receiver:
         df_disagree = pd.DataFrame(disagree_rows_for_receiver)
-    else:
-        df_disagree = pd.DataFrame(columns=["id", "claim", "model_receiver", "model_sender", "label_receiver", "label_sender", "explanation_receiver", "explanation_sender", "match_type"])
+        df_disagree = df_disagree.sort_values(["id", "model_receiver", "model_sender"]).reset_index(drop=True)
+    else: 
+        df_disagree = pd.DataFrame()
+
     if agree_rows_for_receiver:
         df_agree = pd.DataFrame(agree_rows_for_receiver)
+        df_agree = df_agree.sort_values(["id", "model_receiver", "model_sender"]).reset_index(drop=True)
     else:
-        df_agree = pd.DataFrame(columns=["id", "claim", "model_receiver", "model_sender", "label_receiver", "label_sender", "explanation_receiver", "explanation_sender", "match_type"])
-
-
-    df_agree = df_agree.sort_values(["id", "model_receiver", "model_sender"]).reset_index(drop=True)
-
-    df_disagree = df_disagree.sort_values(["id", "model_receiver", "model_sender"]).reset_index(drop=True)
-
+        df_agree = pd.DataFrame()
 
     return df_agree, df_disagree
     
@@ -312,8 +309,11 @@ def main(args):
             agree.to_csv(f'{outdir}/{args.dataset}/{receiver}_agree.csv', index=False)                          
             disagree.to_csv(f'{outdir}/{args.dataset}/{receiver}_disagree.csv', index=False)                    
         else:
-            agree.to_csv(f'{outdir}/{args.dataset}/{receiver}_self_interaction_agree.csv', index=False)
-            disagree.to_csv(f'{outdir}/{args.dataset}/{receiver}_self_interaction_disagree.csv', index=False)     
+            if not agree.empty:
+                agree.to_csv(f'{outdir}/{args.dataset}/{receiver}_self_interaction_agree.csv', index=False)
+
+            if not disagree.empty:
+                disagree.to_csv(f'{outdir}/{args.dataset}/{receiver}_self_interaction_disagree.csv', index=False)     
             # both = pd.concat([agree, disagree]) # concat agree and disagree
             # both.to_csv(f"{outdir}/{args.dataset}/{receiver}-self-interaction.csv", index=False)
 
