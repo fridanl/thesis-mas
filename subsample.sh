@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=subsample-com-agr
+#SBATCH --job-name=subsample-com-self-gpt
 #SBATCH --account=researchers
 #SBATCH --partition=scavenge
 #SBATCH --cpus-per-task=4
@@ -32,8 +32,8 @@ set -euo pipefail
 # uv run src/make_subsample.py --suffix disagree --cap 7000 --dataset sentiment
 # uv run src/make_subsample.py --suffix agree --cap 1000 --dataset sentiment
 
-# COMMONSENSE gpt 'subsample'
-#uv run src/make_subsample.py --glob_pattern *-oss-20b_disagree.csv --input_dir /home/rp-fril-mhpe/input_round2/commonsense/gpt --output_dir /home/rp-fril-mhpe/subsampled_input_round2/commonsense/gpt --cap 7000 --dataset commonsense
-uv run src/make_subsample.py --glob_pattern *_gpt_sender_agree.csv --input_dir /home/rp-fril-mhpe/input_round2/commonsense/gpt --output_dir /home/rp-fril-mhpe/subsampled_input_round2/commonsense/gpt --cap 1000 --dataset commonsense
+# COMMONSENSE gpt 'subsample'   
+uv run src/make_subsample.py --glob_pattern *-20b_self_interaction_disagree.csv --input_dir /home/rp-fril-mhpe/tmp --output_dir /home/rp-fril-mhpe/subsampled_input_round2/commonsense/gpt/commonsense/self --cap 7000 --dataset commonsense
+#uv run src/make_subsample.py --glob_pattern *_gpt_sender_agree.csv --input_dir /home/rp-fril-mhpe/input_round2/commonsense/gpt --output_dir /home/rp-fril-mhpe/subsampled_input_round2/commonsense/gpt --cap 1000 --dataset commonsense
 
-uv run src/make_subsample.py --glob_pattern *-oss-20b_agree.csv --input_dir /home/rp-fril-mhpe/input_round2/commonsense/gpt --output_dir /home/rp-fril-mhpe/subsampled_input_round2/commonsense/gpt --cap 1000 --dataset commonsense
+#uv run src/make_subsample.py --glob_pattern *-oss-20b_agree.csv --input_dir /home/rp-fril-mhpe/input_round2/commonsense/gpt --output_dir /home/rp-fril-mhpe/subsampled_input_round2/commonsense/gpt --cap 1000 --dataset commonsense
