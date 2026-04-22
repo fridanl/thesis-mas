@@ -193,13 +193,16 @@ def process_all_pairs(model_claim_dict: dict, receiver: str, config: TaskConfig)
 
     
     if args.self_interaction: # matching the models up with themselves only, when self_interaction is set to True
-        model_pairs = {"llama-3.3-70b": ["llama-3.3-70b"], 
-                    "llama-3.1-8b": ["llama-3.1-8b"],
-                    "qwen-2.5-72b": ["qwen-2.5-72b"],
-                    "qwen-2.5-7b": ["qwen-2.5-7b"],
-                    "gemma-3-27b": ["gemma-3-27b"],
-                    "gemma-3-4b": ["gemma-3-4b"],
-                    "gpt-oss-20b": ["gpt-oss-20b"]}
+        # TODO: uncomment and comment other
+        # model_pairs = {"llama-3.3-70b": ["llama-3.3-70b"], 
+        #             "llama-3.1-8b": ["llama-3.1-8b"],
+        #             "qwen-2.5-72b": ["qwen-2.5-72b"],
+        #             "qwen-2.5-7b": ["qwen-2.5-7b"],
+        #             "gemma-3-27b": ["gemma-3-27b"],
+        #             "gemma-3-4b": ["gemma-3-4b"],
+        #             "gpt-oss-20b": ["gpt-oss-20b"]}
+
+        model_pairs = {"gpt-oss-20b": ["gpt-oss-20b"]}
     else:
         # a fixed set of model pairs that we chose to match up, so we don't get every possible pair
         # only within family and the large models across family
@@ -313,8 +316,10 @@ def main(args):
         
         if not args.self_interaction:
             # TODO: change back, wo. gpt
-            agree.to_csv(f'{outdir}/{args.dataset}/{receiver}_gpt_sender_agree.csv', index=False)                          
-            disagree.to_csv(f'{outdir}/{args.dataset}/{receiver}_gpt_sender_disagree.csv', index=False)                    
+            if not agree.empty:
+                agree.to_csv(f'{outdir}/{args.dataset}/{receiver}_gpt_sender_agree.csv', index=False) 
+            if not disagree.empty:                         
+                disagree.to_csv(f'{outdir}/{args.dataset}/{receiver}_gpt_sender_disagree.csv', index=False)                    
         else:
             if not agree.empty:
                 agree.to_csv(f'{outdir}/{args.dataset}/{receiver}_self_interaction_agree.csv', index=False)
