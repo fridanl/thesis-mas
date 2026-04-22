@@ -7,7 +7,8 @@ def add_match_type_to_gpt(
     model: str = 'gpt-oss-20b'
 ):
     # Load second round results
-    second_path = base / 'second' / f'{model}-{dataset}_no_match.csv'
+    # second_path = base / 'second' / f'{model}-{dataset}_no_match.csv'
+    second_path = base / 'second' / f'{model}-{dataset}-r2_swap_all.csv'
     second = pd.read_csv(second_path)
     print(f'Loaded {len(second)} rows from {second_path}')
 
@@ -71,4 +72,4 @@ def add_match_type_to_gpt(
 if __name__ == '__main__':
     base = Path('/home/rp-fril-mhpe')
     second = add_match_type_to_gpt(base)
-    second.to_csv(base / 'second' / 'gpt-oss-20b-sarcasm.csv', index=False)
+    second.to_csv(base / 'second' / 'gpt-oss-20b-sarcasm-swap.csv', index=False)

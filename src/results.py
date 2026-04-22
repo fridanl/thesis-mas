@@ -23,7 +23,7 @@ def load_first_round_results(base: Path, models: list, dataset: str, failed: boo
             results[model] = pd.read_csv(path)
     return results 
 
-def load_second_round_results(base: Path, models: list, dataset: str) -> dict[str, pd.DataFrame]:
+def load_second_round_results(base: Path, models: list, dataset: str, swap: bool) -> dict[str, pd.DataFrame]:
     '''
     Load all model results for a dataset for second round.
     '''
@@ -33,6 +33,9 @@ def load_second_round_results(base: Path, models: list, dataset: str) -> dict[st
         dfs = []
         # main results 
         path = base / 'second' / f'{model}-{dataset}.csv'
+        if swap:
+            path = base / 'second' / f'{model}-{dataset}-swap.csv'
+
         if path.exists():
             dfs.append(pd.read_csv(path))
             print(f'Succesfully loaded the file: {path}')
@@ -295,11 +298,11 @@ def print_first_round_summary(first: pd.DataFrame, ds_config: DatasetTaskSpec):
     )
     print(majority_label_prop)
 
-def load_and_clean_second_round(base: Path, model_names: list, ds_config: DatasetTaskSpec) -> pd.DataFrame:
+def load_and_clean_second_round(base: Path, model_names: list, ds_config: DatasetTaskSpec, swap: bool) -> pd.DataFrame:
     '''
     Load second round results and drop groups without exactly 10 repetitions.
     '''
-    second = load_all_as_dataframe(load_second_round_results(base, model_names, ds_config.dataset))
+    second = load_all_as_dataframe(load_second_round_results(base, model_names, ds_config.dataset, swap))
 
     group_cols = ['model_receiver', 'model_sender', 'label_receiver_before', 'label_sender_before', 'match_type', 'id']
     counts = second.groupby(group_cols)['id'].transform('size')
@@ -329,7 +332,11 @@ def main(args):
     profiles_root = yaml.safe_load(Path("configs/models.yaml").read_text())
     profiles = profiles_root.get("profiles", {})
     model_names = list(profiles.keys())
+    if args.swap:
+        model_names = ['gpt-oss-20b']
+        
     print(model_names)
+
 
     ds_config = DATASETS[args.dataset]
     print(f'[DATASET] : {args.dataset}')
@@ -339,10 +346,13 @@ def main(args):
     print_first_round_summary(first, ds_config)
 
     print('Computing results from the second round...')
-    second = load_and_clean_second_round(base, model_names, ds_config)
-    print(second['model_receiver'].value_counts())
-
+    second = load_and_clean_second_round(base, model_names, ds_config, args.swap)
+    
     output_dir = Path('evaluation') / ds_config.dataset
+    if args.swap:
+        output_dir = Path('evaluation') / ds_config.dataset / Path('swap')
+        
+    
     output_dir.mkdir(parents=True, exist_ok=True)
     compute_and_save_deltas(first, second, ds_config, output_dir)
 
@@ -355,5 +365,8 @@ if __name__ == "__main__":
     ap.add_argument("--dataset", 
                     help="Specify name of dataset",
                     default="sarcasm")
+    ap.add_argument('--swap',
+                    help='Bool, whether the explanations have been swapped.',
+                    action='store_true') # Is true when we pass the flag --swap
     args = ap.parse_args()
     main(args)
