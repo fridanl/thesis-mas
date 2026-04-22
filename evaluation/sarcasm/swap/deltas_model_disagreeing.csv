@@ -1,0 +1,4 @@
+model_receiver,model_sender,macro_pos_delta_realisation,macro_neg_delta_realisation,count
+gpt-oss-20b,gemma-3-27b,0.18980065565249246,-0.21907587925424302,19601
+gpt-oss-20b,llama-3.3-70b,0.0843394502038699,-0.3934777648441241,37786
+gpt-oss-20b,qwen-2.5-72b,0.13885919228372975,-0.2856339547337635,29674
