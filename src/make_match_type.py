@@ -7,20 +7,17 @@ def add_match_type_to_gpt(
     model: str = 'gpt-oss-20b'
 ):
     # Load second round results
-    second_path = base / 'second' / f'{model}-{dataset}.csv'
+    second_path = base / 'second' / f'{model}-{dataset}_no_match.csv'
     second = pd.read_csv(second_path)
     print(f'Loaded {len(second)} rows from {second_path}')
 
     # Load and concatenate agree and disagree subsampled input files
     agree_path = base / 'subsampled_input_round2' / dataset / f'{model}_agree_subsampled.csv'
     disagree_path = base / 'subsampled_input_round2' / dataset / f'{model}_disagree_subsampled.csv'
-    agree_path_q = base / 'subsampled_input_round2' / dataset / 'qwen-2.5-7b_agree_subsampled.csv'
     
     agree = pd.read_csv(agree_path)
     disagree = pd.read_csv(disagree_path)
-    agree_q = pd.read_csv(agree_path_q)
     print(f'Agree rows: {len(agree)}')
-    print(f'Agree rows for qwen: {len(agree_q)}')
     print(f'Disagree rows: {len(disagree)}')
     input_df = pd.concat([agree, disagree], ignore_index=True)
     print(f'Loaded {len(input_df)} rows from subsampled input files')
@@ -74,3 +71,4 @@ def add_match_type_to_gpt(
 if __name__ == '__main__':
     base = Path('/home/rp-fril-mhpe')
     second = add_match_type_to_gpt(base)
+    second.to_csv(base / 'second' / 'gpt-oss-20b-sarcasm.csv', index=False)
