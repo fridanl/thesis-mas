@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=make_match
+#SBATCH --job-name=get-deltas
 #SBATCH --account=researchers
 #SBATCH --partition=scavenge
 #SBATCH --cpus-per-task=4
@@ -14,11 +14,12 @@ set -euo pipefail
 export PYTHONPATH=/home/fril/thesis-mas${PYTHONPATH:+:$PYTHONPATH}
 
 
-uv run src/make_match_type.py
+#uv run src/make_match_type.py
 
-uv run src/results.py --dataset sarcasm --swap
-# uv run src/results.py --dataset commonsense
-# uv run src/results.py --dataset sentiment
+#uv run src/results.py --dataset sarcasm --swap
+uv run src/results.py --dataset sarcasm
+uv run src/results.py --dataset commonsense
+uv run src/results.py --dataset sentiment
 
 # uv run src/results.py --dataset commonsense
 
