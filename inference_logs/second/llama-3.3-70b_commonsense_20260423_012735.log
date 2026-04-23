@@ -1,0 +1,110 @@
+2026-04-23 01:27:36 | INFO     | Logging initialised. Log file: inference_logs/second/llama-3.3-70b_commonsense_20260423_012735.log
+2026-04-23 01:27:36 | INFO     | SLURM output file: logs/round2-llama-70-gpt.72573.out
+2026-04-23 01:27:36 | INFO     | ==================================================
+2026-04-23 01:27:36 | INFO     | Starting inference pipeline
+2026-04-23 01:27:36 | INFO     | ==================================================
+2026-04-23 01:27:36 | INFO     | Arguments: {'model_name': 'llama-3.3-70b', 'dataset': 'commonsense', 'dataset_path': '/home/rp-fril-mhpe/subsampled_input_round2/commonsense/gpt/commonsense/llama-3.3-70b_gpt_sender_agree_subsampled.csv', 'repetition': 1, 'round': 2, 'slurm_output': 'logs/round2-llama-70-gpt.72573.out', 'history': True, 'models_config_path': 'configs/models.yaml', 'outdir': '/home/rp-fril-mhpe', 'batch_size': 256, 'no_logging': False, 'limit': None, 'idx_start': 0}
+2026-04-23 01:27:36 | INFO     | Results will be written to: /home/rp-fril-mhpe/second/llama-3.3-70b-commonsense.csv
+2026-04-23 01:27:36 | INFO     | Ensuring local model availability...
+2026-04-23 01:27:36 | INFO     | Location of model: /home/mhpe/.cache/huggingface/hub/models--unsloth--Llama-3.3-70B-Instruct-bnb-4bit
+2026-04-23 01:29:32 | INFO     | ########## Shared decoding parameters ##########
+2026-04-23 01:29:32 | INFO     | Repetitions (no. outputs from one input): 1 
+ Max tokens: 254
+2026-04-23 01:29:32 | INFO     | The model has been set to have default sampling params.
+2026-04-23 01:29:32 | INFO     | ########## Sampling parameters ########## 
+ SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.0, temperature=0.6, top_p=0.9, top_k=0, min_p=0.0, seed=None, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=254, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=GuidedDecodingParams(json={'$defs': {'LabelCommonsense': {'enum': ['yes', 'no'], 'title': 'LabelCommonsense', 'type': 'string'}}, 'properties': {'label': {'$ref': '#/$defs/LabelCommonsense'}}, 'required': ['label'], 'title': 'OutputCommonsenseR2', 'type': 'object'}, regex=None, choice=None, grammar=None, json_object=None, backend=None, backend_was_auto=False, disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, whitespace_pattern=None, structural_tag=None), extra_args=None)
+2026-04-23 01:30:09 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:30:45 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:31:02 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:31:11 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:31:20 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:31:29 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:31:39 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:31:49 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:31:58 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:32:08 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:32:17 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:32:27 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:32:36 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:32:46 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:32:55 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:33:04 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:33:14 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:33:23 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:33:32 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:33:42 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:33:51 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:34:01 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:34:10 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:34:20 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:34:29 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:34:38 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:34:48 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:34:58 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:35:07 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:35:17 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:35:26 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:35:36 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:35:46 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:35:55 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:36:05 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:36:14 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:36:24 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:36:33 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:36:43 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:36:52 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:37:02 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:37:11 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:37:21 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:37:30 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:37:40 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:37:49 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:37:59 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:38:09 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:38:19 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:38:28 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:38:38 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:38:47 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:38:57 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:39:07 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:39:16 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:39:26 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:39:36 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:39:45 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:39:55 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:40:05 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:40:15 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:40:24 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:40:34 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:40:44 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:40:53 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:41:02 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:41:12 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:41:22 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:41:31 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:41:41 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:41:50 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:42:00 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:42:10 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:42:20 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:42:29 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:42:39 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:42:49 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:42:58 | INFO     | Writing 256 valid results to CSV
+2026-04-23 01:43:00 | INFO     | Writing 32 valid results to CSV
+2026-04-23 01:43:00 | INFO     | ==================================================
+2026-04-23 01:43:00 | INFO     | Inference pipeline completed
+2026-04-23 01:43:00 | INFO     | ==================================================
+2026-04-23 01:43:00 | INFO     | Total batches processed: 79
+2026-04-23 01:43:00 | INFO     | Total successful results: 20000
+2026-04-23 01:43:00 | INFO     | Total failed examples: 0
+2026-04-23 01:43:00 | INFO     | Output directory: /home/rp-fril-mhpe/second
+2026-04-23 01:43:00 | INFO     | ==================================================
+2026-04-23 01:43:00 | INFO     | Timing summary
+2026-04-23 01:43:00 | INFO     | Total script execution time: 15m 24.98s (924.98s)
+2026-04-23 01:43:00 | INFO     | Total inference time: 13m 5.78s (785.78s)
+2026-04-23 01:43:00 | INFO     | Overhead time (I/O, parsing, etc.): 2m 19.20s (139.20s)
+2026-04-23 01:43:00 | INFO     | Inference percentage: 85.0%
+2026-04-23 01:43:00 | INFO     | Average time per batch: 11.71s
+2026-04-23 01:43:00 | INFO     | Average time per result: 0.05s
+2026-04-23 01:43:00 | INFO     | ==================================================
