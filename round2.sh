@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH --job-name=round2-gemma-3-27b
+#SBATCH --job-name=llama-gpt-swap
 #SBATCH --account=researchers
 #SBATCH --partition=scavenge
-#SBATCH --gres=gpu:a100_80gb:1
+#SBATCH --gres=gpu:h100:1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=80G
-#SBATCH --time=24:00:00
+#SBATCH --time=08:00:00
 #SBATCH --output=logs/%x.%j.out
 #SBATCH --mail-type=BEGIN,END
 
@@ -144,3 +144,6 @@ SLURM_OUTPUT_FILE="logs/${SLURM_JOB_NAME}.${SLURM_JOB_ID}.out"
 # # Agreeing
 # uv run run.py --model_name qwen-2.5-7b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sentiment/qwen-2.5-7b_agree_subsampled.csv --outdir /home/rp-fril-mhpe  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset sentiment
 
+##########################################           SWAP        ##########################################
+#---- llama-3.3-70b
+# uv run run.py --model_name llama-3.3-70b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/swap/sarcasm/llama-3.3-70b_disagree_swap.csv --outdir /home/rp-fril-mhpe/swap  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset sarcasm
