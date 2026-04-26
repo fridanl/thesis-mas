@@ -281,6 +281,7 @@ def main(args):
     
     for model_n in model_names:
         path = Path(f'/home/rp-fril-mhpe/first/{model_n}-{args.dataset}.csv')
+        print(f"\nReading file: {path}", flush=True)
         if not path.exists():
             print(f'File not found: {path}')
             continue
