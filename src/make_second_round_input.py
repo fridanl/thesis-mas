@@ -193,35 +193,29 @@ def process_all_pairs(model_claim_dict: dict, receiver: str, config: TaskConfig)
 
     
     if args.self_interaction: # matching the models up with themselves only, when self_interaction is set to True
-        # TODO: uncomment and comment other
-        # model_pairs = {"llama-3.3-70b": ["llama-3.3-70b"], 
-        #             "llama-3.1-8b": ["llama-3.1-8b"],
-        #             "qwen-2.5-72b": ["qwen-2.5-72b"],
-        #             "qwen-2.5-7b": ["qwen-2.5-7b"],
-        #             "gemma-3-27b": ["gemma-3-27b"],
-        #             "gemma-3-4b": ["gemma-3-4b"],
-        #             "gpt-oss-20b": ["gpt-oss-20b"]}
+        model_pairs = {"llama-3.3-70b": ["llama-3.3-70b"], # ORIGINAL
+                    "llama-3.1-8b": ["llama-3.1-8b"],
+                    "qwen-2.5-72b": ["qwen-2.5-72b"],
+                    "qwen-2.5-7b": ["qwen-2.5-7b"],
+                    "gemma-3-27b": ["gemma-3-27b"],
+                    "gemma-3-4b": ["gemma-3-4b"],
+                    "gpt-oss-20b": ["gpt-oss-20b"]}
 
-        model_pairs = {"gpt-oss-20b": ["gpt-oss-20b"]}
+        #model_pairs = {"gpt-oss-20b": ["gpt-oss-20b"]}
     else:
         # a fixed set of model pairs that we chose to match up, so we don't get every possible pair
         # only within family and the large models across family
 
-        # TODO: uncomment (original):
-        # model_pairs = {"llama-3.3-70b": ["llama-3.1-8b", "qwen-2.5-72b", "gemma-3-27b", "gpt-oss-20b"], # matching with big models and family
-        #             "llama-3.1-8b": ["llama-3.3-70b"],
-        #             "qwen-2.5-72b": ["qwen-2.5-7b", "llama-3.3-70b", "gemma-3-27b", "gpt-oss-20b"], # only matching with same family
-        #             "qwen-2.5-7b": ["qwen-2.5-72b"],
-        #             "gemma-3-27b": ["gemma-3-4b", "llama-3.3-70b", "qwen-2.5-72b", "gpt-oss-20b"],
-        #             "gemma-3-4b": ["gemma-3-27b"],
-        #             "gpt-oss-20b": ["llama-3.3-70b", "qwen-2.5-72b", "gemma-3-27b"]}
+        # TODO: uncomment (ORIGINAL):
+        model_pairs = {"llama-3.3-70b": ["llama-3.1-8b", "qwen-2.5-72b", "gemma-3-27b", "gpt-oss-20b"], # matching with big models and family
+                    "llama-3.1-8b": ["llama-3.3-70b"],
+                    "qwen-2.5-72b": ["qwen-2.5-7b", "llama-3.3-70b", "gemma-3-27b", "gpt-oss-20b"], # only matching with same family
+                    "qwen-2.5-7b": ["qwen-2.5-72b"],
+                    "gemma-3-27b": ["gemma-3-4b", "llama-3.3-70b", "qwen-2.5-72b", "gpt-oss-20b"],
+                    "gemma-3-4b": ["gemma-3-27b"],
+                    "gpt-oss-20b": ["llama-3.3-70b", "qwen-2.5-72b", "gemma-3-27b"]}
 
 
-        # TODO: uncomment (when making the large models as receivers for sentiment):
-        # model_pairs = {"llama-3.3-70b": ["llama-3.1-8b", "qwen-2.5-72b", "gemma-3-27b", "gpt-oss-20b"], # matching with big models and family
-        #             "qwen-2.5-72b": ["qwen-2.5-7b", "llama-3.3-70b", "gemma-3-27b", "gpt-oss-20b"], # only matching with same family
-        #             "gemma-3-27b": ["gemma-3-4b", "llama-3.3-70b", "qwen-2.5-72b", "gpt-oss-20b"],
-        #             "gpt-oss-20b": ["llama-3.3-70b", "qwen-2.5-72b", "gemma-3-27b"]}
         
         #TODO: comment out:
         # model_pairs = {"llama-3.1-8b": ["llama-3.3-70b"],
@@ -230,10 +224,10 @@ def process_all_pairs(model_claim_dict: dict, receiver: str, config: TaskConfig)
 
 
         # TODO: only for gpt pairs: (and fixup for late results)
-        model_pairs = {"llama-3.3-70b": ["gpt-oss-20b"], 
-                    "qwen-2.5-72b": ["gpt-oss-20b"], 
-                    "gemma-3-27b": ["gpt-oss-20b"],
-                    "gpt-oss-20b": ["llama-3.3-70b", "qwen-2.5-72b", "gemma-3-27b"]}
+        # model_pairs = {"llama-3.3-70b": ["gpt-oss-20b"], 
+        #             "qwen-2.5-72b": ["gpt-oss-20b"], 
+        #             "gemma-3-27b": ["gpt-oss-20b"],
+        #             "gpt-oss-20b": ["llama-3.3-70b", "qwen-2.5-72b", "gemma-3-27b"]}
 
     # Dicts for agree and disagree rows sender model
     agree_rows_for_receiver: list[dict] = []
@@ -305,9 +299,8 @@ def main(args):
     outdir = args.output_root 
     model_claim_dict, discard = load_and_preprocess(combined, t_config)
     if not args.self_interaction:
-        # TODO: also chnage here
-        discard.to_csv(f'{outdir}/{args.dataset}/_gpt_sender_discarded.csv', index=False)                                  
-        print(f'Saving the discarded claims to {outdir}/{args.dataset}/_gpt_sender_discarded.csv')
+        discard.to_csv(f'{outdir}/{args.dataset}/discarded.csv', index=False)                                  
+        print(f'Saving the discarded claims to {outdir}/{args.dataset}/discarded.csv')
 
     for receiver in model_names:
         if receiver not in model_claim_dict.keys():
@@ -315,11 +308,10 @@ def main(args):
         agree, disagree = process_all_pairs(model_claim_dict=model_claim_dict, receiver=receiver, config=t_config)
         
         if not args.self_interaction:
-            # TODO: change back, wo. gpt
             if not agree.empty:
-                agree.to_csv(f'{outdir}/{args.dataset}/{receiver}_gpt_sender_agree.csv', index=False) 
+                agree.to_csv(f'{outdir}/{args.dataset}/{receiver}_agree.csv', index=False) 
             if not disagree.empty:                         
-                disagree.to_csv(f'{outdir}/{args.dataset}/{receiver}_gpt_sender_disagree.csv', index=False)                    
+                disagree.to_csv(f'{outdir}/{args.dataset}/{receiver}_disagree.csv', index=False)                    
         else:
             if not agree.empty:
                 agree.to_csv(f'{outdir}/{args.dataset}/{receiver}_self_interaction_agree.csv', index=False)
