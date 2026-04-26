@@ -1,9 +1,9 @@
 #!/bin/bash
-#SBATCH --job-name=sentiment-all-sub
+#SBATCH --job-name=sentiment-self-sub
 #SBATCH --account=researchers
 #SBATCH --partition=scavenge
 #SBATCH --cpus-per-task=4
-#SBATCH --time=01:00:00
+#SBATCH --time=00:20:00
 #SBATCH --output=logs/%x.%j.out
 #SBATCH --mail-type=END
 
@@ -39,5 +39,9 @@ set -euo pipefail
 #uv run src/make_subsample.py --glob_pattern *-oss-20b_agree.csv --input_dir /home/rp-fril-mhpe/input_round2/commonsense/gpt --output_dir /home/rp-fril-mhpe/subsampled_input_round2/commonsense/gpt --cap 1000 --dataset commonsense
 
 # SENTIMENT subsample all input files for r2
-uv run src/make_subsample.py --suffix disagree --cap 7000 --dataset sentiment
-uv run src/make_subsample.py --suffix agree --cap 1000 --dataset sentiment
+# uv run src/make_subsample.py --suffix disagree --cap 7000 --dataset sentiment
+# uv run src/make_subsample.py --suffix agree --cap 1000 --dataset sentiment
+
+# SENTIMENT subsample gpt self-interaction 
+uv run src/make_subsample.py --glob_pattern *oss-20b_self_interaction_disagree.csv --input_dir /home/rp-fril-mhpe/input_round2/sentiment --output_dir /home/rp-fril-mhpe/tmp/self-sent --cap 7000 --dataset sentiment
+uv run src/make_subsample.py --glob_pattern *oss-20b_self_interaction_agree.csv --input_dir /home/rp-fril-mhpe/input_round2/sentiment --output_dir /home/rp-fril-mhpe/tmp/self-sent --cap 1000 --dataset sentiment
