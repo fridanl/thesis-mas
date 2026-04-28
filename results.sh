@@ -16,7 +16,9 @@ export PYTHONPATH=/home/fril/thesis-mas${PYTHONPATH:+:$PYTHONPATH}
 
 #uv run src/make_match_type.py
 
-#uv run src/results.py --dataset sarcasm --swap
+uv run src/results.py --dataset sarcasm --swap
+
+
 uv run src/results.py --dataset sarcasm
 uv run src/results.py --dataset commonsense
 uv run src/results.py --dataset sentiment
