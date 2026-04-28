@@ -4,17 +4,24 @@ from pathlib import Path
 def add_match_type_to_gpt(
     base: Path,
     dataset: str = 'sarcasm',
-    model: str = 'gpt-oss-20b'
+    model: str = 'gpt-oss-20b',
+    self_interaction: bool = False
 ):
     # Load second round results
     # second_path = base / 'second' / f'{model}-{dataset}_no_match.csv'
-    second_path = base / 'second' / f'{model}-{dataset}-r2_swap_all.csv'
+    second_path = base / f'{model}-{dataset}.csv'
     second = pd.read_csv(second_path)
     print(f'Loaded {len(second)} rows from {second_path}')
 
-    # Load and concatenate agree and disagree subsampled input files
-    agree_path = base / 'subsampled_input_round2' / dataset / f'{model}_agree_subsampled.csv'
-    disagree_path = base / 'subsampled_input_round2' / dataset / f'{model}_disagree_subsampled.csv'
+    if self_interaction:
+        # Load and concatenate agree and disagree subsampled input files
+        agree_path = base / 'subsampled_input_round2' / dataset / f'{model}_self_interaction_agree_subsampled.csv'
+        disagree_path = base / 'subsampled_input_round2' / dataset / f'{model}_self_interaction_disagree_subsampled.csv'
+    else:
+        # Load and concatenate agree and disagree subsampled input files
+        agree_path = base / 'subsampled_input_round2' / dataset / f'{model}_agree_subsampled.csv'
+        disagree_path = base / 'subsampled_input_round2' / dataset / f'{model}_disagree_subsampled.csv'
+
     
     agree = pd.read_csv(agree_path)
     disagree = pd.read_csv(disagree_path)
@@ -70,6 +77,20 @@ def add_match_type_to_gpt(
 
 
 if __name__ == '__main__':
-    base = Path('/home/rp-fril-mhpe')
-    second = add_match_type_to_gpt(base)
-    second.to_csv(base / 'second' / 'gpt-oss-20b-sarcasm-swap.csv', index=False)
+
+    # self gpt sarcasm 
+    base = Path('/home/rp-fril-mhpe/self/second')
+    second = add_match_type_to_gpt(base, dataset='sarcasm', self_interaction=True)
+    second.to_csv(base / 'gpt-oss-20b-sarcasm-match.csv', index=False)
+    print(f'Saving file gpt self sarcasm file to: {base} / gpt-oss-20b-sarcasm-match.csv')
+
+    # self gpt commonsense
+    base = Path('/home/rp-fril-mhpe/self/second')
+    second = add_match_type_to_gpt(base, dataset='commonsense', self_interaction=True)
+    second.to_csv(base / 'gpt-oss-20b-commonsense-match.csv', index=False)
+    print(f'Saving file gpt self commonsense file to: {base} / gpt-oss-20b-commonsense-match.csv')
+
+    base = Path('/home/rp-fril-mhpe/second')
+    second = add_match_type_to_gpt(base, dataset='commonsense')
+    second.to_csv(base / 'gpt-oss-20b-commonsense-match.csv', index=False)
+    print(f'Saving file gpt self commonsense file to: {base} / gpt-oss-20b-commonsense-match.csv')
