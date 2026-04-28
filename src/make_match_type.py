@@ -18,9 +18,14 @@ def add_match_type_to_gpt(
     print(f'Loaded {len(second)} rows from {second_path}')
 
     if self_interaction:
+        if dataset == 'commonsense':
         # Load and concatenate agree and disagree subsampled input files
-        agree_path = base / 'subsampled_input_round2' / dataset / 'gpt' / dataset / 'self' /f'{model}_self_interaction_agree_subsampled.csv'
-        disagree_path = base / 'subsampled_input_round2' / dataset / 'gpt' / dataset / 'self' / f'{model}_self_interaction_disagree_subsampled.csv'
+            agree_path = base / 'subsampled_input_round2' / dataset / 'gpt' / dataset / 'self' /f'{model}_self_interaction_agree_subsampled.csv'
+            disagree_path = base / 'subsampled_input_round2' / dataset / 'gpt' / dataset / 'self' / f'{model}_self_interaction_disagree_subsampled.csv'
+        else:
+            agree_path = base / 'subsampled_input_round2' / dataset / f'{model}_self_interaction_agree_subsampled.csv'
+            disagree_path = base / 'subsampled_input_round2' / dataset / f'{model}_self_interaction_disagree_subsampled.csv'
+
     else:
         # Load and concatenate agree and disagree subsampled input files
         agree_path = base / 'subsampled_input_round2' / dataset / 'gpt' / dataset / f'{model}_agree_subsampled.csv'
