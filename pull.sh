@@ -8,5 +8,6 @@
 
 module load git
 
-git pull --no-rebase
+git pull 
+#git pull --no-rebase
 
