@@ -43,5 +43,5 @@ set -euo pipefail
 # uv run src/make_subsample.py --suffix agree --cap 1000 --dataset sentiment
 
 # SENTIMENT subsample gpt self-interaction 
-uv run src/make_subsample.py --glob_pattern *oss-20b_self_interaction_disagree.csv --input_dir /home/rp-fril-mhpe/input_round2/sentiment --output_dir /home/rp-fril-mhpe/tmp/self-sent --cap 7000 --dataset sentiment
-uv run src/make_subsample.py --glob_pattern *oss-20b_self_interaction_agree.csv --input_dir /home/rp-fril-mhpe/input_round2/sentiment --output_dir /home/rp-fril-mhpe/tmp/self-sent --cap 1000 --dataset sentiment
+uv run src/make_subsample.py --glob_pattern *oss-20b_self_interaction_disagree.csv --input_dir /home/rp-fril-mhpe/input_round2 --output_dir /home/rp-fril-mhpe/tmp/self-sent --cap 7000 --dataset sentiment
+uv run src/make_subsample.py --glob_pattern *oss-20b_self_interaction_agree.csv --input_dir /home/rp-fril-mhpe/input_round2 --output_dir /home/rp-fril-mhpe/tmp/self-sent --cap 1000 --dataset sentiment
