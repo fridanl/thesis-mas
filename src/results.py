@@ -333,7 +333,7 @@ def main(args):
     profiles = profiles_root.get("profiles", {})
     model_names = list(profiles.keys())
     if args.swap:
-        model_names = ['gpt-oss-20b']
+        model_names = ['gpt-oss-20b', 'llama-3.3-70b']
         
     print(model_names)
 
