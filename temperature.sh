@@ -24,15 +24,15 @@ SLURM_OUTPUT_FILE="logs/${SLURM_JOB_NAME}.${SLURM_JOB_ID}.out"
 
 # ROUND 1
 # high llama
-uv run run.py --model_name llama-3.3-70b-high-temp --repetition 10 --round 1 -limit 50_000 --batch_size 256 --outdir /home/rp-fril-mhpe/temperature --slurm_output "${SLURM_OUTPUT_FILE}"
+uv run run.py --model_name llama-3.3-70b-high-temp --models_config_path configs/models_temperature.yaml --repetition 10 --round 1 -limit 50_000 --batch_size 256 --outdir /home/rp-fril-mhpe/temperature --slurm_output "${SLURM_OUTPUT_FILE}"
 # high qwen
-#uv run run.py --model_name qwen-2.5-72b-high-temp --repetition 10 --round 1 -limit 50_000 --batch_size 256 --outdir /home/rp-fril-mhpe/temperature --slurm_output "${SLURM_OUTPUT_FILE}"
+#uv run run.py --model_name qwen-2.5-72b-high-temp --models_config_path configs/models_temperature.yaml --repetition 10 --round 1 -limit 50_000 --batch_size 256 --outdir /home/rp-fril-mhpe/temperature --slurm_output "${SLURM_OUTPUT_FILE}"
 
 
 # low llama
-#uv run run.py --model_name llama-3.3-70b-low-temp --repetition 10 --round 1 -limit 50_000 --batch_size 256 --outdir /home/rp-fril-mhpe/temperature --slurm_output "${SLURM_OUTPUT_FILE}"
+#uv run run.py --model_name llama-3.3-70b-low-temp --models_config_path configs/models_temperature.yaml --repetition 10 --round 1 -limit 50_000 --batch_size 256 --outdir /home/rp-fril-mhpe/temperature --slurm_output "${SLURM_OUTPUT_FILE}"
 # low qwen
-#uv run run.py --model_name qwen-2.5-72b-low-temp --repetition 10 --round 1 -limit 50_000 --batch_size 256 --outdir /home/rp-fril-mhpe/temperature --slurm_output "${SLURM_OUTPUT_FILE}"
+#uv run run.py --model_name qwen-2.5-72b-low-temp --models_config_path configs/models_temperature.yaml --repetition 10 --round 1 -limit 50_000 --batch_size 256 --outdir /home/rp-fril-mhpe/temperature --slurm_output "${SLURM_OUTPUT_FILE}"
 
 
 # ROUND 2

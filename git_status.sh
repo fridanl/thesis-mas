@@ -9,7 +9,3 @@
 module load git
 
 git status
-
-git restore temperature.sh
-
-git status

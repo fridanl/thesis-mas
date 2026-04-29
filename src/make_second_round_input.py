@@ -207,13 +207,13 @@ def process_all_pairs(model_claim_dict: dict, receiver: str, config: TaskConfig)
         # only within family and the large models across family
 
         # TODO: uncomment (ORIGINAL):
-        model_pairs = {"llama-3.3-70b": ["llama-3.1-8b", "qwen-2.5-72b", "gemma-3-27b", "gpt-oss-20b"], # matching with big models and family
-                    "llama-3.1-8b": ["llama-3.3-70b"],
-                    "qwen-2.5-72b": ["qwen-2.5-7b", "llama-3.3-70b", "gemma-3-27b", "gpt-oss-20b"], # only matching with same family
-                    "qwen-2.5-7b": ["qwen-2.5-72b"],
-                    "gemma-3-27b": ["gemma-3-4b", "llama-3.3-70b", "qwen-2.5-72b", "gpt-oss-20b"],
-                    "gemma-3-4b": ["gemma-3-27b"],
-                    "gpt-oss-20b": ["llama-3.3-70b", "qwen-2.5-72b", "gemma-3-27b"]}
+        #model_pairs = {"llama-3.3-70b": ["llama-3.1-8b", "qwen-2.5-72b", "gemma-3-27b", "gpt-oss-20b"], # matching with big models and family
+        #            "llama-3.1-8b": ["llama-3.3-70b"],
+        #            "qwen-2.5-72b": ["qwen-2.5-7b", "llama-3.3-70b", "gemma-3-27b", "gpt-oss-20b"], # only matching with same family
+        #            "qwen-2.5-7b": ["qwen-2.5-72b"],
+        #            "gemma-3-27b": ["gemma-3-4b", "llama-3.3-70b", "qwen-2.5-72b", "gpt-oss-20b"],
+        #            "gemma-3-4b": ["gemma-3-27b"],
+        #            "gpt-oss-20b": ["llama-3.3-70b", "qwen-2.5-72b", "gemma-3-27b"]}
 
 
         
@@ -228,6 +228,10 @@ def process_all_pairs(model_claim_dict: dict, receiver: str, config: TaskConfig)
         #             "qwen-2.5-72b": ["gpt-oss-20b"], 
         #             "gemma-3-27b": ["gpt-oss-20b"],
         #             "gpt-oss-20b": ["llama-3.3-70b", "qwen-2.5-72b", "gemma-3-27b"]}
+
+        # TODO: only for gpt pairs: (and fixup for late results)
+        model_pairs = {"llama-3.3-70b": ["qwen-2.5-72b-low-temp", "qwen-2.5-72b-high-temp"],
+                    "qwen-2.5-72b": ["llama-3.3-70b-high-temp", "llama-3.3-70b-low-temp"]}
 
     # Dicts for agree and disagree rows sender model
     agree_rows_for_receiver: list[dict] = []
@@ -273,21 +277,18 @@ def process_all_pairs(model_claim_dict: dict, receiver: str, config: TaskConfig)
     return df_agree, df_disagree
     
 def main(args):
-    profiles_root = yaml.safe_load(Path('configs/models.yaml').read_text())
-    profiles = profiles_root.get('profiles', {})
-    model_names = list(profiles.keys())
-
     dfs = [] 
-    
-    for model_n in model_names:
-        path = Path(f'/home/rp-fril-mhpe/first/{model_n}-{args.dataset}.csv')
-        print(f"\nReading file: {path}", flush=True)
-        if not path.exists():
+    path = Path(args.input_dir)
+    files = list(path.glob("*.csv")) # loading all the files in the given input folder
+
+    for i, file in enumerate(files):
+        if not file.exists():
             print(f'File not found: {path}')
             continue
+        print(f'Loading file: {file}')
         df = pd.read_csv(path, low_memory=False)
         dfs.append(df)
-        
+
     combined = pd.concat(dfs, ignore_index=True) if dfs else pd.DataFrame()
 
     dataset_spec = DATASETS[args.dataset]
