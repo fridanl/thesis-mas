@@ -85,6 +85,9 @@ def main(args):
             history=spec.history,
             round=spec.round)
         
+        if batch_count == 1 and conversations:
+            logger.info(f'{"#" * 10} Example prompt {"#" * 10}')
+            logger.info(conversations[0])
 
         start_time = time.time()
         raw_outputs, parsed = run_inference(llm, conversations=conversations, sampling=sampling, output_model=spec.output_model)
