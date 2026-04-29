@@ -5,8 +5,7 @@ def add_match_type_to_gpt(
     base: Path,
     dataset: str = 'sarcasm',
     model: str = 'gpt-oss-20b',
-    self_interaction: bool = False
-):
+    self_interaction: bool = False):
     # Load second round results
     if self_interaction:
         second_path = base / 'self' / 'second' / f'{model}-{dataset}.csv'
@@ -87,22 +86,37 @@ def add_match_type_to_gpt(
 
     return second
 
+def make_qwen_llama_data():
+    print('Constructing dataset for llama as receiver...')
+    df = pd.read_csv('/home/rp-fril-mhpe/subsampled_input_round2/sarcasm/llama-3.3-70b_disagree_subsampled.csv')
+    subset = df[df['model_sender'] == 'qwen-2.5-72b']
+    print(subset['match_type'].value_counts())
+    subset.to_csv('/home/rp-fril-mhpe/subsampled_input_round2/no_history/sarcasm/llama-3.3-70b_disagree_subsampled.csv', index=False)
+    print('Saved file to /home/rp-fril-mhpe/subsampled_input_round2/no_history/sarcasm/llama-3.3-70b_disagree_subsampled.csv')
+
+    print('Constructing dataset for qwen as receiver...')
+    df2 = pd.read_csv('/home/rp-fril-mhpe/subsampled_input_round2/sarcasm/qwen-2.5-72b_disagree_subsampled.csv')
+    subset2 = df2[df2['model_sender'] == 'llama-3.3-70b']
+    print(subset2['match_type'].value_counts())
+    subset2.to_csv('/home/rp-fril-mhpe/subsampled_input_round2/no_history/sarcasm/qwen-2.5-72b_disagree_subsampled.csv', index=False)
 
 if __name__ == '__main__':
 
     # self gpt sarcasm 
-    base = Path('/home/rp-fril-mhpe/')
-    second = add_match_type_to_gpt(base, dataset='sarcasm', self_interaction=True)
-    second.to_csv(base / 'self' / 'second' / 'gpt-oss-20b-sarcasm-match.csv', index=False)
-    print(f'Saving file gpt self sarcasm file to: {base}/self/second/gpt-oss-20b-sarcasm-match.csv')
+    # base = Path('/home/rp-fril-mhpe/')
+    # second = add_match_type_to_gpt(base, dataset='sarcasm', self_interaction=True)
+    # second.to_csv(base / 'self' / 'second' / 'gpt-oss-20b-sarcasm-match.csv', index=False)
+    # print(f'Saving file gpt self sarcasm file to: {base}/self/second/gpt-oss-20b-sarcasm-match.csv')
 
-    # self gpt commonsense
-    base = Path('/home/rp-fril-mhpe/')
-    second = add_match_type_to_gpt(base, dataset='commonsense', self_interaction=True)
-    second.to_csv(base / 'self' / 'second' / 'gpt-oss-20b-commonsense-match.csv', index=False) 
-    print(f'Saving file gpt self commonsense file to: {base}/second/gpt-oss-20b-commonsense-match.csv')
+    # # self gpt commonsense
+    # base = Path('/home/rp-fril-mhpe/')
+    # second = add_match_type_to_gpt(base, dataset='commonsense', self_interaction=True)
+    # second.to_csv(base / 'self' / 'second' / 'gpt-oss-20b-commonsense-match.csv', index=False) 
+    # print(f'Saving file gpt self commonsense file to: {base}/second/gpt-oss-20b-commonsense-match.csv')
 
-    base = Path('/home/rp-fril-mhpe/')
-    second = add_match_type_to_gpt(base, dataset='commonsense')
-    second.to_csv(base / 'second' / 'gpt-oss-20b-commonsense-match.csv', index=False)
-    print(f'Saving file gpt commonsense file to: {base}/second/gpt-oss-20b-commonsense-match.csv')
+    # base = Path('/home/rp-fril-mhpe/')
+    # second = add_match_type_to_gpt(base, dataset='commonsense')
+    # second.to_csv(base / 'second' / 'gpt-oss-20b-commonsense-match.csv', index=False)
+    # print(f'Saving file gpt commonsense file to: {base}/second/gpt-oss-20b-commonsense-match.csv')
+
+    make_qwen_llama_data()
