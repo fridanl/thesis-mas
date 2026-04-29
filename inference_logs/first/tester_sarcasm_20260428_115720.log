@@ -1,0 +1,32 @@
+2026-04-28 11:57:20 | INFO     | Logging initialised. Log file: inference_logs/first/tester_sarcasm_20260428_115720.log
+2026-04-28 11:57:20 | INFO     | SLURM output file: logs/temperature-test1.74474.out
+2026-04-28 11:57:21 | INFO     | ==================================================
+2026-04-28 11:57:21 | INFO     | Starting inference pipeline
+2026-04-28 11:57:21 | INFO     | ==================================================
+2026-04-28 11:57:21 | INFO     | Arguments: {'model_name': 'tester', 'dataset': 'sarcasm', 'dataset_path': 'data/sarc/sarcasm.csv', 'repetition': 10, 'round': 1, 'slurm_output': 'logs/temperature-test1.74474.out', 'history': False, 'models_config_path': 'configs/models_temperature.yaml', 'outdir': '/home/rp-fril-mhpe/tmp/temperature', 'batch_size': 256, 'no_logging': False, 'limit': 20, 'idx_start': 0}
+2026-04-28 11:57:21 | INFO     | Results will be written to: /home/rp-fril-mhpe/tmp/temperature/first/tester-sarcasm.csv
+2026-04-28 11:57:21 | INFO     | Ensuring local model availability...
+2026-04-28 11:57:21 | INFO     | Location of model: /home/mhpe/.cache/huggingface/hub/models--unsloth--gemma-3-4b-it-unsloth-bnb-4bit
+2026-04-28 12:13:43 | INFO     | ########## Shared decoding parameters ##########
+2026-04-28 12:13:43 | INFO     | Repetitions (no. outputs from one input): 10 
+ Max tokens: 254
+2026-04-28 12:13:43 | INFO     | Using sampling params as specified in models.yaml.
+2026-04-28 12:13:43 | INFO     | ########## Sampling parameters ########## 
+ SamplingParams(n=10, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.0, temperature=1.2, top_p=0.8, top_k=20, min_p=0.0, seed=None, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=254, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=GuidedDecodingParams(json={'$defs': {'LabelSarc': {'enum': ['sarcastic', 'literal'], 'title': 'LabelSarc', 'type': 'string'}}, 'properties': {'label': {'$ref': '#/$defs/LabelSarc'}, 'explanation': {'title': 'Explanation', 'type': 'string'}}, 'required': ['label', 'explanation'], 'title': 'OutputSarc', 'type': 'object'}, regex=None, choice=None, grammar=None, json_object=None, backend=None, backend_was_auto=False, disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, whitespace_pattern=None, structural_tag=None), extra_args=None)
+2026-04-28 12:14:29 | INFO     | Writing 200 valid results to CSV
+2026-04-28 12:14:29 | INFO     | ==================================================
+2026-04-28 12:14:29 | INFO     | Inference pipeline completed
+2026-04-28 12:14:29 | INFO     | ==================================================
+2026-04-28 12:14:29 | INFO     | Total batches processed: 1
+2026-04-28 12:14:29 | INFO     | Total successful results: 200
+2026-04-28 12:14:29 | INFO     | Total failed examples: 0
+2026-04-28 12:14:29 | INFO     | Output directory: /home/rp-fril-mhpe/tmp/temperature/first
+2026-04-28 12:14:29 | INFO     | ==================================================
+2026-04-28 12:14:29 | INFO     | Timing summary
+2026-04-28 12:14:29 | INFO     | Total script execution time: 17m 9.04s (1029.04s)
+2026-04-28 12:14:29 | INFO     | Total inference time: 45.17s (45.17s)
+2026-04-28 12:14:29 | INFO     | Overhead time (I/O, parsing, etc.): 16m 23.88s (983.88s)
+2026-04-28 12:14:29 | INFO     | Inference percentage: 4.4%
+2026-04-28 12:14:29 | INFO     | Average time per batch: 1029.04s
+2026-04-28 12:14:29 | INFO     | Average time per result: 5.15s
+2026-04-28 12:14:29 | INFO     | ==================================================
