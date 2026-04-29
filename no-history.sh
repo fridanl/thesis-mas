@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/bin/bash 
 #SBATCH --job-name=llama-qwen-no-history
 #SBATCH --account=researchers
 #SBATCH --partition=scavenge
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=80G
-#SBATCH --time=00:40:00
+#SBATCH --time=01:00:00
 #SBATCH --output=logs/%x.%j.out
 #SBATCH --mail-type=BEGIN,END
 #SBATCH --gres=gpu:h100:1
@@ -15,7 +15,7 @@ echo "Host: $(hostname)"
 
 set -euo pipefail
 
-
+SLURM_OUTPUT_FILE="logs/${SLURM_JOB_NAME}.${SLURM_JOB_ID}.out"
 
 
 
@@ -27,7 +27,7 @@ uv run run.py \
   --round 2 \
   --batch_size 256 \
   --dataset sarcasm \
-  --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/no_history/sentiment/llama-3.3-70b_disagree_subsampled.csv \
+  --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/no_history/sarcasm/llama-3.3-70b_disagree_subsampled.csv \
   --outdir /home/rp-fril-mhpe/no_history \
   --slurm_output "${SLURM_OUTPUT_FILE}" \
   -limit 10
