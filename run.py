@@ -41,7 +41,7 @@ def main(args):
     logger.info('Arguments: %s', vars(args))
     logger.info(f'Results will be written to: {csv_path_valid}')
     
-    spec = get_prompt_spec(dataset=args.dataset, round=args.round, history=args.history)
+    spec = get_prompt_spec(dataset=args.dataset, round=args.round, history=args.history, no_explanation=args.no_explanation)
     model_config = get_model_config(pathlib.Path(args.models_config_path), model_name)
 
     repo_id = model_config.pop('repo_id')
@@ -212,6 +212,9 @@ if __name__ == '__main__':
     ap.add_argument('--history',
                     help = 'Include an agents own answer.',
                     action='store_true') # Default is False 
+    ap.add_argument('--no_explanation',
+                    action='store_true', # Default is False (i.e. default  not no explanation) -> explanation is included)
+                    help='Omit explanations from round 2 prompts.') 
     ap.add_argument('--models_config_path',
                     help='Path to YAML file with model parameters.',
                     default='configs/models.yaml')

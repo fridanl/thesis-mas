@@ -65,7 +65,7 @@ def make_user_r1(*, task_question: str) -> str:
         'Provide an explanation with your reasoning.'
     )
 
-def make_user_r2(*, task_question: str, history: bool) -> str:
+def make_user_r2(*, task_question: str, history: bool, no_explanation: bool) -> str:
     #TODO: repeat the task in the end of the prompt
     base = (
         f"Task: {task_question}\n"
@@ -73,15 +73,25 @@ def make_user_r2(*, task_question: str, history: bool) -> str:
     )
 
     if history:
-        base += (
-            'You have previously said "{label_receiver}", with the following explanation: "{explanation_receiver}."\n'
-            'However, a peer of yours labelled the claim as "{label_sender}", with the following explanation: "{explanation_sender}"\n'
-        )
-
+        if no_explanation:
+            base += (
+                'You have previously said "{label_receiver}"\n'
+                'However, a peer of yours labelled the claim as "{label_sender}"\n'
+            )
+        else: 
+            base += (
+                'You have previously said "{label_receiver}", with the following explanation: "{explanation_receiver}."\n'
+                'However, a peer of yours labelled the claim as "{label_sender}", with the following explanation: "{explanation_sender}"\n'
+            )
     else:
-        base += (
-        'A peer of yours labelled the claim as "{label_sender}", with the following explanation: "{explanation_sender}"\n'
-    )
+        if no_explanation:
+            base += (
+            'A peer of yours labelled the claim as "{label_sender}"\n'
+            )
+        else:
+            base += (
+            'A peer of yours labelled the claim as "{label_sender}", with the following explanation: "{explanation_sender}"\n'
+            )   
     # repeat
     base += (
         f"Having considered that, {task_question}\n"
@@ -110,7 +120,8 @@ class PromptSpec:
     dataset: str
     output_json: dict
     round: Literal[1, 2]
-    history: bool 
+    history: bool
+    no_explanation: bool 
     system: str 
     user_template: str 
     output_model: Type[BaseModel]
@@ -144,7 +155,7 @@ DATASETS: Dict[str, DatasetTaskSpec] = {
                 )            
             }
 
-def get_prompt_spec(dataset: str, round: int, history: bool) -> PromptSpec:
+def get_prompt_spec(dataset: str, round: int, history: bool, no_explanation: bool) -> PromptSpec:
     key = dataset.lower()
     if key not in DATASETS:
         raise ValueError(f'Unknown dataset {dataset}. Known: {', '.join(DATASETS.keys())}')
@@ -158,6 +169,7 @@ def get_prompt_spec(dataset: str, round: int, history: bool) -> PromptSpec:
             output_json = schema, # the json of the output format 
             round = 1,
             history=history,
+            no_explanation=no_explanation,
             system=make_system_json(schema, round=1),
             user_template=make_user_r1(task_question=ds.task_question),
             output_model=ds.output_r1, # the object of the output format 
@@ -170,8 +182,9 @@ def get_prompt_spec(dataset: str, round: int, history: bool) -> PromptSpec:
             output_json = schema,
             round = 2,
             history=history,
+            no_explanation=no_explanation,
             system=make_system_json(schema, round=2),
-            user_template=make_user_r2(task_question=ds.task_question, history=history),
+            user_template=make_user_r2(task_question=ds.task_question, history=history, no_explanation=no_explanation),
             output_model=ds.output_r2
         )
 
