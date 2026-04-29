@@ -4,10 +4,6 @@ sampling_presets:
     temperature: 0.2
     top_p: 0.9 # default
     top_k: 0 #default
-  llama-3.3-70b-medium-temp: &llamamedium
-    temperature: 0.7
-    top_p: 0.9
-    top_k: 0
   llama-3.3-70b-high-temp: &llamahigh
     temperature: 1.2
     top_p: 0.9
@@ -16,10 +12,6 @@ sampling_presets:
     temperature: 0.2
     top_p: 0.8 # default
     top_k: 20 # default
-  qwen-2.5-72b-medium-temp: &qwenmedium
-    temperature: 0.7
-    top_p: 0.8
-    top_k: 20
   qwen-2.5-72b-high-temp: &qwenhigh
     temperature: 1.2
     top_p: 0.8
@@ -36,11 +28,6 @@ profiles:
     quantization: bitsandbytes
     has_default_sampling_params: False
     sampling: *llamalow
-  llama-3.3-70b-medium-temp: 
-    repo_id: unsloth/Llama-3.3-70B-Instruct-bnb-4bit
-    quantization: bitsandbytes
-    has_default_sampling_params: False
-    sampling: *llamamedium
   llama-3.3-70b-high-temp:
     repo_id: unsloth/Llama-3.3-70B-Instruct-bnb-4bit
     quantization: bitsandbytes
@@ -51,11 +38,6 @@ profiles:
     quantization: bitsandbytes
     has_default_sampling_params: False
     sampling: *qwenlow
-  qwen-2.5-72b-medium-temp: 
-    repo_id: unsloth/Qwen2.5-72B-Instruct-bnb-4bit
-    quantization: bitsandbytes
-    has_default_sampling_params: False
-    sampling: *qwenmedium
   qwen-2.5-72b-high-temp: 
     repo_id: unsloth/Qwen2.5-72B-Instruct-bnb-4bit
     quantization: bitsandbytes
