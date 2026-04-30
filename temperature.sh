@@ -24,7 +24,7 @@ SLURM_OUTPUT_FILE="logs/${SLURM_JOB_NAME}.${SLURM_JOB_ID}.out"
 
 # ROUND 1
 # high llama
-uv run run.py --model_name llama-3.3-70b-high-temp --models_config_path configs/models_temperature.yaml --repetition 10 --round 1 -limit 50_000 --batch_size 256 --outdir /home/rp-fril-mhpe/temperature --slurm_output "${SLURM_OUTPUT_FILE}"
+#uv run run.py --model_name llama-3.3-70b-high-temp --models_config_path configs/models_temperature.yaml --repetition 10 --round 1 -limit 50_000 --batch_size 256 --outdir /home/rp-fril-mhpe/temperature --slurm_output "${SLURM_OUTPUT_FILE}"
 # high qwen
 #uv run run.py --model_name qwen-2.5-72b-high-temp --models_config_path configs/models_temperature.yaml --repetition 10 --round 1 -limit 50_000 --batch_size 256 --outdir /home/rp-fril-mhpe/temperature --slurm_output "${SLURM_OUTPUT_FILE}"
 
@@ -37,7 +37,8 @@ uv run run.py --model_name llama-3.3-70b-high-temp --models_config_path configs/
 
 # ROUND 2
 # receiver default qwen (senders low and high llama in dataset)
-# uv run run.py --model_name qwen-2.5-72b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/temperature/subsampled_input_round2/sarcasm/gemma-3-4b_disagree_subsampled.csv --outdir /home/rp-fril-mhpe/temperature  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset sentiment
+# only disagree
+uv run run.py --model_name qwen-2.5-72b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/temperature/input_round2/sarcasm/qwen-2.5-72b_disagree.csv --outdir /home/rp-fril-mhpe/temperature  --slurm_output "${SLURM_OUTPUT_FILE}" 
 
 # receiver default llama (senders low and high qwen in dataset)
-# uv run run.py --model_name llama-3.3-70b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/temperature/subsampled_input_round2/sarcasm/gemma-3-4b_disagree_subsampled.csv --outdir /home/rp-fril-mhpe/temperature  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset sentiment
+# uv run run.py --model_name llama-3.3-70b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/temperature/input_round2/sarcasm/llama-3.3-70b_disagree.csv --outdir /home/rp-fril-mhpe/temperature  --slurm_output "${SLURM_OUTPUT_FILE}" 
