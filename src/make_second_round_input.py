@@ -305,7 +305,7 @@ def main(args):
         discard.to_csv(f'{outdir}/{args.dataset}/discarded.csv', index=False)                                  
         print(f'Saving the discarded claims to {outdir}/{args.dataset}/discarded.csv')
 
-    model_names = list(combined['model_sender'].unique())
+    model_names = list(combined['model'].unique())
     for receiver in model_names:
         if receiver not in model_claim_dict.keys():
             continue
