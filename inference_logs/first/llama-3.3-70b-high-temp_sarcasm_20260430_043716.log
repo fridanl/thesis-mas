@@ -1,0 +1,229 @@
+2026-04-30 04:37:16 | INFO     | Logging initialised. Log file: inference_logs/first/llama-3.3-70b-high-temp_sarcasm_20260430_043716.log
+2026-04-30 04:37:16 | INFO     | SLURM output file: logs/temperature-llamahigh-r1.75261.out
+2026-04-30 04:37:16 | INFO     | ==================================================
+2026-04-30 04:37:16 | INFO     | Starting inference pipeline
+2026-04-30 04:37:16 | INFO     | ==================================================
+2026-04-30 04:37:16 | INFO     | Arguments: {'model_name': 'llama-3.3-70b-high-temp', 'dataset': 'sarcasm', 'dataset_path': 'data/sarc/sarcasm.csv', 'repetition': 10, 'round': 1, 'slurm_output': 'logs/temperature-llamahigh-r1.75261.out', 'history': False, 'no_explanation': False, 'models_config_path': 'configs/models_temperature.yaml', 'outdir': '/home/rp-fril-mhpe/temperature', 'batch_size': 256, 'no_logging': False, 'limit': 50000, 'idx_start': 0}
+2026-04-30 04:37:16 | INFO     | Results will be written to: /home/rp-fril-mhpe/temperature/first/llama-3.3-70b-high-temp-sarcasm.csv
+2026-04-30 04:37:16 | INFO     | Ensuring local model availability...
+2026-04-30 04:37:17 | INFO     | Location of model: /home/mhpe/.cache/huggingface/hub/models--unsloth--Llama-3.3-70B-Instruct-bnb-4bit
+2026-04-30 04:40:41 | INFO     | ########## Shared decoding parameters ##########
+2026-04-30 04:40:41 | INFO     | Repetitions (no. outputs from one input): 10 
+ Max tokens: 254
+2026-04-30 04:40:41 | INFO     | Using sampling params as specified in models.yaml.
+2026-04-30 04:40:41 | INFO     | ########## Sampling parameters ########## 
+ SamplingParams(n=10, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.0, temperature=1.2, top_p=0.9, top_k=0, min_p=0.0, seed=None, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=254, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=GuidedDecodingParams(json={'$defs': {'LabelSarc': {'enum': ['sarcastic', 'literal'], 'title': 'LabelSarc', 'type': 'string'}}, 'properties': {'label': {'$ref': '#/$defs/LabelSarc'}, 'explanation': {'title': 'Explanation', 'type': 'string'}}, 'required': ['label', 'explanation'], 'title': 'OutputSarc', 'type': 'object'}, regex=None, choice=None, grammar=None, json_object=None, backend=None, backend_was_auto=False, disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, whitespace_pattern=None, structural_tag=None), extra_args=None)
+2026-04-30 04:40:41 | INFO     | ########## Example prompt ##########
+2026-04-30 04:40:41 | INFO     | [{'role': 'system', 'content': 'Return ONLY a minified JSON object that conforms to this schema: \n{"$defs": {"LabelSarc": {"enum": ["sarcastic", "literal"], "title": "LabelSarc", "type": "string"}}, "properties": {"label": {"$ref": "#/$defs/LabelSarc"}, "explanation": {"title": "Explanation", "type": "string"}}, "required": ["label", "explanation"], "title": "OutputSarc", "type": "object"}\nRules:\n- Output JSON only. No prose, no markdown, no extra text.\n- Keys: label, explanation. \n- explanation MUST be 30 words or fewer \n'}, {'role': 'user', 'content': 'Task: Is this claim sarcastic or literal?\nClaim: "At first I thought he jammed it by inserting his finger into the trigger guard behind the finger."\nProvide an explanation with your reasoning.'}]
+2026-04-30 04:41:53 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 04:42:36 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 04:43:19 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 04:44:02 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 04:44:45 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 04:45:29 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 04:46:13 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 04:46:56 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 04:47:40 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 04:48:23 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 04:49:06 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 04:49:49 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 04:50:33 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 04:51:17 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 04:52:00 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 04:52:44 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 04:53:27 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 04:54:12 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 04:54:55 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 04:55:39 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 04:56:24 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 04:57:07 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 04:57:50 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 04:58:34 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 04:59:18 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:00:02 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:00:45 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:01:29 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:02:12 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:02:55 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:03:39 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:04:22 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:05:06 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:05:49 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:06:33 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:07:17 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:08:01 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:08:44 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:09:28 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:10:12 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:10:55 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:11:40 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:12:23 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:13:07 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:13:50 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:14:34 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:15:18 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:16:00 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:16:44 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:17:28 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:18:12 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:18:55 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:19:40 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:20:24 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:21:07 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:21:52 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:22:36 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:23:19 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:24:03 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:24:46 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:25:30 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:26:14 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:26:59 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:27:42 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:28:26 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:29:10 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:29:55 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:30:38 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:31:22 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:32:06 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:32:49 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:33:44 | INFO     | Writing 2559 valid results to CSV
+2026-04-30 05:34:28 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:35:12 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:35:56 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:36:40 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:37:25 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:38:16 | INFO     | Writing 2559 valid results to CSV
+2026-04-30 05:38:59 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:39:43 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:40:26 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:41:11 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:41:54 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:42:39 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:43:23 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:44:07 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:44:51 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:45:34 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:46:18 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:47:02 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:47:45 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:48:40 | INFO     | Writing 2559 valid results to CSV
+2026-04-30 05:49:23 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:50:07 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:50:50 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:51:35 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:52:17 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:53:01 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:53:54 | INFO     | Writing 2559 valid results to CSV
+2026-04-30 05:54:38 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:55:23 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:56:06 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:57:00 | INFO     | Writing 2559 valid results to CSV
+2026-04-30 05:57:45 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:58:28 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:59:12 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 05:59:55 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:00:40 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:01:23 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:02:06 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:02:50 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:03:34 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:04:18 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:05:01 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:05:46 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:06:29 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:07:12 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:07:56 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:08:39 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:09:23 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:10:06 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:10:50 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:11:34 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:12:17 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:13:02 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:13:45 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:14:29 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:15:13 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:15:56 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:16:39 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:17:23 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:18:07 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:18:50 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:19:34 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:20:18 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:21:01 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:21:45 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:22:28 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:23:11 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:23:55 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:24:39 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:25:23 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:26:16 | INFO     | Writing 2559 valid results to CSV
+2026-04-30 06:27:01 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:27:45 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:28:28 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:29:12 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:29:55 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:30:40 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:31:23 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:32:09 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:32:53 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:33:36 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:34:20 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:35:05 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:35:59 | INFO     | Writing 2559 valid results to CSV
+2026-04-30 06:36:43 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:37:27 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:38:10 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:38:53 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:39:37 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:40:20 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:41:04 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:41:48 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:42:34 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:43:18 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:44:01 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:44:45 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:45:28 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:46:13 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:46:56 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:47:40 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:48:23 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:49:06 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:49:50 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:50:33 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:51:17 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:52:00 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:52:44 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:53:29 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:54:14 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:54:58 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:55:41 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:56:25 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:57:08 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:57:52 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:58:36 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 06:59:20 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 07:00:04 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 07:00:48 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 07:01:31 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 07:02:15 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 07:02:59 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 07:03:42 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 07:04:25 | INFO     | Writing 2560 valid results to CSV
+2026-04-30 07:04:41 | INFO     | Writing 800 valid results to CSV
+2026-04-30 07:04:41 | INFO     | ==================================================
+2026-04-30 07:04:41 | INFO     | Inference pipeline completed
+2026-04-30 07:04:41 | INFO     | ==================================================
+2026-04-30 07:04:41 | INFO     | Total batches processed: 196
+2026-04-30 07:04:41 | INFO     | Total successful results: 499993
+2026-04-30 07:04:41 | INFO     | Total failed examples: 7
+2026-04-30 07:04:41 | INFO     | Output directory: /home/rp-fril-mhpe/temperature/first
+2026-04-30 07:04:41 | INFO     | ==================================================
+2026-04-30 07:04:41 | INFO     | Timing summary
+2026-04-30 07:04:41 | INFO     | Total script execution time: 2h 27m 24.55s (8844.55s)
+2026-04-30 07:04:41 | INFO     | Total inference time: 2h 23m 38.07s (8618.07s)
+2026-04-30 07:04:41 | INFO     | Overhead time (I/O, parsing, etc.): 3m 46.48s (226.48s)
+2026-04-30 07:04:41 | INFO     | Inference percentage: 97.4%
+2026-04-30 07:04:41 | INFO     | Average time per batch: 45.13s
+2026-04-30 07:04:41 | INFO     | Average time per result: 0.02s
+2026-04-30 07:04:41 | INFO     | ==================================================

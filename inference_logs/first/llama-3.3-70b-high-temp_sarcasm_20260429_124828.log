@@ -1,0 +1,7 @@
+2026-04-29 12:48:28 | INFO     | Logging initialised. Log file: inference_logs/first/llama-3.3-70b-high-temp_sarcasm_20260429_124828.log
+2026-04-29 12:48:28 | INFO     | SLURM output file: logs/temperature-llamahigh-r1.75253.out
+2026-04-29 12:48:30 | INFO     | ==================================================
+2026-04-29 12:48:30 | INFO     | Starting inference pipeline
+2026-04-29 12:48:30 | INFO     | ==================================================
+2026-04-29 12:48:30 | INFO     | Arguments: {'model_name': 'llama-3.3-70b-high-temp', 'dataset': 'sarcasm', 'dataset_path': 'data/sarc/sarcasm.csv', 'repetition': 10, 'round': 1, 'slurm_output': 'logs/temperature-llamahigh-r1.75253.out', 'history': False, 'no_explanation': False, 'models_config_path': 'configs/models.yaml', 'outdir': '/home/rp-fril-mhpe/temperature', 'batch_size': 256, 'no_logging': False, 'limit': 50000, 'idx_start': 0}
+2026-04-29 12:48:30 | INFO     | Results will be written to: /home/rp-fril-mhpe/temperature/first/llama-3.3-70b-high-temp-sarcasm.csv
