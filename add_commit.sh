@@ -12,6 +12,6 @@ git pull
 
 git add .
 
-git commit -m 'results debug'
+git commit -m 'inf logs from robustness no label and no history'
 
 git push
