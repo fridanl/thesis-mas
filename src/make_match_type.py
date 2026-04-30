@@ -8,9 +8,9 @@ def add_match_type_to_gpt(
     self_interaction: bool = False):
     # Load second round results
     if self_interaction:
-        second_path = base / 'self' / 'second' / f'{model}-{dataset}.csv'
+        second_path = base / 'self' / 'second' / f'{model}-{dataset}_no_match.csv'
     else:
-        second_path = base / 'second' / f'{model}-{dataset}.csv'
+        second_path = base / 'second' / f'{model}-{dataset}_no_match.csv'
 
     # second_path = base / 'second' / f'{model}-{dataset}_no_match.csv'
     second = pd.read_csv(second_path)
@@ -114,9 +114,23 @@ if __name__ == '__main__':
     # second.to_csv(base / 'self' / 'second' / 'gpt-oss-20b-commonsense-match.csv', index=False) 
     # print(f'Saving file gpt self commonsense file to: {base}/second/gpt-oss-20b-commonsense-match.csv')
 
+    # gpt commonsense
     # base = Path('/home/rp-fril-mhpe/')
     # second = add_match_type_to_gpt(base, dataset='commonsense')
     # second.to_csv(base / 'second' / 'gpt-oss-20b-commonsense-match.csv', index=False)
     # print(f'Saving file gpt commonsense file to: {base}/second/gpt-oss-20b-commonsense-match.csv')
 
-    make_qwen_llama_data()
+    # make_qwen_llama_data()
+
+
+    # gpt sentiment self
+    base = Path('/home/rp-fril-mhpe/')
+    second_self = add_match_type_to_gpt(base, dataset='sentiment', self_interaction=True)
+    second_self.to_csv(base / 'self' / 'second' / 'gpt-oss-20b-sentiment.csv', index=False) 
+    print(f'Saving file gpt self sentiment file to: {base}/self/second/gpt-oss-20b-sentiment.csv')
+
+
+    # gpt sentiment
+    second = add_match_type_to_gpt(base, dataset='sentiment', self_interaction=False)
+    second.to_csv(base / 'second' / 'gpt-oss-20b-sentiment.csv', index=False) 
+    print(f'Saving file gpt sentiment file to: {base}/second/gpt-oss-20b-sentiment.csv')
