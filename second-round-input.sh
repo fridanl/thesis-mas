@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=self-gpt-sentiment
+#SBATCH --job-name=temperature-make_2nd_round_input
 #SBATCH --account=researchers
 #SBATCH --partition=scavenge
 #SBATCH --cpus-per-task=4
@@ -24,4 +24,9 @@ set -euo pipefail
 # SENTIMENT ALL (we now have vic's data)
 #uv run -m src.make_second_round_input --dataset sentiment
 
-uv run -m src.make_second_round_input --self_interaction --dataset sentiment --output_root /home/rp-fril-mhpe/tmp/self-sentiment
+#uv run -m src.make_second_round_input --self_interaction --dataset sentiment --output_root /home/rp-fril-mhpe/tmp/self-sentiment
+
+
+# TEMPERATURE EXPERIMENT
+
+uv run -m src.make_second_round_input --input_dir /home/rp-fril-mhpe/temperature/first --output_root /home/rp-fril-mhpe/temperature/input_round2

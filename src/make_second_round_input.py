@@ -231,7 +231,7 @@ def process_all_pairs(model_claim_dict: dict, receiver: str, config: TaskConfig)
 
         # TODO: only for gpt pairs: (and fixup for late results)
         model_pairs = {"llama-3.3-70b": ["qwen-2.5-72b-low-temp", "qwen-2.5-72b-high-temp"],
-                    "qwen-2.5-72b": ["llama-3.3-70b-high-temp", "llama-3.3-70b-low-temp"]}
+                    "qwen-2.5-72b": ["llama-3.3-70b-low-temp", "llama-3.3-70b-high-temp"]}
 
     # Dicts for agree and disagree rows sender model
     agree_rows_for_receiver: list[dict] = []
@@ -279,15 +279,16 @@ def process_all_pairs(model_claim_dict: dict, receiver: str, config: TaskConfig)
 def main(args):
     dfs = [] 
     path = Path(args.input_dir)
-    files = list(path.glob("*.csv")) # loading all the files in the given input folder
+    files = [f for f in path.glob("*.csv") if not f.name.endswith("-failed.csv")] # loading all the files in the given input folder, ignoring failed
 
     for i, file in enumerate(files):
         if not file.exists():
-            print(f'File not found: {path}')
+            print(f'File not found: {file}')
             continue
         print(f'Loading file: {file}')
-        df = pd.read_csv(path, low_memory=False)
+        df = pd.read_csv(file, low_memory=False)
         dfs.append(df)
+
 
     combined = pd.concat(dfs, ignore_index=True) if dfs else pd.DataFrame()
 
@@ -304,6 +305,7 @@ def main(args):
         discard.to_csv(f'{outdir}/{args.dataset}/discarded.csv', index=False)                                  
         print(f'Saving the discarded claims to {outdir}/{args.dataset}/discarded.csv')
 
+    model_names = list(combined['model_sender'].unique())
     for receiver in model_names:
         if receiver not in model_claim_dict.keys():
             continue
@@ -311,8 +313,10 @@ def main(args):
         
         if not args.self_interaction:
             if not agree.empty:
+                print(f'Saving {len(agree)} lines to {f'{outdir}/{args.dataset}/{receiver}_agree.csv'}')
                 agree.to_csv(f'{outdir}/{args.dataset}/{receiver}_agree.csv', index=False) 
             if not disagree.empty:                         
+                print(f'Saving {len(disagree)} lines to {f'{outdir}/{args.dataset}/{receiver}_disagree.csv'}')
                 disagree.to_csv(f'{outdir}/{args.dataset}/{receiver}_disagree.csv', index=False)                    
         else:
             if not agree.empty:
@@ -320,8 +324,6 @@ def main(args):
 
             if not disagree.empty:
                 disagree.to_csv(f'{outdir}/{args.dataset}/{receiver}_self_interaction_disagree.csv', index=False)     
-            # both = pd.concat([agree, disagree]) # concat agree and disagree
-            # both.to_csv(f"{outdir}/{args.dataset}/{receiver}-self-interaction.csv", index=False)
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
@@ -331,6 +333,9 @@ if __name__ == "__main__":
     ap.add_argument('--output_root',
                     help='Path of root to save files',
                     default="/home/rp-fril-mhpe/input_round2")
+    ap.add_argument('--input_dir',
+                    help='Path of root to load the files',
+                    default="/home/rp-fril-mhpe/first")
     ap.add_argument('--self_interaction',
                     help='If set to true, a dataset for self interaction is created from B:B instances',
                     action='store_true')
