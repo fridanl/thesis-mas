@@ -110,8 +110,8 @@ def load_second_round_results(base: Path, models: list, dataset: str, spec: Expe
             if self_path.exists():
                 dfs.append(pd.read_csv(self_path))
     
-    if dfs:
-        results[model] = pd.concat(dfs, ignore_index=True)
+        if dfs:
+            results[model] = pd.concat(dfs, ignore_index=True)
 
     if not results:
         raise ValueError(f'No second-round data loaded for dataset={dataset}, experiment second_dir={spec.second_dir}')

@@ -1,3 +1,1 @@
 model_receiver,model_sender,match_type,total_positive_delta,total_positive_budget,total_negative_delta,total_negative_budget,possible_positive_count,possible_negative_count,count,positive_delta_realisation,negative_delta_realisation
-llama-3.3-70b,llama-3.3-70b,0:0,0.0,0.0,-83.3,1000.0,0,1000,1000,,-0.0833
-llama-3.3-70b,llama-3.3-70b,1:1,0.0,0.0,-51.2,1000.0,0,1000,1000,,-0.0512

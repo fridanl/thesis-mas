@@ -12,6 +12,6 @@ git pull
 
 git add .
 
-git commit -m 'match type typos'
+git commit -m 'results'
 
 git push

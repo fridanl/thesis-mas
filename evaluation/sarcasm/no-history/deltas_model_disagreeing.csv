@@ -1,0 +1,3 @@
+model_receiver,model_sender,macro_pos_delta_realisation,macro_neg_delta_realisation,count
+llama-3.3-70b,qwen-2.5-72b,0.5303530234334068,-0.22650756044271195,26285
+qwen-2.5-72b,llama-3.3-70b,0.762836808229508,-0.032080323662012945,26285
