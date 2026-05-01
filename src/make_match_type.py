@@ -115,7 +115,7 @@ def concat(df, self_interaction):
     if not self_interaction:
         output_path = base / 'second' / 'gpt-oss-20b-sarcasm_new.csv'
     else:
-        existing_path = base / 'self' / 'second' / 'gpt-oss-20b-sarcasm_new.csv' 
+        output_path = base / 'self' / 'second' / 'gpt-oss-20b-sarcasm_new.csv' 
     
     combined_df.to_csv(output_path, index=False)
     print(f'Saving combined file to: {output_path}')
@@ -171,10 +171,10 @@ if __name__ == '__main__':
 
     #gpt agreeing
     base = Path('/home/rp-fril-mhpe/')
-    second = add_match_type_to_gpt(base, dataset='sarcasm', self_interaction=False)
-    second.to_csv(base / 'second' / 'gpt-oss-20b-sarcasm_agree.csv', index=False) 
-    print(f'Saving file gpt sentiment file to: {base}/second/gpt-oss-20b-sarcasm_agree.csv')
-    concat(second, self_interaction=False)
+    #second = add_match_type_to_gpt(base, dataset='sarcasm', self_interaction=False)
+    #second.to_csv(base / 'second' / 'gpt-oss-20b-sarcasm_agree.csv', index=False) 
+    #print(f'Saving file gpt sentiment file to: {base}/second/gpt-oss-20b-sarcasm_agree.csv')
+    #concat(second, self_interaction=False)
 
     # gpt agreeing, self-interaction 
     second_self = add_match_type_to_gpt(base, dataset='sarcasm', self_interaction=True)
