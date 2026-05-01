@@ -1,5 +1,6 @@
 import argparse
 from pathlib import Path
+from dataclasses import dataclass, field
 import pandas as pd
 import yaml
 from utils.prompt_registry import DATASETS, DatasetTaskSpec
@@ -9,49 +10,143 @@ pd.set_option("display.max_columns", None)
 pd.set_option("display.width", None)
 pd.set_option("display.max_colwidth", None)
 
-def load_first_round_results(base: Path, models: list, dataset: str, failed: bool = False) -> dict[str, pd.DataFrame]:
+
+@dataclass
+class ExperimentSpec:
+    '''Where to find data for a given experiment.'''
+    second_dir: str                      # Subdir for 2nd round results 
+    first_dir: str | None = None          # subdir for 1st round results, if applicable 
+    model_suffixes: list[str] = field(default_factory=lambda: [''])
+    models: list[str] = field(default_factory=list)  # override model list (empty = use models.yaml)
+    include_self: bool = False             # whether to also load self/ second/ files
+
+EXPERIMENTS: dict[str, ExperimentSpec] = {
+    'main': ExperimentSpec(
+        second_dir='second',
+        first_dir='first',
+        include_self=True,
+    ),
+    'swap': ExperimentSpec(
+        second_dir='swap/second',
+        first_dir=None,
+        models=['gpt-oss-20b', 'llama-3.3-70b'],
+    ),
+    'temperature': ExperimentSpec(
+        second_dir='temperature/second',
+        first_dir='temperature/first',
+        model_suffixes=['-high-temp', '-low-temp', ''],
+        models=['llama-3.3-70b', 'qwen-2.5-72b'],
+    ),
+    'no-explanation': ExperimentSpec(
+        second_dir='no_explanation/second',
+        first_dir=None,
+        models=['llama-3.3-70b', 'qwen-2.5-72b'],
+    ),
+    'no-history': ExperimentSpec(
+        second_dir='no_history/second',
+        first_dir=None,
+        models=['llama-3.3-70b', 'qwen-2.5-72b'],
+    ),
+}
+
+
+
+def load_first_round_results(base: Path, models: list, dataset: str, spec: ExperimentSpec, failed: bool = False) -> dict[str, pd.DataFrame]:
     '''
     Load all model results for a dataset from first round. 
     failed: indicates whether to load all failed examples instead. 
-    '''
-
+    '''   
+    if spec.first_dir is None:
+        return {}
+    
     suffix = '-failed' if failed else ''
     results = {}
     for model in models:
-        path = base / 'first' /f'{model}-{dataset}{suffix}.csv'
-        if path.exists():
-            results[model] = pd.read_csv(path)
-    return results 
+        for model_suffix in spec.model_suffixes:
+            path = base / spec.first_dir / f'{model}{model_suffix}-{dataset}{suffix}.csv'
+            if path.exists():
+                results[f'{model}{model_suffix}'] = pd.read_csv(path)
+            else:
+                print(f'[WARN] First-round file not found: {path}')
+    return results
 
-def load_second_round_results(base: Path, models: list, dataset: str, swap: bool) -> dict[str, pd.DataFrame]:
+# def load_first_round_results(base: Path, models: list, dataset: str, failed: bool = False) -> dict[str, pd.DataFrame]:
+#     '''
+#     Load all model results for a dataset from first round. 
+#     failed: indicates whether to load all failed examples instead. 
+#     '''
+
+#     suffix = '-failed' if failed else ''
+#     results = {}
+#     for model in models:
+#         path = base / 'first' /f'{model}-{dataset}{suffix}.csv'
+#         if path.exists():
+#             results[model] = pd.read_csv(path)
+#     return results 
+
+
+
+def load_second_round_results(base: Path, models: list, dataset: str, spec: ExperimentSpec) -> dict[str, pd.DataFrame]:
     '''
     Load all model results for a dataset for second round.
     '''
 
+    if not spec.second_dir:
+        return {}
+    
     results = {}
     for model in models:
         dfs = []
-        # main results 
-        path = base / 'second' / f'{model}-{dataset}.csv'
-        if swap:
-            path = base / 'second' / f'{model}-{dataset}-swap.csv'
-
-        if path.exists():
-            dfs.append(pd.read_csv(path))
-            print(f'Succesfully loaded the file: {path}')
-        else:
-            print(f'Was not able to load the file: {path}')
-
-        # self-interaction 
+        for model_suffix in spec.model_suffixes:
+            path = base / spec.second_dir / f'{model}{model_suffix}-{dataset}.csv'
+            if path.exists():
+                dfs.append(pd.read_csv(path))
+                print(f'Successfully loaded: {path}')
+            else:
+                print(f'[WARN] Not found: {path}')
+        
+    if spec.include_self:
         self_path = base / 'self' / 'second' / f'{model}-{dataset}.csv'
         if self_path.exists():
             dfs.append(pd.read_csv(self_path))
+    
+    if dfs:
+        results[model] = pd.concat(dfs, ignore_index=True)
 
-        if dfs:
-            results[model] = pd.concat(dfs, ignore_index=True)
     if not results:
-        raise ValueError(f'No second round data loaded for {dataset}')
+        raise ValueError(f'No second-round data loaded for dataset={dataset}, experiment second_dir={spec.second_dir}')
     return results
+
+
+# def load_second_round_results(base: Path, models: list, dataset: str, swap: bool) -> dict[str, pd.DataFrame]:
+#     '''
+#     Load all model results for a dataset for second round.
+#     '''
+
+#     results = {}
+#     for model in models:
+#         dfs = []
+#         # main results 
+#         path = base / 'second' / f'{model}-{dataset}.csv'
+#         if swap:
+#             path = base / 'second' / f'{model}-{dataset}-swap.csv'
+
+#         if path.exists():
+#             dfs.append(pd.read_csv(path))
+#             print(f'Succesfully loaded the file: {path}')
+#         else:
+#             print(f'Was not able to load the file: {path}')
+
+#         # self-interaction 
+#         self_path = base / 'self' / 'second' / f'{model}-{dataset}.csv'
+#         if self_path.exists():
+#             dfs.append(pd.read_csv(self_path))
+
+#         if dfs:
+#             results[model] = pd.concat(dfs, ignore_index=True)
+#     if not results:
+#         raise ValueError(f'No second round data loaded for {dataset}')
+#     return results
 
 
 def load_all_as_dataframe(df_dict: dict[str, pd.DataFrame]) -> pd.DataFrame:
@@ -259,11 +354,11 @@ def summarise_deltas(delta_df):
 
     return per_match_type, per_model_pair
 
-def load_and_clean_first_round(base: Path, model_names: list, ds_config: DatasetTaskSpec) -> pd.DataFrame:
+def load_and_clean_first_round(base: Path, model_names: list, ds_config: DatasetTaskSpec, spec: ExperimentSpec) -> pd.DataFrame:
     '''
     Load first round results and remove discarded claims. 
     '''
-    first_d = load_first_round_results(base, model_names, ds_config.dataset, failed=False)
+    first_d = load_first_round_results(base, model_names, ds_config.dataset, spec, failed=False)
     first = load_all_as_dataframe(first_d)
 
     discarded_claims = get_discarded_claims(ds_config.dataset, base)
@@ -298,11 +393,11 @@ def print_first_round_summary(first: pd.DataFrame, ds_config: DatasetTaskSpec):
     )
     print(majority_label_prop)
 
-def load_and_clean_second_round(base: Path, model_names: list, ds_config: DatasetTaskSpec, swap: bool) -> pd.DataFrame:
+def load_and_clean_second_round(base: Path, model_names: list, ds_config: DatasetTaskSpec, spec: ExperimentSpec) -> pd.DataFrame:
     '''
     Load second round results and drop groups without exactly 10 repetitions.
     '''
-    second = load_all_as_dataframe(load_second_round_results(base, model_names, ds_config.dataset, swap))
+    second = load_all_as_dataframe(load_second_round_results(base, model_names, ds_config.dataset, spec))
 
     group_cols = ['model_receiver', 'model_sender', 'label_receiver_before', 'label_sender_before', 'match_type', 'id']
     counts = second.groupby(group_cols)['id'].transform('size')
@@ -329,31 +424,43 @@ def compute_and_save_deltas(first: pd.DataFrame, second: pd.DataFrame, df_config
 
 def main(args):
     base = Path(args.base_path)
-    profiles_root = yaml.safe_load(Path("configs/models.yaml").read_text())
-    profiles = profiles_root.get("profiles", {})
-    model_names = list(profiles.keys())
-    if args.swap:
-        model_names = ['gpt-oss-20b', 'llama-3.3-70b']
-        
-    print(model_names)
+    spec = EXPERIMENTS[args.experiment]
 
+    if spec.models:
+        model_names = spec.models
+    else:
+        profiles_root = yaml.safe_load(Path("configs/models.yaml").read_text())
+        profiles = profiles_root.get("profiles", {})
+        model_names = list(profiles.keys())
+    
+    print(f'[MODELS] : {model_names}')
 
     ds_config = DATASETS[args.dataset]
     print(f'[DATASET] : {args.dataset}')
+    print(f'[EXPERIMENT] : {args.experiment} -> second_dir={spec.second_dir}, first_dir={spec.first_dir if spec.first_dir is not None else 'no first_dir given'}')
 
-    print('Computing results from the first round....')
-    first = load_and_clean_first_round(base, model_names, ds_config)
-    print_first_round_summary(first, ds_config)
+    if spec.first_dir is not None:
+        print('\nComputing results from the first round....')
+        first = load_and_clean_first_round(base, model_names, ds_config, spec)
+        print_first_round_summary(first, ds_config)
 
-    print('Computing results from the second round...')
-    second = load_and_clean_second_round(base, model_names, ds_config, args.swap)
+    else:
+        print(f'\n[INFO] : No first-round directory defined for experiment: {args.experiment}, skipping first-round analysis.')
+        first = None 
+
+
+    print('\nComputing results from the second round...')
+    second = load_and_clean_second_round(base, model_names, ds_config, spec)
+
+    if first is None:
+        print(f'[INFO] : Loading main-experiment first-round results as baseline for delta computation...')
+        main_spec = EXPERIMENTS['main']
+        profiles_root = yaml.safe_load(Path("configs/models.yaml").read_text())
+        all_models = list(profiles_root.get("profiles", {}).keys())
+        first = load_and_clean_first_round(base, all_models, ds_config, main_spec)
     
-    output_dir = Path('evaluation') / ds_config.dataset
-    if args.swap:
-        output_dir = Path('evaluation') / ds_config.dataset / Path('swap')
-        
-    
-    output_dir.mkdir(parents=True, exist_ok=True)
+    output_dir = Path('evaluation') / ds_config.dataset / args.experiment
+    output_dir.mkdir(parents=True, exist_ok=True)    
     compute_and_save_deltas(first, second, ds_config, output_dir)
 
 
@@ -365,8 +472,9 @@ if __name__ == "__main__":
     ap.add_argument("--dataset", 
                     help="Specify name of dataset",
                     default="sarcasm")
-    ap.add_argument('--swap',
-                    help='Bool, whether the explanations have been swapped.',
-                    action='store_true') # Is true when we pass the flag --swap
+    ap.add_argument('--experiment', 
+                    default='main',
+                    choices=list(EXPERIMENTS.keys()),
+                    help=f'Which experiment to run. Options: {list(EXPERIMENTS.keys())}')
     args = ap.parse_args()
     main(args)
