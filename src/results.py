@@ -105,10 +105,10 @@ def load_second_round_results(base: Path, models: list, dataset: str, spec: Expe
             else:
                 print(f'[WARN] Not found: {path}')
         
-    if spec.include_self:
-        self_path = base / 'self' / 'second' / f'{model}-{dataset}.csv'
-        if self_path.exists():
-            dfs.append(pd.read_csv(self_path))
+        if spec.include_self:
+            self_path = base / 'self' / 'second' / f'{model}-{dataset}.csv'
+            if self_path.exists():
+                dfs.append(pd.read_csv(self_path))
     
     if dfs:
         results[model] = pd.concat(dfs, ignore_index=True)
