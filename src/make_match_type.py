@@ -121,6 +121,9 @@ def concat(df, self_interaction):
     print(f'Saving combined file to: {output_path}')
 
 def make_qwen_llama_data():
+    """
+    for robustness experiments
+    """
     print('Constructing dataset for llama as receiver...')
     df = pd.read_csv('/home/rp-fril-mhpe/subsampled_input_round2/sarcasm/llama-3.3-70b_disagree_subsampled.csv')
     subset = df[df['model_sender'] == 'qwen-2.5-72b']
@@ -134,6 +137,40 @@ def make_qwen_llama_data():
     print(subset2['match_type'].value_counts())
     subset2.to_csv('/home/rp-fril-mhpe/subsampled_input_round2/no_history/sarcasm/qwen-2.5-72b_disagree_subsampled.csv', index=False)
 
+
+def make_llama_data():
+
+    out_dir = Path("/home/rp-fril-mhpe/tmp/llama")
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    files = [
+        "llama-3.3-70b_agree.csv",
+        "llama-3.3-70b_disagree.csv",
+        "llama-3.3-70b_self_interaction_agree.csv",
+        "llama-3.3-70b_self_interaction_disagree.csv",
+    ]
+
+    input_dir = Path("/home/rp-fril-mhpe/input_round2/sentiment")
+
+    for file in files:
+        df = pd.read_csv(input_dir / file)
+
+        before = len(df)
+        remove_count = (df["model_sender"] == "llama-3.1-8b").sum()
+
+        df = df[df["model_sender"] != "llama-3.1-8b"]
+
+        after = len(df)
+
+        print(f"{file}")
+        print(f"  rows before:  {before}")
+        print(f"  rows removed: {remove_count}")
+        print(f"  rows after:   {after}")
+        print()
+
+        df.to_csv(out_dir / file, index=False)
+
+    
 if __name__ == '__main__':
 
     # self gpt sarcasm 
@@ -170,14 +207,15 @@ if __name__ == '__main__':
     # print(f'Saving file gpt sentiment file to: {base}/second/gpt-oss-20b-sentiment.csv')
 
     #gpt agreeing
-    base = Path('/home/rp-fril-mhpe/')
+    #base = Path('/home/rp-fril-mhpe/')
     #second = add_match_type_to_gpt(base, dataset='sarcasm', self_interaction=False)
     #second.to_csv(base / 'second' / 'gpt-oss-20b-sarcasm_agree.csv', index=False) 
     #print(f'Saving file gpt sentiment file to: {base}/second/gpt-oss-20b-sarcasm_agree.csv')
     #concat(second, self_interaction=False)
 
     # gpt agreeing, self-interaction 
-    second_self = add_match_type_to_gpt(base, dataset='sarcasm', self_interaction=True)
-    second_self.to_csv(base / 'self' / 'second' / 'gpt-oss-20b-sarcasm_agree.csv', index=False) 
-    print(f'Saving file gpt sentiment file to: {base}/self/second/gpt-oss-20b-sarcasm_agree.csv')
-    concat(second_self, self_interaction=True)
+    #second_self = add_match_type_to_gpt(base, dataset='sarcasm', self_interaction=True)
+    #second_self.to_csv(base / 'self' / 'second' / 'gpt-oss-20b-sarcasm_agree.csv', index=False) 
+    #print(f'Saving file gpt sentiment file to: {base}/self/second/gpt-oss-20b-sarcasm_agree.csv')
+    #concat(second_self, self_interaction=True)
+    make_llama_data()
