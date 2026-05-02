@@ -144,8 +144,8 @@ def make_llama_data():
     out_dir.mkdir(parents=True, exist_ok=True)
 
     files = [
-        "llama-3.3-70b_agree.csv",
-        "llama-3.3-70b_disagree.csv",
+        "llama-3.3-70b_agree_subsampled.csv",
+        "llama-3.3-70b_disagree_subsampled.csv",
     ]
 
     input_dir = Path("/home/rp-fril-mhpe/subsampled_input_round2/sentiment")
