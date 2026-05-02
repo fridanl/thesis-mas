@@ -143,12 +143,9 @@ def make_llama_data():
     out_dir = Path("/home/rp-fril-mhpe/tmp/llama")
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    files = [
-        "llama-3.3-70b_agree_subsampled.csv",
-        "llama-3.3-70b_disagree_subsampled.csv",
-    ]
+    files = ["llama-3.3-70b-sentiment.csv"]
 
-    input_dir = Path("/home/rp-fril-mhpe/subsampled_input_round2/sentiment")
+    input_dir = Path("/home/rp-fril-mhpe/second")
 
     for file in files:
         df = pd.read_csv(input_dir / file)
