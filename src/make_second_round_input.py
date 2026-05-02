@@ -201,7 +201,7 @@ def process_all_pairs(model_claim_dict: dict, receiver: str, config: TaskConfig)
         #             "gemma-3-4b": ["gemma-3-4b"],
         #             "gpt-oss-20b": ["gpt-oss-20b"]}
 
-        model_pairs = {"gpt-oss-20b": ["gpt-oss-20b"]}
+        model_pairs = {"llama-3.1-8b": ["llama-3.1-8b"]}
     else:
         # a fixed set of model pairs that we chose to match up, so we don't get every possible pair
         # only within family and the large models across family
@@ -229,9 +229,10 @@ def process_all_pairs(model_claim_dict: dict, receiver: str, config: TaskConfig)
         #             "gemma-3-27b": ["gpt-oss-20b"],
         #             "gpt-oss-20b": ["llama-3.3-70b", "qwen-2.5-72b", "gemma-3-27b"]}
 
-        # TODO: only for gpt pairs: (and fixup for late results)
-        model_pairs = {"llama-3.3-70b": ["qwen-2.5-72b-low-temp", "qwen-2.5-72b-high-temp"],
-                    "qwen-2.5-72b": ["llama-3.3-70b-low-temp", "llama-3.3-70b-high-temp"]}
+        # TODO: only for llama pairs: (and fixup for late results)
+
+        model_pairs = {"llama-3.3-70b": ["llama-3.1-8b"],
+                    "llama-3.1-8b": ["llama-3.3-70b"]}
 
     # Dicts for agree and disagree rows sender model
     agree_rows_for_receiver: list[dict] = []
