@@ -43,5 +43,9 @@ set -euo pipefail
 # uv run src/make_subsample.py --suffix agree --cap 1000 --dataset sentiment
 
 # SENTIMENT subsample gpt self-interaction 
-uv run src/make_subsample.py --glob_pattern *oss-20b_self_interaction_disagree.csv --input_dir /home/rp-fril-mhpe/input_round2 --output_dir /home/rp-fril-mhpe/tmp/self-sent --cap 7000 --dataset sentiment
-uv run src/make_subsample.py --glob_pattern *oss-20b_self_interaction_agree.csv --input_dir /home/rp-fril-mhpe/input_round2 --output_dir /home/rp-fril-mhpe/tmp/self-sent --cap 1000 --dataset sentiment
+# uv run src/make_subsample.py --glob_pattern *oss-20b_self_interaction_disagree.csv --input_dir /home/rp-fril-mhpe/input_round2 --output_dir /home/rp-fril-mhpe/tmp/self-sent --cap 7000 --dataset sentiment
+# uv run src/make_subsample.py --glob_pattern *oss-20b_self_interaction_agree.csv --input_dir /home/rp-fril-mhpe/input_round2 --output_dir /home/rp-fril-mhpe/tmp/self-sent --cap 1000 --dataset sentiment
+
+# SENTIMENT subsample for llama problems
+uv run src/make_subsample.py --glob_pattern *_disagree.csv --input_dir /home/rp-fril-mhpe/tmp/llama --output_dir /home/rp-fril-mhpe/tmp/llama --cap 7000 --dataset sentiment
+uv run src/make_subsample.py --glob_pattern *_agree.csv --input_dir /home/rp-fril-mhpe/tmp/llama --output_dir /home/rp-fril-mhpe/tmp/llama --cap 1000 --dataset sentiment
