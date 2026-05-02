@@ -132,8 +132,8 @@ SLURM_OUTPUT_FILE="logs/${SLURM_JOB_NAME}.${SLURM_JOB_ID}.out"
 # # Agreeing
 #uv run run.py --model_name llama-3.1-8b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sentiment/llama-3.1-8b_agree_subsampled.csv --outdir /home/rp-fril-mhpe  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset sentiment
 # self interaction
-uv run run.py --model_name llama-3.1-8b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sentiment/llama-3.1-8b_self_interaction_agree_subsampled.csv --outdir /home/rp-fril-mhpe/self  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset sentiment
-uv run run.py --model_name llama-3.1-8b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sentiment/llama-3.1-8b_self_interaction_disagree_subsampled.csv --outdir /home/rp-fril-mhpe/self  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset sentiment
+# uv run run.py --model_name llama-3.1-8b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sentiment/llama-3.1-8b_self_interaction_agree_subsampled.csv --outdir /home/rp-fril-mhpe/self  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset sentiment
+# uv run run.py --model_name llama-3.1-8b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/sentiment/llama-3.1-8b_self_interaction_disagree_subsampled.csv --outdir /home/rp-fril-mhpe/self  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset sentiment
 
 
 
@@ -156,3 +156,12 @@ uv run run.py --model_name llama-3.1-8b --repetition 1 --round 2 --batch_size 25
 ##########################################           SWAP        ##########################################
 #---- llama-3.3-70b
 #uv run run.py --model_name llama-3.3-70b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/subsampled_input_round2/swap/sarcasm/llama-3.3-70b_disagree_swap.csv --outdir /home/rp-fril-mhpe/swap  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset sarcasm
+
+
+######################################### llama fix ############################################
+
+# Disagreeing
+uv run run.py --model_name llama-3.3-70b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/tmp/llama/sentiment/llama-3.3-70b_disagree_subsampled.csv --outdir /home/rp-fril-mhpe  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset sentiment
+# Agreeing
+uv run run.py --model_name llama-3.3-70b --repetition 1 --round 2 --batch_size 256 --history --dataset_path /home/rp-fril-mhpe/tmp/llama/sentiment/llama-3.3-70b_agree_subsampled.csv --outdir /home/rp-fril-mhpe  --slurm_output "${SLURM_OUTPUT_FILE}" --dataset sentiment
+
