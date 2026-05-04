@@ -1,0 +1,112 @@
+2026-05-02 16:36:39 | INFO     | Logging initialised. Log file: inference_logs/second/llama-3.1-8b_sentiment_20260502_163639.log
+2026-05-02 16:36:39 | INFO     | SLURM output file: logs/llama-small-selfinteraction.76533.out
+2026-05-02 16:36:39 | INFO     | ==================================================
+2026-05-02 16:36:39 | INFO     | Starting inference pipeline
+2026-05-02 16:36:39 | INFO     | ==================================================
+2026-05-02 16:36:39 | INFO     | Arguments: {'model_name': 'llama-3.1-8b', 'dataset': 'sentiment', 'dataset_path': '/home/rp-fril-mhpe/subsampled_input_round2/sentiment/llama-3.1-8b_self_interaction_agree_subsampled.csv', 'repetition': 1, 'round': 2, 'slurm_output': 'logs/llama-small-selfinteraction.76533.out', 'history': True, 'no_explanation': False, 'models_config_path': 'configs/models.yaml', 'outdir': '/home/rp-fril-mhpe/self', 'batch_size': 256, 'no_logging': False, 'limit': None, 'idx_start': 0}
+2026-05-02 16:36:39 | INFO     | Results will be written to: /home/rp-fril-mhpe/self/second/llama-3.1-8b-sentiment.csv
+2026-05-02 16:36:39 | INFO     | Ensuring local model availability...
+2026-05-02 16:36:39 | INFO     | Location of model: /home/mhpe/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct-bnb-4bit
+2026-05-02 16:37:21 | INFO     | ########## Shared decoding parameters ##########
+2026-05-02 16:37:21 | INFO     | Repetitions (no. outputs from one input): 1 
+ Max tokens: 254
+2026-05-02 16:37:21 | INFO     | The model has been set to have default sampling params.
+2026-05-02 16:37:21 | INFO     | ########## Sampling parameters ########## 
+ SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.0, temperature=0.6, top_p=0.9, top_k=0, min_p=0.0, seed=None, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=254, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=GuidedDecodingParams(json={'$defs': {'LabelSentiment': {'enum': ['positive', 'negative'], 'title': 'LabelSentiment', 'type': 'string'}}, 'properties': {'label': {'$ref': '#/$defs/LabelSentiment'}}, 'required': ['label'], 'title': 'OutputSentimentR2', 'type': 'object'}, regex=None, choice=None, grammar=None, json_object=None, backend=None, backend_was_auto=False, disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, whitespace_pattern=None, structural_tag=None), extra_args=None)
+2026-05-02 16:37:21 | INFO     | ########## Example prompt ##########
+2026-05-02 16:37:21 | INFO     | [{'role': 'system', 'content': 'Return ONLY a minified JSON object that conforms to this schema: \n{"$defs": {"LabelSentiment": {"enum": ["positive", "negative"], "title": "LabelSentiment", "type": "string"}}, "properties": {"label": {"$ref": "#/$defs/LabelSentiment"}}, "required": ["label"], "title": "OutputSentimentR2", "type": "object"}\nRules:\n- Output JSON only. No prose, no markdown, no extra text.\n- Keys: label'}, {'role': 'user', 'content': 'Task: Does this claim have positive or negative sentiment?\nClaim: "\' ... both hokey and super-cool , and definitely not in a hurry , so sit back , relax and have a few laughs while the little ones get a fuzzy treat . \'"\nYou have previously said "positive", with the following explanation: "The text has a positive tone due to the use of words like \'super-cool\', \'laughs\', and \'fuzzy treat\', which convey a sense of joy and playfulness, indicating a favorable sentiment towards the subject.."\nHowever, a peer of yours labelled the claim as "positive", with the following explanation: "The claim has a positive sentiment due to the use of words like \'super-cool\', \'laughs\', and \'treat\', which convey a sense of fun and enjoyment."\nHaving considered that, Does this claim have positive or negative sentiment?\nClaim: "\' ... both hokey and super-cool , and definitely not in a hurry , so sit back , relax and have a few laughs while the little ones get a fuzzy treat . \'"\n'}]
+2026-05-02 16:38:00 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:02 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:04 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:06 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:08 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:09 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:11 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:13 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:14 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:16 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:18 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:20 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:22 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:23 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:25 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:27 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:29 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:31 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:32 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:34 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:35 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:37 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:38 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:40 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:42 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:43 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:45 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:46 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:48 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:50 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:51 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:53 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:55 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:56 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:38:58 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:00 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:01 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:03 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:05 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:06 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:08 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:09 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:11 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:13 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:14 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:16 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:18 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:19 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:21 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:22 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:24 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:26 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:28 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:29 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:31 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:32 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:34 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:36 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:37 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:39 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:40 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:42 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:44 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:45 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:47 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:48 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:50 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:52 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:53 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:55 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:57 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:39:58 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:40:00 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:40:02 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:40:04 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:40:05 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:40:07 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:40:09 | INFO     | Writing 256 valid results to CSV
+2026-05-02 16:40:09 | INFO     | Writing 32 valid results to CSV
+2026-05-02 16:40:09 | INFO     | ==================================================
+2026-05-02 16:40:09 | INFO     | Inference pipeline completed
+2026-05-02 16:40:09 | INFO     | ==================================================
+2026-05-02 16:40:09 | INFO     | Total batches processed: 79
+2026-05-02 16:40:09 | INFO     | Total successful results: 20000
+2026-05-02 16:40:09 | INFO     | Total failed examples: 0
+2026-05-02 16:40:09 | INFO     | Output directory: /home/rp-fril-mhpe/self/second
+2026-05-02 16:40:09 | INFO     | ==================================================
+2026-05-02 16:40:09 | INFO     | Timing summary
+2026-05-02 16:40:09 | INFO     | Total script execution time: 3m 30.86s (210.86s)
+2026-05-02 16:40:09 | INFO     | Total inference time: 2m 43.73s (163.73s)
+2026-05-02 16:40:09 | INFO     | Overhead time (I/O, parsing, etc.): 47.13s (47.13s)
+2026-05-02 16:40:09 | INFO     | Inference percentage: 77.6%
+2026-05-02 16:40:09 | INFO     | Average time per batch: 2.67s
+2026-05-02 16:40:09 | INFO     | Average time per result: 0.01s
+2026-05-02 16:40:09 | INFO     | ==================================================
