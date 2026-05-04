@@ -12,19 +12,19 @@ echo "Host: $(hostname)"
 
 set -euo pipefail
 
-export PYTHONPATH=/home/mhpe/thesis-mas${PYTHONPATH:+:$PYTHONPATH}
+export PYTHONPATH=/home/fril/thesis-mas${PYTHONPATH:+:$PYTHONPATH}
 
-uv run src/make_match_type.py
+#uv run src/make_match_type.py
 
-# uv run src/results.py --dataset sarcasm --experiment main
-# uv run src/results.py --dataset sarcasm --experiment temperature
-# uv run src/results.py --dataset sarcasm --experiment swap
-# uv run src/results.py --dataset sarcasm --experiment no-explanation
-# uv run src/results.py --dataset sarcasm --experiment no-history
+uv run src/results.py --dataset sarcasm --experiment main
+uv run src/results.py --dataset sarcasm --experiment temperature
+uv run src/results.py --dataset sarcasm --experiment swap
+uv run src/results.py --dataset sarcasm --experiment no-explanation
+uv run src/results.py --dataset sarcasm --experiment no-history
 
 
-# uv run src/results.py --dataset commonsense --experiment main
-# uv run src/results.py --dataset sentiment --experiment main
+uv run src/results.py --dataset commonsense --experiment main
+uv run src/results.py --dataset sentiment --experiment main
 
 
 

@@ -1,7 +1,9 @@
 model_receiver,model_sender,macro_pos_delta_realisation,macro_neg_delta_realisation,count
 gemma-3-27b,gemma-3-27b,,0.0,2000
 gemma-3-4b,gemma-3-4b,,-0.00044999999999999993,2000
-llama-3.1-8b,llama-3.1-8b,,0.0,90
+llama-3.1-8b,llama-3.1-8b,,-0.0012499999999999998,2000
+llama-3.1-8b,llama-3.3-70b,,-0.0016999999999999997,2000
+llama-3.3-70b,llama-3.1-8b,,-0.0033500000000000005,2000
 llama-3.3-70b,llama-3.3-70b,,-0.0057,2000
 qwen-2.5-72b,qwen-2.5-72b,,0.0,2000
 qwen-2.5-7b,qwen-2.5-7b,,-0.0015999999999999999,2000
