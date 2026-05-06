@@ -422,6 +422,14 @@ def compute_and_save_deltas(first: pd.DataFrame, second: pd.DataFrame, df_config
         print(f'Summary of deltas for {label} cases:')
         print(per_model_pair)
 
+def reverse_match_type(df: pd.DataFrame):
+    # rename column; 'match_type' to match_type_old
+    # make new match_type from match_type_old by reversing the string e.g. B:1 -> 1:B
+    df = df.rename(columns={'match_type': 'match_type_old'})
+    df['match_type'] = df['match_type_old'].str.split(':').str[::-1].str.join(':')
+    return df
+
+
 def main(args):
     base = Path(args.base_path)
     spec = EXPERIMENTS[args.experiment]
@@ -451,6 +459,10 @@ def main(args):
 
     print('\nComputing results from the second round...')
     second = load_and_clean_second_round(base, model_names, ds_config, spec)
+    if args.experiment == 'swap':
+        second = reverse_match_type(second)
+        print('Reversed match type...')
+        print(second.head(3))
 
     if first is None:
         print(f'[INFO] : Loading main-experiment first-round results as baseline for delta computation...')
