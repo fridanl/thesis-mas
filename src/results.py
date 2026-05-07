@@ -379,7 +379,9 @@ def print_first_round_summary(first: pd.DataFrame, ds_config: DatasetTaskSpec):
     grouped_first = get_grouped_df(first, ds_config)
     
     print('Consistent / inconsistent labelling distribution')
-    print(summarise_model_rates(grouped_df=grouped_first))
+    model_rates = summarise_model_rates(grouped_df=grouped_first)
+    print(model_rates)
+    model_rates.to_csv(Path('evaluation') / ds_config.dataset / args.experiment / 'claims_label_consistency.csv')
     
     print('Overall positive rate')
     print(compute_overall_positive_rate(first, conf=ds_config))
@@ -452,28 +454,28 @@ def main(args):
         first = load_and_clean_first_round(base, model_names, ds_config, spec)
         print_first_round_summary(first, ds_config)
 
-    else:
-        print(f'\n[INFO] : No first-round directory defined for experiment: {args.experiment}, skipping first-round analysis.')
-        first = None 
+    # else:
+    #     print(f'\n[INFO] : No first-round directory defined for experiment: {args.experiment}, skipping first-round analysis.')
+    #     first = None 
 
 
-    print('\nComputing results from the second round...')
-    second = load_and_clean_second_round(base, model_names, ds_config, spec)
-    if args.experiment == 'swap':
-        second = reverse_match_type(second)
-        print('Reversed match type...')
-        print(second.head(3))
+    # print('\nComputing results from the second round...')
+    # second = load_and_clean_second_round(base, model_names, ds_config, spec)
+    # if args.experiment == 'swap':
+    #     second = reverse_match_type(second)
+    #     print('Reversed match type...')
+    #     print(second.head(3))
 
-    if first is None:
-        print(f'[INFO] : Loading main-experiment first-round results as baseline for delta computation...')
-        main_spec = EXPERIMENTS['main']
-        profiles_root = yaml.safe_load(Path("configs/models.yaml").read_text())
-        all_models = list(profiles_root.get("profiles", {}).keys())
-        first = load_and_clean_first_round(base, all_models, ds_config, main_spec)
+    # if first is None:
+    #     print(f'[INFO] : Loading main-experiment first-round results as baseline for delta computation...')
+    #     main_spec = EXPERIMENTS['main']
+    #     profiles_root = yaml.safe_load(Path("configs/models.yaml").read_text())
+    #     all_models = list(profiles_root.get("profiles", {}).keys())
+    #     first = load_and_clean_first_round(base, all_models, ds_config, main_spec)
     
-    output_dir = Path('evaluation') / ds_config.dataset / args.experiment
-    output_dir.mkdir(parents=True, exist_ok=True)    
-    compute_and_save_deltas(first, second, ds_config, output_dir)
+    # output_dir = Path('evaluation') / ds_config.dataset / args.experiment
+    # output_dir.mkdir(parents=True, exist_ok=True)    
+    # compute_and_save_deltas(first, second, ds_config, output_dir)
 
 
 if __name__ == "__main__":
