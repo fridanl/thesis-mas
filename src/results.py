@@ -70,21 +70,6 @@ def load_first_round_results(base: Path, models: list, dataset: str, spec: Exper
                 print(f'[WARN] First-round file not found: {path}')
     return results
 
-# def load_first_round_results(base: Path, models: list, dataset: str, failed: bool = False) -> dict[str, pd.DataFrame]:
-#     '''
-#     Load all model results for a dataset from first round. 
-#     failed: indicates whether to load all failed examples instead. 
-#     '''
-
-#     suffix = '-failed' if failed else ''
-#     results = {}
-#     for model in models:
-#         path = base / 'first' /f'{model}-{dataset}{suffix}.csv'
-#         if path.exists():
-#             results[model] = pd.read_csv(path)
-#     return results 
-
-
 
 def load_second_round_results(base: Path, models: list, dataset: str, spec: ExperimentSpec) -> dict[str, pd.DataFrame]:
     '''
@@ -118,37 +103,6 @@ def load_second_round_results(base: Path, models: list, dataset: str, spec: Expe
     return results
 
 
-# def load_second_round_results(base: Path, models: list, dataset: str, swap: bool) -> dict[str, pd.DataFrame]:
-#     '''
-#     Load all model results for a dataset for second round.
-#     '''
-
-#     results = {}
-#     for model in models:
-#         dfs = []
-#         # main results 
-#         path = base / 'second' / f'{model}-{dataset}.csv'
-#         if swap:
-#             path = base / 'second' / f'{model}-{dataset}-swap.csv'
-
-#         if path.exists():
-#             dfs.append(pd.read_csv(path))
-#             print(f'Succesfully loaded the file: {path}')
-#         else:
-#             print(f'Was not able to load the file: {path}')
-
-#         # self-interaction 
-#         self_path = base / 'self' / 'second' / f'{model}-{dataset}.csv'
-#         if self_path.exists():
-#             dfs.append(pd.read_csv(self_path))
-
-#         if dfs:
-#             results[model] = pd.concat(dfs, ignore_index=True)
-#     if not results:
-#         raise ValueError(f'No second round data loaded for {dataset}')
-#     return results
-
-
 def load_all_as_dataframe(df_dict: dict[str, pd.DataFrame]) -> pd.DataFrame:
     """Load all first round results and tag with model column."""
     dfs = list(df_dict.values())
@@ -175,36 +129,6 @@ def get_discarded_claims(dataset: str, base: Path) -> pd.DataFrame:
         return pd.read_csv(discarded_path)
     print(f'[WARN] No discarded claims file found at {discarded_path}, skipping.')
     return pd.DataFrame()
-
-
-def discarded_claims_to_latex(df: pd.DataFrame) -> str:
-    grouped = (
-        df.groupby('model')['id']
-        .apply(lambda x: ', '.join(map(str, sorted(x))))
-        .reset_index()
-    )
-    grouped['count'] = df.groupby('model')['id'].count().values
-
-    rows = []
-    for _, row in grouped.iterrows():
-        rows.append(f"    {row['model']} & {row['id']} & {row['count']} \\\\")
-
-    body = "\n\\midrule\n".join(rows)
-
-    latex = f"""\\begin{{table}}[h]
-                \\centering
-                \\caption{{Claims discarded due to insufficient valid outputs ($<$10) per model.}}
-                \\label{{tab:discarded_claims}}
-                \\begin{{tabular}}{{lll}}
-                \\toprule
-                \\textbf{{Model}} & \\textbf{{Discarded Claim IDs}} & \\textbf{{Count}} \\\\
-                \\midrule
-                {body}
-                \\bottomrule
-                \\end{{tabular}}
-                \\end{{table}}"""
-
-    return latex
 
 def validate_repetitions(df: pd.DataFrame, group_cols: list, expected: int = 10):
     counts = df.groupby(group_cols).size().reset_index(name='count')
@@ -364,6 +288,9 @@ def load_and_clean_first_round(base: Path, model_names: list, ds_config: Dataset
     discarded_claims = get_discarded_claims(ds_config.dataset, base)
     if not discarded_claims.empty:
         discarded_pairs = discarded_claims[['model', 'id']].drop_duplicates()
+        print('DISCARDED PAIRS')
+        print(discarded_pairs)
+
         discarded_pairs = discarded_pairs.copy()
         discarded_pairs['_discard'] = True
         first = first.merge(discarded_pairs, on=['model', 'id'], how='left')
