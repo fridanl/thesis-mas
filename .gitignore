@@ -74,3 +74,4 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
+evaluation/qualitative_swap_analysis/*.csv
