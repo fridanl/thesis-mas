@@ -1,7 +1,18 @@
-# [TITLE OF PAPER]
+# Influence Dynamics in Heterogeneous LLM-Based Multi-Agent Systems
 
 ## Abstract 
 
+Large Language Models (LLMs) are increasingly deployed in Multi-Agent Systems (MAS) where multiple agents collaborate towards a shared solution. 
+While prior work has shown that opinion dynamics in these systems are complex and can be misaligned with expectations, little focus has been paid to how these differ when agents are powered by distinct model types.
+In systems where models differ in size, architecture and training data, it remains unclear how agents can influence each others' outcomes, and whether a shift to a heterogeneous setting affects influence dynamics. 
+We propose a framework for measuring influence dynamics in LLM-based MAS. 
+An agent is tasked with a binary classification task in isolation, and is later asked to revisit this task, but now considering another agent's opinion. 
+Influence is measured as the shift in the agent's certainty in its opinion before and after interaction.
+We evaluate several open-source models on three natural language processing tasks. 
+Results show that interaction alone produces frequent and substantial opinion shifts, even for models that are initially certain in their opinion. 
+Furthermore, influence is driven mainly be the stability of the model being influenced and less by the influential power of the peer.
+Similarly, the transition from homogeneous to heterogeneous systems does not affect all models uniformly. Depending on the model, heterogeneity may either increase or decrease susceptibility. 
+Overall, system composition, model types, and model roles are important factors in influence dynamics, and thus need to be considered when building robust MAS.
 
 ## Usage
 
@@ -12,17 +23,17 @@ The main Python script `run.py` accepts the following arguments:
 -   `--model_name` (str, required): Name of model under evaluation. Format as specified in the `models.yaml`. 
 -   `--dataset` (str, default: 'sarcasm'): Name of dataset under evaluation.
 -   `--dataset_path` (str, required): Path to dataset/input.
--   `--repetition` (int, default: 1): Number of times a model is prompted with the same input.
+-   `--repetition` (int, default: 1): Number of times a model is prompted per input.
 -   `--round` (int, default: 1): Round of experiment. 1: solo inference, 2: pairwise interaction.
 -   `--models_config_path` (str, default: configs/models.yaml): Path to YAML file with model parameters. 
 -   `--outdir` (str, default: results): Directory to write results. 
--   `--batch_size` (int, default: 256): Number of claims per inference. Note, this is multiplied with args.repetition. 
+-   `--batch_size` (int, default: 256): Number of claims per inference. Note, this is multiplied by args.repetition. 
 -   `--slurm_output` (str, required): Name of SLURM output file. For reporting in inference file. 
 -   `--history`: Flag to include history, i.e. an agent's previous answer, in round 2 prompts. 
 -   `--no_explanation`: Flag to exclude explanations from round 2 prompts. 
 -   `--no_logging`: Flag to disable logging in inference log file. 
 -   `--idx_start` (int, default: 0): Index of row to start from in dataset. 
--   `-limit` (int): Limit number of examples for examples. Note, this is on a claim level. 
+-   `-limit` (int): Limit number of examples for evaluation. Note, this is on a claim level. 
 
 ### Example Script 
 
@@ -47,7 +58,7 @@ uv run run.py
     --model_name llama-3.1-8b
     --dataset sarcasm \
     --dataset_path /subsampled_input_round2/sarcasm/llama-3.1-8b_disagree.csv \ # Path to constructed opinion sets
-    --repetition 1 \ # 1 repetition, since the opinion sets have 10 repetitions.
+    --repetition 1 \  #1 repetition, since the opinion sets have 10 repetitions.
     --round 2 \
     --history \
     --slurm_output "${SLURM_OUTPUT_FILE}"
@@ -76,7 +87,7 @@ uv run -m src.make_second_round_input
     --self_interaction
 ```
 
-This will create one input file for every model (receiver), paired up with all specified models (peer).
+This will create one input file for every receiver model, paired with all specified peer models.
 
 **Subsampling**
 
@@ -96,7 +107,7 @@ uv run src/make_subsample.py
 ```
 ## Evaluation
 
-When all runs are done, the results can be computed by running the `src/results.py` scripts. 
+When all runs are done, the results can be computed by running the `src/results.py` script. 
 This will compute influence scores for every model and dataset, and create files of three aggregation levels: on a claim level, on a match type level, and on a model level. 
 
 ```BASH
@@ -125,7 +136,7 @@ uv sync # to install dependencies
 ```
 **If you are using pip:**
 
-We also provide a requirements.txt file pip is preferred. Simply run:
+We also provide a requirements.txt file pip if preferred. Simply run:
 ```BASH
 pip install -r requirements.txt
 ```
