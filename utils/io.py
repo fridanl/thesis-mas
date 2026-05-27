@@ -8,7 +8,6 @@ class ChatCompletionMessageParam(TypedDict):
     role: str
     content: str
 
-
 def load_claims_text(path: str) -> List[Dict[str, str]]:
     items = []
     with open(path, 'r', encoding='utf-8') as file: 
@@ -19,7 +18,6 @@ def load_claims_text(path: str) -> List[Dict[str, str]]:
             
             items.append({'id': i, 'text': claim.strip('"').strip("'")})
     return items 
-
 
 def load_claims_batches(
                 path: str, 

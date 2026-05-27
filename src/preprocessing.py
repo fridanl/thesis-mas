@@ -1,8 +1,8 @@
 import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
 import re
+from pathlib import Path
 
+#################################### SENTIMENT #############################################
 # loading the sentoment data
 text_path = "../data/sentiment/archive/train_text.txt"
 val_text_path = "../data/sentiment/archive/val_text.txt"
@@ -65,28 +65,13 @@ def clean_filter(df):
     
     return True
 
-
 mask = data["text"].apply(clean_filter)
 clean_data = data[mask]          # kept rows
 removed_text = data[~mask]       # removed rows
 
 print(f'number of removed rows are {len(removed_text)}')
 ### Removing duplicates and semi-duplicates
-
 # Many of the sentences are near duplicates, since the dataset is a treebank.
-
-# We want to remove the semi-duplicates if the labels are identical, but keep them, if the interposed sentence changes the sentiment, and therefore the label.
-
-# **Example:**
-
-#     25861,"The film boasts at least a few good ideas and features some decent performances ,",positive
-
-#     25862,"The film boasts at least a few good ideas and features some decent performances , but",positive
-
-#     25863,"The film boasts at least a few good ideas and features some decent performances , but the result is disappointing",negative
-
-# Here, if there are semi-duplicates, we remove the shortest one. So the first sentence will be removed in this case.
-
 def normalise_text(s):
     s = s.lower()  # lowercase
     s = s.replace("``", '"').replace("''", '"')  # norm the quotations
@@ -119,22 +104,15 @@ def remove_semi_duplicates(df):
     return df.loc[keep_indices].reset_index(drop=True)
 
 
-
-
 df = remove_semi_duplicates(clean_data)
 print(f'the length of df before: {len(clean_data)}, the length now: {len(df)}')
 print(f'removed: {len(clean_data)-len(df)}')
 df["id"] = df.index # reset the id (that we dropped before)
 df = df[["id", "text", "label"]] # rearrange the columns
 df.head()
-
-
 df.to_csv("../data/sentiment/sentiment.csv", index=False)
 
-
-
-
-# Commonsense
+#################################### COMMONSENSE #############################################
 # # loading the common sense data (parquet)
 cs = pd.read_parquet("../data/commonsense/archive/train-00000-of-00001.parquet")
 cs = cs[["question", "answer"]]
@@ -145,21 +123,47 @@ cs["id"] = cs.index
 cs = cs[["id", "text", "label"]]
 cs.to_csv("../data/commonsense/commonsense.csv", index=False)
 
+#################################### SARCASM #############################################
+txt_path = Path('data/sarc/raw/train_text.txt')
+with txt_path.open(encoding="utf-8") as f:
+    lines = [line.rstrip("\n") for line in f]
 
-sns.displot(text, x="label");
+labels_path = Path('data/sarc/raw/train_labels.txt')
+with labels_path.open(encoding='utf-8') as f:
+    labels = [label.rstrip('\n') for label in f]
 
+sarcasm = pd.DataFrame({'id': list(range(0, len(lines))),"text": lines, 'label': labels})
 
-text["sentence_length"] = text["text"].str.split().apply(len)
-plt.figure(figsize=(8, 5))
+# count the number of words in each claim 
+sarcasm['n_words'] = [len(x.split()) for x in sarcasm['text'].tolist()]
 
-sns.histplot(
-    text["sentence_length"],
-    bins=50,
-    kde=True
-)
+# filter out too short and too long examples 
+sarcasm_pr = sarcasm[(sarcasm['n_words'] >= 6) & (sarcasm['n_words'] < 500)]
 
-plt.xlabel("Sentence Length (words)")
-plt.ylabel("Frequency")
-plt.title("Distribution of Sentence Lengths")
+# remove examples that contain mentions of Israel, israeli, muslim, hillary, racism, racists, trump, russian, russia, slavery, jesus, gay, lesbian, homosexuality, communist, communism, terrorism, palestine, palestianians, rape, conservative, democrat, republican, antifa  
+BASE_TERMS = [
+    r"ukrain\w*", r"russi\w*", r"putin", r"zelensky\w*",
+    r"iran\w*", r"iraq\w*", r"syria\w*", r"afghan\w*",
+    r"gaza", r"west\s*bank", r"hamas", r"hezbollah", r"isis", r"taliban", r"idf",
+    r"biden", r"obama", r"clinton", r"bush", r"reagan", r"sanders", r"aoc", r"desantis", r"pence", r"hillary",
+    r"democrat\w*", r"republican\w*", r"liberal\w*", r"progressive\w*", r"conservativ\w*",
+    r"libertarian\w*", r"socialist\w*", r"marxist\w*", r"fascist\w*", r"nazi\w*", r"alt-?right", r"woke",
+    r"fascism", r"communism", r"socialism", r"liberalism", r"conservatism", r"antifa",
+    r"islam\w*", r"muslim\w*", r"christian\w*", r"catholic\w*", r"jewish", r"judais\w*", r"zionis\w", r"israel", r"palestine", r"palestinians",
+    r"hindu\w*", r"sikh\w*", r"buddhist\w*", r"buddhis\w*", r"atheis\w*",
+    r"trans(?:gender)?\w*", 
+    r"non-?binary", r"lgbt\w*", r"queer", r"bisexual\w*", r"pansexual\w*", r"pronoun\w*",
+    r"immigra\w*", r"migrant\w*", r"refugee\w*", r"abortion", r"pro-?life", r"pro-?choice", r"suicide"
+    r"gun\w*", r"firearm\w*", r"nra", r"racist\w",
+    r"covid\w*", r"coronavirus", r"pandemic", r"lockdown\w*", r"vaccine\w*", r"anti-?vax\w*",
+    r"hitler", r"stalin", r"genocide\w*", r"holocaust", r"apartheid",
+    r"climate\s*change", r"global\s*warming", r"feminis\w*", r"#metoo",
+]
 
-plt.show()
+pattern = re.compile(r"\b(?:%s)\b" % "|".join(BASE_TERMS), flags=re.IGNORECASE)
+mask_has_banned = sarcasm_pr["text"].str.contains(pattern, na=False)
+
+################ this is the dataset we call sarcasm.csv ################### 
+sarcasm_clean = sarcasm_pr[~mask_has_banned].copy()
+flagged = sarcasm_pr[mask_has_banned].copy()
+

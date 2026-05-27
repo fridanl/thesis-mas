@@ -66,7 +66,6 @@ def make_user_r1(*, task_question: str) -> str:
     )
 
 def make_user_r2(*, task_question: str, history: bool, no_explanation: bool) -> str:
-    #TODO: repeat the task in the end of the prompt
     base = (
         f"Task: {task_question}\n"
         'Claim: "{claim}"\n'
@@ -117,6 +116,9 @@ class DatasetTaskSpec:
 
 @dataclass(frozen=True)
 class PromptSpec:
+    '''
+    Defines dataset- and round-specific user- and system prompts, and json output format.
+    '''
     dataset: str
     output_json: dict
     round: Literal[1, 2]

@@ -95,7 +95,6 @@ def add_match_type_to_gpt(
 
 def concat(df, self_interaction):
     base = Path('/home/rp-fril-mhpe/')
-
     # Load existing file
     if not self_interaction:
         existing_path = base / 'second' / 'gpt-oss-20b-sarcasm.csv'

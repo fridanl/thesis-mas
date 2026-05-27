@@ -191,48 +191,25 @@ def process_all_pairs(model_claim_dict: dict, receiver: str, config: TaskConfig)
     '''
     models = list(model_claim_dict.keys())
 
-    
     if args.self_interaction: # matching the models up with themselves only, when self_interaction is set to True
-        # model_pairs = {"llama-3.3-70b": ["llama-3.3-70b"], # ORIGINAL
-        #             "llama-3.1-8b": ["llama-3.1-8b"],
-        #             "qwen-2.5-72b": ["qwen-2.5-72b"],
-        #             "qwen-2.5-7b": ["qwen-2.5-7b"],
-        #             "gemma-3-27b": ["gemma-3-27b"],
-        #             "gemma-3-4b": ["gemma-3-4b"],
-        #             "gpt-oss-20b": ["gpt-oss-20b"]}
+        model_pairs = {"llama-3.3-70b": ["llama-3.3-70b"], # ORIGINAL
+                    "llama-3.1-8b": ["llama-3.1-8b"],
+                    "qwen-2.5-72b": ["qwen-2.5-72b"],
+                    "qwen-2.5-7b": ["qwen-2.5-7b"],
+                    "gemma-3-27b": ["gemma-3-27b"],
+                    "gemma-3-4b": ["gemma-3-4b"],
+                    "gpt-oss-20b": ["gpt-oss-20b"]}
 
-        model_pairs = {"llama-3.1-8b": ["llama-3.1-8b"]}
     else:
         # a fixed set of model pairs that we chose to match up, so we don't get every possible pair
         # only within family and the large models across family
-
-        # TODO: uncomment (ORIGINAL):
-        #model_pairs = {"llama-3.3-70b": ["llama-3.1-8b", "qwen-2.5-72b", "gemma-3-27b", "gpt-oss-20b"], # matching with big models and family
-        #            "llama-3.1-8b": ["llama-3.3-70b"],
-        #            "qwen-2.5-72b": ["qwen-2.5-7b", "llama-3.3-70b", "gemma-3-27b", "gpt-oss-20b"], # only matching with same family
-        #            "qwen-2.5-7b": ["qwen-2.5-72b"],
-        #            "gemma-3-27b": ["gemma-3-4b", "llama-3.3-70b", "qwen-2.5-72b", "gpt-oss-20b"],
-        #            "gemma-3-4b": ["gemma-3-27b"],
-        #            "gpt-oss-20b": ["llama-3.3-70b", "qwen-2.5-72b", "gemma-3-27b"]}
-
-
-        
-        #TODO: comment out:
-        # model_pairs = {"llama-3.1-8b": ["llama-3.3-70b"],
-        #             "qwen-2.5-7b": ["qwen-2.5-72b"],
-        #             "gemma-3-4b": ["gemma-3-27b"]}
-
-
-        # TODO: only for gpt pairs: (and fixup for late results)
-        # model_pairs = {"llama-3.3-70b": ["gpt-oss-20b"], 
-        #             "qwen-2.5-72b": ["gpt-oss-20b"], 
-        #             "gemma-3-27b": ["gpt-oss-20b"],
-        #             "gpt-oss-20b": ["llama-3.3-70b", "qwen-2.5-72b", "gemma-3-27b"]}
-
-        # TODO: only for llama pairs: (and fixup for late results)
-
-        model_pairs = {"llama-3.3-70b": ["llama-3.1-8b"],
-                    "llama-3.1-8b": ["llama-3.3-70b"]}
+        model_pairs = {"llama-3.3-70b": ["llama-3.1-8b", "qwen-2.5-72b", "gemma-3-27b", "gpt-oss-20b"],
+                   "llama-3.1-8b": ["llama-3.3-70b"],
+                   "qwen-2.5-72b": ["qwen-2.5-7b", "llama-3.3-70b", "gemma-3-27b", "gpt-oss-20b"], 
+                   "qwen-2.5-7b": ["qwen-2.5-72b"],
+                   "gemma-3-27b": ["gemma-3-4b", "llama-3.3-70b", "qwen-2.5-72b", "gpt-oss-20b"],
+                   "gemma-3-4b": ["gemma-3-27b"],
+                   "gpt-oss-20b": ["llama-3.3-70b", "qwen-2.5-72b", "gemma-3-27b"]}
 
     # Dicts for agree and disagree rows sender model
     agree_rows_for_receiver: list[dict] = []
