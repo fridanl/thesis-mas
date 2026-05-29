@@ -154,7 +154,8 @@ uv sync # to install dependencies
 
 We also provide a requirements.txt file pip if preferred. Simply run:
 ```BASH
-pip install -r requirements.txt
+pip install -r requirements.txt \
+  --extra-index-url https://download.pytorch.org/whl/cu126
 ```
 
 
