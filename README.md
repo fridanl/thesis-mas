@@ -120,6 +120,22 @@ uv run src/results.py
 
 All tables and figures reported in the paper is created in the notebook: `src/main_results.ipynb`.
 
+## Input Files and Raw Outputs
+
+All raw results are available at our [figshare repository](https://figshare.com/s/0663638a98e0efc47105).
+
+The data repository contains the following data: 
+- `first.zip`: Output files of first round.
+- `second.zip`: Output files of second round (interaction).
+- `self.zip`: Output files of second round homogeneous interactions.
+- `input_round2.zip`: Input files for second round interaction. File name specify the receiver model. The files contain all available interactions. 
+- `subsampled_input_round2.zip`: Same as input_round2.zip, but with downsampled instances.
+- `swap.zip`: Output files from swap experiment. 
+- `temperature.zip`: Input and output files from temperature experiment.
+- `no_history.zip`: Output files from memoryless receiver experiment.
+- `no_explanation.zip`: Output files from no explanations experiment. 
+
+
 ## Environment
 
 This project is configured to run on NVIDIA GPUs and has been developed and tested using CUDA 12.6. If you plan to run this on a different CUDA version then you might need to adjust the environment.
